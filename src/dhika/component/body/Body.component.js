@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, StyledContainer } from "../../../master/constant/style/index";
+import { colors } from "../../../master/constant/style/index";
 
 export const Header = styled.div`
   text-align: center;
