@@ -8,18 +8,17 @@
     background-color: rgba(187, 203, 194, 0.3)
 }
 
-.content{
+.container .content{
     display: flex;
     max-width: 70%;
-    /* box-sizing: border-box; */
-    /* border: 1px solid red; */
     justify-content: space-around;
 }
 
-.txtFields {
+.content .txtFields {
     display: flex;
     flex-direction: column;
     max-width: 450px;
+    width: 450px;
     align-items: center;    
     border: 1px solid rgba(187, 203, 194, 0.2);
     background: #FFFFFF;
@@ -28,6 +27,10 @@
     border-radius: 10px;
     padding: 20px;
     box-sizing: border-box;
+}
+
+.faGoogle {
+    margin-right: 20px;
 }
 
 .txtFields h1, p{
@@ -46,7 +49,7 @@
     max-width: 90%;
 }
 
-.bgImageContainer {
+.content .bgImageContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,8 +58,8 @@
     margin-left: 40px;
 }
 
-.bgImage {
-    max-width: 80%;
+.bgImageContainer .bgImage {
+    max-width: 70%;
     height:auto;
     margin: auto;
     object-fit: cover;

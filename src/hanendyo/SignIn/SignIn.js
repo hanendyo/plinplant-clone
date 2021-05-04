@@ -1,8 +1,8 @@
 import { Box, Button, Link, makeStyles, TextField, Typography } from '@material-ui/core'
 import React, { useState } from 'react'
-import bgImage from '../image/signup_bg.png'
+import bgImage from '../image/signin_bg.png'
 import {FaGoogle} from 'react-icons/fa'
-import './SignUp.css'
+import './SignIn.css'
 
 function Copyright() {
     return (
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
     copyright: {}
 })
 
-const SignUp = () => {
+const SignIn = () => {
     const classes = useStyles()
     const [inputForm, setInputForm] = useState({
         firstname : '',
@@ -49,21 +49,8 @@ const SignUp = () => {
             <div className="content">
                 <div className="txtFields">
                     <h1>PlinPlant</h1>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed, officia.</p>
-                    <Button className={classes.button}  variant="contained" color="primary"><FaGoogle className='faGoogle'/>Sign Up With Google</Button>
-                    <p>OR</p>
-                    <TextField 
-                        className={classes.input} 
-                        required
-                        placeholder="Input Your Full Name"
-                        id="outlined-basic" 
-                        label="Full Name"
-                        value={inputForm.firstname}
-                        onChange={(e)=>setInputForm({
-                            ...inputForm, firstname:e.target.value
-                        })} 
-                        variant="outlined" />
                     
+                    {/* Email input */}
                     <TextField 
                         className={classes.input} 
                         required
@@ -76,20 +63,32 @@ const SignUp = () => {
                         })} 
                         variant="outlined" />
                     
+                    {/* Password input */}
                     <TextField 
                         className={classes.input} 
                         required
-                        placeholder="Input Your Email"
+                        placeholder="Input Your Password"
                         id="outlined-basic" 
-                        label="Email"
+                        label="Password"
                         value={inputForm.password}
                         onChange={(e)=>setInputForm({
                             ...inputForm, password:e.target.value
                         })} 
                         variant="outlined" />
+
+                    {/* Sign In button */}
+                    <Button className={classes.button} variant="contained" color="primary">Sign In</Button>
                     
-                    <Button className={classes.button} variant="contained" color="primary">Sign Up</Button>
-                    <p>Already have an account? <a href="">Log In</a>  </p>
+                    <p>OR</p>
+                    
+                    {/* Sign In with Google */}
+                    <Button className={classes.button}  variant="contained" color="primary"><FaGoogle className='faGoogle'/>Sign In With Google</Button>
+                    
+                    {/* forgot password */}
+                    <p><a href="">Forgot password?</a></p>
+                    
+                    {/* dont have account */}
+                    <p>Don't have an account yet? <a href="">Sign Up</a></p>
                 </div>
                 <div className="bgImageContainer">
                             <img className='bgImage' src={bgImage} alt=""/>
@@ -103,4 +102,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default SignIn
