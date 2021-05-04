@@ -1,9 +1,10 @@
 import React from 'react';
+import SignUp from './hanendyo/SignUp/SignUp';
 
 const App = () => {
   return (
     <div>
-      <h1>PlinPlant Progress</h1>
+      <SignUp/>
     </div>
   );
 };
