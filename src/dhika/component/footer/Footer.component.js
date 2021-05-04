@@ -4,7 +4,7 @@ import { colors } from "../../../master/constant/style/index";
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-
+  margin: 0 15px;
   & > h2 {
     margin: 25px 0;
     color: ${colors.white};

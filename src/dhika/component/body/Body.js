@@ -60,14 +60,14 @@ const Body = () => {
         <ImageCointainer>
           <img src={seed} alt="seed" />
           <LinearGradient />
-          <p>Menanam Benih Tanaman</p>
+          <p>Proses Penanaman Benih</p>
         </ImageCointainer>
       </Breeding>
       <Breeding>
         <ImageCointainer>
           <img src={tuber} alt="tuber" />
           <LinearGradient />
-          <p>Menanam Benih Tanaman</p>
+          <p>Masa Pertumbuhan Bonggol</p>
         </ImageCointainer>
 
         <CircleContainer>
@@ -126,14 +126,14 @@ const Body = () => {
         <ImageCointainer>
           <img src={juvenil} alt="juvenil" />
           <LinearGradient />
-          <p>Menanam Benih Tanaman</p>
+          <p>Masa Tanaman Muda</p>
         </ImageCointainer>
       </Breeding>
       <Breeding>
         <ImageCointainer>
           <img src={mature} alt="mature" />
           <LinearGradient />
-          <p>Menanam Benih Tanaman</p>
+          <p>Masa Tanaman Dewasa</p>
         </ImageCointainer>
 
         <CircleContainer>
