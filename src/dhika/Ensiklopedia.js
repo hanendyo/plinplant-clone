@@ -9,7 +9,6 @@ const Ensiklopedia = () => {
       <Header />
       <Body />
       <Footer />
-      <h1>This is Dhika Page</h1>
     </div>
   );
 };

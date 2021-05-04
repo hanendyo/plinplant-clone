@@ -50,8 +50,17 @@ export const Right = styled.div`
 
 export const BoxGroup = styled.div`
   display: flex;
-  justify-content: flex-end;
+  width: 100%;
   margin-right: 200px;
+  align-items: center;
+  justify-content: flex-end;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+    margin: 0 10px;
+    height: 500px;
+  }
 `;
 
 export const Box = styled.div`
@@ -59,7 +68,8 @@ export const Box = styled.div`
   color: ${colors.green};
   margin-top: -120px;
   margin-right: 40px;
-  width: 240px;
+  width: 300px;
+  max-width: 240px;
   height: 240px;
   padding: 26px 8px;
   display: flex;
@@ -75,5 +85,15 @@ export const Box = styled.div`
     font-weight: 600;
     font-size: 24px;
     line-height: 36px;
+  }
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
   }
 `;

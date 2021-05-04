@@ -16,7 +16,7 @@ const Header = () => {
       <Section>
         <Container>
           <Left>
-            <img src={image1} alt="image" />
+            <img src={image1} alt="basil" />
           </Left>
           <Right>
             <h1>Basil</h1>
