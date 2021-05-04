@@ -21,3 +21,12 @@ export const Container = styled(StyledContainer)`
 export const FooterLogo = styled(Logo)`
   color: ${colors.black};
 `;
+
+export const Copyright = styled.p`
+  font-size: 14px;
+  color: ${colors.black};
+  text-align: center;
+  border-top: 1px solid ${colors.lightGreenTransparent};
+  padding: 10px 0;
+  margin-top: 50px;
+`;

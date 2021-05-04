@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, FooterLogo } from './Footer.elemen';
+import { Container, Copyright, FooterLogo } from './Footer.elemen';
 import { FaFacebook, FaTwitterSquare, FaInstagramSquare } from 'react-icons/fa';
 
 const Footer = () => {
@@ -46,6 +46,8 @@ const Footer = () => {
           </ul>
         </div>
       </Container>
+
+      <Copyright>&copy; 2021. PlinPlant.</Copyright>
     </footer>
   );
 };
