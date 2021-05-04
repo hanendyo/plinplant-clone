@@ -1,6 +1,7 @@
 import { Box, Button, Link, makeStyles, TextField, Typography } from '@material-ui/core'
 import React, { useState } from 'react'
 import bgImage from '../image/signup_bg.png'
+import {FaGoogle} from 'react-icons/fa'
 import './style.css'
 
 function Copyright() {
@@ -49,7 +50,7 @@ const SignUp = () => {
                 <div className="txtFields">
                     <h1>PlinPlant</h1>
                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed, officia.</p>
-                    <Button className={classes.button}  variant="contained" color="primary">Sign Up With Google</Button>
+                    <Button className={classes.button}  variant="contained" color="primary"><FaGoogle className='faGoogle'/>Sign Up With Google</Button>
                     <p>OR</p>
                     <TextField 
                         className={classes.input} 

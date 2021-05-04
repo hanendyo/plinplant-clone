@@ -41,16 +41,10 @@
     font-family: Elsie Swash Caps;
 }
 .txtFields p {
-    font-family: poppins;
+    color: black;
     text-align: center;
     max-width: 90%;
 }
-
-/* 
-.bgImageContainer {
-    
-} */
-
 
 .bgImageContainer {
     display: flex;
