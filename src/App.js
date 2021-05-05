@@ -1,5 +1,5 @@
 import React from 'react';
-import { LandingPage, Ensiklopedia } from './fajariadi/pages';
+import { LandingPage, Ensiklopedia, SignIn, SignUp } from './fajariadi/pages';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = () => {
@@ -8,6 +8,8 @@ const App = () => {
       <Switch>
         <Route exact path='/' component={LandingPage} />
         <Route path='/ensiklopedia' component={Ensiklopedia} />
+        <Route path='/login' component={SignIn} />
+        <Route path='/register' component={SignUp} />
       </Switch>
     </Router>
   );
