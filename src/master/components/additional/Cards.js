@@ -59,7 +59,7 @@ const CardProductLandingPage = styled.div`
   &:hover {
     & > div {
       transform: translateY(0);
-      transition: all 0.5s ease 0.3s;
+      transition: all 0.5s ease;
     }
   }
 `;
