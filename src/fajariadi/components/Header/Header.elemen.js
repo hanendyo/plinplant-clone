@@ -24,6 +24,7 @@ export const Container = styled(StyledContainer)`
   // image kanan
   & > img:nth-of-type(2) {
     width: 860px;
+    min-width: 400px;
     height: 550px;
     object-fit: cover;
   }
