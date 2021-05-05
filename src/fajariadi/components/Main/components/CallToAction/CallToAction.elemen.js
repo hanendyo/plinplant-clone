@@ -3,6 +3,7 @@ import { colors, StyledContainer } from '../../../../../master/constant/style';
 
 export const SectionCTA = styled.section`
   background-color: ${colors.yellowTransparent};
+  margin-bottom: 50px;
 `;
 
 export const Container = styled(StyledContainer)`
