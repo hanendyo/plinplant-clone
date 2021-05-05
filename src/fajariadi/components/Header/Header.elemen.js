@@ -38,7 +38,7 @@ export const Typography = styled.div`
   bottom: 0;
 
   & > p {
-    margin: 20px 0 40px;
+    margin: 10px 0 20px;
   }
 
   & > h1 {
