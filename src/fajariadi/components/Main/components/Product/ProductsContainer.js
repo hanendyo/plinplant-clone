@@ -56,7 +56,7 @@ const ProductsContainer = ({ category }) => {
   );
 };
 
-const CardContainer = styled.div`
+const CardContainer = styled.article`
   margin-bottom: 30px;
 
   & > h4 {
