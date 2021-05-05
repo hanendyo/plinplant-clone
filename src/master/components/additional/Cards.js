@@ -3,20 +3,31 @@ import styled from 'styled-components';
 import { colors } from '../../constant/style';
 import Button from '../../../master/components/additional/Button';
 
-const Cards = ({ name, img }) => {
+const Cards = ({ name, img, slider, illustration }) => {
   return (
-    <CardProductLandingPage>
-      <div>
-        <h5>{name}</h5>
-        <Button card text='Beli' bgColor={colors.green} />
-        <Button
-          card
-          text='Ensiklopedia'
-          bgColor={colors.lightGreenTransparent}
-        />
-      </div>
-      <img src={img} alt='' />
-    </CardProductLandingPage>
+    <>
+      {slider && (
+        <CardProductLandingPage>
+          <div>
+            <h5>{name}</h5>
+            <Button card text='Beli' bgColor={colors.green} />
+            <Button
+              card
+              text='Ensiklopedia'
+              bgColor={colors.lightGreenTransparent}
+            />
+          </div>
+          <img src={img} alt='' />
+        </CardProductLandingPage>
+      )}
+
+      {illustration && (
+        <CardValueProps>
+          <img src={img} alt='' />
+          <h5>{name}</h5>
+        </CardValueProps>
+      )}
+    </>
   );
 };
 
@@ -50,6 +61,16 @@ const CardProductLandingPage = styled.div`
       transform: translateY(0);
       transition: all 0.5s ease 0.3s;
     }
+  }
+`;
+
+const CardValueProps = styled.div`
+  &:not(:last-of-type) {
+    margin-right: 10px;
+  }
+
+  & > img {
+    margin-bottom: 10px;
   }
 `;
 

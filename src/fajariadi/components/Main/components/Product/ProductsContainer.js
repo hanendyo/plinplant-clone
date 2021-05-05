@@ -49,7 +49,7 @@ const ProductsContainer = ({ category }) => {
         {products
           .filter((item) => category === item.category)
           .map(({ name, img }, index) => (
-            <Cards name={name} img={img} key={index} />
+            <Cards slider name={name} img={img} key={index} />
           ))}
       </ItemsCarousel>
     </CardContainer>

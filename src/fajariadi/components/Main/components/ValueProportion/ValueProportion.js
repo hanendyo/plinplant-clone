@@ -1,10 +1,21 @@
 import React from 'react';
+import { Container } from './ValueProportion.elemen';
+import { valueProps } from '../../../../../master/constant/data/dummy-data';
+import Cards from '../../../../../master/components/additional/Cards';
 
 const ValueProportion = () => {
   return (
-    <div>
-      <h1>VALUE PROPORTION</h1>
-    </div>
+    <section>
+      <Container>
+        <h2>Mengapa PlinPlant</h2>
+
+        <div>
+          {valueProps.map(({ name, img }, index) => (
+            <Cards illustration name={name} img={img} key={index} />
+          ))}
+        </div>
+      </Container>
+    </section>
   );
 };
 
