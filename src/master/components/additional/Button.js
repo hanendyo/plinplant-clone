@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
 
-const Button = ({ primary, card, bgColor, text, onClick, type }) => {
+const Button = ({ primary, cta, card, bgColor, text, onClick, type }) => {
   return (
     <BtnComponent
       primary={primary}
+      cta={cta}
       card={card}
       bgColor={bgColor}
       onClick={onClick}
@@ -16,9 +17,22 @@ const Button = ({ primary, card, bgColor, text, onClick, type }) => {
   );
 };
 
+const styledPadding = (primary, cta, card) => {
+  if (primary && cta) return '15px 50px';
+  if (primary) return '5px 20px';
+  if (card) return '5px 10px';
+  if (!primary && !cta && !card) return '3px 20px';
+};
+
+const styledFontSize = (primary, cta, card) => {
+  if (primary && cta) return '20px';
+  if (card) return '16px';
+  if (primary || !primary) return 'inherit';
+};
+
 const BtnComponent = styled.button`
-  padding: ${({ primary }) => (primary ? '5px 20px' : '3px 20px')};
-  padding: ${({ card }) => (card ? '5px 10px' : '3px 20px')};
+  padding: ${({ primary, cta, card }) => styledPadding(primary, cta, card)};
+
   background-color: ${({ primary, card, bgColor }) =>
     primary || card ? bgColor : 'transparent'};
 
@@ -26,11 +40,14 @@ const BtnComponent = styled.button`
     primary || card ? `none` : `2px solid ${bgColor}`};
 
   font-family: inherit;
-  font-size: ${({ card }) => (card ? '16px' : 'inherit')};
+  font-size: ${({ primary, cta, card }) => styledFontSize(primary, cta, card)};
+  font-weight: ${({ cta }) => (cta ? '500' : 'unset')};
+
   border-radius: ${({ card }) => (card ? '4px' : '10px')};
   color: white;
   outline: none;
   cursor: pointer;
+  transition: all 0.3s ease;
 
   &:first-of-type {
     margin-right: ${({ card }) => (card ? '10px' : 'unset')};
@@ -43,7 +60,6 @@ const BtnComponent = styled.button`
     border: ${({ primary, card }) =>
       primary || card ? 'none' : `2px solid ${colors.lightGreen}`};
 
-    transition: all 0.3s ease;
     color: ${({ primary, card }) =>
       primary || card ? colors.green : colors.lightGreen};
   }
