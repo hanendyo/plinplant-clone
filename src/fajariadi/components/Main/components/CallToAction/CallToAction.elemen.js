@@ -21,6 +21,7 @@ export const Container = styled(StyledContainer)`
     & > p {
       color: ${colors.black};
       margin: 10px 0 40px;
+      padding: unset;
     }
   }
 

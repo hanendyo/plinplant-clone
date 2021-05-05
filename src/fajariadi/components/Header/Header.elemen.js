@@ -38,7 +38,8 @@ export const Typography = styled.div`
   bottom: 0;
 
   & > p {
-    margin: 10px 0 20px;
+    margin: 20px 0 30px;
+    padding: unset;
   }
 
   & > h1 {
@@ -63,5 +64,9 @@ export const ScrollBtn = styled.div`
     padding: 8px;
     border-radius: 50%;
     margin-right: 15px;
+  }
+
+  & > p {
+    padding: unset;
   }
 `;

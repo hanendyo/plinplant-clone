@@ -1,20 +1,26 @@
 import React from 'react';
-import { Container, Copyright, FooterLogo } from './Footer.elemen';
+import { Container, Copyright, FooterLogo, FooterComp } from './Footer.elemen';
 import { FaFacebook, FaTwitterSquare, FaInstagramSquare } from 'react-icons/fa';
+import { colors } from '../../constant/style';
 
-const Footer = () => {
+const Footer = ({ colored }) => {
   return (
-    <footer>
-      <Container>
+    <FooterComp colored={colored}>
+      <Container colored={colored}>
         <div>
-          <FooterLogo>PlinPlant</FooterLogo>
-          <p style={{ color: '#333' }}>
+          {colored ? (
+            <FooterLogo style={{ color: colors.white }}>PlinPlant</FooterLogo>
+          ) : (
+            <FooterLogo>PlinPlant</FooterLogo>
+          )}
+
+          <p>
             Jl. Senoparty, Jakarta <br />
             Indonesia 15045
           </p>
         </div>
 
-        <div style={{ color: '#333' }}>
+        <div>
           <ul>
             <li>About Us</li>
             <li>References</li>
@@ -22,7 +28,7 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div style={{ color: '#333' }}>
+        <div>
           <ul>
             <li>About Us</li>
             <li>References</li>
@@ -30,8 +36,8 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div style={{ color: '#333' }}>
-          <p>Social Media:</p>
+        <div>
+          <p style={{ padding: 'unset' }}>Social Media:</p>
 
           <ul>
             <li>
@@ -47,8 +53,8 @@ const Footer = () => {
         </div>
       </Container>
 
-      <Copyright>&copy; 2021. PlinPlant.</Copyright>
-    </footer>
+      <Copyright colored={colored}>&copy; 2021. PlinPlant.</Copyright>
+    </FooterComp>
   );
 };
 

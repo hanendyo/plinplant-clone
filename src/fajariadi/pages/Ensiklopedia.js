@@ -1,6 +1,12 @@
 import React from 'react';
 import Navbar from '../../master/components/Navbar/Navbar';
-import { Header, Body, Footer } from '../../dhika/component/';
+import {
+  Header,
+  Body,
+  CTAEnsiklopedia,
+  RelatedProduct,
+} from '../../dhika/component/';
+import Footer from '../../master/components/Footer/Footer';
 
 const Ensiklopedia = () => {
   return (
@@ -8,7 +14,9 @@ const Ensiklopedia = () => {
       <Navbar />
       <Header />
       <Body />
-      <Footer />
+      <CTAEnsiklopedia />
+      <RelatedProduct />
+      <Footer colored />
     </>
   );
 };
