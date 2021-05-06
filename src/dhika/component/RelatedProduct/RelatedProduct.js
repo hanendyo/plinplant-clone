@@ -7,7 +7,7 @@ const RelatedProduct = () => {
   return (
     <SectionRP>
       <Container>
-        <ProductsContainer category='hias' />
+        <ProductsContainer slider category='hias' />
       </Container>
     </SectionRP>
   );

@@ -36,7 +36,7 @@ const Product = () => {
 
         <ProductSlider>
           {productsCategory.map((category, index) => (
-            <ProductsContainer category={category} key={index} />
+            <ProductsContainer slider category={category} key={index} />
           ))}
         </ProductSlider>
       </Container>

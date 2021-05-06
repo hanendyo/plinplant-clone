@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
 
-const Button = ({ primary, cta, card, bgColor, text, onClick, type }) => {
+const Button = ({ primary, shop, cta, card, bgColor, text, onClick, type }) => {
   return (
     <BtnComponent
       primary={primary}
       cta={cta}
+      shop={shop}
       card={card}
       bgColor={bgColor}
       onClick={onClick}
@@ -43,7 +44,7 @@ const BtnComponent = styled.button`
   font-size: ${({ primary, cta, card }) => styledFontSize(primary, cta, card)};
   font-weight: ${({ cta }) => (cta ? '500' : 'unset')};
 
-  border-radius: ${({ card }) => (card ? '4px' : '10px')};
+  border-radius: ${({ card, shop }) => (card || shop ? '4px' : '10px')};
   color: white;
   outline: none;
   cursor: pointer;
@@ -51,6 +52,7 @@ const BtnComponent = styled.button`
 
   &:first-of-type {
     margin-right: ${({ card }) => (card ? '10px' : 'unset')};
+    margin-bottom: ${({ shop }) => (shop ? '5px' : 'unset')};
   }
 
   &:hover {

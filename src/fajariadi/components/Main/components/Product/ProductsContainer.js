@@ -7,7 +7,7 @@ import { colors } from '../../../../../master/constant/style';
 import styled from 'styled-components';
 import { useMediaQuery } from 'react-responsive';
 
-const ProductsContainer = ({ category }) => {
+const ProductsContainer = ({ category, slider, scroll }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
 
@@ -32,27 +32,41 @@ const ProductsContainer = ({ category }) => {
   };
 
   return (
-    <CardContainer>
-      <h4>{categoryName(category)}</h4>
+    <>
+      {slider && (
+        <CardContainer>
+          <h4>{categoryName(category)}</h4>
 
-      <ItemsCarousel
-        requestToChangeActive={setActiveItemIndex}
-        activeItemIndex={activeItemIndex}
-        numberOfCards={numberOfCards()}
-        gutter={5}
-        leftChevron={<FaChevronLeft />}
-        rightChevron={<FaChevronRight />}
-        outsideChevron
-        chevronWidth={chevronWidth}
-        // infiniteLoop
-      >
-        {products
-          .filter((item) => category === item.category)
-          .map(({ name, img }, index) => (
-            <Cards slider name={name} img={img} key={index} />
-          ))}
-      </ItemsCarousel>
-    </CardContainer>
+          <ItemsCarousel
+            requestToChangeActive={setActiveItemIndex}
+            activeItemIndex={activeItemIndex}
+            numberOfCards={numberOfCards()}
+            gutter={5}
+            leftChevron={<FaChevronLeft />}
+            rightChevron={<FaChevronRight />}
+            outsideChevron
+            chevronWidth={chevronWidth}
+            // infiniteLoop
+          >
+            {products
+              .filter((item) => category === item.category)
+              .map(({ name, img }, index) => (
+                <Cards slider name={name} img={img} key={index} />
+              ))}
+          </ItemsCarousel>
+        </CardContainer>
+      )}
+
+      {scroll && (
+        <ShopRelated>
+          {products
+            .filter((item) => category === item.category)
+            .map(({ name, img }, index) => (
+              <Cards scroll name={name} img={img} key={index} />
+            ))}
+        </ShopRelated>
+      )}
+    </>
   );
 };
 
@@ -62,6 +76,18 @@ const CardContainer = styled.article`
   & > h4 {
     color: ${colors.white};
     margin-bottom: 10px;
+  }
+`;
+
+const ShopRelated = styled.div`
+  /* background-color: red; */
+  width: fit-content;
+  border-radius: 10px;
+  max-height: 470px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 

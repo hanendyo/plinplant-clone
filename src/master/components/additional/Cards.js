@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { colors } from '../../constant/style';
 import Button from '../../../master/components/additional/Button';
 
-const Cards = ({ name, img, slider, illustration }) => {
+const Cards = ({ name, img, slider, illustration, scroll }) => {
   return (
     <>
       {slider && (
@@ -19,6 +19,23 @@ const Cards = ({ name, img, slider, illustration }) => {
           </div>
           <img src={img} alt='' />
         </CardProductLandingPage>
+      )}
+
+      {scroll && (
+        <CardProductShop>
+          <img src={img} alt='' />
+
+          <div className='shop'>
+            <h5>{name}</h5>
+            <Button primary shop text='Beli' bgColor={colors.green} />
+            <Button
+              primary
+              shop
+              text='Ensiklopedia'
+              bgColor={colors.lightGreenTransparent}
+            />
+          </div>
+        </CardProductShop>
       )}
 
       {illustration && (
@@ -71,6 +88,33 @@ const CardValueProps = styled.div`
 
   & > img {
     margin-bottom: 10px;
+  }
+`;
+
+const CardProductShop = styled.div`
+  background-color: ${colors.lightGreenTransparent};
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  width: fit-content;
+  margin-bottom: 10px;
+
+  & > img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    box-shadow: 7px 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+    & > h5 {
+      color: ${colors.white};
+      margin-bottom: 10px;
+    }
   }
 `;
 

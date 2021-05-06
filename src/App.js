@@ -1,5 +1,11 @@
 import React from 'react';
-import { LandingPage, Ensiklopedia, SignIn, SignUp } from './fajariadi/pages';
+import {
+  LandingPage,
+  Ensiklopedia,
+  SignIn,
+  SignUp,
+  ShoppingPage,
+} from './fajariadi/pages';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = () => {
@@ -10,6 +16,7 @@ const App = () => {
         <Route path='/ensiklopedia' component={Ensiklopedia} />
         <Route path='/login' component={SignIn} />
         <Route path='/register' component={SignUp} />
+        <Route path='/shop' component={ShoppingPage} />
       </Switch>
     </Router>
   );
