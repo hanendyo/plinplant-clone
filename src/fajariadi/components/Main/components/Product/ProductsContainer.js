@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ItemsCarousel from 'react-items-carousel';
 import Cards from '../../../../../master/components/additional/Cards';
-import { products } from '../../../../../master/constant/data/dummy-data';
+import {
+  products,
+  reviews,
+} from '../../../../../master/constant/data/dummy-data';
 import { colors } from '../../../../../master/constant/style';
 import styled from 'styled-components';
 import { useMediaQuery } from 'react-responsive';
 
-const ProductsContainer = ({ category, slider, scroll }) => {
+const ProductsContainer = ({ category, slider, scroll, review }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
 
-  // const isLargeScreen = useMediaQuery({ minWidth: 1440 });
   const isMediumScreen = useMediaQuery({ minWidth: 1200 });
   const isIpadPro = useMediaQuery({ minWidth: 990 });
   const isIpad = useMediaQuery({ minWidth: 768 });
@@ -66,6 +68,22 @@ const ProductsContainer = ({ category, slider, scroll }) => {
             ))}
         </ShopRelated>
       )}
+
+      {review && (
+        <ReviewContainer>
+          {reviews.map(({ name, created, text, img, rating }, index) => (
+            <Cards
+              review
+              name={name}
+              created={created}
+              text={text}
+              rating={rating}
+              img={img}
+              key={index}
+            />
+          ))}
+        </ReviewContainer>
+      )}
     </>
   );
 };
@@ -83,7 +101,19 @@ const ShopRelated = styled.div`
   /* background-color: red; */
   width: fit-content;
   border-radius: 10px;
-  max-height: 470px;
+  max-height: 480px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const ReviewContainer = styled.div`
+  /* background-color: red; */
+  height: 480px;
+  padding: 8px 0 0 8px;
+  border-radius: 20px;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {

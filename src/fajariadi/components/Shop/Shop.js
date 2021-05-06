@@ -1,7 +1,7 @@
 import React from 'react';
 import { colors } from '../../../master/constant/style';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
-import { Container, RelatedProduct } from './Shop.elemen';
+import { Container, RelatedProduct, ReviewContainer } from './Shop.elemen';
 
 const Shop = () => {
   return (
@@ -12,9 +12,12 @@ const Shop = () => {
           <ProductsContainer scroll category='hias' />
         </RelatedProduct>
 
-        <div></div>
+        <ReviewContainer>
+          <h5>Ulasan</h5>
+          <ProductsContainer review />
+        </ReviewContainer>
 
-        <div></div>
+        {/* <div></div> */}
       </Container>
     </main>
   );

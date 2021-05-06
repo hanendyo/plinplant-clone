@@ -2,8 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
 import Button from '../../../master/components/additional/Button';
+import Rating from '../../../master/components/additional/Rating';
 
-const Cards = ({ name, img, slider, illustration, scroll }) => {
+const Cards = ({
+  name,
+  img,
+  created,
+  text,
+  rating,
+  review,
+  slider,
+  illustration,
+  scroll,
+}) => {
   return (
     <>
       {slider && (
@@ -43,6 +54,21 @@ const Cards = ({ name, img, slider, illustration, scroll }) => {
           <img src={img} alt='' />
           <h5>{name}</h5>
         </CardValueProps>
+      )}
+
+      {review && (
+        <CardReview>
+          <div>
+            <h6>{name}</h6>
+            <span>{created}</span>
+          </div>
+
+          <p>{text}</p>
+
+          <img src={img} alt='' />
+
+          <Rating rate={rating} />
+        </CardReview>
       )}
     </>
   );
@@ -115,6 +141,43 @@ const CardProductShop = styled.div`
       color: ${colors.white};
       margin-bottom: 10px;
     }
+  }
+`;
+
+const CardReview = styled.div`
+  background-color: ${colors.lightGreenTransparent};
+  margin-bottom: 15px;
+  padding: 10px 20px 15px;
+  border-radius: 10px;
+  position: relative;
+
+  & > div {
+    /*  */
+    margin-left: 30px;
+
+    & > h6 {
+      color: ${colors.white};
+    }
+
+    & > span {
+      font-size: 12px;
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
+
+  & > p {
+    font-size: 14px;
+  }
+
+  & > img {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    top: -8px;
+    left: -8px;
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.2);
   }
 `;
 

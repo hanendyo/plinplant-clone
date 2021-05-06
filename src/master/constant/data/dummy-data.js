@@ -5,6 +5,7 @@ import {
   shipping,
   artikel,
 } from '../../../fajariadi/assets/illustration';
+import pic from '../../../fajariadi/assets/images/ig.jpg';
 
 export const products = [
   {
@@ -234,5 +235,85 @@ export const valueProps = [
   {
     name: 'Shipping',
     img: shipping,
+  },
+];
+
+export const reviews = [
+  {
+    name: 'Nama User',
+    created: '2 hari yang lalu',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
+    img: pic,
+    rating: 4,
+  },
+  {
+    name: 'Nama User',
+    created: '2 hari yang lalu',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
+    img: pic,
+    rating: 5,
+  },
+  {
+    name: 'Nama User',
+    created: '2 hari yang lalu',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
+    img: pic,
+    rating: 4,
+  },
+  {
+    name: 'Nama User',
+    created: '2 hari yang lalu',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
+    img: pic,
+    rating: 4,
+  },
+  {
+    name: 'Nama User',
+    created: '2 hari yang lalu',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
+    img: pic,
+    rating: 5,
+  },
+  {
+    name: 'Nama User',
+    created: '2 hari yang lalu',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
+    img: pic,
+    rating: 5,
+  },
+  {
+    name: 'Nama User',
+    created: '2 hari yang lalu',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
+    img: pic,
+    rating: 4,
+  },
+  {
+    name: 'Nama User',
+    created: '2 hari yang lalu',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
+    img: pic,
+    rating: 5,
+  },
+  {
+    name: 'Nama User',
+    created: '2 hari yang lalu',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
+    img: pic,
+    rating: 4,
+  },
+  {
+    name: 'Nama User',
+    created: '2 hari yang lalu',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
+    img: pic,
+    rating: 3,
+  },
+  {
+    name: 'Nama User',
+    created: '2 hari yang lalu',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
+    img: pic,
+    rating: 4,
   },
 ];
