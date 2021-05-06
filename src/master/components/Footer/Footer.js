@@ -37,7 +37,7 @@ const Footer = ({ colored }) => {
         </div>
 
         <div>
-          <p style={{ padding: 'unset' }}>Social Media:</p>
+          <p>Social Media:</p>
 
           <ul>
             <li>

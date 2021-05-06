@@ -9,10 +9,10 @@ export const FooterComp = styled.footer`
 export const Container = styled(StyledContainer)`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 50px;
 
   & > div:nth-of-type(1) {
     & > p {
-      padding: unset;
       color: ${({ colored }) => (colored ? colors.white : colors.black)};
     }
   }
@@ -40,8 +40,7 @@ export const FooterLogo = styled(Logo)`
 export const Copyright = styled.p`
   font-size: 14px;
   color: ${({ colored }) => (colored ? colors.white : colors.black)};
-  text-align: center;
   border-top: 1px solid ${colors.lightGreenTransparent};
-  padding: 10px 0;
-  margin-top: 50px;
+  text-align: center;
+  padding: 10px 0 !important;
 `;

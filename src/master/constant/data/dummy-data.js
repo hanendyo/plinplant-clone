@@ -7,6 +7,11 @@ import {
 } from '../../../fajariadi/assets/illustration';
 import pic from '../../../fajariadi/assets/images/ig.jpg';
 
+import seed from '../../../dhika/images/basil-seed.png';
+import tuber from '../../../dhika/images/basil-tuber.jpg';
+import juvenil from '../../../dhika/images/basil-juvenil.jpg';
+import mature from '../../../dhika/images/basil-mature.jpg';
+
 export const products = [
   {
     name: 'Lavender',
@@ -317,3 +322,10 @@ export const reviews = [
     rating: 4,
   },
 ];
+
+export const plant = {
+  seed,
+  tuber,
+  juvenil,
+  mature,
+};

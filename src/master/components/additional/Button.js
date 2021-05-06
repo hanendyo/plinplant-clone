@@ -25,8 +25,9 @@ const styledPadding = (primary, cta, card) => {
   if (!primary && !cta && !card) return '3px 20px';
 };
 
-const styledFontSize = (primary, cta, card) => {
+const styledFontSize = (primary, cta, card, shop) => {
   if (primary && cta) return '20px';
+  if (primary && shop) return '12px';
   if (card) return '16px';
   if (primary || !primary) return 'inherit';
 };
@@ -41,7 +42,8 @@ const BtnComponent = styled.button`
     primary || card ? `none` : `2px solid ${bgColor}`};
 
   font-family: inherit;
-  font-size: ${({ primary, cta, card }) => styledFontSize(primary, cta, card)};
+  font-size: ${({ primary, cta, card, shop }) =>
+    styledFontSize(primary, cta, card, shop)};
   font-weight: ${({ cta }) => (cta ? '500' : 'unset')};
 
   border-radius: ${({ card, shop }) => (card || shop ? '4px' : '10px')};

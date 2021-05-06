@@ -36,7 +36,7 @@ const Cards = ({
         <CardProductShop>
           <img src={img} alt='' />
 
-          <div className='shop'>
+          <div>
             <h5>{name}</h5>
             <Button primary shop text='Beli' bgColor={colors.green} />
             <Button
@@ -120,14 +120,15 @@ const CardValueProps = styled.div`
 const CardProductShop = styled.div`
   background-color: ${colors.lightGreenTransparent};
   display: flex;
+  align-items: center;
   border-radius: 10px;
   overflow: hidden;
-  width: fit-content;
+  width: 100%;
   margin-bottom: 10px;
 
   & > img {
-    width: 130px;
-    height: 130px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
     box-shadow: 7px 0 10px rgba(0, 0, 0, 0.1);
   }
@@ -135,11 +136,12 @@ const CardProductShop = styled.div`
   & > div {
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 0 10px;
 
     & > h5 {
       color: ${colors.white};
-      margin-bottom: 10px;
+      margin-bottom: 5px;
+      font-size: 14px;
     }
   }
 `;
