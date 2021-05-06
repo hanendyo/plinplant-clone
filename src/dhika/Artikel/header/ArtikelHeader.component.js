@@ -1,9 +1,14 @@
 import styled from "styled-components";
-import { colors } from "../../../master/constant/style/index";
+import { colors, StyledContainer } from "../../../master/constant/style/index";
 
-export const News = styled.div`
+export const Main = styled.main`
+  background-color: ${colors.green};
+`;
+
+export const News = styled(StyledContainer)`
+  position: relative;
   display: flex;
-  height: 150vh;
+  min-height: 100vh;
 `;
 
 export const HeaderComponent = styled.div`
@@ -17,6 +22,7 @@ export const HeaderComponent = styled.div`
   flex-direction: column;
   justify-content: left;
   align-items: left;
+  padding-bottom: 50px;
 `;
 
 export const Images = styled.div`
@@ -70,24 +76,22 @@ export const Pointer = styled.div`
 
 export const NewsContainer = styled.div`
   width: 30%;
-  height: 150vh;
+  height: 50vh;
   padding: 30px 60px;
   background-color: ${colors.green};
-  position: relative;
   padding-right: 100px;
 `;
 
 export const CardList = styled.div`
-    position:sticky;
-  width: 100%;
-  max-width: 376px;
+  position: sticky;
+  min-width: 300px;
+  width: 376px;
   height: 414px;
   background-color: ${colors.darkGreen};
-  border-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
   overflow-y: scroll;
   text-align: center;
-  
-  }
 
   & > text {
     font-weight: 600;
@@ -95,16 +99,61 @@ export const CardList = styled.div`
     line-height: 36px;
     position: -webkit-sticky;
     position: sticky;
-  
-   & ::-webkit-scrollbar {
-       display:none
-
-   } 
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const Card = styled.div`
-  width: 100%;
+  width: 92%;
   max-width: 376px;
   height: 100px;
   background-color: ${colors.darkGreen};
+  position: relative;
+  margin-left: 15px;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const CardImage = styled.div`
+  object-fit: contain;
+  width: 35%;
+`;
+export const CardText = styled.div`
+  object-fit: contain;
+  background-color: ${colors.green};
+  height: 100px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  padding-left: 10px;
+  transition: background-color 0.5s ease-in-out;
+
+  &:hover {
+    background-color: ${colors.lightGreen};
+  }
+`;
+
+export const TextArticle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: ${colors.darkGreen};
+  width: 376px;
+  font-size: 24px;
+  line-height: 36px;
+  font-weight: 600;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 `;

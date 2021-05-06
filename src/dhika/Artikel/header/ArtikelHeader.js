@@ -10,17 +10,21 @@ import {
   NewsContainer,
   CardList,
   Card,
+  CardImage,
+  CardText,
   News,
+  Main,
+  TextArticle,
 } from "./ArtikelHeader.component";
 import image from "../images/cherrytomatomature.jpg";
 import { colors } from "../../../master/constant/style/index";
 const NewsHeader = () => {
   return (
-    <>
+    <Main>
       <News>
         <HeaderComponent>
           <Images>
-            <img url={image} alt="News" />
+            <img src={image} alt="News" />
           </Images>
           <br />
           <Header>
@@ -65,27 +69,134 @@ const NewsHeader = () => {
           </Header>
         </HeaderComponent>
         <NewsContainer>
+          <TextArticle>
+            <p>Artikel Lain</p>
+          </TextArticle>
+
           <CardList>
-            <text>Artikel Lain</text>
             <Card>
-              <img src="image" alt="news" />
+              <CardImage>
+                <img src={image} alt="news" />
+              </CardImage>
+              <CardText>
+                <p>Lorem judul ipsum dolor sit</p>
+                <Author>
+                  <text style={{ marginRight: "5px" }}>Oleh </text>
+                  <text style={{ fontWeight: "700" }}> Author</text>
+                </Author>
+                <Time>
+                  <text>30 April 2021</text>
+                  <Pointer />
+                  <text>3 menit baca</text>
+                </Time>
+              </CardText>
             </Card>
             <Card>
-              <img src="image" alt="news" />
+              <CardImage>
+                <img src={image} alt="news" />
+              </CardImage>
+              <CardText>
+                <p>Lorem judul ipsum dolor sit</p>
+                <Author>
+                  <text style={{ marginRight: "5px" }}>Oleh </text>
+                  <text style={{ fontWeight: "700" }}> Author</text>
+                </Author>
+                <Time>
+                  <text>30 April 2021</text>
+                  <Pointer />
+                  <text>3 menit baca</text>
+                </Time>
+              </CardText>
             </Card>
             <Card>
-              <img src="image" alt="news" />
+              <CardImage>
+                <img src={image} alt="news" />
+              </CardImage>
+              <CardText>
+                <p>Lorem judul ipsum dolor sit</p>
+                <Author>
+                  <text style={{ marginRight: "5px" }}>Oleh </text>
+                  <text style={{ fontWeight: "700" }}> Author</text>
+                </Author>
+                <Time>
+                  <text>30 April 2021</text>
+                  <Pointer />
+                  <text>3 menit baca</text>
+                </Time>
+              </CardText>
             </Card>
             <Card>
-              <img src="image" alt="news" />
+              <CardImage>
+                <img src={image} alt="news" />
+              </CardImage>
+              <CardText>
+                <p>Lorem judul ipsum dolor sit</p>
+                <Author>
+                  <text style={{ marginRight: "5px" }}>Oleh </text>
+                  <text style={{ fontWeight: "700" }}> Author</text>
+                </Author>
+                <Time>
+                  <text>30 April 2021</text>
+                  <Pointer />
+                  <text>3 menit baca</text>
+                </Time>
+              </CardText>
             </Card>
             <Card>
-              <img src="image" alt="news" />
+              <CardImage>
+                <img src={image} alt="news" />
+              </CardImage>
+              <CardText>
+                <p>Lorem judul ipsum dolor sit</p>
+                <Author>
+                  <text style={{ marginRight: "5px" }}>Oleh </text>
+                  <text style={{ fontWeight: "700" }}> Author</text>
+                </Author>
+                <Time>
+                  <text>30 April 2021</text>
+                  <Pointer />
+                  <text>3 menit baca</text>
+                </Time>
+              </CardText>
+            </Card>
+            <Card>
+              <CardImage>
+                <img src={image} alt="news" />
+              </CardImage>
+              <CardText>
+                <p>Lorem judul ipsum dolor sit</p>
+                <Author>
+                  <text style={{ marginRight: "5px" }}>Oleh </text>
+                  <text style={{ fontWeight: "700" }}> Author</text>
+                </Author>
+                <Time>
+                  <text>30 April 2021</text>
+                  <Pointer />
+                  <text>3 menit baca</text>
+                </Time>
+              </CardText>
+            </Card>
+            <Card>
+              <CardImage>
+                <img src={image} alt="news" />
+              </CardImage>
+              <CardText>
+                <p>Lorem judul ipsum dolor sit</p>
+                <Author>
+                  <text style={{ marginRight: "5px" }}>Oleh </text>
+                  <text style={{ fontWeight: "700" }}> Author</text>
+                </Author>
+                <Time>
+                  <text>30 April 2021</text>
+                  <Pointer />
+                  <text>3 menit baca</text>
+                </Time>
+              </CardText>
             </Card>
           </CardList>
         </NewsContainer>
       </News>
-    </>
+    </Main>
   );
 };
 
