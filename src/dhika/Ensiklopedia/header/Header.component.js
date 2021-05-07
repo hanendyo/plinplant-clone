@@ -1,93 +1,83 @@
-import styled from "styled-components";
-import { colors, StyledContainer } from "../../../master/constant/style/index";
-import image1 from "../../images/basil.jpg";
+import styled from 'styled-components';
+import { colors, StyledContainer } from '../../../master/constant/style/index';
 
-export const Section = styled(StyledContainer)`
-  min-height: 670px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
+export const StyledHeader = styled.header`
   background-color: ${colors.green};
 `;
 
 export const Container = styled(StyledContainer)`
-  margin-top: 30px;
-  display: flex;
-  justify-content: space-between;
+  padding: 30px 0 150px;
+  position: relative;
+
+  & > div:nth-of-type(1) {
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 export const Left = styled.div`
-  background-color: red;
-  width: 100%;
-  max-width: 530px;
-  height: 370px;
-  overflow: hidden;
-  border-radius: 10px;
+  margin-right: 50px;
+
+  & > img {
+    width: 750px;
+    min-width: 400px;
+    border-radius: 10px;
+  }
 `;
 
 export const Right = styled.div`
-  margin-left: 60px;
-  display: flex;
-  flex-direction: column;
   width: 100%;
-  max-width: 440px;
+  max-width: 500px;
 
-  & > h1 {
-    font-weight: bold;
+  & > h1,
+  h5 {
     color: ${colors.white};
   }
 
-  & > p {
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 30px;
+  & > h1 {
+    margin-bottom: 30px;
   }
 
-  & > text {
-    font-weight: lighter;
+  & > p {
+    padding: unset;
+    margin-bottom: 20px;
   }
 `;
 
 export const BoxGroup = styled.div`
   display: flex;
-  width: 100%;
-  margin-right: 200px;
-  align-items: center;
-  justify-content: flex-end;
-
-  @media screen and (max-width: 768px) {
+  position: absolute;
+  bottom: -120px;
+  right: 0;
+  /* @media screen and (max-width: 768px) {
     flex-direction: column;
     width: 100%;
     margin: 0 10px;
     height: 500px;
-  }
+  } */
 `;
 
 export const Box = styled.div`
   background-color: ${colors.yellow};
   color: ${colors.green};
-  margin-top: -120px;
-  margin-right: 40px;
-  width: 300px;
-  max-width: 240px;
+  width: 240px;
   height: 240px;
-  padding: 26px 8px;
   display: flex;
   flex-direction: column;
   text-align: center;
+  justify-content: center;
+  margin-left: 24px;
+
+  & > div {
+    margin-bottom: 20px;
+  }
 
   & > p {
     font-size: 24px;
-    line-height: 36px;
+    padding: unset;
   }
 
-  & > text {
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 36px;
-  }
-
-  @media screen and (max-width: 768px) {
+  /* @media screen and (max-width: 768px) {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -95,5 +85,5 @@ export const Box = styled.div`
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
-  }
+  } */
 `;

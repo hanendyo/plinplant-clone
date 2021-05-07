@@ -1,20 +1,26 @@
 import React from "react";
-import Footer from "./master/components/Footer/Footer";
-import Navbar from "./master/components/Navbar/Navbar";
-import NavbarLandingPage from "./master/components/Navbar/NavbarLandingPage";
-import Ensiklopedia from "./dhika/Ensiklopedia/Ensiklopedia";
-import NewsHeader from "./dhika/Artikel/header/ArtikelHeader";
-import ModuleAlamat from "./dhika/ModuleAlamat/ModuleAlamat";
+import {
+  LandingPage,
+  Ensiklopedia,
+  SignIn,
+  SignUp,
+  ShoppingPage,
+} from "./fajariadi/pages";
+import { ModuleAlamat } from "./dhika/ModuleAlamat/ModuleAlamat";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const App = () => {
   return (
-    <div>
-      <Navbar />
-      {/* <Ensiklopedia /> */}
-      {/* <NewsHeader /> */}
-      <ModuleAlamat />
-      <Footer />
-    </div>
+    <ModuleAlamat />
+    // <Router>
+    //   <Switch>
+    //     <Route exact path='/' component={LandingPage} />
+    //     <Route path='/ensiklopedia' component={Ensiklopedia} />
+    //     <Route path='/login' component={SignIn} />
+    //     <Route path='/register' component={SignUp} />
+    //     <Route path='/shop' component={ShoppingPage} />
+    //   </Switch>
+    // </Router>
   );
 };
 

@@ -1,167 +1,123 @@
-import React from "react";
+import React from 'react';
 import {
-  Header,
   Textbox,
   Breeding,
   SquareLeft,
   SquareRight,
   BoxContainer,
-  Circle,
-  CircleContainer,
   ImageCointainer,
-  LinearGradient,
-  LongSquare,
-} from "./Body.component";
-import { FaCircle } from "react-icons/fa";
-import seed from "../../images/basil-seed.png";
-import tuber from "../../images/basil-tuber.jpg";
-import juvenil from "../../images/basil-juvenil.jpg";
-import mature from "../../images/basil-mature.jpg";
+  Container,
+} from './Body.component';
+import { FaCircle } from 'react-icons/fa';
+import seed from '../../images/basil-seed.png';
+import tuber from '../../images/basil-tuber.jpg';
+import juvenil from '../../images/basil-juvenil.jpg';
+import mature from '../../images/basil-mature.jpg';
 
 const Body = () => {
   return (
-    <div>
-      <Header>
-        <h1>Plant Breeding</h1>
+    <section>
+      <Container>
+        <h2>Plant Breeding</h2>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati aut
           cupiditate vitae ullam! Doloremque quaerat numquam ipsam vitae, ea
           non?
         </p>
-      </Header>
 
-      <Breeding>
-        <BoxContainer>
-          <Textbox>
-            <p
-              style={{
-                fontWeight: "600",
-                fontSize: "20px",
-                lineHeight: "30px",
-              }}
-            >
-              Lorem ipsum dolor sit.
-            </p>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe
-              deleniti assumenda molestias temporibus veritatis amet fugiat
-              alias magni obcaecati iure.
-            </p>
-          </Textbox>
-          <SquareLeft />
-        </BoxContainer>
-        <CircleContainer>
-          <Circle color="green">
-            <FaCircle size={60} />
-          </Circle>
-          <LongSquare />
-        </CircleContainer>
+        <Breeding>
+          <BoxContainer>
+            <Textbox>
+              <h5>Lorem ipsum dolor sit.</h5>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe
+                deleniti assumenda molestias temporibus veritatis amet fugiat
+                alias magni obcaecati iure.
+              </p>
+            </Textbox>
+            <SquareLeft />
+          </BoxContainer>
 
-        <ImageCointainer>
-          <img src={seed} alt="seed" />
-          <LinearGradient />
-          <p>Proses Penanaman Benih</p>
-        </ImageCointainer>
-      </Breeding>
-      <Breeding>
-        <ImageCointainer>
-          <img src={tuber} alt="tuber" />
-          <LinearGradient />
-          <p>Masa Pertumbuhan Bonggol</p>
-        </ImageCointainer>
+          <FaCircle className='circle' />
 
-        <CircleContainer>
-          <Circle color="green">
-            <FaCircle size={60} />
-          </Circle>
-          <LongSquare />
-        </CircleContainer>
-        <BoxContainer>
-          <SquareRight />
-          <Textbox>
-            <p
-              style={{
-                fontWeight: "600",
-                fontSize: "20px",
-                lineHeight: "30px",
-              }}
-            >
-              Lorem ipsum dolor sit.
-            </p>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe
-              deleniti assumenda molestias temporibus veritatis amet fugiat
-              alias magni obcaecati iure.
-            </p>
-          </Textbox>
-        </BoxContainer>
-      </Breeding>
-      <Breeding>
-        <BoxContainer>
-          <Textbox>
-            <p
-              style={{
-                fontWeight: "600",
-                fontSize: "20px",
-                lineHeight: "30px",
-              }}
-            >
-              Lorem ipsum dolor sit.
-            </p>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe
-              deleniti assumenda molestias temporibus veritatis amet fugiat
-              alias magni obcaecati iure.
-            </p>
-          </Textbox>
-          <SquareLeft />
-        </BoxContainer>
-        <CircleContainer>
-          <Circle color="green">
-            <FaCircle size={60} />
-          </Circle>
-          <LongSquare />
-        </CircleContainer>
+          <ImageCointainer>
+            <img src={seed} alt='seed' />
+            <div>
+              <h5>Proses Penanaman Benih</h5>
+            </div>
+          </ImageCointainer>
+        </Breeding>
 
-        <ImageCointainer>
-          <img src={juvenil} alt="juvenil" />
-          <LinearGradient />
-          <p>Masa Tanaman Muda</p>
-        </ImageCointainer>
-      </Breeding>
-      <Breeding>
-        <ImageCointainer>
-          <img src={mature} alt="mature" />
-          <LinearGradient />
-          <p>Masa Tanaman Dewasa</p>
-        </ImageCointainer>
+        <Breeding>
+          <ImageCointainer>
+            <img src={tuber} alt='tuber' />
+            <div>
+              <h5>Masa Pertumbuhan Bonggol</h5>
+            </div>
+          </ImageCointainer>
 
-        <CircleContainer>
-          <Circle color="green">
-            <FaCircle size={60} />
-          </Circle>
-        </CircleContainer>
-        <BoxContainer>
-          <SquareRight />
-          <Textbox>
-            <p
-              style={{
-                fontWeight: "600",
-                fontSize: "20px",
-                lineHeight: "30px",
-              }}
-            >
-              Lorem ipsum dolor sit.
-            </p>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe
-              deleniti assumenda molestias temporibus veritatis amet fugiat
-              alias magni obcaecati iure.
-            </p>
-          </Textbox>
-        </BoxContainer>
-      </Breeding>
-    </div>
+          <FaCircle className='circle' />
+
+          <BoxContainer>
+            <SquareRight />
+            <Textbox>
+              <h5>Lorem ipsum dolor sit.</h5>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe
+                deleniti assumenda molestias temporibus veritatis amet fugiat
+                alias magni obcaecati iure.
+              </p>
+            </Textbox>
+          </BoxContainer>
+        </Breeding>
+
+        <Breeding>
+          <BoxContainer>
+            <Textbox>
+              <h5>Lorem ipsum dolor sit.</h5>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe
+                deleniti assumenda molestias temporibus veritatis amet fugiat
+                alias magni obcaecati iure.
+              </p>
+            </Textbox>
+            <SquareLeft />
+          </BoxContainer>
+
+          <FaCircle className='circle' />
+
+          <ImageCointainer>
+            <img src={juvenil} alt='juvenil' />
+            <div>
+              <h5>Masa Tanaman Muda</h5>
+            </div>
+          </ImageCointainer>
+        </Breeding>
+
+        <Breeding>
+          <ImageCointainer>
+            <img src={mature} alt='mature' />
+            <div>
+              <h5>Masa Tanaman Dewasa</h5>
+            </div>
+          </ImageCointainer>
+
+          <FaCircle className='circle' />
+
+          <BoxContainer>
+            <SquareRight />
+            <Textbox>
+              <h5>Lorem ipsum dolor sit.</h5>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe
+                deleniti assumenda molestias temporibus veritatis amet fugiat
+                alias magni obcaecati iure.
+              </p>
+            </Textbox>
+          </BoxContainer>
+        </Breeding>
+      </Container>
+    </section>
   );
 };
 
