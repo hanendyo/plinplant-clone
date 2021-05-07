@@ -1,4 +1,5 @@
 import React from 'react';
+import ShoppingSummary from '../../../master/components/additional/ShoppingSummary';
 import { colors } from '../../../master/constant/style';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
 import { Container } from './Cart.elemen';
@@ -20,9 +21,7 @@ const Cart = () => {
             <ProductsContainer cart />
           </section>
 
-          <section>
-            <h4>Ringkasan Belanja</h4>
-          </section>
+          <ShoppingSummary />
         </div>
       </Container>
     </main>
