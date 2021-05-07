@@ -9,15 +9,13 @@ import NavbarLandingPage from "./master/components/Navbar/NavbarLandingPage";
 
 import { ContextProvider } from "./context/store/ContextStore";
 
-
 const App = () => {
-
   return (
     <ContextProvider>
-       <Router>
-          <SignUp />
-          {/* <SignIn/> */}
-          {/* <NavbarLandingPage />
+      <Router>
+        <SignUp />
+        {/* <SignIn/> */}
+        {/* <NavbarLandingPage />
           <h1>Content</h1>
           <Navbar />
           <Footer /> */}

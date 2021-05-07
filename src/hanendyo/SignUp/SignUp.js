@@ -11,11 +11,7 @@ import bgImage from "../image/signup_bg.png";
 import { FaGoogle } from "react-icons/fa";
 import "./SignUp.css";
 import { ContextStore } from "../../context/store/ContextStore";
-import {signUpAction, signUpAPI} from '../../context/actions/ActionsList'
-
-
-
-
+import { signUpAction, signUpAPI } from "../../context/actions/ActionsList";
 
 function Copyright() {
   return (
@@ -49,15 +45,15 @@ const SignUp = () => {
   const classes = useStyles();
 
   const context = useContext(ContextStore);
-  const {signUpState, signUpDispatch} = context;
+  const { signUpState, signUpDispatch } = context;
 
   // console.log(`CONTEXT: `, context);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // POST TO API
-    console.log(`sign up data: `, signUpState)
-    signUpAPI(signUpState)
+    console.log(`sign up data: `, signUpState);
+    signUpAPI(signUpState);
   };
 
   return (
@@ -87,7 +83,7 @@ const SignUp = () => {
               label="Full Name"
               value={signUpState.fullname}
               onChange={(e) =>
-                signUpDispatch(signUpAction('fullname', e.target.value))
+                signUpDispatch(signUpAction("fullname", e.target.value))
               }
               variant="outlined"
             />
@@ -100,7 +96,7 @@ const SignUp = () => {
               label="Email"
               value={signUpState.email}
               onChange={(e) =>
-                signUpDispatch(signUpAction('email', e.target.value))
+                signUpDispatch(signUpAction("email", e.target.value))
               }
               variant="outlined"
             />
@@ -113,7 +109,7 @@ const SignUp = () => {
               label="password"
               value={signUpState.password}
               onChange={(e) =>
-                signUpDispatch(signUpAction('password', e.target.value))
+                signUpDispatch(signUpAction("password", e.target.value))
               }
               variant="outlined"
             />
