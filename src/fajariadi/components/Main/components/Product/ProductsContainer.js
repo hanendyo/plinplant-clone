@@ -139,6 +139,13 @@ const ReviewContainer = styled.div`
 
 const CartContainer = styled.div`
   /* background-color: red; */
+  border-radius: 10px;
+  height: 400px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default ProductsContainer;

@@ -210,10 +210,14 @@ const CardCart = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
   background-color: ${colors.lightGreenTransparent};
   border-radius: 10px;
   padding: 10px;
+  padding-right: 30px;
+
+  &:not(:last-of-type) {
+    margin-bottom: 5px;
+  }
 
   & > img {
     width: 100px;
@@ -234,11 +238,13 @@ const CardCart = styled.div`
       color: ${colors.white};
     }
 
-    & > span {
+    &:first-of-type > span {
       display: inline-block;
       background-color: ${colors.lightGreenTransparent};
-      padding: 5px;
-      border-radius: 10px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      margin-top: 5px;
     }
   }
 

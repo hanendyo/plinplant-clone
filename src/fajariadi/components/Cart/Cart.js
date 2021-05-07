@@ -20,7 +20,9 @@ const Cart = () => {
             <ProductsContainer cart />
           </section>
 
-          <section></section>
+          <section>
+            <h4>Ringkasan Belanja</h4>
+          </section>
         </div>
       </Container>
     </main>
