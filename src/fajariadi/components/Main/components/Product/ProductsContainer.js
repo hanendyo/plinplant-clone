@@ -3,6 +3,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ItemsCarousel from 'react-items-carousel';
 import Cards from '../../../../../master/components/additional/Cards';
 import {
+  cartItems,
   products,
   reviews,
 } from '../../../../../master/constant/data/dummy-data';
@@ -10,7 +11,7 @@ import { colors } from '../../../../../master/constant/style';
 import styled from 'styled-components';
 import { useMediaQuery } from 'react-responsive';
 
-const ProductsContainer = ({ category, slider, scroll, review }) => {
+const ProductsContainer = ({ category, slider, scroll, cart, review }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
 
@@ -84,6 +85,21 @@ const ProductsContainer = ({ category, slider, scroll, review }) => {
           ))}
         </ReviewContainer>
       )}
+
+      {cart && (
+        <CartContainer>
+          {cartItems.map(({ img, name, phase, price, quantity }) => (
+            <Cards
+              cart
+              img={img}
+              name={name}
+              phase={phase}
+              price={price}
+              quantity={quantity}
+            />
+          ))}
+        </CartContainer>
+      )}
     </>
   );
 };
@@ -119,6 +135,10 @@ const ReviewContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const CartContainer = styled.div`
+  /* background-color: red; */
 `;
 
 export default ProductsContainer;

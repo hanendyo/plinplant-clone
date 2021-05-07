@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { colors } from '../../constant/style';
 import Button from '../../../master/components/additional/Button';
 import Rating from '../../../master/components/additional/Rating';
+import Quantity from './Quantity';
+import { FaRegTrashAlt } from 'react-icons/fa';
 
 const Cards = ({
   name,
@@ -11,9 +13,13 @@ const Cards = ({
   text,
   rating,
   review,
+  cart,
   slider,
   illustration,
   scroll,
+  phase,
+  price,
+  quantity,
 }) => {
   return (
     <>
@@ -69,6 +75,23 @@ const Cards = ({
 
           <Rating rate={rating} />
         </CardReview>
+      )}
+
+      {cart && (
+        <CardCart>
+          <img src={img} alt='' />
+
+          <div>
+            <h5>{name}</h5>
+            <span>{phase}</span>
+          </div>
+
+          <h5>{price}</h5>
+
+          <Quantity quantity={quantity} />
+
+          <FaRegTrashAlt />
+        </CardCart>
       )}
     </>
   );
@@ -180,6 +203,47 @@ const CardReview = styled.div`
     top: -8px;
     left: -8px;
     box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+const CardCart = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  background-color: ${colors.lightGreenTransparent};
+  border-radius: 10px;
+  padding: 10px;
+
+  & > img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+  }
+
+  & > div {
+    flex: 1;
+
+    &:last-of-type {
+      justify-content: center;
+    }
+
+    & > h5 {
+      color: ${colors.white};
+    }
+
+    & > span {
+      display: inline-block;
+      background-color: ${colors.lightGreenTransparent};
+      padding: 5px;
+      border-radius: 10px;
+    }
+  }
+
+  & > h5 {
+    color: white;
   }
 `;
 
