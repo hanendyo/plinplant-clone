@@ -229,6 +229,7 @@ const CardCart = styled.div`
 
   & > div {
     flex: 1;
+    margin-right: 10px;
 
     &:last-of-type {
       justify-content: center;
@@ -249,7 +250,8 @@ const CardCart = styled.div`
   }
 
   & > h5 {
-    color: white;
+    color: ${colors.white};
+    margin-right: 10px;
   }
 `;
 

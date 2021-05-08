@@ -6,4 +6,15 @@ export const Container = styled(StyledContainer)`
     color: ${colors.white};
     margin-bottom: 30px;
   }
+
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+`;
+
+export const ListCart = styled.section`
+  width: 100%;
+  /* max-width: 700px; */
 `;
