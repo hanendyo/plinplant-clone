@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { colors, StyledContainer } from '../../../master/constant/style/index';
+import styled from "styled-components";
+import { colors, StyledContainer } from "../../../master/constant/style/index";
 
 export const Container = styled(StyledContainer)`
   margin-top: 10rem;
@@ -19,7 +19,7 @@ export const Container = styled(StyledContainer)`
   }
 
   &::before {
-    content: '';
+    content: "";
     width: 5px;
     height: 72%;
     background-color: ${colors.yellow};

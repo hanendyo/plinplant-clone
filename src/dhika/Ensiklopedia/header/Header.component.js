@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { colors, StyledContainer } from '../../../master/constant/style/index';
+import styled from "styled-components";
+import { colors, StyledContainer } from "../../../master/constant/style/index";
 
 export const StyledHeader = styled.header`
   background-color: ${colors.green};
