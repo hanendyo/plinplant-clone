@@ -41,13 +41,18 @@ export const PopupInner = styled.div`
 export const BoxAlamat = styled.div`
   width: 90%;
   min-height: 100%;
-  border: 1px solid ${colors.black};
+  border: 2px solid ${colors.black};
   border-radius: 15px;
   margin: 5px 25px;
   padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: border 0.3s;
+
+  &:hover {
+    border: 2px solid ${colors.lightGreen};
+  }
 `;
 
 export const BoxLeft = styled.div`
