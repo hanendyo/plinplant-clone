@@ -5,6 +5,7 @@ import { colors } from '../../constant/style';
 const Button = ({
   primary,
   summary,
+  address,
   shop,
   cta,
   card,
@@ -17,6 +18,7 @@ const Button = ({
     <BtnComponent
       primary={primary}
       cta={cta}
+      address={address}
       summary={summary}
       shop={shop}
       card={card}
@@ -29,9 +31,10 @@ const Button = ({
   );
 };
 
-const styledPadding = (primary, cta, card, summary) => {
+const styledPadding = (primary, cta, card, summary, address) => {
   if (primary && cta) return '15px 50px';
   if (primary && summary) return '10px 50px';
+  if (primary && address) return '10px 20px';
   if (primary) return '5px 20px';
   if (card) return '5px 10px';
   if (!primary && !cta && !card) return '3px 20px';
@@ -45,8 +48,8 @@ const styledFontSize = (primary, cta, card, shop, summary) => {
 };
 
 const BtnComponent = styled.button`
-  padding: ${({ primary, cta, card, summary }) =>
-    styledPadding(primary, cta, card, summary)};
+  padding: ${({ primary, cta, card, summary, address }) =>
+    styledPadding(primary, cta, card, summary, address)};
 
   background-color: ${({ primary, card, bgColor }) =>
     primary || card ? bgColor : 'transparent'};
@@ -58,7 +61,8 @@ const BtnComponent = styled.button`
   font-size: ${({ primary, cta, card, shop, summary }) =>
     styledFontSize(primary, cta, card, shop, summary)};
 
-  font-weight: ${({ cta, summary }) => (cta || summary ? '500' : 'unset')};
+  font-weight: ${({ cta, summary, address }) =>
+    cta || summary || address ? '500' : 'unset'};
   width: ${({ summary }) => (summary ? '100%' : 'unset')};
 
   border-radius: ${({ card, shop }) => (card || shop ? '4px' : '10px')};

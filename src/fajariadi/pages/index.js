@@ -4,5 +4,14 @@ import LandingPage from './LandingPage';
 import Ensiklopedia from './Ensiklopedia';
 import ShoppingPage from './ShoppingPage';
 import CartPage from './CartPage';
+import CheckoutPage from './CheckoutPage';
 
-export { LandingPage, Ensiklopedia, SignIn, SignUp, ShoppingPage, CartPage };
+export {
+  LandingPage,
+  Ensiklopedia,
+  SignIn,
+  SignUp,
+  ShoppingPage,
+  CartPage,
+  CheckoutPage,
+};

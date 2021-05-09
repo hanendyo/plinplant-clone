@@ -11,7 +11,14 @@ import { colors } from '../../../../../master/constant/style';
 import styled from 'styled-components';
 import { useMediaQuery } from 'react-responsive';
 
-const ProductsContainer = ({ category, slider, scroll, cart, review }) => {
+const ProductsContainer = ({
+  category,
+  slider,
+  scroll,
+  cart,
+  review,
+  checkout,
+}) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
 
@@ -100,6 +107,14 @@ const ProductsContainer = ({ category, slider, scroll, cart, review }) => {
           ))}
         </CartContainer>
       )}
+
+      {checkout && (
+        <CheckoutContainer>
+          {cartItems.map(({ img, name, phase, price }) => (
+            <Cards checkout img={img} name={name} phase={phase} price={price} />
+          ))}
+        </CheckoutContainer>
+      )}
     </>
   );
 };
@@ -146,6 +161,10 @@ const CartContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const CheckoutContainer = styled(CartContainer)`
+  height: 245px;
 `;
 
 export default ProductsContainer;

@@ -6,6 +6,7 @@ import {
   SignUp,
   ShoppingPage,
   CartPage,
+  CheckoutPage,
 } from './fajariadi/pages';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ const App = () => {
         <Route path='/register' component={SignUp} />
         <Route path='/shop' component={ShoppingPage} />
         <Route path='/cart' component={CartPage} />
+        <Route path='/checkout' component={CheckoutPage} />
       </Switch>
     </Router>
   );

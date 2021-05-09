@@ -14,6 +14,7 @@ const Cards = ({
   rating,
   review,
   cart,
+  checkout,
   slider,
   illustration,
   scroll,
@@ -92,6 +93,20 @@ const Cards = ({
 
           <FaRegTrashAlt />
         </CardCart>
+      )}
+
+      {checkout && (
+        <CardCheckout>
+          <img src={img} alt='' />
+
+          <div>
+            <h5>{name}</h5>
+            <span>{phase}</span>
+            <span>1 barang (500 gr)</span>
+          </div>
+
+          <h5>{price}</h5>
+        </CardCheckout>
       )}
     </>
   );
@@ -242,9 +257,9 @@ const CardCart = styled.div`
     &:first-of-type > span {
       display: inline-block;
       background-color: ${colors.lightGreenTransparent};
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 14px;
+      padding: 3px 10px;
+      border-radius: 10px;
+      font-size: 12px;
       margin-top: 5px;
     }
   }
@@ -252,6 +267,22 @@ const CardCart = styled.div`
   & > h5 {
     color: ${colors.white};
     margin-right: 10px;
+  }
+`;
+
+const CardCheckout = styled(CardCart)`
+  & > div {
+    &:first-of-type > span:first-of-type {
+      margin-top: 0;
+    }
+
+    &:first-of-type > span:last-of-type {
+      display: block;
+      background-color: unset;
+      padding: unset;
+      font-size: 14px;
+      margin-top: 10px;
+    }
   }
 `;
 
