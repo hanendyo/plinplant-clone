@@ -5,6 +5,7 @@ import Button from '../../../master/components/additional/Button';
 import Rating from '../../../master/components/additional/Rating';
 import Quantity from './Quantity';
 import { FaRegTrashAlt } from 'react-icons/fa';
+import StatusOrder from './StatusOrder';
 
 const Cards = ({
   name,
@@ -21,6 +22,10 @@ const Cards = ({
   phase,
   price,
   quantity,
+  totalPrice,
+  no_order,
+  status,
+  transaction,
 }) => {
   return (
     <>
@@ -107,6 +112,71 @@ const Cards = ({
 
           <h5>{price}</h5>
         </CardCheckout>
+      )}
+
+      {transaction && (
+        <CardTransaction>
+          {/* Header Info */}
+          <div>
+            <p>
+              Tanggal Pembelian <span>: {created}</span>
+            </p>
+
+            <p>
+              No. Order <span>: PP-{no_order}</span>
+            </p>
+
+            <StatusOrder status={status} />
+          </div>
+
+          {/* Product Info */}
+          <div>
+            <img src={img} alt='' />
+
+            <div>
+              <h6>{name}</h6>
+              <span>{phase}</span>
+              <span>
+                {quantity} x {price}
+              </span>
+
+              <span>+3 produk lainnya</span>
+            </div>
+
+            <div>
+              <p>Total Belanja</p>
+              <h6>{totalPrice}</h6>
+            </div>
+          </div>
+
+          {/* Button Container */}
+          <div>
+            {status === 'Transaksi Selesai' ? (
+              <>
+                <Button
+                  primary
+                  address
+                  text='Lihat Detail Transaksi'
+                  bgColor='unset'
+                />
+
+                <Button
+                  primary
+                  address
+                  text='Beri Ulasan'
+                  bgColor={colors.yellow}
+                />
+              </>
+            ) : (
+              <Button
+                primary
+                address
+                text='Lihat Detail Transaksi'
+                bgColor={colors.yellow}
+              />
+            )}
+          </div>
+        </CardTransaction>
       )}
     </>
   );
@@ -282,6 +352,99 @@ const CardCheckout = styled(CardCart)`
       padding: unset;
       font-size: 14px;
       margin-top: 10px;
+    }
+  }
+`;
+
+const CardTransaction = styled.div`
+  background-color: ${colors.darkGreen};
+  padding: 15px 30px 70px;
+  border-radius: 10px;
+  box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  position: relative;
+
+  /* Header info */
+  & > div:nth-of-type(1) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    & > p {
+      &:nth-of-type(2) {
+        flex: 1;
+        border-left: 1px solid ${colors.yellowTransparent};
+        margin-left: 20px;
+        padding-left: 20px !important;
+      }
+
+      & > span {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  /* Product info */
+  & > div:nth-of-type(2) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    & > div:nth-of-type(1) {
+      flex: 1;
+      margin-left: 20px;
+
+      & > h6 {
+        color: ${colors.white};
+      }
+
+      & > span {
+        display: block;
+        font-size: 14px;
+
+        &:nth-of-type(1) {
+          background-color: ${colors.lightGreenTransparent};
+          width: fit-content;
+          padding: 3px 10px;
+          border-radius: 10px;
+          font-size: 12px;
+        }
+
+        &:nth-of-type(2) {
+          margin: 5px 0 10px;
+        }
+      }
+    }
+
+    & > div:nth-of-type(2) {
+      border-left: 1px solid ${colors.lightGreenTransparent};
+      /* background-color: red; */
+      /* margin-right: 50px; */
+      padding-left: 30px;
+
+      & > h6 {
+        color: ${colors.white};
+        margin-top: 10px;
+      }
+    }
+  }
+
+  /* Button Container */
+  & > div:nth-of-type(3) {
+    position: absolute;
+    bottom: 15px;
+    right: 30px;
+
+    & > button {
+      margin-left: 10px;
     }
   }
 `;

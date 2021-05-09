@@ -8,6 +8,7 @@ const Button = ({
   address,
   shop,
   cta,
+  transaction,
   card,
   bgColor,
   text,
@@ -20,6 +21,7 @@ const Button = ({
       cta={cta}
       address={address}
       summary={summary}
+      transaction={transaction}
       shop={shop}
       card={card}
       bgColor={bgColor}
@@ -48,6 +50,14 @@ const styledFontSize = (primary, cta, card, shop, summary) => {
 };
 
 const BtnComponent = styled.button`
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  color: ${({ bgColor }) =>
+    bgColor === 'unset' ? colors.yellow : colors.white};
+
   padding: ${({ primary, cta, card, summary, address }) =>
     styledPadding(primary, cta, card, summary, address)};
 
@@ -57,7 +67,6 @@ const BtnComponent = styled.button`
   border: ${({ primary, card, bgColor }) =>
     primary || card ? `none` : `2px solid ${bgColor}`};
 
-  font-family: inherit;
   font-size: ${({ primary, cta, card, shop, summary }) =>
     styledFontSize(primary, cta, card, shop, summary)};
 
@@ -66,10 +75,6 @@ const BtnComponent = styled.button`
   width: ${({ summary }) => (summary ? '100%' : 'unset')};
 
   border-radius: ${({ card, shop }) => (card || shop ? '4px' : '10px')};
-  color: white;
-  outline: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
 
   &:first-of-type {
     margin-right: ${({ card }) => (card ? '10px' : 'unset')};

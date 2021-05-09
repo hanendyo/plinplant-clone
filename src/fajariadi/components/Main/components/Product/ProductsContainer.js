@@ -6,6 +6,7 @@ import {
   cartItems,
   products,
   reviews,
+  transactions,
 } from '../../../../../master/constant/data/dummy-data';
 import { colors } from '../../../../../master/constant/style';
 import styled from 'styled-components';
@@ -18,6 +19,7 @@ const ProductsContainer = ({
   cart,
   review,
   checkout,
+  transaction,
 }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
@@ -115,6 +117,37 @@ const ProductsContainer = ({
           ))}
         </CheckoutContainer>
       )}
+
+      {transaction && (
+        <TransactionContainer>
+          {transactions.map(
+            ({
+              img,
+              name,
+              phase,
+              price,
+              quantity,
+              totalPrice,
+              created,
+              no_order,
+              status,
+            }) => (
+              <Cards
+                transaction
+                img={img}
+                name={name}
+                phase={phase}
+                price={price}
+                quantity={quantity}
+                totalPrice={totalPrice}
+                created={created}
+                no_order={no_order}
+                status={status}
+              />
+            )
+          )}
+        </TransactionContainer>
+      )}
     </>
   );
 };
@@ -165,6 +198,17 @@ const CartContainer = styled.div`
 
 const CheckoutContainer = styled(CartContainer)`
   height: 245px;
+`;
+
+const TransactionContainer = styled.div`
+  /* background-color: red; */
+  height: 500px;
+  overflow-y: scroll;
+  border-radius: 10px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default ProductsContainer;

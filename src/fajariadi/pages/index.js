@@ -5,6 +5,8 @@ import Ensiklopedia from './Ensiklopedia';
 import ShoppingPage from './ShoppingPage';
 import CartPage from './CartPage';
 import CheckoutPage from './CheckoutPage';
+import InvoicePage from './InvoicePage';
+import TransactionPage from './TransactionPage';
 
 export {
   LandingPage,
@@ -14,4 +16,6 @@ export {
   ShoppingPage,
   CartPage,
   CheckoutPage,
+  InvoicePage,
+  TransactionPage,
 };
