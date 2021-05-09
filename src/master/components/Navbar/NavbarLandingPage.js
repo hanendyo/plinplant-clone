@@ -6,7 +6,7 @@ import { colors } from '../../constant/style';
 import pic from '../../../fajariadi/assets/images/ig.jpg';
 
 const NavbarLandingPage = () => {
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
 
   return (
     <Nav>
@@ -49,13 +49,13 @@ const NavbarLandingPage = () => {
                 <Button
                   text='Masuk'
                   bgColor={colors.white}
-                  onClick={console.log('Masuk')}
+                  onClick={() => console.log('Masuk')}
                 />
                 <Button
                   primary
                   text='Daftar'
                   bgColor={colors.lightGreenTransparent}
-                  onClick={console.log('Daftar')}
+                  onClick={() => console.log('Daftar')}
                 />
               </>
             )}

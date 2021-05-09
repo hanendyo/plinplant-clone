@@ -6,7 +6,7 @@ import { colors } from '../../constant/style';
 import pic from '../../../fajariadi/assets/images/ig.jpg';
 
 const Navbar = () => {
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
 
   return (
     <Nav>
@@ -17,7 +17,7 @@ const Navbar = () => {
 
         <Logo className='logo-center'>PlinPlant</Logo>
 
-        <LinksContainer>
+        <LinksContainer login={login}>
           <li>
             <FaShoppingCart className='cart' />
           </li>
@@ -25,7 +25,7 @@ const Navbar = () => {
           <li>
             {login ? (
               <>
-                <button id='profile'>
+                <button>
                   <img src={pic} alt='' />
                   <p>Halo, Fajar</p>
                 </button>
@@ -50,11 +50,16 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Button text='Masuk' bgColor={colors.white} />
+                <Button
+                  text='Masuk'
+                  bgColor={colors.white}
+                  onClick={() => console.log('Masuk')}
+                />
                 <Button
                   primary
                   text='Daftar'
                   bgColor={colors.lightGreenTransparent}
+                  onClick={() => console.log('Daftar')}
                 />
               </>
             )}
