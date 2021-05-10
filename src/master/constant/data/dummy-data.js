@@ -11,6 +11,7 @@ import seed from '../../../dhika/images/basil-seed.png';
 import tuber from '../../../dhika/images/basil-tuber.jpg';
 import juvenil from '../../../dhika/images/basil-juvenil.jpg';
 import mature from '../../../dhika/images/basil-mature.jpg';
+import image from '../../../dhika/Artikel/images/cherrytomatomature.jpg';
 
 export const products = [
   {
@@ -436,5 +437,43 @@ export const invoiceProduct = [
     phase: 'Dewasa',
     price: 'Rp 21.950',
     quantity: 1,
+  },
+];
+
+export const articles = [
+  {
+    img: image,
+    title: 'Lorem judul ipsum dolor sit',
+    author: 'Author',
+    release_date: '30 April 2021',
+    reading_time: 3,
+  },
+  {
+    img: image,
+    title: 'Lorem judul ipsum dolor sit',
+    author: 'Author',
+    release_date: '30 April 2021',
+    reading_time: 3,
+  },
+  {
+    img: image,
+    title: 'Lorem judul ipsum dolor sit',
+    author: 'Author',
+    release_date: '30 April 2021',
+    reading_time: 3,
+  },
+  {
+    img: image,
+    title: 'Lorem judul ipsum dolor sit',
+    author: 'Author',
+    release_date: '30 April 2021',
+    reading_time: 3,
+  },
+  {
+    img: image,
+    title: 'Lorem judul ipsum dolor sit',
+    author: 'Author',
+    release_date: '30 April 2021',
+    reading_time: 3,
   },
 ];

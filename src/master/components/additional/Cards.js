@@ -4,7 +4,7 @@ import { colors } from '../../constant/style';
 import Button from '../../../master/components/additional/Button';
 import Rating from '../../../master/components/additional/Rating';
 import Quantity from './Quantity';
-import { FaRegTrashAlt } from 'react-icons/fa';
+import { FaCircle, FaRegTrashAlt } from 'react-icons/fa';
 import StatusOrder from './StatusOrder';
 
 const Cards = ({
@@ -15,6 +15,11 @@ const Cards = ({
   rating,
   review,
   cart,
+  article,
+  release_date,
+  reading_time,
+  title,
+  author,
   checkout,
   slider,
   illustration,
@@ -206,6 +211,23 @@ const Cards = ({
             </div>
           )}
         </CardInvoice>
+      )}
+
+      {article && (
+        <CardArticle>
+          <img src={img} alt='' />
+
+          <div>
+            <h6>{title}</h6>
+            <span>
+              Oleh <strong>{author}</strong>
+            </span>
+            <p>
+              {release_date} <FaCircle size={5} className='circle' />{' '}
+              {reading_time} menit baca
+            </p>
+          </div>
+        </CardArticle>
       )}
     </>
   );
@@ -517,6 +539,62 @@ const CardInvoice = styled.div`
           border-radius: 10px;
           margin-bottom: 5px;
         }
+      }
+    }
+  }
+`;
+
+const CardArticle = styled.div`
+  background-color: ${colors.lightGreenTransparent};
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:not(:last-of-type) {
+    margin-bottom: 10px;
+  }
+
+  &:first-of-type,
+  &:hover {
+    background-color: ${colors.lightGreen};
+
+    & > div {
+      & > span,
+      p {
+        font-size: 14px;
+        color: #22222280;
+      }
+    }
+  }
+
+  & > img {
+    width: 130px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+
+  & > div {
+    padding: 10px 0;
+
+    & > h6 {
+      color: ${colors.white};
+    }
+
+    & > span,
+    p {
+      font-size: 14px;
+      color: ${colors.lightGreen};
+    }
+
+    & > p {
+      display: flex;
+      align-items: center;
+
+      & > .circle {
+        margin: 0 5px;
       }
     }
   }

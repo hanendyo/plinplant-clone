@@ -7,6 +7,7 @@ import CartPage from './CartPage';
 import CheckoutPage from './CheckoutPage';
 import InvoicePage from './InvoicePage';
 import TransactionPage from './TransactionPage';
+import ArticlePage from './ArticlePage';
 
 export {
   LandingPage,
@@ -18,4 +19,5 @@ export {
   CheckoutPage,
   InvoicePage,
   TransactionPage,
+  ArticlePage,
 };

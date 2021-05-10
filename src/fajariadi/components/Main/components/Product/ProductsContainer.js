@@ -3,6 +3,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ItemsCarousel from 'react-items-carousel';
 import Cards from '../../../../../master/components/additional/Cards';
 import {
+  articles,
   cartItems,
   invoiceProduct,
   products,
@@ -23,6 +24,7 @@ const ProductsContainer = ({
   transaction,
   invoice,
   status,
+  article,
 }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
@@ -182,6 +184,24 @@ const ProductsContainer = ({
           )}
         </InvoiceContainer>
       )}
+
+      {article && (
+        <ArticlesContainer>
+          {articles.map(
+            ({ img, title, author, release_date, reading_time }, index) => (
+              <Cards
+                article
+                key={index}
+                img={img}
+                title={title}
+                author={author}
+                release_date={release_date}
+                reading_time={reading_time}
+              />
+            )
+          )}
+        </ArticlesContainer>
+      )}
     </>
   );
 };
@@ -250,6 +270,17 @@ const InvoiceContainer = styled.div`
   margin-left: 10px;
   border-radius: 10px;
   height: 310px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const ArticlesContainer = styled.div`
+  height: fit-content;
+  max-height: 430px;
+  border-radius: 10px;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
