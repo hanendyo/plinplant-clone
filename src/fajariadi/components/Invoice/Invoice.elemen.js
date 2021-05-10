@@ -33,6 +33,7 @@ export const ShoppingDetail = styled.section`
   height: 400px;
   display: flex;
   justify-content: space-between;
+  position: relative;
 
   & > div:nth-of-type(1) {
     width: 100%;
@@ -49,6 +50,12 @@ export const ShoppingDetail = styled.section`
     margin-left: 30px;
     width: 100%;
     max-width: 620px;
+  }
+
+  & > div:nth-of-type(3) {
+    position: absolute;
+    top: 20px;
+    right: 30px;
   }
 `;
 
@@ -77,6 +84,7 @@ export const Payment = styled.div`
   & > div {
     margin-left: 10px;
     display: flex;
+    /* justify-content: space-between; */
 
     &:last-of-type {
       margin-top: 10px;

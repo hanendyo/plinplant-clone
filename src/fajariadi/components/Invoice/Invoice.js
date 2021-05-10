@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaExclamationTriangle } from 'react-icons/fa';
+import Button from '../../../master/components/additional/Button';
 import StatusOrder from '../../../master/components/additional/StatusOrder';
 import { colors } from '../../../master/constant/style';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
@@ -12,7 +13,7 @@ import {
 } from './Invoice.elemen';
 
 const Invoice = () => {
-  const [status, setStatus] = useState(true);
+  const [status, setStatus] = useState(false);
 
   return (
     <main
@@ -97,6 +98,16 @@ const Invoice = () => {
                 </h6>
               </div>
             </Payment>
+          </div>
+
+          <div>
+            <Button
+              primary
+              address
+              shop
+              text='Upload Bukti Transfer'
+              bgColor={colors.yellow}
+            />
           </div>
         </ShoppingDetail>
       </Container>
