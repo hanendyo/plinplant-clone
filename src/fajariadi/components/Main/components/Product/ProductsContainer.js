@@ -4,6 +4,7 @@ import ItemsCarousel from 'react-items-carousel';
 import Cards from '../../../../../master/components/additional/Cards';
 import {
   cartItems,
+  invoiceProduct,
   products,
   reviews,
   transactions,
@@ -20,6 +21,8 @@ const ProductsContainer = ({
   review,
   checkout,
   transaction,
+  invoice,
+  status,
 }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
@@ -97,9 +100,10 @@ const ProductsContainer = ({
 
       {cart && (
         <CartContainer>
-          {cartItems.map(({ img, name, phase, price, quantity }) => (
+          {cartItems.map(({ img, name, phase, price, quantity }, index) => (
             <Cards
               cart
+              key={index}
               img={img}
               name={name}
               phase={phase}
@@ -112,8 +116,15 @@ const ProductsContainer = ({
 
       {checkout && (
         <CheckoutContainer>
-          {cartItems.map(({ img, name, phase, price }) => (
-            <Cards checkout img={img} name={name} phase={phase} price={price} />
+          {cartItems.map(({ img, name, phase, price }, index) => (
+            <Cards
+              checkout
+              key={index}
+              img={img}
+              name={name}
+              phase={phase}
+              price={price}
+            />
           ))}
         </CheckoutContainer>
       )}
@@ -121,19 +132,23 @@ const ProductsContainer = ({
       {transaction && (
         <TransactionContainer>
           {transactions.map(
-            ({
-              img,
-              name,
-              phase,
-              price,
-              quantity,
-              totalPrice,
-              created,
-              no_order,
-              status,
-            }) => (
+            (
+              {
+                img,
+                name,
+                phase,
+                price,
+                quantity,
+                totalPrice,
+                created,
+                no_order,
+                status,
+              },
+              index
+            ) => (
               <Cards
                 transaction
+                key={index}
                 img={img}
                 name={name}
                 phase={phase}
@@ -147,6 +162,25 @@ const ProductsContainer = ({
             )
           )}
         </TransactionContainer>
+      )}
+
+      {invoice && (
+        <InvoiceContainer>
+          {invoiceProduct.map(
+            ({ name, img, phase, price, quantity }, index) => (
+              <Cards
+                invoice
+                key={index}
+                name={name}
+                img={img}
+                phase={phase}
+                price={price}
+                quantity={quantity}
+                status={status}
+              />
+            )
+          )}
+        </InvoiceContainer>
       )}
     </>
   );
@@ -205,6 +239,18 @@ const TransactionContainer = styled.div`
   height: 500px;
   overflow-y: scroll;
   border-radius: 10px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const InvoiceContainer = styled.div`
+  /* background-color: red; */
+  margin-left: 10px;
+  border-radius: 10px;
+  height: 310px;
+  overflow-y: scroll;
 
   &::-webkit-scrollbar {
     display: none;

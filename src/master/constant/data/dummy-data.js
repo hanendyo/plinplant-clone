@@ -407,3 +407,34 @@ export const transactions = [
     status: 'Transaksi Selesai',
   },
 ];
+
+export const invoiceProduct = [
+  {
+    img: seed,
+    name: 'Lavender',
+    phase: 'Biji',
+    price: 'Rp 21.950',
+    quantity: 1,
+  },
+  {
+    img: tuber,
+    name: 'Lavender',
+    phase: 'Bonggol',
+    price: 'Rp 21.950',
+    quantity: 1,
+  },
+  {
+    img: juvenil,
+    name: 'Lavender',
+    phase: 'Muda',
+    price: 'Rp 21.950',
+    quantity: 1,
+  },
+  {
+    img: mature,
+    name: 'Lavender',
+    phase: 'Dewasa',
+    price: 'Rp 21.950',
+    quantity: 1,
+  },
+];

@@ -7,6 +7,7 @@ const Button = ({
   summary,
   address,
   shop,
+  invoice,
   cta,
   transaction,
   card,
@@ -21,6 +22,7 @@ const Button = ({
       cta={cta}
       address={address}
       summary={summary}
+      invoice={invoice}
       transaction={transaction}
       shop={shop}
       card={card}
@@ -42,7 +44,7 @@ const styledPadding = (primary, cta, card, summary, address) => {
   if (!primary && !cta && !card) return '3px 20px';
 };
 
-const styledFontSize = (primary, cta, card, shop, summary) => {
+const styledFontSize = (primary, cta, card, shop, summary, invoice) => {
   if ((primary && cta) || (primary && summary)) return '20px';
   if (primary && shop) return '12px';
   if (card) return '16px';
@@ -67,8 +69,8 @@ const BtnComponent = styled.button`
   border: ${({ primary, card, bgColor }) =>
     primary || card ? `none` : `2px solid ${bgColor}`};
 
-  font-size: ${({ primary, cta, card, shop, summary }) =>
-    styledFontSize(primary, cta, card, shop, summary)};
+  font-size: ${({ primary, cta, card, shop, summary, invoice }) =>
+    styledFontSize(primary, cta, card, shop, summary, invoice)};
 
   font-weight: ${({ cta, summary, address }) =>
     cta || summary || address ? '500' : 'unset'};

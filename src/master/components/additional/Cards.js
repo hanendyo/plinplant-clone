@@ -26,6 +26,7 @@ const Cards = ({
   no_order,
   status,
   transaction,
+  invoice,
 }) => {
   return (
     <>
@@ -137,7 +138,7 @@ const Cards = ({
               <h6>{name}</h6>
               <span>{phase}</span>
               <span>
-                {quantity} x {price}
+                {quantity} barang x {price}
               </span>
 
               <span>+3 produk lainnya</span>
@@ -177,6 +178,34 @@ const Cards = ({
             )}
           </div>
         </CardTransaction>
+      )}
+
+      {invoice && (
+        <CardInvoice>
+          <div>
+            <img src={img} alt='' />
+
+            <div>
+              <h6>{name}</h6>
+              <span>{phase}</span>
+              <span>
+                {quantity} barang (500 gr) x {price}
+              </span>
+            </div>
+          </div>
+
+          {status && (
+            <div>
+              <Button
+                primary
+                shop
+                address
+                text='Beri Ulasan'
+                bgColor={colors.lightGreenTransparent}
+              />
+            </div>
+          )}
+        </CardInvoice>
       )}
     </>
   );
@@ -445,6 +474,50 @@ const CardTransaction = styled.div`
 
     & > button {
       margin-left: 10px;
+    }
+  }
+`;
+
+const CardInvoice = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  /* background-color: red; */
+
+  &:not(:last-of-type) {
+    margin-bottom: 10px;
+  }
+
+  & > div:first-of-type {
+    display: flex;
+    /* background-color: green; */
+
+    & > img {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      margin-right: 10px;
+      object-fit: cover;
+    }
+
+    & > div {
+      & > h6 {
+        color: ${colors.white};
+      }
+
+      & > span {
+        display: block;
+        font-size: 12px;
+
+        &:first-of-type {
+          background-color: ${colors.lightGreenTransparent};
+          width: fit-content;
+          padding: 3px 10px;
+          border-radius: 10px;
+          margin-bottom: 5px;
+        }
+      }
     }
   }
 `;
