@@ -3,6 +3,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ItemsCarousel from 'react-items-carousel';
 import Cards from '../../../../../master/components/additional/Cards';
 import {
+  addresses,
   articles,
   cartItems,
   invoiceProduct,
@@ -25,6 +26,8 @@ const ProductsContainer = ({
   invoice,
   status,
   article,
+  address,
+  selected,
 }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
@@ -202,6 +205,23 @@ const ProductsContainer = ({
           )}
         </ArticlesContainer>
       )}
+
+      {address && (
+        <AddressContainer>
+          {addresses.map(({ name, phone, city, postal, route }, index) => (
+            <Cards
+              address
+              key={index}
+              name={name}
+              phone={phone}
+              city={city}
+              postal={postal}
+              route={route}
+              selected={selected}
+            />
+          ))}
+        </AddressContainer>
+      )}
     </>
   );
 };
@@ -281,6 +301,17 @@ const ArticlesContainer = styled.div`
   height: fit-content;
   max-height: 430px;
   border-radius: 10px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const AddressContainer = styled.div`
+  margin-top: 20px;
+  border-radius: 10px;
+  height: 500px;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {

@@ -4,7 +4,7 @@ import { colors } from '../../constant/style';
 import Button from '../../../master/components/additional/Button';
 import Rating from '../../../master/components/additional/Rating';
 import Quantity from './Quantity';
-import { FaCircle, FaRegTrashAlt } from 'react-icons/fa';
+import { FaCheck, FaCircle, FaRegTrashAlt } from 'react-icons/fa';
 import StatusOrder from './StatusOrder';
 
 const Cards = ({
@@ -32,6 +32,12 @@ const Cards = ({
   status,
   transaction,
   invoice,
+  address,
+  phone,
+  city,
+  postal,
+  route,
+  selected,
 }) => {
   return (
     <>
@@ -228,6 +234,33 @@ const Cards = ({
             </p>
           </div>
         </CardArticle>
+      )}
+
+      {address && (
+        <CardAddress>
+          <div>
+            <h6>{name}</h6>
+            <span>{phone}</span>
+          </div>
+
+          <p>{route}</p>
+          <p>
+            {city}, {postal}
+          </p>
+
+          <button>Ubah Alamat</button>
+
+          {selected ? (
+            <FaCheck size={20} color={colors.white} className='checked' />
+          ) : (
+            <Button
+              primary
+              address
+              text='Pilih Alamat'
+              bgColor={colors.darkGreen}
+            />
+          )}
+        </CardAddress>
       )}
     </>
   );
@@ -597,6 +630,68 @@ const CardArticle = styled.div`
         margin: 0 5px;
       }
     }
+  }
+`;
+
+const CardAddress = styled.div`
+  background-color: ${colors.lightGreenTransparent};
+  border-radius: 10px;
+  padding: 20px 30px;
+  position: relative;
+  overflow: hidden;
+
+  &:not(:last-of-type) {
+    margin-bottom: 5px;
+  }
+
+  &::before {
+    content: '';
+    width: 20px;
+    height: 50px;
+    background-color: ${colors.lightGreen};
+    position: absolute;
+    border-radius: 999px;
+    top: 30px;
+    left: -10px;
+  }
+
+  & > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    & > h6 {
+      color: ${colors.white};
+    }
+
+    & > span {
+      display: block;
+      font-size: 12px;
+      background-color: ${colors.lightGreenTransparent};
+      padding: 3px 7px;
+      border-radius: 5px;
+      margin-left: 10px;
+    }
+  }
+
+  & > button:nth-of-type(1) {
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 500;
+    color: ${colors.lightGreen};
+    margin-top: 30px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  & > button:nth-of-type(2),
+  & > .checked {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
   }
 `;
 
