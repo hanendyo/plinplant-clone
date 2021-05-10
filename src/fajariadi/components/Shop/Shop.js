@@ -13,6 +13,7 @@ import {
   ReviewContainer,
 } from './Shop.elemen';
 import { plant } from '../../../master/constant/data/dummy-data';
+import Quantity from '../../../master/components/additional/Quantity';
 
 const Shop = () => {
   return (
@@ -20,6 +21,7 @@ const Shop = () => {
       style={{
         backgroundColor: colors.green,
         minHeight: 'calc(100vh - 100px)',
+        paddingTop: 30,
       }}
     >
       <Container>
@@ -39,11 +41,7 @@ const Shop = () => {
               <div>
                 <img src={plant.seed} alt='' />
 
-                <div>
-                  <span>-</span>
-                  <span>0</span>
-                  <span>+</span>
-                </div>
+                <Quantity shop quantity={0} />
               </div>
 
               <div>
@@ -98,8 +96,6 @@ const Shop = () => {
           <h5>Ulasan</h5>
           <ProductsContainer review />
         </ReviewContainer>
-
-        {/* <div></div> */}
       </Container>
     </main>
   );

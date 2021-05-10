@@ -3,14 +3,29 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ItemsCarousel from 'react-items-carousel';
 import Cards from '../../../../../master/components/additional/Cards';
 import {
+  articles,
+  cartItems,
+  invoiceProduct,
   products,
   reviews,
+  transactions,
 } from '../../../../../master/constant/data/dummy-data';
 import { colors } from '../../../../../master/constant/style';
 import styled from 'styled-components';
 import { useMediaQuery } from 'react-responsive';
 
-const ProductsContainer = ({ category, slider, scroll, review }) => {
+const ProductsContainer = ({
+  category,
+  slider,
+  scroll,
+  cart,
+  review,
+  checkout,
+  transaction,
+  invoice,
+  status,
+  article,
+}) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
 
@@ -84,6 +99,109 @@ const ProductsContainer = ({ category, slider, scroll, review }) => {
           ))}
         </ReviewContainer>
       )}
+
+      {cart && (
+        <CartContainer>
+          {cartItems.map(({ img, name, phase, price, quantity }, index) => (
+            <Cards
+              cart
+              key={index}
+              img={img}
+              name={name}
+              phase={phase}
+              price={price}
+              quantity={quantity}
+            />
+          ))}
+        </CartContainer>
+      )}
+
+      {checkout && (
+        <CheckoutContainer>
+          {cartItems.map(({ img, name, phase, price }, index) => (
+            <Cards
+              checkout
+              key={index}
+              img={img}
+              name={name}
+              phase={phase}
+              price={price}
+            />
+          ))}
+        </CheckoutContainer>
+      )}
+
+      {transaction && (
+        <TransactionContainer>
+          {transactions.map(
+            (
+              {
+                img,
+                name,
+                phase,
+                price,
+                quantity,
+                totalPrice,
+                created,
+                no_order,
+                status,
+              },
+              index
+            ) => (
+              <Cards
+                transaction
+                key={index}
+                img={img}
+                name={name}
+                phase={phase}
+                price={price}
+                quantity={quantity}
+                totalPrice={totalPrice}
+                created={created}
+                no_order={no_order}
+                status={status}
+              />
+            )
+          )}
+        </TransactionContainer>
+      )}
+
+      {invoice && (
+        <InvoiceContainer>
+          {invoiceProduct.map(
+            ({ name, img, phase, price, quantity }, index) => (
+              <Cards
+                invoice
+                key={index}
+                name={name}
+                img={img}
+                phase={phase}
+                price={price}
+                quantity={quantity}
+                status={status}
+              />
+            )
+          )}
+        </InvoiceContainer>
+      )}
+
+      {article && (
+        <ArticlesContainer>
+          {articles.map(
+            ({ img, title, author, release_date, reading_time }, index) => (
+              <Cards
+                article
+                key={index}
+                img={img}
+                title={title}
+                author={author}
+                release_date={release_date}
+                reading_time={reading_time}
+              />
+            )
+          )}
+        </ArticlesContainer>
+      )}
     </>
   );
 };
@@ -114,6 +232,55 @@ const ReviewContainer = styled.div`
   height: 480px;
   padding: 8px 0 0 8px;
   border-radius: 20px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const CartContainer = styled.div`
+  /* background-color: red; */
+  border-radius: 10px;
+  height: 400px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const CheckoutContainer = styled(CartContainer)`
+  height: 245px;
+`;
+
+const TransactionContainer = styled.div`
+  /* background-color: red; */
+  height: 500px;
+  overflow-y: scroll;
+  border-radius: 10px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const InvoiceContainer = styled.div`
+  /* background-color: red; */
+  margin-left: 10px;
+  border-radius: 10px;
+  height: 310px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const ArticlesContainer = styled.div`
+  height: fit-content;
+  max-height: 430px;
+  border-radius: 10px;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {

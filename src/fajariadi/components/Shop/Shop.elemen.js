@@ -92,31 +92,6 @@ export const ProductHighlight = styled.div`
       border-radius: 20px;
       object-fit: cover;
     }
-
-    & > div {
-      /* background-color: red; */
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-
-      & > span {
-        display: block;
-        margin-left: 30px;
-
-        &:nth-of-type(odd) {
-          background-color: ${colors.lightGreenTransparent};
-          padding: 0 5px;
-          border-radius: 50%;
-          font-weight: 500;
-          cursor: pointer;
-        }
-
-        &:nth-of-type(even) {
-          font-weight: 500;
-          font-size: 24px;
-        }
-      }
-    }
   }
 
   /* KOLOM KANAN */

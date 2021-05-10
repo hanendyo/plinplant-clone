@@ -31,40 +31,112 @@ export const Logo = styled.h1`
 export const LinksContainer = styled.ul`
   display: flex;
   align-items: center;
-  position: relative;
 
   & > li {
     cursor: pointer;
-  }
 
-  & > li:not(:nth-of-type(3)) {
-    margin-right: 20px;
-  }
+    &:nth-of-type(2) {
+      margin: 0 20px;
+      border-left: 1px solid ${colors.yellowTransparent};
+      padding-left: 20px;
+    }
 
-  & > li:nth-of-type(3) {
-    & > button:nth-of-type(1) {
-      margin-right: 10px;
+    &:nth-of-type(3) {
+      & > button {
+        color: ${colors.white};
+        font-size: inherit;
+        font-family: inherit;
+        outline: none;
+
+        display: ${({ login }) => (login ? 'flex' : 'unset')};
+        align-items: ${({ login }) => (login ? 'center' : 'unset')};
+        border: ${({ login }) => (login ? 'none' : 'auto')};
+        background-color: ${({ login }) => (login ? 'unset' : 'auto')};
+        cursor: ${({ login }) => (login ? 'pointer' : 'inherit')};
+
+        &:focus {
+          & ~ div {
+            visibility: visible;
+          }
+        }
+
+        & > img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          margin-right: 5px;
+        }
+      }
+
+      & > button:nth-of-type(1) {
+        margin-right: 10px;
+      }
+
+      & > div {
+        position: absolute;
+        width: fit-content;
+        background-color: #f8faf8cc;
+        padding: 20px;
+        border-radius: 10px;
+        right: 0;
+        top: 80px;
+        backdrop-filter: blur(5px);
+        cursor: auto;
+        z-index: 999;
+        visibility: hidden;
+
+        & > div {
+          display: flex;
+          align-items: center;
+          border-bottom: 0.5px solid #2222224d;
+          margin-bottom: 10px;
+          padding-bottom: 20px;
+
+          & > img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+          }
+
+          & > div {
+            & > span {
+              display: block;
+              font-size: 12px;
+              color: #22222280;
+            }
+          }
+        }
+
+        & > ul {
+          & > li {
+            color: #fa4d4d;
+            font-weight: 500;
+            cursor: pointer;
+
+            &:not(:last-of-type) {
+              margin-bottom: 10px;
+              color: ${colors.black};
+            }
+          }
+        }
+      }
+    }
+
+    & > .cart {
+      color: ${colors.lightGreenTransparent};
+      font-size: inherit;
+      cursor: pointer;
+
+      &:hover {
+        color: ${colors.lightGreen};
+      }
     }
   }
 
-  & > li > .cart {
-    color: ${colors.lightGreenTransparent};
-    font-size: inherit;
-    cursor: pointer;
-
-    &:hover {
-      color: ${colors.lightGreen};
-    }
-  }
-
-  &::after {
-    content: '';
-    height: 30px;
-    width: 1px;
-    background-color: ${colors.yellowTransparent};
-    position: absolute;
-    left: 27px;
-  }
+  /* & > button {
+    z-index: 999
+  } */
 `;
 
 // Navbar.js style

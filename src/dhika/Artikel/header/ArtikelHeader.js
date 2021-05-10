@@ -1,54 +1,41 @@
-import React from "react";
+import React from 'react';
 import {
   HeaderComponent,
   Header,
-  Images,
-  Author,
-  Time,
-  Source,
-  Pointer,
   NewsContainer,
-  CardList,
-  Card,
-  CardImage,
-  CardText,
   News,
   Main,
-  TextArticle,
-} from "./ArtikelHeader.component";
-import image from "../images/cherrytomatomature.jpg";
-import { colors } from "../../../master/constant/style/index";
+} from './ArtikelHeader.component';
+import image from '../images/cherrytomatomature.jpg';
+import { FaCircle } from 'react-icons/fa';
+import ProductsContainer from '../../../fajariadi/components/Main/components/Product/ProductsContainer';
+
 const NewsHeader = () => {
   return (
     <Main>
       <News>
         <HeaderComponent>
-          <Images>
-            <img src={image} alt="News" />
-          </Images>
-          <br />
+          <img src={image} alt='News' />
+
           <Header>
-            <h1 style={{ color: `${colors.white}` }}>
+            <h2>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum,
               quae.
-            </h1>
-            <br />
-            <Author>
-              <text style={{ marginRight: "5px" }}>Oleh </text>
-              <text style={{ fontWeight: "700" }}> Author</text>
-            </Author>
-            <Time>
-              <text>30 April 2021</text>
-              <Pointer />
-              <text>3 menit baca</text>
-            </Time>
-            <Source>
-              <text>Sumber:</text>
-              <text style={{ fontStyle: "italic" }}>KOMPAS.COM</text>
-            </Source>
+            </h2>
 
-            <br />
-            <br />
+            <span>
+              Oleh <strong>Author</strong>
+            </span>
+
+            <p>
+              30 April 2021 <FaCircle size={7} className='circle' /> 3 menit
+              baca
+            </p>
+
+            <p>
+              Sumber: <em>KOMPAS.COM</em>
+            </p>
+
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias
               deleniti fuga ab tempora? Obcaecati dignissimos velit aliquid
@@ -58,6 +45,7 @@ const NewsHeader = () => {
               explicabo magnam veritatis minus? Labore enim fuga ab.
             </p>
             <br />
+
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias
               deleniti fuga ab tempora? Obcaecati dignissimos velit aliquid
@@ -68,132 +56,11 @@ const NewsHeader = () => {
             </p>
           </Header>
         </HeaderComponent>
-        <NewsContainer>
-          <TextArticle>
-            <p>Artikel Lain</p>
-          </TextArticle>
 
-          <CardList>
-            <Card>
-              <CardImage>
-                <img src={image} alt="news" />
-              </CardImage>
-              <CardText>
-                <p>Lorem judul ipsum dolor sit</p>
-                <Author>
-                  <text style={{ marginRight: "5px" }}>Oleh </text>
-                  <text style={{ fontWeight: "700" }}> Author</text>
-                </Author>
-                <Time>
-                  <text>30 April 2021</text>
-                  <Pointer />
-                  <text>3 menit baca</text>
-                </Time>
-              </CardText>
-            </Card>
-            <Card>
-              <CardImage>
-                <img src={image} alt="news" />
-              </CardImage>
-              <CardText>
-                <p>Lorem judul ipsum dolor sit</p>
-                <Author>
-                  <text style={{ marginRight: "5px" }}>Oleh </text>
-                  <text style={{ fontWeight: "700" }}> Author</text>
-                </Author>
-                <Time>
-                  <text>30 April 2021</text>
-                  <Pointer />
-                  <text>3 menit baca</text>
-                </Time>
-              </CardText>
-            </Card>
-            <Card>
-              <CardImage>
-                <img src={image} alt="news" />
-              </CardImage>
-              <CardText>
-                <p>Lorem judul ipsum dolor sit</p>
-                <Author>
-                  <text style={{ marginRight: "5px" }}>Oleh </text>
-                  <text style={{ fontWeight: "700" }}> Author</text>
-                </Author>
-                <Time>
-                  <text>30 April 2021</text>
-                  <Pointer />
-                  <text>3 menit baca</text>
-                </Time>
-              </CardText>
-            </Card>
-            <Card>
-              <CardImage>
-                <img src={image} alt="news" />
-              </CardImage>
-              <CardText>
-                <p>Lorem judul ipsum dolor sit</p>
-                <Author>
-                  <text style={{ marginRight: "5px" }}>Oleh </text>
-                  <text style={{ fontWeight: "700" }}> Author</text>
-                </Author>
-                <Time>
-                  <text>30 April 2021</text>
-                  <Pointer />
-                  <text>3 menit baca</text>
-                </Time>
-              </CardText>
-            </Card>
-            <Card>
-              <CardImage>
-                <img src={image} alt="news" />
-              </CardImage>
-              <CardText>
-                <p>Lorem judul ipsum dolor sit</p>
-                <Author>
-                  <text style={{ marginRight: "5px" }}>Oleh </text>
-                  <text style={{ fontWeight: "700" }}> Author</text>
-                </Author>
-                <Time>
-                  <text>30 April 2021</text>
-                  <Pointer />
-                  <text>3 menit baca</text>
-                </Time>
-              </CardText>
-            </Card>
-            <Card>
-              <CardImage>
-                <img src={image} alt="news" />
-              </CardImage>
-              <CardText>
-                <p>Lorem judul ipsum dolor sit</p>
-                <Author>
-                  <text style={{ marginRight: "5px" }}>Oleh </text>
-                  <text style={{ fontWeight: "700" }}> Author</text>
-                </Author>
-                <Time>
-                  <text>30 April 2021</text>
-                  <Pointer />
-                  <text>3 menit baca</text>
-                </Time>
-              </CardText>
-            </Card>
-            <Card>
-              <CardImage>
-                <img src={image} alt="news" />
-              </CardImage>
-              <CardText>
-                <p>Lorem judul ipsum dolor sit</p>
-                <Author>
-                  <text style={{ marginRight: "5px" }}>Oleh </text>
-                  <text style={{ fontWeight: "700" }}> Author</text>
-                </Author>
-                <Time>
-                  <text>30 April 2021</text>
-                  <Pointer />
-                  <text>3 menit baca</text>
-                </Time>
-              </CardText>
-            </Card>
-          </CardList>
+        <NewsContainer>
+          <h4>Artikel Lain</h4>
+
+          <ProductsContainer article />
         </NewsContainer>
       </News>
     </Main>
