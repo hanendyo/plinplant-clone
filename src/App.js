@@ -11,6 +11,8 @@ import {
   TransactionPage,
 } from './fajariadi/pages';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import ModalPengiriman from './dhika/Pengiriman/ModalPengiriman';
+import ProfilePage from './dhika/Profile/index';
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
         <Route path='/checkout' component={CheckoutPage} />
         <Route path='/invoice' component={InvoicePage} />
         <Route path='/transaction' component={TransactionPage} />
+        <Route path='/Alamat' component={ModalPengiriman} />
+        <Route path='/profile' component={ProfilePage} />
       </Switch>
     </Router>
   );

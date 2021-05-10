@@ -1,12 +1,10 @@
-import React from 'react';
-import Navbar from '../../master/components/Navbar/Navbar';
-import {
-  Header,
-  Body,
-  CTAEnsiklopedia,
-  RelatedProduct,
-} from '../../dhika/component/';
-import Footer from '../../master/components/Footer/Footer';
+import React from "react";
+import Navbar from "../../master/components/Navbar/Navbar";
+import { Header } from "../../dhika/Ensiklopedia/";
+import { Body } from "../../dhika/Ensiklopedia/";
+import { CTAEnsiklopedia } from "../../dhika/Ensiklopedia/";
+import { RelatedProduct } from "../../dhika/Ensiklopedia/";
+import Footer from "../../master/components/Footer/Footer";
 
 const Ensiklopedia = () => {
   return (
