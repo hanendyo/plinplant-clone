@@ -7,6 +7,9 @@ import {
   ImageContainer,
   Information,
   Data,
+  DataInput,
+  DataEdit,
+  ListData,
   DataAlamat,
   RightArea,
   Box,
@@ -64,38 +67,40 @@ const Profile = () => {
           <Information>
             <h4>Ubah Biodata Diri</h4>
             <Data>
-              <ul>
-                <li>Nama</li>
-                <li>Muhammad Adhika Adhiwijna</li>
-                <li>Ubah</li>
-              </ul>
+              <ListData>
+                <ul>
+                  <li>Nama</li>
+                  <li>Tanggal Lahir</li>
+                  <li>Jenis Kelamin</li>
+                </ul>
+              </ListData>
+              <DataInput>
+                <p>Muhammad Adhika Adhiwijna</p>
+                <p>Masukkan tanggal lahir</p>
+                <p>Masukkan jenis kelamin</p>
+              </DataInput>
+              <DataEdit>
+                <p>Ubah</p>
+                <p style={{ color: `${colors.green}` }}>Ubah</p>
+                <p style={{ color: `${colors.green}` }}>Ubah</p>
+              </DataEdit>
             </Data>
+            <h4>Ubah Kontak</h4>
             <Data>
-              <ul>
-                <li>Tanggal Lahir</li>
-                <li>9 May 2021</li>
-                <li>Ubah</li>
-              </ul>
-            </Data>
-            <Data>
-              <ul>
-                <li>Jenis Kelamin</li>
-                <li>Laki-Laki</li>
-                <li>Ubah</li>
-              </ul>
-            </Data>
-            <h4>Ubah Biodata Diri</h4>
-            <Data>
-              <ul>
-                <li>Email</li>
-                <li>adiwijna@gmail.com</li>
-              </ul>
-            </Data>
-            <Data>
-              <ul>
-                <li>Nomor HP</li>
-                <li>Tambah Nomor HP</li>
-              </ul>
+              <ListData>
+                <ul>
+                  <li>Email</li>
+                  <li>No. HP</li>
+                </ul>
+              </ListData>
+              <DataInput>
+                <p>adiwijna@gmail.com</p>
+                <p>Masukkan Nomor handphone</p>
+              </DataInput>
+              <DataEdit>
+                <p>Ubah</p>
+                <p style={{ color: `${colors.green}` }}>Ubah</p>
+              </DataEdit>
             </Data>
           </Information>
         </ProfileContainer>

@@ -50,7 +50,7 @@ export const ButtonProfile = styled.button`
 export const UploadBox = styled.div`
   width: 100%;
   max-width: 340px;
-  max-height: 450px;
+  min-height: 450px;
   border-radius: 10px;
   box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.15);
   background-color: ${colors.white};
@@ -75,32 +75,65 @@ export const ImageContainer = styled.div`
 `;
 
 export const Information = styled.div`
-  margin: 0 30px;
+  margin-left: 30px;
   width: 100%;
   background: ${colors.green};
 
   & > h4 {
     color: ${colors.white};
-    margin: 0 10px 20px;
+    margin: 0;
   }
 `;
 
 export const Data = styled.div`
   display: flex;
-  margin: 50px 0;
+  justify-content: left;
+  margin: 20px 0;
+  width: 100%;
+  height: 200px;
+`;
 
+export const ListData = styled.div`
+  width: 100%;
+  max-width: 170px;
   & > ul {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+    flex-direction: column;
+    height: 100%;
 
     & > li {
-      margin-left: 10px;
+      margin-bottom: 50px;
     }
-    & > li:nth-of-type(3) {
-      color: ${colors.yellow};
-      cursor: pointer;
-    }
+  }
+`;
+
+export const DataInput = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  & > p {
+    margin-bottom: 50px;
+  }
+
+  & > p:nth-of-type(2) {
+    color: ${colors.yellow};
+    cursor: pointer;
+  }
+  & > p:nth-of-type(3) {
+    color: ${colors.yellow};
+    cursor: pointer;
+  }
+`;
+
+export const DataEdit = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+
+  & > p {
+    color: ${colors.yellow};
+    cursor: pointer;
+    margin-bottom: 50px;
   }
 `;
 

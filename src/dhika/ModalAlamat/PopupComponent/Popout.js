@@ -33,6 +33,7 @@ const PopoutComponent = (props) => {
 
   const HandleSubmit = () => {
     console.log(input);
+    alert("Alamat berhasil dimasukkan");
   };
 
   return props.trigger ? (
