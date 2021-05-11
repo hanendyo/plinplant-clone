@@ -54,11 +54,11 @@ export const LinksContainer = styled.ul`
         background-color: ${({ login }) => (login ? 'unset' : 'auto')};
         cursor: ${({ login }) => (login ? 'pointer' : 'inherit')};
 
-        &:focus {
+        /* &:focus {
           & ~ div {
             visibility: visible;
           }
-        }
+        } */
 
         & > img {
           width: 30px;
@@ -83,7 +83,7 @@ export const LinksContainer = styled.ul`
         backdrop-filter: blur(5px);
         cursor: auto;
         z-index: 999;
-        visibility: hidden;
+        visibility: ${({ profile }) => (profile ? 'visible' : 'hidden')};
 
         & > div {
           display: flex;

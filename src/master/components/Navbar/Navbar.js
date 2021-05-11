@@ -7,6 +7,7 @@ import pic from '../../../fajariadi/assets/images/ig.jpg';
 
 const Navbar = () => {
   const [login, setLogin] = useState(true);
+  const [profile, setProfile] = useState(false);
 
   return (
     <Nav>
@@ -17,7 +18,7 @@ const Navbar = () => {
 
         <Logo className='logo-center'>PlinPlant</Logo>
 
-        <LinksContainer login={login}>
+        <LinksContainer login={login} profile={profile}>
           <li>
             <FaShoppingCart className='cart' />
           </li>
@@ -25,7 +26,7 @@ const Navbar = () => {
           <li>
             {login ? (
               <>
-                <button>
+                <button onClick={() => setProfile(!profile)}>
                   <img src={pic} alt='' />
                   <p>Halo, Fajar</p>
                 </button>
@@ -42,7 +43,7 @@ const Navbar = () => {
                   </div>
 
                   <ul>
-                    <li>Profil</li>
+                    <li onClick={() => console.log('Profil')}>Profil</li>
                     <li>Daftar Transaksi</li>
                     <li>Keluar</li>
                   </ul>
