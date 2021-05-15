@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import SignIn from "./hanendyo/SignIn/SignIn";
 import SignUp from "./hanendyo/SignUp/SignUp";
@@ -8,12 +8,17 @@ import Navbar from "./master/components/Navbar/Navbar";
 import NavbarLandingPage from "./master/components/Navbar/NavbarLandingPage";
 
 import { ContextProvider } from "./context/store/ContextStore";
+import CMS from "./hanendyo/CMS/CMS";
 
 const App = () => {
   return (
     <ContextProvider>
       <Router>
-        <SignUp />
+        <Switch>
+          <Route path='/register'><SignUp /></Route>
+          <Route path='/cms'><CMS /></Route>
+        </Switch>
+        
         {/* <SignIn/> */}
         {/* <NavbarLandingPage />
           <h1>Content</h1>
@@ -24,5 +29,4 @@ const App = () => {
   );
 };
 
-// export default RootContextProvider(App);
 export default App;

@@ -2,5 +2,5 @@ export default {
     fullname: '',
     email: '',
     password: '',
-    // passwordVerify: ''
+    password_verify: ''
 }

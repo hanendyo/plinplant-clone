@@ -1,0 +1,12 @@
+.nav-links{
+    /* border: 1px solid black;  */
+    background-color: #777;
+    padding: 20px;
+    height: 100vh;
+    width:10%;
+    float: left;
+    position: fixed;
+    margin-right: 20px;
+}
+
+

@@ -114,6 +114,19 @@ const SignUp = () => {
               variant="outlined"
             />
 
+            <TextField
+              className={classes.input}
+              required
+              placeholder="Verify your password"
+              id="outlined-basic"
+              label="Verify password"
+              value={signUpState.password_verify}
+              onChange={(e) =>
+                signUpDispatch(signUpAction("password_verify", e.target.value))
+              }
+              variant="outlined"
+            />
+
             <Button
               className={classes.button}
               variant="contained"
