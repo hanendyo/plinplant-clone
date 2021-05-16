@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ItemsCarousel from 'react-items-carousel';
 import Cards from '../../../../../master/components/additional/Cards';
 import {
   addresses,
   articles,
+  scroll,
   cartItems,
   invoiceProduct,
   products,
@@ -236,42 +237,65 @@ const CardContainer = styled.article`
 `;
 
 const ShopRelated = styled.div`
-  /* background-color: red; */
   width: fit-content;
   border-radius: 10px;
-  max-height: 480px;
+  height: 470px;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  &:hover {
+    & ~ p {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
   }
 `;
 
 const ReviewContainer = styled.div`
   /* background-color: red; */
-  height: 480px;
+  height: 470px;
   padding: 8px 0 0 8px;
-  border-radius: 20px;
+  border-radius: 20px 10px 10px 20px;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  :hover {
+    & ~ p {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
   }
 `;
 
 const CartContainer = styled.div`
-  /* background-color: red; */
   border-radius: 10px;
-  height: 400px;
+  height: fit-content;
+  max-height: 400px;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
     display: none;
   }
+
+  &:hover {
+    & ~ p {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+  }
 `;
 
 const CheckoutContainer = styled(CartContainer)`
-  height: 245px;
+  max-height: 245px;
 `;
 
 const TransactionContainer = styled.div`
@@ -282,6 +306,14 @@ const TransactionContainer = styled.div`
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  &:hover {
+    & ~ p {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
   }
 `;
 
@@ -295,27 +327,51 @@ const InvoiceContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  &:hover {
+    & ~ p {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+  }
 `;
 
 const ArticlesContainer = styled.div`
   height: fit-content;
-  max-height: 430px;
+  max-height: 410px;
   border-radius: 10px;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
     display: none;
   }
+
+  &:hover {
+    & ~ p {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+  }
 `;
 
 const AddressContainer = styled.div`
   margin-top: 20px;
   border-radius: 10px;
-  height: 500px;
+  height: 450px;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  &:hover {
+    & ~ p {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
   }
 `;
 

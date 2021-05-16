@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   HeaderComponent,
   Header,
@@ -7,10 +7,19 @@ import {
   Main,
 } from './ArtikelHeader.component';
 import image from '../images/cherrytomatomature.jpg';
-import { FaCircle } from 'react-icons/fa';
+import { FaArrowDown, FaCircle } from 'react-icons/fa';
 import ProductsContainer from '../../../fajariadi/components/Main/components/Product/ProductsContainer';
+import { articles } from '../../../master/constant/data/dummy-data';
+import ScrollSign from '../../../master/components/additional/ScrollSign';
 
 const NewsHeader = () => {
+  const [scroll, setScroll] = useState(true);
+
+  useEffect(() => {
+    if (articles.length < 4) setScroll(false);
+    if (articles.length > 3) setScroll(true);
+  }, [articles]);
+
   return (
     <Main>
       <News>
@@ -61,6 +70,8 @@ const NewsHeader = () => {
           <h4>Artikel Lain</h4>
 
           <ProductsContainer article />
+
+          {scroll && <ScrollSign center />}
         </NewsContainer>
       </News>
     </Main>

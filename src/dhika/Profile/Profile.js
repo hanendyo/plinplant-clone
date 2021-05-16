@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   StyledProfile,
   ProfileContainer,
@@ -19,6 +19,8 @@ import ModalAlamat from '../ModalAlamat/ModalAlamat';
 import { FaCheck } from 'react-icons/fa';
 import UploadBox from '../../master/components/additional/UploadBox';
 import ProductsContainer from '../../fajariadi/components/Main/components/Product/ProductsContainer';
+import { addresses } from '../../master/constant/data/dummy-data';
+import ScrollSign from '../../master/components/additional/ScrollSign';
 
 const Profile = () => {
   const [visible, setVisible] = useState(true);
@@ -26,6 +28,13 @@ const Profile = () => {
   const [trigger, setTrigger] = useState(true);
   const [empty, setEmpty] = useState(true);
   const [selected, setSelected] = useState(false);
+
+  const [scroll, setScroll] = useState(true);
+
+  useEffect(() => {
+    if (addresses.length < 4) setScroll(false);
+    if (addresses.length > 3) setScroll(true);
+  }, [addresses]);
 
   const HandleClick = () => {
     setTrigger(!trigger);
@@ -98,6 +107,8 @@ const Profile = () => {
               <ModalAlamat />
 
               <ProductsContainer address selected={selected} />
+
+              {scroll && <ScrollSign center />}
             </RightArea>
           </ProfileContainer>
         </>

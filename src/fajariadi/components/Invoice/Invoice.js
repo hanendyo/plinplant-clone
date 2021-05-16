@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaExclamationTriangle } from 'react-icons/fa';
 import Button from '../../../master/components/additional/Button';
+import ScrollSign from '../../../master/components/additional/ScrollSign';
 import StatusOrder from '../../../master/components/additional/StatusOrder';
+import { invoiceProduct } from '../../../master/constant/data/dummy-data';
 import { colors } from '../../../master/constant/style';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
 import {
@@ -13,7 +15,14 @@ import {
 } from './Invoice.elemen';
 
 const Invoice = () => {
-  const [status, setStatus] = useState(true);
+  const [status, setStatus] = useState(false);
+
+  const [scroll, setScroll] = useState(true);
+
+  useEffect(() => {
+    if (invoiceProduct.length < 5) setScroll(false);
+    if (invoiceProduct.length > 4) setScroll(true);
+  }, [invoiceProduct]);
 
   return (
     <main
@@ -48,6 +57,8 @@ const Invoice = () => {
             <h5>Daftar Produk</h5>
 
             <ProductsContainer invoice status={status} />
+
+            {scroll && <ScrollSign />}
           </div>
 
           <div>

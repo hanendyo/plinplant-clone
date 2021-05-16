@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaStar, FaRegStar } from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
 

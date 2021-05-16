@@ -316,7 +316,10 @@ const CardProductShop = styled.div`
   border-radius: 10px;
   overflow: hidden;
   width: 100%;
-  margin-bottom: 10px;
+
+  &:not(:last-of-type) {
+    margin-bottom: 10px;
+  }
 
   & > img {
     width: 100px;
@@ -340,13 +343,15 @@ const CardProductShop = styled.div`
 
 const CardReview = styled.div`
   background-color: ${colors.lightGreenTransparent};
-  margin-bottom: 15px;
   padding: 10px 20px 15px;
   border-radius: 10px;
   position: relative;
 
+  &:not(:last-of-type) {
+    margin-bottom: 15px;
+  }
+
   & > div {
-    /*  */
     margin-left: 30px;
 
     & > h6 {
@@ -444,9 +449,12 @@ const CardTransaction = styled.div`
   background-color: ${colors.darkGreen};
   padding: 15px 30px 70px;
   border-radius: 10px;
-  box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
+  /* box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1); */
   position: relative;
+
+  &:not(:last-of-type) {
+    margin-bottom: 5px;
+  }
 
   /* Header info */
   & > div:nth-of-type(1) {

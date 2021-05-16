@@ -16,5 +16,5 @@ export const Container = styled(StyledContainer)`
 
 export const ListCart = styled.section`
   width: 100%;
-  /* max-width: 700px; */
+  /* background-color: red; */
 `;

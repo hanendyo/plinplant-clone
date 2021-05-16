@@ -1,5 +1,5 @@
-import React from 'react';
-import { FaCartPlus, FaInfoCircle, FaStar } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
+import { FaArrowDown, FaCartPlus, FaInfoCircle, FaStar } from 'react-icons/fa';
 import { colors } from '../../../master/constant/style';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
 import {
@@ -12,10 +12,18 @@ import {
   RelatedProduct,
   ReviewContainer,
 } from './Shop.elemen';
-import { plant } from '../../../master/constant/data/dummy-data';
+import { plant, reviews } from '../../../master/constant/data/dummy-data';
 import Quantity from '../../../master/components/additional/Quantity';
+import ScrollSign from '../../../master/components/additional/ScrollSign';
 
 const Shop = () => {
+  const [scroll, setScroll] = useState(true);
+
+  useEffect(() => {
+    if (reviews.length < 4) setScroll(false);
+    if (reviews.length > 3) setScroll(true);
+  }, [reviews]);
+
   return (
     <main
       style={{
@@ -27,8 +35,9 @@ const Shop = () => {
       <Container>
         <RelatedProduct>
           <h5>Tanaman Terkait</h5>
-
           <ProductsContainer scroll category='hias' />
+
+          <ScrollSign center />
         </RelatedProduct>
 
         <Product>
@@ -95,6 +104,8 @@ const Shop = () => {
         <ReviewContainer>
           <h5>Ulasan</h5>
           <ProductsContainer review />
+
+          {scroll && <ScrollSign center />}
         </ReviewContainer>
       </Container>
     </main>
