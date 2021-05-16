@@ -7,7 +7,8 @@ import Navigation from "./navigation/Navigation";
 
 const CMS = () => {
   return (
-    <ContextProvider>
+    <div className='cmsBody'>    
+      <ContextProvider>
         <Router>
             <Navigation/>
             <Switch>
@@ -28,7 +29,9 @@ const CMS = () => {
                 <Route exact path='/cms/weight_input' component={Weight}></Route>
             </Switch>
         </Router>
-    </ContextProvider>
+      </ContextProvider>
+    </div>
+
   );
 };
 
