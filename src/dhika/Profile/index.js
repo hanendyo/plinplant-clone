@@ -8,7 +8,7 @@ const ProfilePage = () => {
     <div>
       <Navbar />
       <Profile />
-      <Footer colored />
+      <Footer />
     </div>
   );
 };

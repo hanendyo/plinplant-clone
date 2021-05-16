@@ -477,3 +477,34 @@ export const articles = [
     reading_time: 3,
   },
 ];
+
+export const addresses = [
+  {
+    name: 'Dhika Adhiwijna',
+    phone: '085156493800',
+    city: 'Jakarta',
+    postal: '15222',
+    route: 'Jl. Senoparty - Gerbang Putih No. 33',
+  },
+  {
+    name: 'Yudi Irwanto',
+    phone: '085156493810',
+    city: 'Tangerang',
+    postal: '15332',
+    route: 'Jl. Alam Sutra - Lt. 17 Nawadata Tower',
+  },
+  {
+    name: 'Hanendyo Indira',
+    phone: '085156493844',
+    city: 'Bogor',
+    postal: '15222',
+    route: 'Jl. Cibeureum - Gerbang Hijau Muda No. 21',
+  },
+  {
+    name: 'Fajar Riadi',
+    phone: '085156493801',
+    city: 'Kab. Tangerang',
+    postal: '15213',
+    route: 'Jl. Salembaran Kosambi - Depan Bakso Zahra',
+  },
+];

@@ -13,7 +13,7 @@ import {
 } from './Invoice.elemen';
 
 const Invoice = () => {
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(true);
 
   return (
     <main

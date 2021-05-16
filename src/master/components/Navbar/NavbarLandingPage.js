@@ -7,13 +7,14 @@ import pic from '../../../fajariadi/assets/images/ig.jpg';
 
 const NavbarLandingPage = () => {
   const [login, setLogin] = useState(true);
+  const [profile, setProfile] = useState(false);
 
   return (
     <Nav>
       <Container>
         <Logo>PlinPlant</Logo>
 
-        <LinksContainer login={login}>
+        <LinksContainer login={login} profile={profile}>
           <li>
             <FaShoppingCart className='cart' />
           </li>
@@ -21,7 +22,7 @@ const NavbarLandingPage = () => {
           <li>
             {login ? (
               <>
-                <button>
+                <button onClick={() => setProfile(!profile)}>
                   <img src={pic} alt='' />
                   <p>Halo, Fajar</p>
                 </button>

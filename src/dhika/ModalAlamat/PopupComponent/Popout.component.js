@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { colors } from "../../../master/constant/style/index";
+import styled from 'styled-components';
+import { colors } from '../../../master/constant/style/index';
 export const Popup = styled.div`
   position: fixed;
   top: 0;
@@ -10,6 +10,7 @@ export const Popup = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 999;
 `;
 export const PopupInner = styled.div`
   position: relative;
