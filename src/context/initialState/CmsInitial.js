@@ -1,16 +1,6 @@
-export const articleInitialState = 
-    {
-        author: '',
-        image: '',
-        created_at: '',
-        title: '',
-        content: ''
-    }
-
-    
-//! SEMENTARA BELOM GUA PAKE
 export default {
     category: {
+        pk_category_id: '',
         category_name: ''
     },
     review: {
@@ -77,7 +67,7 @@ export default {
         recipient_name: '',
         address: '',
         phone_number: '',
-        fk_city_id: 0
+        fk_city_id: ''
     },
     gender: {
         type: ''
