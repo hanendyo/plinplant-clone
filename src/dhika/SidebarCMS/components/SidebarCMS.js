@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
 import { colors } from "../../../master/constant/style/index";
-import { SidebarData } from "./DummyData";
+import { SidebarData } from "./SidebarList";
 import SubMenu from "./SubMenu";
 
 const Nav = styled.div`
@@ -24,7 +24,7 @@ const NavIcon = styled(Link)`
   align-items: center;
 
   & > p {
-    margin-left: 50px;
+    margin-left: 150px;
   }
 `;
 
@@ -44,6 +44,12 @@ const SidebarNav = styled.nav`
 const SidebarWrap = styled.div`
   width: 100%;
 `;
+const Logo = styled.h1`
+  font-size: 36px;
+  font-family: "Elsie Swash Caps", sans-serif;
+  color: ${colors.white};
+  margin-left: 200px;
+`;
 
 const SidebarCMS = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -57,7 +63,7 @@ const SidebarCMS = () => {
       <Nav>
         <NavIcon to="#">
           <FaIcons.FaBars onClick={showSidebar} />
-          <p>PlinPlant Content Management System</p>
+          <Logo className="logo-center">PlinPlant CMS</Logo>
         </NavIcon>
         <SidebarNav sidebar={sidebar}>
           <SidebarWrap>

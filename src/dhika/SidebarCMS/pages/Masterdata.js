@@ -1,11 +1,3 @@
-import React from "react";
+import SidebarCMS from "../components/SidebarCMS";
 
-const Masterdata = () => {
-  return (
-    <div>
-      <h1>MasterData</h1>
-    </div>
-  );
-};
-
-export default Masterdata;
+export default SidebarCMS;
