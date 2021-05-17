@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, SectionCTAE } from './CTAEnsiklopedia.component';
 import Button from '../../../master/components/additional/Button';
 import { colors } from '../../../master/constant/style/index';
+import { Link } from 'react-router-dom';
 
 const CTAEnsiklopedia = () => {
   return (
@@ -16,7 +17,9 @@ const CTAEnsiklopedia = () => {
           </p>
         </div>
 
-        <Button primary cta text='Beli Sekarang!' bgColor={colors.yellow} />
+        <a href='/shop'>
+          <Button primary cta text='Beli Sekarang!' bgColor={colors.yellow} />
+        </a>
       </Container>
     </SectionCTAE>
   );

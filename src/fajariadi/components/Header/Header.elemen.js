@@ -2,13 +2,14 @@ import styled from 'styled-components';
 import { colors, StyledContainer } from '../../../master/constant/style';
 
 export const HeaderTag = styled.header`
-  min-height: calc(100vh - 100px);
+  min-height: 100vh;
   background-color: ${colors.green};
 `;
 
 export const Container = styled(StyledContainer)`
   /* background-color: red; */
-  padding-top: 30px;
+
+  padding-top: 130px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;

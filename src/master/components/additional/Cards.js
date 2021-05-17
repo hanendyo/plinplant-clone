@@ -6,6 +6,7 @@ import Rating from '../../../master/components/additional/Rating';
 import Quantity from './Quantity';
 import { FaCheck, FaCircle, FaRegTrashAlt } from 'react-icons/fa';
 import StatusOrder from './StatusOrder';
+import { Link } from 'react-router-dom';
 
 const Cards = ({
   name,
@@ -45,13 +46,24 @@ const Cards = ({
         <CardProductLandingPage>
           <div>
             <h5>{name}</h5>
-            <Button card text='Beli' bgColor={colors.green} />
-            <Button
-              card
-              text='Ensiklopedia'
-              bgColor={colors.lightGreenTransparent}
-            />
+
+            {/* BUTTON CONTAINER */}
+            <div>
+              <a href='/shop'>
+                <Button card text='Beli' bgColor={colors.green} />
+              </a>
+
+              <a href='/ensiklopedia'>
+                <Button
+                  card
+                  text='Ensiklopedia'
+                  bgColor={colors.lightGreenTransparent}
+                />
+              </a>
+            </div>
+            {/* END OF BUTTON CONTAINER */}
           </div>
+
           <img src={img} alt='' />
         </CardProductLandingPage>
       )}
@@ -62,13 +74,19 @@ const Cards = ({
 
           <div>
             <h5>{name}</h5>
-            <Button primary shop text='Beli' bgColor={colors.green} />
-            <Button
-              primary
-              shop
-              text='Ensiklopedia'
-              bgColor={colors.lightGreenTransparent}
-            />
+
+            <a href='/shop'>
+              <Button primary shop text='Beli' bgColor={colors.green} />
+            </a>
+
+            <a href='/ensiklopedia'>
+              <Button
+                primary
+                shop
+                text='Ensiklopedia'
+                bgColor={colors.lightGreenTransparent}
+              />
+            </a>
           </div>
         </CardProductShop>
       )}
@@ -284,6 +302,10 @@ const CardProductLandingPage = styled.div`
     & > h5 {
       color: ${colors.white};
       margin-bottom: 5px;
+    }
+
+    & > div {
+      display: flex;
     }
   }
 

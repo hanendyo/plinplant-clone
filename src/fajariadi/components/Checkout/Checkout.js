@@ -25,9 +25,9 @@ const Checkout = () => {
   return (
     <main
       style={{
-        minHeight: 'calc(100vh - 100px)',
+        minHeight: '100vh',
         backgroundColor: colors.green,
-        paddingTop: 30,
+        paddingTop: 130,
       }}
     >
       <Container>

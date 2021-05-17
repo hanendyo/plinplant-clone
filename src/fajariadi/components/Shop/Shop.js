@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaArrowDown, FaCartPlus, FaInfoCircle, FaStar } from 'react-icons/fa';
+import { FaCartPlus, FaInfoCircle, FaStar } from 'react-icons/fa';
 import { colors } from '../../../master/constant/style';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
 import {
@@ -11,6 +11,7 @@ import {
   ProductHighlight,
   RelatedProduct,
   ReviewContainer,
+  Info,
 } from './Shop.elemen';
 import { plant, reviews } from '../../../master/constant/data/dummy-data';
 import Quantity from '../../../master/components/additional/Quantity';
@@ -28,8 +29,8 @@ const Shop = () => {
     <main
       style={{
         backgroundColor: colors.green,
-        minHeight: 'calc(100vh - 100px)',
-        paddingTop: 30,
+        minHeight: '100vh',
+        paddingTop: 130,
       }}
     >
       <Container>
@@ -42,15 +43,17 @@ const Shop = () => {
 
         <Product>
           <div>
-            <ButtonInfo>
-              Ensiklopedia <FaInfoCircle className='info' />
-            </ButtonInfo>
+            <Info>
+              <ButtonInfo>Ensiklopedia</ButtonInfo>
+
+              <FaInfoCircle size={20} className='info-icon' />
+            </Info>
 
             <ProductHighlight>
               <div>
                 <img src={plant.seed} alt='' />
 
-                <Quantity shop quantity={0} />
+                <Quantity shop quantity={1} />
               </div>
 
               <div>

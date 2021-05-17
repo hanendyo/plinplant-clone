@@ -163,21 +163,28 @@ export const ButtonCart = styled.button`
   }
 `;
 
-export const ButtonInfo = styled(ButtonCart)`
-  justify-content: space-between;
-  padding: 8px;
-  padding-left: 24px;
-  font-size: inherit;
+export const Info = styled.div`
   background-color: ${colors.lightGreenTransparent};
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  padding: 7px 10px 7px 25px;
+  border-radius: 999px;
   margin-left: auto;
   margin-bottom: 20px;
-  box-shadow: unset;
 
-  & > .info {
-    font-size: 24px;
-    margin-left: 10px;
+  & > .info-icon {
+    margin-left: 15px;
     color: ${colors.lightGreen};
   }
+`;
+
+export const ButtonInfo = styled(ButtonCart)`
+  justify-content: space-between;
+  background-color: unset;
+  padding: unset;
+  font-size: inherit;
+  box-shadow: unset;
 `;
 
 export const ReviewContainer = styled.section`

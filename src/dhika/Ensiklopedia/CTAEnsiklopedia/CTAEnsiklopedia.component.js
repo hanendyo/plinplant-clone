@@ -1,12 +1,6 @@
 import styled from 'styled-components';
 import { colors, StyledContainer } from '../../../master/constant/style/index';
 
-export const SectionCTAE = styled.section`
-  margin-top: 100px;
-  background-color: ${colors.green};
-  padding: 50px 0;
-`;
-
 export const Container = styled(StyledContainer)`
   background: ${colors.darkGreen};
   display: flex;
@@ -28,4 +22,10 @@ export const Container = styled(StyledContainer)`
       margin-bottom: 20px;
     }
   }
+`;
+
+export const SectionCTAE = styled.section`
+  margin-top: 100px;
+  background-color: ${colors.green};
+  padding: 50px 0;
 `;

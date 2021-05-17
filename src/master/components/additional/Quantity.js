@@ -20,10 +20,6 @@ const Counter = styled.div`
   & > span {
     display: block;
 
-    &:not(:first-of-type) {
-      margin-left: 30px;
-    }
-
     &:nth-of-type(odd) {
       background-color: ${colors.lightGreenTransparent};
       padding: 0 5px;
@@ -35,6 +31,8 @@ const Counter = styled.div`
     &:nth-of-type(even) {
       font-weight: 500;
       font-size: 24px;
+      width: 70px;
+      text-align: center;
     }
   }
 `;

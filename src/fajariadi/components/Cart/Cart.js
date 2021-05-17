@@ -19,8 +19,8 @@ const Cart = () => {
     <main
       style={{
         backgroundColor: colors.green,
-        paddingTop: 30,
-        minHeight: 'calc(100vh - 100px)',
+        paddingTop: 130,
+        minHeight: '100vh',
       }}
     >
       <Container>

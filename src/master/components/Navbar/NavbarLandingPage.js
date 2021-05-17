@@ -1,24 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, LinksContainer, Logo, Nav } from './Navbar.elemen';
 import { FaShoppingCart } from 'react-icons/fa';
 import Button from '../additional/Button';
 import { colors } from '../../constant/style';
 import pic from '../../../fajariadi/assets/images/ig.jpg';
+import { Link } from 'react-router-dom';
 
 const NavbarLandingPage = () => {
   const [login, setLogin] = useState(true);
   const [profile, setProfile] = useState(false);
 
+  // ::: NAVBAR INTERACTION :::
+  const [shadow, setShadow] = useState(false);
+
+  useEffect(() => {
+    const scrollNav = () => {
+      const navbarHeight = 100;
+      window.pageYOffset > navbarHeight ? setShadow(true) : setShadow(false);
+    };
+
+    window.addEventListener('scroll', scrollNav);
+
+    return () => {
+      window.removeEventListener('scroll', scrollNav);
+    };
+  }, []);
+  // ::: END OF NAVBAR INTERACTION :::
+
   return (
-    <Nav>
-      <Container>
+    <Nav shadow={shadow}>
+      <Container shadow={shadow}>
         <Logo>PlinPlant</Logo>
 
         <LinksContainer login={login} profile={profile}>
           <li>
             <FaShoppingCart className='cart' />
           </li>
-          <li>Artikel</li>
+          <li>
+            <a href='/article'>Artikel</a>
+          </li>
           <li>
             {login ? (
               <>
@@ -39,8 +59,12 @@ const NavbarLandingPage = () => {
                   </div>
 
                   <ul>
-                    <li>Profil</li>
-                    <li>Daftar Transaksi</li>
+                    <li>
+                      <a href='/profile'>Profil</a>
+                    </li>
+                    <li>
+                      <a href='/transaction'>Daftar Transaksi</a>
+                    </li>
                     <li>Keluar</li>
                   </ul>
                 </div>

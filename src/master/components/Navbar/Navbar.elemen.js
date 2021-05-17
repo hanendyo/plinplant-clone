@@ -2,15 +2,27 @@ import styled from 'styled-components';
 import { StyledContainer, colors } from '../../constant/style';
 
 export const Nav = styled.nav`
-  background-color: ${colors.green};
+  background-color: #254c50f2;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  transition: all 0.5s ease;
+  backdrop-filter: blur(5px);
+
+  box-shadow: ${({ shadow }) =>
+    shadow ? '0px 7px 10px rgba(0, 0, 0, 0.07)' : 'unset'};
 `;
 
 export const Container = styled(StyledContainer)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100px;
   position: relative;
+  transition: all 0.5s ease;
+
+  height: ${({ shadow }) => (shadow ? '80px' : '100px')};
 
   & > .logo-center {
     position: absolute;
@@ -79,7 +91,7 @@ export const LinksContainer = styled.ul`
         padding: 20px;
         border-radius: 10px;
         right: 0;
-        top: 80px;
+        bottom: -220px;
         backdrop-filter: blur(5px);
         cursor: auto;
         z-index: 999;
