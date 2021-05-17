@@ -3,6 +3,7 @@ import { FaExclamationTriangle } from 'react-icons/fa';
 import Button from '../../../master/components/additional/Button';
 import ScrollSign from '../../../master/components/additional/ScrollSign';
 import StatusOrder from '../../../master/components/additional/StatusOrder';
+import UploadBox from '../../../master/components/additional/UploadBox';
 import { invoiceProduct } from '../../../master/constant/data/dummy-data';
 import { colors } from '../../../master/constant/style';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
@@ -16,6 +17,7 @@ import {
 
 const Invoice = () => {
   const [status, setStatus] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const [scroll, setScroll] = useState(true);
 
@@ -118,10 +120,13 @@ const Invoice = () => {
               shop
               text='Upload Bukti Transfer'
               bgColor={colors.yellow}
+              onClick={() => setModal(true)}
             />
           </div>
         </ShoppingDetail>
       </Container>
+
+      <UploadBox invoice modal={modal} />
     </main>
   );
 };
