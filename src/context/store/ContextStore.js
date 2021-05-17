@@ -2,6 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import CmsInitial from '../initialState/CmsInitial';
 import SignInInitial from '../initialState/SignInInitial';
 import SignUpInitial from '../initialState/SignUpInitial';
+import { modalUploadReducer } from '../reducer';
 import { CmsReducer } from '../reducer/CmsReducer';
 import { SignInReducer } from '../reducer/SignInReducer';
 import { SignUpReducer } from '../reducer/SignUpReducer';
@@ -95,6 +96,12 @@ export const ContextProvider = ({ children }) => {
     CmsInitial.weight
   );
 
+  // ::: MODAL UPLOAD INVOICE :::
+  const [modalUploadState, modalUploadDispatch] = useReducer(
+    modalUploadReducer,
+    false
+  );
+
   return (
     <ContextStore.Provider
       value={{
@@ -161,6 +168,10 @@ export const ContextProvider = ({ children }) => {
         // weight
         weightState,
         weightDispatch,
+
+        // ::: MODAL UPLOAD :::
+        modalUploadState,
+        modalUploadDispatch,
       }}
     >
       {children}

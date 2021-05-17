@@ -1,10 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import avatar from '../../../fajariadi/assets/images/avatar.png';
 import styled from 'styled-components';
 import Button from './Button';
 import { colors } from '../../constant/style';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { closeModalUpload } from '../../../context/actions';
 
 const UploadBox = ({ invoice, modal, profile }) => {
+  const { modalUploadDispatch } = useContext(ContextStore);
+
   const inputFile = useRef(null);
 
   const onButtonClick = () => {
@@ -33,18 +37,7 @@ const UploadBox = ({ invoice, modal, profile }) => {
             onClick={onButtonClick}
           />
 
-          {invoice && (
-            <Button primary summary text='Hapus' bgColor='#2222224d' />
-          )}
-
           <p>Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG</p>
-
-          {invoice && (
-            <div>
-              <Button primary text='Batal' bgColor='#2222224d' />
-              <Button primary text='Kirim' bgColor={colors.green} />
-            </div>
-          )}
         </ModalBox>
       )}
 
@@ -68,19 +61,20 @@ const UploadBox = ({ invoice, modal, profile }) => {
               onClick={onButtonClick}
             />
 
-            {invoice && (
-              <Button primary summary text='Hapus' bgColor='#2222224d' />
-            )}
+            <Button primary summary text='Hapus' bgColor='#2222224d' />
 
             <p>Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG</p>
 
-            {invoice && (
-              <div>
-                <Button primary text='Batal' bgColor='#2222224d' />
+            <div>
+              <Button
+                primary
+                text='Batal'
+                bgColor='#2222224d'
+                onClick={() => modalUploadDispatch(closeModalUpload())}
+              />
 
-                <Button primary text='Kirim' bgColor={colors.green} />
-              </div>
-            )}
+              <Button primary text='Kirim' bgColor={colors.green} />
+            </div>
           </ModalBox>
         </ModalOverlay>
       )}

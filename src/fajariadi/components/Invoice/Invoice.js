@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaExclamationTriangle } from 'react-icons/fa';
+import { openModalUpload } from '../../../context/actions';
+import { ContextStore } from '../../../context/store/ContextStore';
 import Button from '../../../master/components/additional/Button';
 import ScrollSign from '../../../master/components/additional/ScrollSign';
 import StatusOrder from '../../../master/components/additional/StatusOrder';
@@ -17,9 +19,9 @@ import {
 
 const Invoice = () => {
   const [status, setStatus] = useState(false);
-  const [modal, setModal] = useState(false);
-
   const [scroll, setScroll] = useState(true);
+
+  const { modalUploadState, modalUploadDispatch } = useContext(ContextStore);
 
   useEffect(() => {
     if (invoiceProduct.length < 5) setScroll(false);
@@ -120,13 +122,13 @@ const Invoice = () => {
               shop
               text='Upload Bukti Transfer'
               bgColor={colors.yellow}
-              onClick={() => setModal(true)}
+              onClick={() => modalUploadDispatch(openModalUpload())}
             />
           </div>
         </ShoppingDetail>
       </Container>
 
-      <UploadBox invoice modal={modal} />
+      <UploadBox invoice modal={modalUploadState} />
     </main>
   );
 };

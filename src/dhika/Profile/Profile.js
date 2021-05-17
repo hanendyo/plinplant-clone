@@ -5,18 +5,9 @@ import {
   TextBox,
   Information,
   Data,
-  DataAlamat,
   RightArea,
-  Box,
-  BoxLeft,
-  FirstLine,
-  Rectangle,
-  ButtonCheck,
 } from './Profile.component';
-import Button from '../../master/components/additional/Button';
-import { colors } from '../../master/constant/style';
 import ModalAlamat from '../ModalAlamat/ModalAlamat';
-import { FaCheck } from 'react-icons/fa';
 import UploadBox from '../../master/components/additional/UploadBox';
 import ProductsContainer from '../../fajariadi/components/Main/components/Product/ProductsContainer';
 import { addresses } from '../../master/constant/data/dummy-data';

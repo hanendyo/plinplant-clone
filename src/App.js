@@ -2,8 +2,6 @@ import React from 'react';
 import {
   LandingPage,
   Ensiklopedia,
-  SignIn,
-  SignUp,
   ShoppingPage,
   CartPage,
   CheckoutPage,
@@ -21,8 +19,6 @@ const App = () => {
       <Switch>
         <Route exact path='/' component={LandingPage} />
         <Route path='/ensiklopedia' component={Ensiklopedia} />
-        <Route path='/login' component={SignIn} />
-        <Route path='/register' component={SignUp} />
         <Route path='/shop' component={ShoppingPage} />
         <Route path='/cart' component={CartPage} />
         <Route path='/checkout' component={CheckoutPage} />
