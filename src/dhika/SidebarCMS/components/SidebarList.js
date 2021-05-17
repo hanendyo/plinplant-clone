@@ -1,11 +1,6 @@
 import React from "react";
 import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/fa";
-import * as IoIcons from "react-icons/fa";
-import * as RiIcons from "react-icons/fa";
-import * as DiIcons from "react-icons/fa";
 import {
-  FaHome,
   FaSeedling,
   FaDatabase,
   FaChevronDown,
