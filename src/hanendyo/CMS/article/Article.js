@@ -11,7 +11,7 @@ import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { articlePost, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "./article.css";
+import '../CMS.css'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -127,7 +127,6 @@ const Article = () => {
       articlePost(articleState);
     }
 
-    // API
     setDataArticle([
       {
         ...dataArticle,
@@ -192,7 +191,7 @@ const Article = () => {
   };
 
   return (
-    <div className="article">
+    <div className="article cmsForm">
       <h3>Article input</h3>
       <form
         enctype="multipart/form-data"
@@ -292,21 +291,21 @@ const Article = () => {
           </Button>
         )}
       </form>
-      <div>
+      <div >
         <br />
         <h3>Result: </h3>
         {dataArticle.map(
           (data, index) => (
             console.log(`data article map: `, dataArticle),
             (
-              <ul key={index}>
-                <li>NO: {index + 1}</li>
-                <li>ARTICLE ID: {data.pk_article_id}</li>
-                <li>IMAGE: {data.image}'</li>
-                <li>AUTHOR: {data.author}</li>
-                <li>CREATED AT: {data.created_at}</li>
-                <li>TITLE: {data.title}</li>
-                <li>CONTENT: {data.content}</li>
+              <ul className='map' key={index}>
+                <li>NO: <span>{index + 1}</span></li>
+                <li>ARTICLE ID: <span>{data.pk_article_id}</span></li>
+                <li>IMAGE: <span>{data.image}</span>'</li>
+                <li>AUTHOR: <span>{data.author}</span></li>
+                <li>CREATED AT: <span>{data.created_at}</span></li>
+                <li>TITLE: <span>{data.title}</span></li>
+                <li>CONTENT: <span>{data.content}</span></li>
                 {
                   <div>
                     <button
