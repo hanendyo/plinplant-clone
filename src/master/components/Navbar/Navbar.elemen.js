@@ -87,14 +87,15 @@ export const LinksContainer = styled.ul`
       & > div {
         position: absolute;
         width: fit-content;
-        background-color: #f8faf8cc;
+        background-color: ${colors.white};
         padding: 20px;
         border-radius: 10px;
         right: 0;
         bottom: -220px;
-        backdrop-filter: blur(5px);
         cursor: auto;
         z-index: 999;
+        /* backdrop-filter: blur(10px); */
+
         visibility: ${({ profile }) => (profile ? 'visible' : 'hidden')};
 
         & > div {
@@ -135,7 +136,7 @@ export const LinksContainer = styled.ul`
       }
     }
 
-    & > .cart {
+    & > a > .cart {
       color: ${colors.lightGreenTransparent};
       font-size: inherit;
       cursor: pointer;

@@ -183,27 +183,33 @@ const Cards = ({
           <div>
             {status === 'Transaksi Selesai' ? (
               <>
+                <a href='/invoice'>
+                  <Button
+                    primary
+                    address
+                    text='Lihat Detail Transaksi'
+                    bgColor='unset'
+                  />
+                </a>
+
+                <a href='/invoice'>
+                  <Button
+                    primary
+                    address
+                    text='Beri Ulasan'
+                    bgColor={colors.yellow}
+                  />
+                </a>
+              </>
+            ) : (
+              <a href='/invoice'>
                 <Button
                   primary
                   address
                   text='Lihat Detail Transaksi'
-                  bgColor='unset'
-                />
-
-                <Button
-                  primary
-                  address
-                  text='Beri Ulasan'
                   bgColor={colors.yellow}
                 />
-              </>
-            ) : (
-              <Button
-                primary
-                address
-                text='Lihat Detail Transaksi'
-                bgColor={colors.yellow}
-              />
+              </a>
             )}
           </div>
         </CardTransaction>

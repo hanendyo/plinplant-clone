@@ -44,7 +44,9 @@ const Shop = () => {
         <Product>
           <div>
             <Info>
-              <ButtonInfo>Ensiklopedia</ButtonInfo>
+              <a href='/ensiklopedia'>
+                <ButtonInfo>Ensiklopedia</ButtonInfo>
+              </a>
 
               <FaInfoCircle size={20} className='info-icon' />
             </Info>

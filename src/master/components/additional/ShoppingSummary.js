@@ -38,9 +38,13 @@ const ShoppingSummary = ({ checkout }) => {
       </TotalBill>
 
       {checkout ? (
-        <Button primary summary text='Proses' bgColor={colors.yellow} />
+        <a href='/invoice'>
+          <Button primary summary text='Proses' bgColor={colors.yellow} />
+        </a>
       ) : (
-        <Button primary summary text='Beli' bgColor={colors.yellow} />
+        <a href='/checkout'>
+          <Button primary summary text='Beli' bgColor={colors.yellow} />
+        </a>
       )}
     </SummarySection>
   );

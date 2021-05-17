@@ -39,7 +39,9 @@ const Navbar = () => {
 
         <LinksContainer login={login} profile={profile}>
           <li>
-            <FaShoppingCart className='cart' />
+            <a href='/cart'>
+              <FaShoppingCart className='cart' />
+            </a>
           </li>
           <li>
             <a href='/article'>Artikel</a>
