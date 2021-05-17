@@ -220,7 +220,7 @@ const Contact = () => {
           (data, index) => (
             console.log(`data article map: `, dataArticle),
             (
-              <ul key={index}>
+              <ul className='map' key={index}>
                 <li>CONTACT ID: <span>{data.pk_gender_id}</span></li>
                 <li>GENDER TYPE: <span>{data.type}</span></li>
                 {

@@ -255,7 +255,7 @@ const Contact = () => {
           (data, index) => (
             console.log(`data article map: `, dataArticle),
             (
-              <ul key={index}>
+              <ul className='map' key={index}>
                 <li>CONTACT ID: <span>{data.pk_contact_id}</span></li>
                 <li>RECIPIENT NAME: <span>{data.recipient_name}</span></li>
                 <li>ADDRESS: <span>{data.address}</span></li>

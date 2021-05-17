@@ -219,7 +219,7 @@ const City = () => {
           (data, index) => (
             console.log(`data article map: `, dataArticle),
             (
-              <ul key={index}>
+              <ul className='map' key={index}>
                 <li>CITY NAME: <span>{data.city_name}</span></li>
                 <li>ID: <span>{data.pk_city_id}</span></li>
                 {

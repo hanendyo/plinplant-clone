@@ -291,14 +291,14 @@ const Article = () => {
           </Button>
         )}
       </form>
-      <div>
+      <div >
         <br />
         <h3>Result: </h3>
         {dataArticle.map(
           (data, index) => (
             console.log(`data article map: `, dataArticle),
             (
-              <ul key={index}>
+              <ul className='map' key={index}>
                 <li>NO: <span>{index + 1}</span></li>
                 <li>ARTICLE ID: <span>{data.pk_article_id}</span></li>
                 <li>IMAGE: <span>{data.image}</span>'</li>

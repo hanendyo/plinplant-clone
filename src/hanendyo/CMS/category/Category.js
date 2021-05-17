@@ -231,7 +231,7 @@ const Category = () => {
           (data, index) => (
             console.log(`data article map: `, dataArticle),
             (
-              <ul key={index}>
+              <ul className='map' key={index}>
                 <li>CATEGORY NAME: <span>{data.category_name}</span></li>
                 <li>ID: <span>{data.pk_category_id}</span></li>
                 {
