@@ -18,7 +18,7 @@ const Nav = styled.div`
   top: 0;
 `;
 
-const NavIcon = styled(Link)`
+const NavIcon = styled.div`
   margin-left: 2rem;
   font-size: 2rem;
   height: 80px;
@@ -85,15 +85,15 @@ const SidebarCMS = () => {
   return (
     <>
       <Nav>
-        <NavIcon to="#">
-          <FaIcons.FaBars onClick={showSidebar} />
+        <NavIcon>
+          <FaIcons.FaBars onClick={showSidebar} style={{ cursor: "pointer" }} />
           <Logo className="logo-center">PlinPlant CMS</Logo>
           <h5>Hello, Admin</h5>
         </NavIcon>
         <SidebarNav sidebar={sidebar}>
           <SidebarWrap>
             <NavIcon to="#">
-              <FaTimes onClick={showSidebar} />
+              <FaTimes onClick={showSidebar} style={{ cursor: "pointer" }} />
             </NavIcon>
             {SidebarData.map((item, index) => {
               return <SubMenu item={item} key={index} />;
