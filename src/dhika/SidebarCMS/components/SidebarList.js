@@ -15,109 +15,113 @@ import {
   FaShippingFast,
   FaTree,
   FaArchive,
+  FaDumbbell,
+  FaPhone,
 } from "react-icons/fa";
+import Plant from "../pages/Plant";
 
 export const SidebarData = [
   {
     title: "Master Data",
-    path: "./masterdata",
+    // path: "./masterdata",
     icon: <FaDatabase />,
     iconClosed: <FaChevronDown />,
     iconOpened: <FaChevronUp />,
     subNav: [
       {
         title: "Plant",
-        path: "./plant",
+        path: "/cms/plant_input",
+        data: <Plant />,
         icon: <FaSeedling />,
       },
       {
         title: "Plant Breeding",
-        path: "./plantbreeding",
+        path: "/cms/plant_breeding_input",
         icon: <FaTree />,
       },
       {
         title: "Plant Category",
-        path: "./plantcategory",
+        path: "/cms/category_input",
         icon: <FaList />,
       },
       {
         title: "City",
-        path: "./cty",
+        path: "/cms/city_input",
         icon: <FaCity />,
       },
       {
         title: "Shipping Charges",
-        path: "./shipping_charges",
+        path: "/cms/shipping_charges_input",
         icon: <FaShippingFast />,
       },
       {
         title: "Gender",
-        path: "./gender",
+        path: "/cms/gender_input",
         icon: <FaMale />,
+      },
+      {
+        title: "Weight",
+        path: "/cms/weight_input",
+        icon: <FaDumbbell />,
       },
     ],
   },
   {
     title: "User",
-    path: "./user",
+    // path: "./user",
     icon: <FaUser />,
     iconClosed: <FaChevronDown />,
     iconOpened: <FaChevronUp />,
     subNav: [
       {
         title: "User",
-        path: "./user",
+        path: "/cms/user_input",
         icon: <FaUser />,
       },
       {
         title: "Contact",
-        path: "./contact",
-        icon: <FaUser />,
-      },
-      {
-        title: "Login",
-        path: "./login",
-        icon: <FaUser />,
+        path: "/cms/contact_input",
+        icon: <FaPhone />,
       },
     ],
   },
   {
     title: "Order",
-    path: "./order",
+    // path: "./order",
     icon: <FaIcons.FaCartPlus />,
     iconClosed: <FaChevronDown />,
     iconOpened: <FaChevronUp />,
     subNav: [
       {
         title: "Order Status",
-        path: "./orderstatus",
+        path: "/cms/order_input",
         icon: <FaIcons.FaCartPlus />,
       },
       {
         title: "Order Item",
-        path: "./orderitem",
+        path: "/cms/order_item_input",
         icon: <FaIcons.FaCartPlus />,
       },
     ],
   },
   {
     title: "Pricelist",
-    path: "./pricelist",
+    path: "/cms/price_list_input",
     icon: <FaMoneyBill />,
   },
   {
     title: "Stock",
-    path: "./stock",
+    path: "/cms/stock_input",
     icon: <FaArchive />,
   },
   {
     title: "Articles",
-    path: "./articles",
+    path: "/cms/article_input",
     icon: <FaBook />,
   },
   {
     title: "Review",
-    path: "./review",
+    path: "/cms/review_input",
     icon: <FaStar />,
   },
 ];
