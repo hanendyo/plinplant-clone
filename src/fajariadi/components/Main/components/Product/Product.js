@@ -6,13 +6,31 @@ import {
   ProductSlider,
 } from './Product.element';
 import { FaSearch } from 'react-icons/fa';
-import { productsCategory } from '../../../../../master/constant/data/dummy-data';
+import {
+  products,
+  productsCategory,
+} from '../../../../../master/constant/data/dummy-data';
 import ProductsContainer from './ProductsContainer';
 
 const Product = () => {
   const [search, setSearch] = useState('');
 
   useEffect(() => {}, []);
+
+  const searchedProduct = products.map((item) =>
+    item.name
+      .toLowerCase()
+      .split('')
+      .filter((item) => item.trim())
+      .join('')
+  );
+  console.log(searchedProduct);
+
+  const searched = searchedProduct.map((item) =>
+    item.includes(search.toLowerCase())
+  );
+
+  console.log(searched);
 
   return (
     <SectionProduct>
@@ -35,9 +53,10 @@ const Product = () => {
         </SearchBar>
 
         <ProductSlider>
-          {search ? (
-            <p>Search Work!</p>
+          {search && searched ? (
+            <p>oke!</p>
           ) : (
+            // <ProductsContainer search product={searchedProduct} />
             <>
               {productsCategory.map((category, index) => (
                 <ProductsContainer slider category={category} key={index} />
