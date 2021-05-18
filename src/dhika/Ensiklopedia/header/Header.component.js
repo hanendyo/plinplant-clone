@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import { colors, StyledContainer } from "../../../master/constant/style/index";
+import styled from 'styled-components';
+import { colors, StyledContainer } from '../../../master/constant/style/index';
 
 export const StyledHeader = styled.header`
   background-color: ${colors.green};
 `;
 
 export const Container = styled(StyledContainer)`
-  padding: 30px 0 150px;
+  padding: 130px 0 150px;
   position: relative;
 
   & > div:nth-of-type(1) {

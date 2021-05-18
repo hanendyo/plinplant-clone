@@ -10,7 +10,7 @@ export const RelatedProduct = styled.section`
   background-color: ${colors.darkGreen};
   width: 100%;
   max-width: 255px;
-  padding: 20px 10px;
+  padding: 10px;
   border-radius: 20px;
   height: 550px;
   margin-right: 30px;
@@ -163,28 +163,35 @@ export const ButtonCart = styled.button`
   }
 `;
 
-export const ButtonInfo = styled(ButtonCart)`
-  justify-content: space-between;
-  padding: 8px;
-  padding-left: 24px;
-  font-size: inherit;
+export const Info = styled.div`
   background-color: ${colors.lightGreenTransparent};
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  padding: 7px 10px 7px 25px;
+  border-radius: 999px;
   margin-left: auto;
   margin-bottom: 20px;
-  box-shadow: unset;
 
-  & > .info {
-    font-size: 24px;
-    margin-left: 10px;
+  & > .info-icon {
+    margin-left: 15px;
     color: ${colors.lightGreen};
   }
+`;
+
+export const ButtonInfo = styled(ButtonCart)`
+  justify-content: space-between;
+  background-color: unset;
+  padding: unset;
+  font-size: inherit;
+  box-shadow: unset;
 `;
 
 export const ReviewContainer = styled.section`
   background-color: ${colors.darkGreen};
   width: 100%;
   max-width: 330px;
-  padding: 20px 15px 15px 5px;
+  padding: 10px 15px 15px 5px;
   border-radius: 20px;
   height: 550px;
   margin-left: 20px;

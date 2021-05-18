@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaCartPlus, FaInfoCircle, FaStar } from 'react-icons/fa';
 import { colors } from '../../../master/constant/style';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
@@ -11,37 +11,51 @@ import {
   ProductHighlight,
   RelatedProduct,
   ReviewContainer,
+  Info,
 } from './Shop.elemen';
-import { plant } from '../../../master/constant/data/dummy-data';
+import { plant, reviews } from '../../../master/constant/data/dummy-data';
 import Quantity from '../../../master/components/additional/Quantity';
+import ScrollSign from '../../../master/components/additional/ScrollSign';
 
 const Shop = () => {
+  const [scroll, setScroll] = useState(true);
+
+  useEffect(() => {
+    if (reviews.length < 4) setScroll(false);
+    if (reviews.length > 3) setScroll(true);
+  }, [reviews]);
+
   return (
     <main
       style={{
         backgroundColor: colors.green,
-        minHeight: 'calc(100vh - 100px)',
-        paddingTop: 30,
+        minHeight: '100vh',
+        paddingTop: 130,
       }}
     >
       <Container>
         <RelatedProduct>
           <h5>Tanaman Terkait</h5>
-
           <ProductsContainer scroll category='hias' />
+
+          <ScrollSign center />
         </RelatedProduct>
 
         <Product>
           <div>
-            <ButtonInfo>
-              Ensiklopedia <FaInfoCircle className='info' />
-            </ButtonInfo>
+            <Info>
+              <a href='/ensiklopedia'>
+                <ButtonInfo>Ensiklopedia</ButtonInfo>
+              </a>
+
+              <FaInfoCircle size={20} className='info-icon' />
+            </Info>
 
             <ProductHighlight>
               <div>
                 <img src={plant.seed} alt='' />
 
-                <Quantity shop quantity={0} />
+                <Quantity shop quantity={1} />
               </div>
 
               <div>
@@ -95,6 +109,8 @@ const Shop = () => {
         <ReviewContainer>
           <h5>Ulasan</h5>
           <ProductsContainer review />
+
+          {scroll && <ScrollSign center />}
         </ReviewContainer>
       </Container>
     </main>

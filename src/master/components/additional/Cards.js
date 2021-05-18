@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
 import Button from '../../../master/components/additional/Button';
@@ -6,6 +6,9 @@ import Rating from '../../../master/components/additional/Rating';
 import Quantity from './Quantity';
 import { FaCheck, FaCircle, FaRegTrashAlt } from 'react-icons/fa';
 import StatusOrder from './StatusOrder';
+import { Link } from 'react-router-dom';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { openModalReview } from '../../../context/actions';
 
 const Cards = ({
   name,
@@ -39,19 +42,32 @@ const Cards = ({
   route,
   selected,
 }) => {
+  const { modalReviewDispatch } = useContext(ContextStore);
+
   return (
     <>
       {slider && (
         <CardProductLandingPage>
           <div>
             <h5>{name}</h5>
-            <Button card text='Beli' bgColor={colors.green} />
-            <Button
-              card
-              text='Ensiklopedia'
-              bgColor={colors.lightGreenTransparent}
-            />
+
+            {/* BUTTON CONTAINER */}
+            <div>
+              <a href='/shop'>
+                <Button card text='Beli' bgColor={colors.green} />
+              </a>
+
+              <a href='/ensiklopedia'>
+                <Button
+                  card
+                  text='Ensiklopedia'
+                  bgColor={colors.lightGreenTransparent}
+                />
+              </a>
+            </div>
+            {/* END OF BUTTON CONTAINER */}
           </div>
+
           <img src={img} alt='' />
         </CardProductLandingPage>
       )}
@@ -62,13 +78,19 @@ const Cards = ({
 
           <div>
             <h5>{name}</h5>
-            <Button primary shop text='Beli' bgColor={colors.green} />
-            <Button
-              primary
-              shop
-              text='Ensiklopedia'
-              bgColor={colors.lightGreenTransparent}
-            />
+
+            <a href='/shop'>
+              <Button primary shop text='Beli' bgColor={colors.green} />
+            </a>
+
+            <a href='/ensiklopedia'>
+              <Button
+                primary
+                shop
+                text='Ensiklopedia'
+                bgColor={colors.lightGreenTransparent}
+              />
+            </a>
           </div>
         </CardProductShop>
       )}
@@ -165,27 +187,33 @@ const Cards = ({
           <div>
             {status === 'Transaksi Selesai' ? (
               <>
+                <a href='/invoice'>
+                  <Button
+                    primary
+                    address
+                    text='Lihat Detail Transaksi'
+                    bgColor='unset'
+                  />
+                </a>
+
+                <a href='/invoice'>
+                  <Button
+                    primary
+                    address
+                    text='Beri Ulasan'
+                    bgColor={colors.yellow}
+                  />
+                </a>
+              </>
+            ) : (
+              <a href='/invoice'>
                 <Button
                   primary
                   address
                   text='Lihat Detail Transaksi'
-                  bgColor='unset'
-                />
-
-                <Button
-                  primary
-                  address
-                  text='Beri Ulasan'
                   bgColor={colors.yellow}
                 />
-              </>
-            ) : (
-              <Button
-                primary
-                address
-                text='Lihat Detail Transaksi'
-                bgColor={colors.yellow}
-              />
+              </a>
             )}
           </div>
         </CardTransaction>
@@ -213,6 +241,7 @@ const Cards = ({
                 address
                 text='Beri Ulasan'
                 bgColor={colors.lightGreenTransparent}
+                onClick={() => modalReviewDispatch(openModalReview())}
               />
             </div>
           )}
@@ -285,6 +314,10 @@ const CardProductLandingPage = styled.div`
       color: ${colors.white};
       margin-bottom: 5px;
     }
+
+    & > div {
+      display: flex;
+    }
   }
 
   & > img {
@@ -316,7 +349,10 @@ const CardProductShop = styled.div`
   border-radius: 10px;
   overflow: hidden;
   width: 100%;
-  margin-bottom: 10px;
+
+  &:not(:last-of-type) {
+    margin-bottom: 10px;
+  }
 
   & > img {
     width: 100px;
@@ -340,13 +376,15 @@ const CardProductShop = styled.div`
 
 const CardReview = styled.div`
   background-color: ${colors.lightGreenTransparent};
-  margin-bottom: 15px;
   padding: 10px 20px 15px;
   border-radius: 10px;
   position: relative;
 
+  &:not(:last-of-type) {
+    margin-bottom: 15px;
+  }
+
   & > div {
-    /*  */
     margin-left: 30px;
 
     & > h6 {
@@ -444,9 +482,12 @@ const CardTransaction = styled.div`
   background-color: ${colors.darkGreen};
   padding: 15px 30px 70px;
   border-radius: 10px;
-  box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
+  /* box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1); */
   position: relative;
+
+  &:not(:last-of-type) {
+    margin-bottom: 5px;
+  }
 
   /* Header info */
   & > div:nth-of-type(1) {

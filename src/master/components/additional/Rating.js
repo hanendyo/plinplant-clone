@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaStar, FaRegStar } from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
 
@@ -38,6 +38,16 @@ const Rating = ({ rate }) => {
       {rate === 1 && (
         <Star>
           <FaStar /> <FaStar color={colors.lightGreenTransparent} />{' '}
+          <FaStar color={colors.lightGreenTransparent} />{' '}
+          <FaStar color={colors.lightGreenTransparent} />{' '}
+          <FaStar color={colors.lightGreenTransparent} />
+        </Star>
+      )}
+
+      {rate === 0 && (
+        <Star>
+          <FaStar color={colors.lightGreenTransparent} />{' '}
+          <FaStar color={colors.lightGreenTransparent} />{' '}
           <FaStar color={colors.lightGreenTransparent} />{' '}
           <FaStar color={colors.lightGreenTransparent} />{' '}
           <FaStar color={colors.lightGreenTransparent} />

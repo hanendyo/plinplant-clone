@@ -74,7 +74,8 @@ const BtnComponent = styled.button`
 
   font-weight: ${({ cta, summary, address }) =>
     cta || summary || address ? '500' : 'unset'};
-  width: ${({ summary }) => (summary ? '100%' : 'unset')};
+
+  width: ${({ summary, shop }) => (summary || shop ? '100%' : 'unset')};
 
   border-radius: ${({ card, shop }) => (card || shop ? '4px' : '10px')};
 

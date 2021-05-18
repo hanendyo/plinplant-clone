@@ -3,8 +3,8 @@ import { colors, StyledContainer } from '../../../master/constant/style/index';
 
 export const Main = styled.main`
   background-color: ${colors.green};
-  min-height: calc(100vh - 100px);
-  padding: 30px 0 100px;
+  min-height: 100vh;
+  padding: 130px 0 100px;
 `;
 
 export const News = styled(StyledContainer)`
@@ -57,7 +57,7 @@ export const NewsContainer = styled.section`
   height: fit-content;
   max-height: 500px;
   position: sticky;
-  top: 20px;
+  top: 100px;
 
   & > h4 {
     color: ${colors.white};

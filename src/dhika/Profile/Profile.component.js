@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { colors, StyledContainer } from '../../master/constant/style/index';
 
 export const StyledProfile = styled.main`
-  min-height: calc(100vh - 100px);
+  min-height: 100vh;
   background-color: ${colors.green};
-  padding-top: 30px;
+  padding-top: 130px;
 `;
 
 export const ProfileContainer = styled(StyledContainer)`

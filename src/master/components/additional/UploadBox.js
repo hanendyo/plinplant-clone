@@ -1,10 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import avatar from '../../../fajariadi/assets/images/avatar.png';
 import styled from 'styled-components';
 import Button from './Button';
 import { colors } from '../../constant/style';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { closeModalUpload } from '../../../context/actions';
 
-const UploadBox = ({ invoice, profile }) => {
+const UploadBox = ({ invoice, modal, profile }) => {
+  const { modalUploadDispatch } = useContext(ContextStore);
+
   const inputFile = useRef(null);
 
   const onButtonClick = () => {
@@ -13,37 +17,83 @@ const UploadBox = ({ invoice, profile }) => {
   };
 
   return (
-    <ModalBox profile={profile}>
-      <img src={avatar} alt='' />
+    <>
+      {profile && (
+        <ModalBox profile={profile}>
+          <img src={avatar} alt='' />
 
-      <input
-        type='file'
-        id='file'
-        ref={inputFile}
-        style={{ display: 'none' }}
-      />
+          <input
+            type='file'
+            id='file'
+            ref={inputFile}
+            style={{ display: 'none' }}
+          />
 
-      <Button
-        primary
-        summary
-        text='Pilih Foto'
-        bgColor={colors.green}
-        onClick={onButtonClick}
-      />
+          <Button
+            primary
+            summary
+            text='Pilih Foto'
+            bgColor={colors.green}
+            onClick={onButtonClick}
+          />
 
-      {invoice && <Button primary summary text='Hapus' bgColor='#2222224d' />}
-
-      <p>Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG</p>
+          <p>Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG</p>
+        </ModalBox>
+      )}
 
       {invoice && (
-        <div>
-          <Button primary text='Batal' bgColor='#2222224d' />
-          <Button primary text='Kirim' bgColor={colors.green} />
-        </div>
+        <ModalOverlay modal={modal}>
+          <ModalBox>
+            <img src={avatar} alt='' />
+
+            <input
+              type='file'
+              id='file'
+              ref={inputFile}
+              style={{ display: 'none' }}
+            />
+
+            <Button
+              primary
+              summary
+              text='Pilih Foto'
+              bgColor={colors.green}
+              onClick={onButtonClick}
+            />
+
+            <Button primary summary text='Hapus' bgColor='#2222224d' />
+
+            <p>Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG</p>
+
+            <div>
+              <Button
+                primary
+                text='Batal'
+                bgColor='#2222224d'
+                onClick={() => modalUploadDispatch(closeModalUpload())}
+              />
+
+              <Button primary text='Kirim' bgColor={colors.green} />
+            </div>
+          </ModalBox>
+        </ModalOverlay>
       )}
-    </ModalBox>
+    </>
   );
 };
+
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #222222cc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: ${({ modal }) => (modal ? 'auto' : 'none')};
+`;
 
 const ModalBox = styled.div`
   width: 100%;
@@ -53,6 +103,7 @@ const ModalBox = styled.div`
   box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.1);
   background-color: ${colors.white};
   padding: 20px;
+
   margin-right: ${({ profile }) => (profile ? '30px' : 'unset')};
 
   & > img {

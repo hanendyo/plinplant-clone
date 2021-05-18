@@ -1,0 +1,19 @@
+.cmsBody {
+  color: black;
+  /* padding: 20px;
+    margin-left: 200px; */
+}
+
+.cmsForm {
+  padding: 20px;
+  margin-left: 200px;
+}
+
+h1 {
+  float: right;
+  margin: auto;
+}
+
+.map li span {
+  color: lightcoral;
+}

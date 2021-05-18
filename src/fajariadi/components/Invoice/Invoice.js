@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaExclamationTriangle } from 'react-icons/fa';
+import { openModalUpload } from '../../../context/actions';
+import { ContextStore } from '../../../context/store/ContextStore';
 import Button from '../../../master/components/additional/Button';
+import ScrollSign from '../../../master/components/additional/ScrollSign';
 import StatusOrder from '../../../master/components/additional/StatusOrder';
+import UploadBox from '../../../master/components/additional/UploadBox';
+import { invoiceProduct } from '../../../master/constant/data/dummy-data';
 import { colors } from '../../../master/constant/style';
+import { ReviewModal } from '../../modals';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
 import {
   Container,
@@ -13,14 +19,24 @@ import {
 } from './Invoice.elemen';
 
 const Invoice = () => {
-  const [status, setStatus] = useState(true);
+  const [scroll, setScroll] = useState(true);
+
+  const { modalUploadState, modalUploadDispatch } = useContext(ContextStore);
+  const { modalReviewState } = useContext(ContextStore);
+
+  const status = true;
+
+  useEffect(() => {
+    if (invoiceProduct.length < 5) setScroll(false);
+    if (invoiceProduct.length > 4) setScroll(true);
+  }, [invoiceProduct]);
 
   return (
     <main
       style={{
-        minHeight: 'calc(100vh - 100px)',
+        minHeight: '100vh',
         backgroundColor: colors.green,
-        paddingTop: 30,
+        paddingTop: 130,
       }}
     >
       <Container>
@@ -48,6 +64,8 @@ const Invoice = () => {
             <h5>Daftar Produk</h5>
 
             <ProductsContainer invoice status={status} />
+
+            {scroll && <ScrollSign />}
           </div>
 
           <div>
@@ -107,10 +125,14 @@ const Invoice = () => {
               shop
               text='Upload Bukti Transfer'
               bgColor={colors.yellow}
+              onClick={() => modalUploadDispatch(openModalUpload())}
             />
           </div>
         </ShoppingDetail>
       </Container>
+
+      <UploadBox invoice modal={modalUploadState} />
+      <ReviewModal modal={modalReviewState} />
     </main>
   );
 };

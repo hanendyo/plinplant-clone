@@ -37,6 +37,7 @@ export const ShoppingDetail = styled.section`
 
   & > div:nth-of-type(1) {
     width: 100%;
+    /* background-color: burlywood; */
 
     & > h5 {
       color: ${colors.white};
