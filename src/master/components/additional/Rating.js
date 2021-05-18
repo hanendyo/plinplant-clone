@@ -43,6 +43,16 @@ const Rating = ({ rate }) => {
           <FaStar color={colors.lightGreenTransparent} />
         </Star>
       )}
+
+      {rate === 0 && (
+        <Star>
+          <FaStar color={colors.lightGreenTransparent} />{' '}
+          <FaStar color={colors.lightGreenTransparent} />{' '}
+          <FaStar color={colors.lightGreenTransparent} />{' '}
+          <FaStar color={colors.lightGreenTransparent} />{' '}
+          <FaStar color={colors.lightGreenTransparent} />
+        </Star>
+      )}
     </>
   );
 };

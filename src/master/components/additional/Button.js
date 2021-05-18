@@ -55,6 +55,7 @@ const BtnComponent = styled.button`
   font-family: inherit;
   outline: none;
   cursor: pointer;
+  transition: all 0.3s ease;
 
   color: ${({ bgColor }) =>
     bgColor === 'unset' ? colors.yellow : colors.white};
@@ -84,8 +85,6 @@ const BtnComponent = styled.button`
   }
 
   &:hover {
-    /* transition: all 0.3s ease; */
-
     background-color: ${({ primary, card }) =>
       primary || card ? colors.lightGreen : 'transparent'};
 

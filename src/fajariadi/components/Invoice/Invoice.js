@@ -8,6 +8,7 @@ import StatusOrder from '../../../master/components/additional/StatusOrder';
 import UploadBox from '../../../master/components/additional/UploadBox';
 import { invoiceProduct } from '../../../master/constant/data/dummy-data';
 import { colors } from '../../../master/constant/style';
+import { ReviewModal } from '../../modals';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
 import {
   Container,
@@ -18,10 +19,12 @@ import {
 } from './Invoice.elemen';
 
 const Invoice = () => {
-  const [status, setStatus] = useState(false);
   const [scroll, setScroll] = useState(true);
 
   const { modalUploadState, modalUploadDispatch } = useContext(ContextStore);
+  const { modalReviewState } = useContext(ContextStore);
+
+  const status = true;
 
   useEffect(() => {
     if (invoiceProduct.length < 5) setScroll(false);
@@ -129,6 +132,7 @@ const Invoice = () => {
       </Container>
 
       <UploadBox invoice modal={modalUploadState} />
+      <ReviewModal modal={modalReviewState} />
     </main>
   );
 };

@@ -82,17 +82,17 @@ const UploadBox = ({ invoice, modal, profile }) => {
   );
 };
 
-const ModalOverlay = styled.div`
+export const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: #00000080;
+  background-color: #222222cc;
   display: flex;
   justify-content: center;
   align-items: center;
-  visibility: ${({ modal }) => (modal ? 'visible' : 'hidden')};
+  display: ${({ modal }) => (modal ? 'auto' : 'none')};
 `;
 
 const ModalBox = styled.div`

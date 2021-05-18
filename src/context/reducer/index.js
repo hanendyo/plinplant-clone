@@ -1,3 +1,3 @@
-import modalUploadReducer from './modalUploadReducer';
+import { modalUploadReducer, modalReviewReducer } from './modalReducers';
 
-export { modalUploadReducer };
+export { modalUploadReducer, modalReviewReducer };

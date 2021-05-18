@@ -12,6 +12,8 @@ import {
 } from './fajariadi/pages';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ModalPengiriman from './dhika/Pengiriman/ModalPengiriman';
+import { ReviewModal } from './fajariadi/modals';
+import RatingInput from './master/components/additional/RatingInput';
 
 const App = () => {
   return (
@@ -27,6 +29,8 @@ const App = () => {
         <Route path='/article' component={ArticlePage} />
         <Route path='/profile' component={ProfilePage} />
         <Route path='/alamat' component={ModalPengiriman} />
+        <Route path='/modaltest' component={ReviewModal} />
+        <Route path='/ratingtest' component={RatingInput} />
       </Switch>
     </Router>
   );

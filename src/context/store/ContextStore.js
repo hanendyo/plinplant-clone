@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import CmsInitial from '../initialState/CmsInitial';
 import SignInInitial from '../initialState/SignInInitial';
 import SignUpInitial from '../initialState/SignUpInitial';
-import { modalUploadReducer } from '../reducer';
+import { modalUploadReducer, modalReviewReducer } from '../reducer';
 import { CmsReducer } from '../reducer/CmsReducer';
 import { SignInReducer } from '../reducer/SignInReducer';
 import { SignUpReducer } from '../reducer/SignUpReducer';
@@ -102,6 +102,12 @@ export const ContextProvider = ({ children }) => {
     false
   );
 
+  // ::: MODAL REVIEW INVOICE :::
+  const [modalReviewState, modalReviewDispatch] = useReducer(
+    modalReviewReducer,
+    false
+  );
+
   return (
     <ContextStore.Provider
       value={{
@@ -172,6 +178,10 @@ export const ContextProvider = ({ children }) => {
         // ::: MODAL UPLOAD :::
         modalUploadState,
         modalUploadDispatch,
+
+        // ::: MODAL REVIEW :::
+        modalReviewState,
+        modalReviewDispatch,
       }}
     >
       {children}

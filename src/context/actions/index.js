@@ -1,6 +1,11 @@
 // export * from './SignUpAction'
 // export * from './SignInAction'
 
-import { openModalUpload, closeModalUpload } from './modalUploadAction';
+import {
+  openModalUpload,
+  closeModalUpload,
+  openModalReview,
+  closeModalReview,
+} from './modalActions';
 
-export { openModalUpload, closeModalUpload };
+export { openModalUpload, closeModalUpload, openModalReview, closeModalReview };

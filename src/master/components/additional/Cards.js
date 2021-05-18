@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
 import Button from '../../../master/components/additional/Button';
@@ -7,6 +7,8 @@ import Quantity from './Quantity';
 import { FaCheck, FaCircle, FaRegTrashAlt } from 'react-icons/fa';
 import StatusOrder from './StatusOrder';
 import { Link } from 'react-router-dom';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { openModalReview } from '../../../context/actions';
 
 const Cards = ({
   name,
@@ -40,6 +42,8 @@ const Cards = ({
   route,
   selected,
 }) => {
+  const { modalReviewDispatch } = useContext(ContextStore);
+
   return (
     <>
       {slider && (
@@ -237,6 +241,7 @@ const Cards = ({
                 address
                 text='Beri Ulasan'
                 bgColor={colors.lightGreenTransparent}
+                onClick={() => modalReviewDispatch(openModalReview())}
               />
             </div>
           )}
