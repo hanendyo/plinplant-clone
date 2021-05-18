@@ -29,6 +29,8 @@ const ProductsContainer = ({
   article,
   address,
   selected,
+  search,
+  searching,
 }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
@@ -51,6 +53,17 @@ const ProductsContainer = ({
     if (category === 'rempah') return 'Rempah';
     if (category === 'buah') return 'Buah';
   };
+
+  const productSearched = products.filter((item) =>
+    item.name
+      .toLowerCase()
+      .split('')
+      .filter((item) => item.trim())
+      .join('')
+      .includes(searching)
+  );
+
+  console.log('PP', productSearched);
 
   return (
     <>
@@ -76,6 +89,14 @@ const ProductsContainer = ({
               ))}
           </ItemsCarousel>
         </CardContainer>
+      )}
+
+      {search && (
+        <SearchedContainer>
+          {productSearched.map(({ name, img }, index) => (
+            <Cards search name={name} img={img} key={index} />
+          ))}
+        </SearchedContainer>
       )}
 
       {scroll && (
@@ -234,6 +255,12 @@ const CardContainer = styled.article`
     color: ${colors.white};
     margin-bottom: 10px;
   }
+`;
+
+const SearchedContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 `;
 
 const ShopRelated = styled.div`

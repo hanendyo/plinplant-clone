@@ -41,6 +41,7 @@ const Cards = ({
   postal,
   route,
   selected,
+  search,
 }) => {
   const { modalReviewDispatch } = useContext(ContextStore);
 
@@ -48,6 +49,8 @@ const Cards = ({
     <>
       {slider && (
         <CardProductLandingPage>
+          <span>{name}</span>
+
           <div>
             <h5>{name}</h5>
 
@@ -70,6 +73,34 @@ const Cards = ({
 
           <img src={img} alt='' />
         </CardProductLandingPage>
+      )}
+
+      {search && (
+        <CardProductSearched>
+          <span>{name}</span>
+
+          <div>
+            <h5>{name}</h5>
+
+            {/* BUTTON CONTAINER */}
+            <div>
+              <a href='/shop'>
+                <Button card text='Beli' bgColor={colors.green} />
+              </a>
+
+              <a href='/ensiklopedia'>
+                <Button
+                  card
+                  text='Ensiklopedia'
+                  bgColor={colors.lightGreenTransparent}
+                />
+              </a>
+            </div>
+            {/* END OF BUTTON CONTAINER */}
+          </div>
+
+          <img src={img} alt='' />
+        </CardProductSearched>
       )}
 
       {scroll && (
@@ -299,6 +330,18 @@ const CardProductLandingPage = styled.div`
   position: relative;
   overflow: hidden;
 
+  & > span {
+    display: block;
+    position: absolute;
+    background-color: #22222280;
+    padding: 20px 0;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    transition: all 0.5s ease;
+  }
+
   & > div {
     background: linear-gradient(to top, #111, #11111100);
     position: absolute;
@@ -325,10 +368,24 @@ const CardProductLandingPage = styled.div`
   }
 
   &:hover {
+    & > span {
+      top: 0;
+      transform: translateY(-120%);
+    }
+
     & > div {
       transform: translateY(0);
       transition: all 0.5s ease;
     }
+  }
+`;
+
+const CardProductSearched = styled(CardProductLandingPage)`
+  margin: 5px;
+
+  & > img {
+    width: 100%;
+    max-width: 200px;
   }
 `;
 

@@ -17,6 +17,13 @@ const Product = () => {
 
   useEffect(() => {}, []);
 
+  const searching = search
+    .toLowerCase()
+    .split('')
+    .filter((item) => item.trim())
+    .join('');
+  console.log(searching);
+
   const searchedProduct = products.map((item) =>
     item.name
       .toLowerCase()
@@ -26,10 +33,7 @@ const Product = () => {
   );
   console.log(searchedProduct);
 
-  const searched = searchedProduct.map((item) =>
-    item.includes(search.toLowerCase())
-  );
-
+  const searched = searchedProduct.map((item) => item.includes(searching));
   console.log(searched);
 
   return (
@@ -53,10 +57,17 @@ const Product = () => {
         </SearchBar>
 
         <ProductSlider>
-          {search && searched ? (
-            <p>oke!</p>
+          {search ? (
+            <>
+              {searched.includes(true) ? (
+                <ProductsContainer search searching={searching} />
+              ) : (
+                <p style={{ textAlign: 'center' }}>
+                  Mohon maaf, tanaman yang Anda cari belum tersedia.
+                </p>
+              )}
+            </>
           ) : (
-            // <ProductsContainer search product={searchedProduct} />
             <>
               {productsCategory.map((category, index) => (
                 <ProductsContainer slider category={category} key={index} />
