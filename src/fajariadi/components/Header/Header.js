@@ -8,7 +8,7 @@ const Header = () => {
   // : : : HANDLESCROLL : : :
   const handleScroll = () => {
     window.scroll({
-      top: 850,
+      top: 750,
       left: 0,
       behavior: "smooth",
     });
