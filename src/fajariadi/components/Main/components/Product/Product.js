@@ -20,7 +20,7 @@ const Product = () => {
         <SearchBar>
           <h4>Lorem ipsum dolor sit amet, consectetur</h4>
 
-          <form>
+          <div>
             <input
               type='text'
               value={search}
@@ -31,13 +31,19 @@ const Product = () => {
             <div>
               <FaSearch />
             </div>
-          </form>
+          </div>
         </SearchBar>
 
         <ProductSlider>
-          {productsCategory.map((category, index) => (
-            <ProductsContainer slider category={category} key={index} />
-          ))}
+          {search ? (
+            <p>Search Work!</p>
+          ) : (
+            <>
+              {productsCategory.map((category, index) => (
+                <ProductsContainer slider category={category} key={index} />
+              ))}
+            </>
+          )}
         </ProductSlider>
       </Container>
     </SectionProduct>

@@ -23,7 +23,7 @@ export const SearchBar = styled.div`
     margin-bottom: 10px;
   }
 
-  & > form {
+  & > div {
     display: flex;
     align-items: center;
 
