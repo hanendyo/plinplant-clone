@@ -13,6 +13,7 @@ const SidebarLink = styled(Link)`
   height: 60px;
   text-decoration: none;
   font-size: 18px;
+  transition: background-color 0.2s ease-in;
 
   &:hover {
     background: ${colors.lightGreen};
@@ -34,6 +35,7 @@ const DropdownLink = styled(Link)`
   text-decoration: none;
   color: #f5f5f5;
   font-size: 18px;
+  transition: all 0.2s ease-in;
 
   &:hover {
     background: ${colors.lightGreen};

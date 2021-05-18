@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
-import { FaTimes } from "react-icons/fa";
+import { FaTimes, FaSignOutAlt } from "react-icons/fa";
 import { colors } from "../../../master/constant/style/index";
 import { SidebarData } from "./SidebarList";
 import SubMenu from "./SubMenu";
@@ -75,6 +75,25 @@ const Logo = styled.h1`
   margin-left: 100px;
 `;
 
+const NavOut = styled.div`
+  font-size: 2rem;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+  background-color: ${colors.green};
+
+  & > h5 {
+    color: #fff;
+    margin-right: 20px;
+  }
+`;
+
 const SidebarCMS = () => {
   const [sidebar, setSidebar] = useState(false);
 
@@ -98,6 +117,10 @@ const SidebarCMS = () => {
             {SidebarData.map((item, index) => {
               return <SubMenu item={item} key={index} />;
             })}
+            <NavOut>
+              <h5>Keluar</h5>
+              <FaSignOutAlt />
+            </NavOut>
           </SidebarWrap>
         </SidebarNav>
       </Nav>
