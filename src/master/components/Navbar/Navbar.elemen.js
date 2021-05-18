@@ -126,10 +126,16 @@ export const LinksContainer = styled.ul`
             color: #fa4d4d;
             font-weight: 500;
             cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: all 0.1s ease;
 
             &:not(:last-of-type) {
-              margin-bottom: 10px;
               color: ${colors.black};
+            }
+
+            &:hover {
+              background-color: ${colors.lightGreenTransparent};
             }
           }
         }
