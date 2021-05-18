@@ -4,6 +4,10 @@ import SignInInitial from '../initialState/SignInInitial';
 import SignUpInitial from '../initialState/SignUpInitial';
 import { modalUploadReducer, modalReviewReducer } from '../reducer';
 import { CmsReducer } from '../reducer/CmsReducer';
+import {
+  modalPilihAlamatReducer,
+  modalTambahAlamatReducer,
+} from '../reducer/modalReducers';
 import { SignInReducer } from '../reducer/SignInReducer';
 import { SignUpReducer } from '../reducer/SignUpReducer';
 
@@ -108,6 +112,18 @@ export const ContextProvider = ({ children }) => {
     false
   );
 
+  // ::: MODAL PILIH ALAMAT :::
+  const [modalPilihAlamatState, modalPilihAlamatDispatch] = useReducer(
+    modalPilihAlamatReducer,
+    false
+  );
+
+  // ::: MODAL TAMBAH ALAMAT :::
+  const [modalTambahAlamatState, modalTambahAlamatDispatch] = useReducer(
+    modalTambahAlamatReducer,
+    false
+  );
+
   return (
     <ContextStore.Provider
       value={{
@@ -182,6 +198,14 @@ export const ContextProvider = ({ children }) => {
         // ::: MODAL REVIEW :::
         modalReviewState,
         modalReviewDispatch,
+
+        // ::: MODAL PILIH ALAMAT :::
+        modalPilihAlamatState,
+        modalPilihAlamatDispatch,
+
+        // ::: MODAL TAMBAH ALAMAT :::
+        modalTambahAlamatState,
+        modalTambahAlamatDispatch,
       }}
     >
       {children}

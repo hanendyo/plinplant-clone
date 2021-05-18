@@ -60,7 +60,7 @@ const Product = () => {
           {search ? (
             <>
               {searched.includes(true) ? (
-                <ProductsContainer search searching={searching} />
+                <ProductsContainer search={search} searching={searching} />
               ) : (
                 <p style={{ textAlign: 'center' }}>
                   Mohon maaf, tanaman yang Anda cari belum tersedia.

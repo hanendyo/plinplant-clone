@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import {
   StyledProfile,
   ProfileContainer,
@@ -12,6 +12,11 @@ import UploadBox from '../../master/components/additional/UploadBox';
 import ProductsContainer from '../../fajariadi/components/Main/components/Product/ProductsContainer';
 import { addresses } from '../../master/constant/data/dummy-data';
 import ScrollSign from '../../master/components/additional/ScrollSign';
+import { ContextStore } from '../../context/store/ContextStore';
+import PopoutComponent from '../ModalAlamat/PopupComponent/Popout';
+import Button from '../../master/components/additional/Button';
+import { colors } from '../../master/constant/style';
+import { openModalTambahAlamat } from '../../context/actions/modalActions';
 
 const Profile = () => {
   const [visible, setVisible] = useState(true);
@@ -19,6 +24,9 @@ const Profile = () => {
   const [trigger, setTrigger] = useState(true);
   const [empty, setEmpty] = useState(true);
   const [selected, setSelected] = useState(false);
+
+  const { modalTambahAlamatState, modalTambahAlamatDispatch } =
+    useContext(ContextStore);
 
   const [scroll, setScroll] = useState(true);
 
@@ -42,7 +50,7 @@ const Profile = () => {
               </TextBox>
 
               <TextBox onClick={HandleClick}>
-                <p>Tambah Alamat</p>
+                <p>Daftar Alamat</p>
               </TextBox>
             </div>
 
@@ -90,17 +98,27 @@ const Profile = () => {
               </TextBox>
 
               <TextBox>
-                <p>Tambah Alamat</p>
+                <p>Daftar Alamat</p>
               </TextBox>
             </div>
 
             <RightArea>
-              <ModalAlamat />
+              <Button
+                primary
+                address
+                text='Tambah Alamat Baru'
+                bgColor={colors.yellow}
+                onClick={() =>
+                  modalTambahAlamatDispatch(openModalTambahAlamat())
+                }
+              />
 
-              <ProductsContainer address selected={selected} />
+              <ProductsContainer profileAddress selected={selected} />
 
               {scroll && <ScrollSign center />}
             </RightArea>
+
+            <PopoutComponent modal={modalTambahAlamatState} />
           </ProfileContainer>
         </>
       )}

@@ -416,6 +416,7 @@ export const invoiceProduct = [
     phase: 'Biji',
     price: 'Rp 21.950',
     quantity: 1,
+    review: false,
   },
   {
     img: tuber,
@@ -423,6 +424,7 @@ export const invoiceProduct = [
     phase: 'Bonggol',
     price: 'Rp 21.950',
     quantity: 1,
+    review: false,
   },
   {
     img: juvenil,
@@ -430,6 +432,7 @@ export const invoiceProduct = [
     phase: 'Muda',
     price: 'Rp 21.950',
     quantity: 1,
+    review: true,
   },
   {
     img: mature,
@@ -437,6 +440,7 @@ export const invoiceProduct = [
     phase: 'Dewasa',
     price: 'Rp 21.950',
     quantity: 1,
+    review: false,
   },
 ];
 

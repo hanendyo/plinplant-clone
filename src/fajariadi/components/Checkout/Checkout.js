@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaChevronDown, FaExclamationTriangle } from 'react-icons/fa';
+import { openModalPilihAlamat } from '../../../context/actions/modalActions';
+import { ContextStore } from '../../../context/store/ContextStore';
+import PopoutComponent from '../../../dhika/ModalAlamat/PopupComponent/Popout';
+import PopoutPengiriman from '../../../dhika/Pengiriman/PoputPengiriman/PopoutPengiriman';
 import Button from '../../../master/components/additional/Button';
 import ScrollSign from '../../../master/components/additional/ScrollSign';
 import ShoppingSummary from '../../../master/components/additional/ShoppingSummary';
@@ -21,6 +25,12 @@ const Checkout = () => {
     if (cartItems.length < 3) setScroll(false);
     if (cartItems.length > 2) setScroll(true);
   }, [cartItems]);
+
+  const {
+    modalPilihAlamatState,
+    modalPilihAlamatDispatch,
+    modalTambahAlamatState,
+  } = useContext(ContextStore);
 
   return (
     <main
@@ -56,6 +66,9 @@ const Checkout = () => {
                   address
                   text='Pilih Alamat Lain'
                   bgColor={colors.lightGreenTransparent}
+                  onClick={() =>
+                    modalPilihAlamatDispatch(openModalPilihAlamat())
+                  }
                 />
               </div>
             </ShippingAddress>
@@ -90,6 +103,9 @@ const Checkout = () => {
           <ShoppingSummary checkout />
         </div>
       </Container>
+
+      <PopoutPengiriman modal={modalPilihAlamatState} />
+      <PopoutComponent modal={modalTambahAlamatState} />
     </main>
   );
 };

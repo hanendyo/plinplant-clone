@@ -1,5 +1,5 @@
-import React from "react";
-import ModalAlamat from "../../ModalAlamat/ModalAlamat";
+import React, { useContext, useEffect, useState } from 'react';
+import ModalAlamat from '../../ModalAlamat/ModalAlamat';
 import {
   Popup,
   PopupInner,
@@ -7,80 +7,58 @@ import {
   BoxLeft,
   FirstLine,
   ButtonPilih,
-} from "./PopoutPengiriman.component";
-import { FaTimes } from "react-icons/fa";
-import { colors } from "../../../master/constant/style/index";
+} from './PopoutPengiriman.component';
+import { FaTimes } from 'react-icons/fa';
+import { colors } from '../../../master/constant/style/index';
 // import Button from "@material-ui/core/Button";
-import Button from "../../../master/components/additional/Button";
+import Button from '../../../master/components/additional/Button';
+import {
+  closeModalPilihAlamat,
+  openModalTambahAlamat,
+} from '../../../context/actions/modalActions';
+import { ContextStore } from '../../../context/store/ContextStore';
+import ProductsContainer from '../../../fajariadi/components/Main/components/Product/ProductsContainer';
+import { addresses } from '../../../master/constant/data/dummy-data';
+import ScrollSign from '../../../master/components/additional/ScrollSign';
 
-const PopoutPengiriman = (props) => {
-  return props.trigger ? (
-    <>
-      <Popup>
-        <PopupInner>
-          <h4>Pilih Alamat Pengiriman</h4>
-          <FaTimes
-            className="times"
-            size="20px"
-            onClick={() => props.setTrigger(false)}
-          />
-          <ModalAlamat />
-          <BoxAlamat>
-            <BoxLeft>
-              <FirstLine>
-                <p>Muhammad Adhika Adhiwijna</p>
-                <span>087787111616</span>
-              </FirstLine>
-              <p>
-                Jl. Raya Senoparty - Rumah Warna Hijau Kecamatan Kosambi,
-                Jakarta Selatan, 15045
-              </p>
-              <br />
-              <a href="#">Ubah Alamat</a>
-            </BoxLeft>
-            <ButtonPilih>
-              <Button primary shop text="Pilih Alamat" bgColor={colors.green} />
-            </ButtonPilih>
-          </BoxAlamat>
-          <BoxAlamat>
-            <BoxLeft>
-              <FirstLine>
-                <p>Muhammad Adhika Adhiwijna</p>
-                <span>087787111616</span>
-              </FirstLine>
-              <p>
-                Jl. Raya Senoparty - Rumah Warna Hijau Kecamatan Kosambi,
-                Jakarta Selatan, 15045
-              </p>
-              <br />
-              <a href="#">Ubah Alamat</a>
-            </BoxLeft>
-            <ButtonPilih>
-              <Button primary shop text="Pilih Alamat" bgColor={colors.green} />
-            </ButtonPilih>
-          </BoxAlamat>
-          <BoxAlamat>
-            <BoxLeft>
-              <FirstLine>
-                <p>Muhammad Adhika Adhiwijna</p>
-                <span>087787111616</span>
-              </FirstLine>
-              <p>
-                Jl. Raya Senoparty - Rumah Warna Hijau Kecamatan Kosambi,
-                Jakarta Selatan, 15045
-              </p>
-              <br />
-              <a href="#">Ubah Alamat</a>
-            </BoxLeft>
-            <ButtonPilih>
-              <Button primary shop text="Pilih Alamat" bgColor={colors.green} />
-            </ButtonPilih>
-          </BoxAlamat>
-        </PopupInner>
-      </Popup>
-    </>
-  ) : (
-    ""
+const PopoutPengiriman = ({ modal }) => {
+  const { modalPilihAlamatDispatch, modalTambahAlamatDispatch } =
+    useContext(ContextStore);
+
+  const [scroll, setScroll] = useState(true);
+
+  useEffect(() => {
+    if (addresses.length < 2) setScroll(false);
+    if (addresses.length > 1) setScroll(true);
+  }, [addresses]);
+
+  return (
+    <Popup modal={modal}>
+      <PopupInner>
+        <h4>Pilih Alamat Pengiriman</h4>
+
+        <FaTimes
+          className='times'
+          size={20}
+          onClick={() => modalPilihAlamatDispatch(closeModalPilihAlamat())}
+        />
+
+        <Button
+          primary
+          summary
+          text='Tambah Alamat Baru'
+          bgColor='#dedede'
+          onClick={() => {
+            modalTambahAlamatDispatch(openModalTambahAlamat());
+            modalPilihAlamatDispatch(closeModalPilihAlamat());
+          }}
+        />
+
+        <ProductsContainer selectAddress />
+
+        {scroll && <ScrollSign center />}
+      </PopupInner>
+    </Popup>
   );
 };
 

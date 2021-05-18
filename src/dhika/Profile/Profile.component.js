@@ -79,4 +79,8 @@ export const Data = styled.ul`
 
 export const RightArea = styled.div`
   width: 100%;
+
+  & > button {
+    margin-bottom: -10px !important;
+  }
 `;

@@ -1,28 +1,33 @@
 import styled from 'styled-components';
 import { colors } from '../../../master/constant/style/index';
+
 export const Popup = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #22222280;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
+  display: ${({ modal }) => (modal ? 'auto' : 'none')};
 `;
+
 export const PopupInner = styled.div`
   position: relative;
-  padding: 32px;
+  padding: 30px;
   width: 100%;
   max-width: 640px;
-  min-height: 485px;
+  height: fit-content;
   background-color: ${colors.white};
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  text-align: left;
+  border-radius: 10px;
+
+  & > h4 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
 `;
 
 export const Button = styled.div`
@@ -39,6 +44,7 @@ export const Button = styled.div`
 export const LineData = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 `;
 
 export const InsertData = styled.div`
@@ -49,4 +55,9 @@ export const InsertData = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-top: 20px;
+
+  & > button {
+    margin-left: 5px;
+  }
 `;
