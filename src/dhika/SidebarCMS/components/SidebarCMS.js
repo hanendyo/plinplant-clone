@@ -35,7 +35,7 @@ const NavIcon = styled.div`
 
 const SidebarNav = styled.nav`
   background: ${colors.yellow};
-  width: 250px;
+  width: 300px;
   height: 100vh;
   display: flex;
   justify-content: center;
