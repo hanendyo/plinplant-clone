@@ -15,9 +15,9 @@ export default {
         plant_use: '',
         days_to_sprout: '',
         matures_in: '',
-        growth_in: '',
-        fk_category_id: 0,
-        fk_review_id: 0
+        growth_type: '',
+        fk_category_id: '',
+        fk_review_id: ''
     },
     plant_breeding: {
         seed: '',
@@ -39,8 +39,8 @@ export default {
         fk_stock_id: 0
     },
     order_item: {
-        quantity: 0,
-        fk_price_list_id: 0
+        quantity: '',
+        fk_price_list_id: ''
     },
     stock: {
         seed_stock: 0,
@@ -51,7 +51,7 @@ export default {
     order: {
         status: '',
         created_at: '',
-        fk_user_id: 0
+        fk_user_id: ''
     },
     user: {
         fullname: '',

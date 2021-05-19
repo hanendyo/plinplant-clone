@@ -9,7 +9,7 @@ import { SignUpReducer } from "../reducer/SignUpReducer";
 export const ContextStore = createContext();
 
 export const ContextProvider = ({ children }) => {
-  // AUTH
+  //! AUTH
   // SIGNUP
   const [signUpState, signUpDispatch] = useReducer(
     SignUpReducer,
@@ -21,7 +21,7 @@ export const ContextProvider = ({ children }) => {
     SignInInitial
   );
 
-  // CMS
+  //! CMS
   // ARTICLE
   const [articleState, articleDispatch] = useReducer(
     CmsReducer,

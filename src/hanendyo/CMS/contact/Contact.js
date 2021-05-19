@@ -43,7 +43,7 @@ const Contact = () => {
         recipient_name: '',
         address: '',
         phone_number: '',
-        fk_city_id: ''
+        fk_city_id: 0
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);

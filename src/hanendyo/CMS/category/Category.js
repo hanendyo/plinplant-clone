@@ -40,7 +40,7 @@ const Category = () => {
   // USE STATE
   const [dataArticle, setDataArticle] = useState([
     {
-        pk_category_id: '',
+        pk_category_id: 0,
         category_name: '',
     },
   ]);
