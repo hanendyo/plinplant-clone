@@ -1,27 +1,27 @@
-import React from 'react';
-import Button from '../../../../../master/components/additional/Button';
-import { colors } from '../../../../../master/constant/style';
-import { Container, SectionCTA } from './CallToAction.elemen';
-import { cta } from '../../../../assets/illustration';
+import React from "react";
+import Button from "../../../../../master/components/additional/Button";
+import { colors } from "../../../../../master/constant/style";
+import { Container, SectionCTA } from "./CallToAction.elemen";
+import { cta } from "../../../../assets/illustration";
 
 const CallToAction = () => {
   return (
     <SectionCTA>
       <Container>
         <div>
-          <h2>Lorem ipsum dolor sit</h2>
+          <h2>Dapatkan fitur lainnya!</h2>
 
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
-            purus sit amet luctus venenatis, lectus magna fringilla urna,
-            porttitor
+            Dengan mendaftarkan diri anda, kamu bisa membeli tanaman favoritmu,
+            notifikasi pada pesanan, berita terbaru seputar tanaman, dan masih
+            banyak lagi!
           </p>
 
-          <Button primary cta text='Gabung Sekarang' bgColor={colors.green} />
+          <Button primary cta text="Gabung Sekarang" bgColor={colors.green} />
         </div>
 
         <div>
-          <img src={cta} alt='' />
+          <img src={cta} alt="" />
         </div>
       </Container>
     </SectionCTA>

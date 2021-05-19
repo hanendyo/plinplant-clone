@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Container,
   SearchBar,
   SectionProduct,
   ProductSlider,
-} from './Product.element';
-import { FaSearch } from 'react-icons/fa';
-import { productsCategory } from '../../../../../master/constant/data/dummy-data';
-import ProductsContainer from './ProductsContainer';
+} from "./Product.element";
+import { FaSearch } from "react-icons/fa";
+import { productsCategory } from "../../../../../master/constant/data/dummy-data";
+import ProductsContainer from "./ProductsContainer";
 
 const Product = () => {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   useEffect(() => {}, []);
 
   return (
-    <SectionProduct>
+    <SectionProduct id="content">
       <Container>
         <SearchBar>
-          <h4>Lorem ipsum dolor sit amet, consectetur</h4>
+          <h4>Pertama, mari cari tanaman favoritmu</h4>
 
           <form>
             <input
-              type='text'
+              type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder='Contoh: Aglonema'
+              placeholder="Contoh: Aglonema"
             />
 
             <div>
