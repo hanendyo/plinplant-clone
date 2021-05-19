@@ -91,7 +91,7 @@ export const LinksContainer = styled.ul`
         padding: 20px;
         border-radius: 10px;
         right: 0;
-        bottom: -220px;
+        bottom: -230px;
         cursor: auto;
         z-index: 999;
         /* backdrop-filter: blur(10px); */
@@ -126,10 +126,15 @@ export const LinksContainer = styled.ul`
             color: #fa4d4d;
             font-weight: 500;
             cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
 
             &:not(:last-of-type) {
-              margin-bottom: 10px;
               color: ${colors.black};
+            }
+
+            &:hover {
+              background-color: ${colors.lightGreenTransparent};
             }
           }
         }

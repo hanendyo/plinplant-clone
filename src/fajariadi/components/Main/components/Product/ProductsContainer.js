@@ -27,8 +27,11 @@ const ProductsContainer = ({
   invoice,
   status,
   article,
-  address,
+  profileAddress,
   selected,
+  search,
+  searching,
+  selectAddress,
 }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
@@ -51,6 +54,15 @@ const ProductsContainer = ({
     if (category === 'rempah') return 'Rempah';
     if (category === 'buah') return 'Buah';
   };
+
+  const productSearched = products.filter((item) =>
+    item.name
+      .toLowerCase()
+      .split('')
+      .filter((item) => item.trim())
+      .join('')
+      .includes(searching)
+  );
 
   return (
     <>
@@ -76,6 +88,18 @@ const ProductsContainer = ({
               ))}
           </ItemsCarousel>
         </CardContainer>
+      )}
+
+      {search && (
+        <SearchedContainer>
+          <h4>Hasil Pencarian: {search}</h4>
+
+          <div>
+            {productSearched.map(({ name, img }, index) => (
+              <Cards search name={name} img={img} key={index} />
+            ))}
+          </div>
+        </SearchedContainer>
       )}
 
       {scroll && (
@@ -173,7 +197,7 @@ const ProductsContainer = ({
       {invoice && (
         <InvoiceContainer>
           {invoiceProduct.map(
-            ({ name, img, phase, price, quantity }, index) => (
+            ({ name, img, phase, price, quantity, review }, index) => (
               <Cards
                 invoice
                 key={index}
@@ -182,6 +206,7 @@ const ProductsContainer = ({
                 phase={phase}
                 price={price}
                 quantity={quantity}
+                reviewed={review}
                 status={status}
               />
             )
@@ -207,7 +232,7 @@ const ProductsContainer = ({
         </ArticlesContainer>
       )}
 
-      {address && (
+      {profileAddress && (
         <AddressContainer>
           {addresses.map(({ name, phone, city, postal, route }, index) => (
             <Cards
@@ -223,6 +248,23 @@ const ProductsContainer = ({
           ))}
         </AddressContainer>
       )}
+
+      {selectAddress && (
+        <ModalAddressContainer>
+          {addresses.map(({ name, phone, city, postal, route }, index) => (
+            <Cards
+              selectAddress
+              key={index}
+              name={name}
+              phone={phone}
+              city={city}
+              postal={postal}
+              route={route}
+              selected={selected}
+            />
+          ))}
+        </ModalAddressContainer>
+      )}
     </>
   );
 };
@@ -236,6 +278,20 @@ const CardContainer = styled.article`
   }
 `;
 
+const SearchedContainer = styled.div`
+  & > h4 {
+    color: ${colors.white};
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  & > div {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+`;
+
 const ShopRelated = styled.div`
   width: fit-content;
   border-radius: 10px;
@@ -246,6 +302,7 @@ const ShopRelated = styled.div`
     display: none;
   }
 
+  /* :: STYLING FOR SCROLL SIGN :: */
   &:hover {
     & ~ p {
       opacity: 1;
@@ -285,6 +342,7 @@ const CartContainer = styled.div`
     display: none;
   }
 
+  /* :: STYLING FOR SCROLL SIGN :: */
   &:hover {
     & ~ p {
       opacity: 1;
@@ -308,6 +366,7 @@ const TransactionContainer = styled.div`
     display: none;
   }
 
+  /* :: STYLING FOR SCROLL SIGN :: */
   &:hover {
     & ~ p {
       opacity: 1;
@@ -328,6 +387,7 @@ const InvoiceContainer = styled.div`
     display: none;
   }
 
+  /* :: STYLING FOR SCROLL SIGN :: */
   &:hover {
     & ~ p {
       opacity: 1;
@@ -347,6 +407,7 @@ const ArticlesContainer = styled.div`
     display: none;
   }
 
+  /* :: STYLING FOR SCROLL SIGN :: */
   &:hover {
     & ~ p {
       opacity: 1;
@@ -366,11 +427,28 @@ const AddressContainer = styled.div`
     display: none;
   }
 
+  /* :: STYLING FOR SCROLL SIGN :: */
   &:hover {
     & ~ p {
       opacity: 1;
       transform: translateY(0);
       visibility: visible;
+    }
+  }
+`;
+
+const ModalAddressContainer = styled(AddressContainer)`
+  /* background-color: red; */
+  height: 300px;
+  margin-top: 10px;
+
+  /* :: STYLING FOR SCROLL SIGN :: */
+  &:hover {
+    & ~ p {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+      color: ${colors.black};
     }
   }
 `;

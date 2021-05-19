@@ -6,7 +6,10 @@ import {
   ProductSlider,
 } from "./Product.element";
 import { FaSearch } from "react-icons/fa";
-import { productsCategory } from "../../../../../master/constant/data/dummy-data";
+import {
+  products,
+  productsCategory,
+} from "../../../../../master/constant/data/dummy-data";
 import ProductsContainer from "./ProductsContainer";
 
 const Product = () => {
@@ -14,13 +17,32 @@ const Product = () => {
 
   useEffect(() => {}, []);
 
+  const searching = search
+    .toLowerCase()
+    .split("")
+    .filter((item) => item.trim())
+    .join("");
+  console.log(searching);
+
+  const searchedProduct = products.map((item) =>
+    item.name
+      .toLowerCase()
+      .split("")
+      .filter((item) => item.trim())
+      .join("")
+  );
+  console.log(searchedProduct);
+
+  const searched = searchedProduct.map((item) => item.includes(searching));
+  console.log(searched);
+
   return (
     <SectionProduct id="content">
       <Container>
         <SearchBar>
           <h4>Pertama, mari cari tanaman favoritmu</h4>
 
-          <form>
+          <div>
             <input
               type="text"
               value={search}
@@ -31,13 +53,27 @@ const Product = () => {
             <div>
               <FaSearch />
             </div>
-          </form>
+          </div>
         </SearchBar>
 
         <ProductSlider>
-          {productsCategory.map((category, index) => (
-            <ProductsContainer slider category={category} key={index} />
-          ))}
+          {search ? (
+            <>
+              {searched.includes(true) ? (
+                <ProductsContainer search={search} searching={searching} />
+              ) : (
+                <p style={{ textAlign: "center" }}>
+                  Mohon maaf, tanaman yang Anda cari belum tersedia.
+                </p>
+              )}
+            </>
+          ) : (
+            <>
+              {productsCategory.map((category, index) => (
+                <ProductsContainer slider category={category} key={index} />
+              ))}
+            </>
+          )}
         </ProductSlider>
       </Container>
     </SectionProduct>

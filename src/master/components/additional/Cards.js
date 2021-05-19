@@ -17,6 +17,7 @@ const Cards = ({
   text,
   rating,
   review,
+  reviewed,
   cart,
   article,
   release_date,
@@ -41,6 +42,8 @@ const Cards = ({
   postal,
   route,
   selected,
+  search,
+  selectAddress,
 }) => {
   const { modalReviewDispatch } = useContext(ContextStore);
 
@@ -48,6 +51,8 @@ const Cards = ({
     <>
       {slider && (
         <CardProductLandingPage>
+          <span>{name}</span>
+
           <div>
             <h5>{name}</h5>
 
@@ -70,6 +75,34 @@ const Cards = ({
 
           <img src={img} alt='' />
         </CardProductLandingPage>
+      )}
+
+      {search && (
+        <CardProductSearched>
+          <span>{name}</span>
+
+          <div>
+            <h5>{name}</h5>
+
+            {/* BUTTON CONTAINER */}
+            <div>
+              <a href='/shop'>
+                <Button card text='Beli' bgColor={colors.green} />
+              </a>
+
+              <a href='/ensiklopedia'>
+                <Button
+                  card
+                  text='Ensiklopedia'
+                  bgColor={colors.lightGreenTransparent}
+                />
+              </a>
+            </div>
+            {/* END OF BUTTON CONTAINER */}
+          </div>
+
+          <img src={img} alt='' />
+        </CardProductSearched>
       )}
 
       {scroll && (
@@ -233,17 +266,23 @@ const Cards = ({
             </div>
           </div>
 
-          {status && (
-            <div>
-              <Button
-                primary
-                shop
-                address
-                text='Beri Ulasan'
-                bgColor={colors.lightGreenTransparent}
-                onClick={() => modalReviewDispatch(openModalReview())}
-              />
-            </div>
+          {status === 'selesai' && (
+            <>
+              {reviewed ? (
+                <Rating reviewed rate={4} />
+              ) : (
+                <div>
+                  <Button
+                    primary
+                    shop
+                    address
+                    text='Beri Ulasan'
+                    bgColor={colors.lightGreenTransparent}
+                    onClick={() => modalReviewDispatch(openModalReview())}
+                  />
+                </div>
+              )}
+            </>
           )}
         </CardInvoice>
       )}
@@ -282,14 +321,31 @@ const Cards = ({
           {selected ? (
             <FaCheck size={20} color={colors.white} className='checked' />
           ) : (
-            <Button
-              primary
-              address
-              text='Pilih Alamat'
-              bgColor={colors.darkGreen}
-            />
+            <Button primary text='Pilih' bgColor={colors.darkGreen} />
           )}
         </CardAddress>
+      )}
+
+      {selectAddress && (
+        <CardModalAddress>
+          <div>
+            <h6>{name}</h6>
+            <span>{phone}</span>
+          </div>
+
+          <p>{route}</p>
+          <p>
+            {city}, {postal}
+          </p>
+
+          <button>Ubah Alamat</button>
+
+          {selected ? (
+            <FaCheck size={20} color={colors.white} className='checked' />
+          ) : (
+            <Button primary text='Pilih' bgColor={colors.darkGreen} />
+          )}
+        </CardModalAddress>
       )}
     </>
   );
@@ -298,6 +354,19 @@ const Cards = ({
 const CardProductLandingPage = styled.div`
   position: relative;
   overflow: hidden;
+  border-radius: 10px;
+
+  & > span {
+    display: block;
+    position: absolute;
+    background-color: #22222280;
+    padding: 20px 0;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    transition: all 0.5s ease;
+  }
 
   & > div {
     background: linear-gradient(to top, #111, #11111100);
@@ -325,10 +394,25 @@ const CardProductLandingPage = styled.div`
   }
 
   &:hover {
+    & > span {
+      top: 0;
+      opacity: 0;
+      transform: translateY(-120%);
+    }
+
     & > div {
       transform: translateY(0);
       transition: all 0.5s ease;
     }
+  }
+`;
+
+const CardProductSearched = styled(CardProductLandingPage)`
+  margin: 5px;
+
+  & > img {
+    width: 100%;
+    max-width: 200px;
   }
 `;
 
@@ -733,6 +817,27 @@ const CardAddress = styled.div`
     top: 50%;
     right: 30px;
     transform: translateY(-50%);
+  }
+`;
+
+const CardModalAddress = styled(CardAddress)`
+  background-color: transparent;
+  border: 2px solid ${colors.lightGreen};
+  color: ${colors.black};
+
+  & > div {
+    & > h6 {
+      color: ${colors.black};
+    }
+  }
+
+  & > p {
+    font-size: 14px;
+    max-width: 350px;
+  }
+
+  & > button:nth-of-type(1) {
+    color: ${colors.green};
   }
 `;
 

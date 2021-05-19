@@ -3,24 +3,24 @@ import { FaStar } from 'react-icons/fa';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
 
-const Rating = ({ rate }) => {
+const Rating = ({ rate, reviewed }) => {
   return (
     <>
       {rate === 5 && (
-        <Star>
+        <Star reviewed={reviewed}>
           <FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar />
         </Star>
       )}
 
       {rate === 4 && (
-        <Star>
+        <Star reviewed={reviewed}>
           <FaStar /> <FaStar /> <FaStar /> <FaStar />{' '}
           <FaStar color={colors.lightGreenTransparent} />
         </Star>
       )}
 
       {rate === 3 && (
-        <Star>
+        <Star reviewed={reviewed}>
           <FaStar /> <FaStar /> <FaStar />{' '}
           <FaStar color={colors.lightGreenTransparent} />{' '}
           <FaStar color={colors.lightGreenTransparent} />
@@ -28,7 +28,7 @@ const Rating = ({ rate }) => {
       )}
 
       {rate === 2 && (
-        <Star>
+        <Star reviewed={reviewed}>
           <FaStar /> <FaStar /> <FaStar color={colors.lightGreenTransparent} />{' '}
           <FaStar color={colors.lightGreenTransparent} />{' '}
           <FaStar color={colors.lightGreenTransparent} />
@@ -36,7 +36,7 @@ const Rating = ({ rate }) => {
       )}
 
       {rate === 1 && (
-        <Star>
+        <Star reviewed={reviewed}>
           <FaStar /> <FaStar color={colors.lightGreenTransparent} />{' '}
           <FaStar color={colors.lightGreenTransparent} />{' '}
           <FaStar color={colors.lightGreenTransparent} />{' '}
@@ -45,7 +45,7 @@ const Rating = ({ rate }) => {
       )}
 
       {rate === 0 && (
-        <Star>
+        <Star reviewed={reviewed}>
           <FaStar color={colors.lightGreenTransparent} />{' '}
           <FaStar color={colors.lightGreenTransparent} />{' '}
           <FaStar color={colors.lightGreenTransparent} />{' '}
@@ -60,9 +60,9 @@ const Rating = ({ rate }) => {
 const Star = styled.p`
   /* margin: 5px 0; */
   color: ${colors.yellow};
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  position: ${({ reviewed }) => (reviewed ? 'auto' : 'absolute')};
+  top: ${({ reviewed }) => (reviewed ? 'unset' : '10px')};
+  right: ${({ reviewed }) => (reviewed ? 'unset' : '10px')};
 `;
 
 export default Rating;

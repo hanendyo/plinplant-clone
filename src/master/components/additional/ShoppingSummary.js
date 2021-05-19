@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import styled from 'styled-components';
+import { openModalTambahAlamat } from '../../../context/actions/modalActions';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { addresses } from '../../constant/data/dummy-data';
 import { colors } from '../../constant/style';
 import Button from './Button';
 
 const ShoppingSummary = ({ checkout }) => {
+  const { modalTambahAlamatDispatch } = useContext(ContextStore);
+
   return (
     <SummarySection>
       <h4>Ringkasan Belanja</h4>
@@ -42,9 +47,21 @@ const ShoppingSummary = ({ checkout }) => {
           <Button primary summary text='Proses' bgColor={colors.yellow} />
         </a>
       ) : (
-        <a href='/checkout'>
-          <Button primary summary text='Beli' bgColor={colors.yellow} />
-        </a>
+        <>
+          {addresses.length === 0 ? (
+            <Button
+              primary
+              summary
+              text='Beli'
+              bgColor={colors.yellow}
+              onClick={() => modalTambahAlamatDispatch(openModalTambahAlamat())}
+            />
+          ) : (
+            <a href='/checkout'>
+              <Button primary summary text='Beli' bgColor={colors.yellow} />
+            </a>
+          )}
+        </>
       )}
     </SummarySection>
   );

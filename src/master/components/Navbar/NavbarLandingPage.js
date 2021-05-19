@@ -7,7 +7,7 @@ import pic from '../../../fajariadi/assets/images/ig.jpg';
 import { Link } from 'react-router-dom';
 
 const NavbarLandingPage = () => {
-  const [login, setLogin] = useState(true);
+  const login = true;
   const [profile, setProfile] = useState(false);
 
   // ::: NAVBAR INTERACTION :::

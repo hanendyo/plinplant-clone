@@ -109,4 +109,8 @@ export const DataEdit = styled.div`
 
 export const RightArea = styled.div`
   width: 100%;
+
+  & > button {
+    margin-bottom: -10px !important;
+  }
 `;

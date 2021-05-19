@@ -21,10 +21,10 @@ import {
 const Invoice = () => {
   const [scroll, setScroll] = useState(true);
 
-  const { modalUploadState, modalUploadDispatch } = useContext(ContextStore);
-  const { modalReviewState } = useContext(ContextStore);
+  const { modalUploadState, modalUploadDispatch, modalReviewState } =
+    useContext(ContextStore);
 
-  const status = true;
+  const status = 'selesai';
 
   useEffect(() => {
     if (invoiceProduct.length < 5) setScroll(false);
@@ -55,7 +55,12 @@ const Invoice = () => {
 
           <div>
             <p>Status Transaksi</p>
-            <StatusOrder status='Menunggu Pembayaran' />
+            {status === 'bayar' && <StatusOrder status='Menunggu Pembayaran' />}
+            {status === 'verif' && (
+              <StatusOrder status='Verifikasi Pembayaran' />
+            )}
+            {status === 'proses' && <StatusOrder status='Pesanan Diantar' />}
+            {status === 'selesai' && <StatusOrder status='Transaksi Selesai' />}
           </div>
         </HeaderInfo>
 

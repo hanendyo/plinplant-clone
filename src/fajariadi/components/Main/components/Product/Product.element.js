@@ -23,7 +23,7 @@ export const SearchBar = styled.div`
     margin-bottom: 10px;
   }
 
-  & > form {
+  & > div {
     display: flex;
     align-items: center;
 
@@ -43,12 +43,6 @@ export const SearchBar = styled.div`
       padding: 10px 15px;
       border-radius: 0 10px 10px 0;
       transition: all 0.3s ease;
-      cursor: pointer;
-
-      &:hover {
-        color: ${colors.white};
-        background-color: ${colors.green};
-      }
     }
   }
 `;

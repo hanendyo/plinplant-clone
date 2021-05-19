@@ -6,7 +6,7 @@ import { colors } from '../../constant/style';
 import pic from '../../../fajariadi/assets/images/ig.jpg';
 
 const Navbar = () => {
-  const [login, setLogin] = useState(true);
+  const login = true;
   const [profile, setProfile] = useState(false);
 
   // ::: NAVBAR INTERACTION :::
