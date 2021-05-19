@@ -77,6 +77,36 @@ export const Data = styled.ul`
   }
 `;
 
+export const DataInput = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  & > p {
+    margin-bottom: 50px;
+  }
+
+  & > p:nth-of-type(2) {
+    color: ${colors.yellow};
+    cursor: pointer;
+  }
+  & > p:nth-of-type(3) {
+    color: ${colors.yellow};
+    cursor: pointer;
+  }
+`;
+
+export const DataEdit = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+
+  & > p {
+    color: ${colors.yellow};
+    cursor: pointer;
+    margin-bottom: 50px;
+  }
+`;
+
 export const RightArea = styled.div`
   width: 100%;
 

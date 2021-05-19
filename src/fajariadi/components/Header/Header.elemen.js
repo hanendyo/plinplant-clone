@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { colors, StyledContainer } from '../../../master/constant/style';
+import styled from "styled-components";
+import { colors, StyledContainer } from "../../../master/constant/style";
 
 export const HeaderTag = styled.header`
   min-height: 100vh;

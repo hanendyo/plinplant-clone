@@ -43,6 +43,7 @@ const PopoutComponent = ({ modal }) => {
 
   const HandleSubmit = () => {
     console.log(input);
+    alert("Alamat berhasil dimasukkan");
   };
 
   return (

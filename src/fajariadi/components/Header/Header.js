@@ -5,6 +5,19 @@ import { Container, HeaderTag, ScrollBtn, Typography } from './Header.elemen';
 import { FaChevronDown } from 'react-icons/fa';
 
 const Header = () => {
+  // : : : HANDLESCROLL : : :
+  const handleScroll = () => {
+    // -- by element --
+    // const element = document.getElementById("content");
+    // element.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    // -- by pixel --
+    window.scroll({
+      top: 650,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <HeaderTag>
       <Container>
@@ -13,20 +26,19 @@ const Header = () => {
         <img src={lg} alt='header-pic-large' />
 
         <Typography>
-          <h1>Lorem ipsum dolor sit amet, consectetur</h1>
+          <h1>Menanam tanaman menjadi lebih mudah</h1>
 
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
-            purus sit amet luctus venenatis, lectus magna fringilla urna,
-            porttitor
+            PlinPlant membantu Anda menemukan tanaman terbaik untuk ruang Anda,
+            mengirimkannya ke pintu Anda dan membantu Anda merawatnya.
           </p>
 
-          <ScrollBtn>
+          <ScrollBtn onClick={handleScroll}>
             <div>
               <FaChevronDown className='icon' />
             </div>
 
-            <p>Scroll down for more</p>
+            <p>Scroll ke bawah</p>
           </ScrollBtn>
         </Typography>
       </Container>

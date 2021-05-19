@@ -37,10 +37,10 @@ const Product = () => {
   console.log(searched);
 
   return (
-    <SectionProduct>
+    <SectionProduct id='content'>
       <Container>
         <SearchBar>
-          <h4>Lorem ipsum dolor sit amet, consectetur</h4>
+          <h4>Pertama, mari cari tanaman favoritmu</h4>
 
           <div>
             <input
