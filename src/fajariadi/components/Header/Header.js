@@ -1,8 +1,8 @@
-import React from "react";
-import sm from "../../assets/images/header-pic-small.jpg";
-import lg from "../../assets/images/header-pic-large.jpg";
-import { Container, HeaderTag, ScrollBtn, Typography } from "./Header.elemen";
-import { FaChevronDown } from "react-icons/fa";
+import React from 'react';
+import sm from '../../assets/images/header-pic-small.jpg';
+import lg from '../../assets/images/header-pic-large.jpg';
+import { Container, HeaderTag, ScrollBtn, Typography } from './Header.elemen';
+import { FaChevronDown } from 'react-icons/fa';
 
 const Header = () => {
   // : : : HANDLESCROLL : : :
@@ -13,17 +13,17 @@ const Header = () => {
 
     // -- by pixel --
     window.scroll({
-      top: 800,
-      behavior: "smooth",
+      top: 650,
+      behavior: 'smooth',
     });
   };
 
   return (
     <HeaderTag>
       <Container>
-        <img src={sm} alt="header-pic-small" />
+        <img src={sm} alt='header-pic-small' />
 
-        <img src={lg} alt="header-pic-large" />
+        <img src={lg} alt='header-pic-large' />
 
         <Typography>
           <h1>Menanam tanaman menjadi lebih mudah</h1>
@@ -35,7 +35,7 @@ const Header = () => {
 
           <ScrollBtn onClick={handleScroll}>
             <div>
-              <FaChevronDown className="icon" />
+              <FaChevronDown className='icon' />
             </div>
 
             <p>Scroll ke bawah</p>
