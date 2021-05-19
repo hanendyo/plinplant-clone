@@ -84,7 +84,7 @@ const Checkout = () => {
                 <h6>Pilih Pembayaran</h6>
 
                 <button>
-                  Bank Tujuan <FaChevronDown className='dropdown' />
+                  Bank Transfer <FaChevronDown className='dropdown' />
                 </button>
 
                 <p>
@@ -96,6 +96,12 @@ const Checkout = () => {
                   Rp 10.000. Berlaku kelipatan.{' '}
                   <FaExclamationTriangle className='warning' />
                 </p>
+
+                <ul>
+                  <li>Transfer Bank BCA</li>
+                  <li>Transfer Bank BNI</li>
+                  <li>Transfer Bank MANDIRI</li>
+                </ul>
               </Payment>
             </div>
           </div>

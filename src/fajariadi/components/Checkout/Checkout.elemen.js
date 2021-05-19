@@ -74,6 +74,7 @@ export const Payment = styled.section`
   width: 100%;
   max-width: 250px;
   margin-left: 30px;
+  position: relative;
 
   & > h6 {
     color: ${colors.white};
@@ -83,6 +84,7 @@ export const Payment = styled.section`
     background-color: ${colors.yellow};
     text-align: center;
     padding: 15px;
+    padding-left: 20px;
     border-radius: 10px;
     margin-top: 5px;
     position: relative;
@@ -93,10 +95,17 @@ export const Payment = styled.section`
     font-weight: 600;
     width: 100%;
     color: ${colors.white};
+    z-index: 1;
 
     &:focus {
       & > .dropdown {
         transform: rotate(-180deg) translateY(8px);
+      }
+
+      & ~ ul {
+        visibility: visible;
+        opacity: 1;
+        top: 90px;
       }
     }
 
@@ -127,6 +136,36 @@ export const Payment = styled.section`
       top: -5px;
       left: -10px;
       font-size: 32px;
+    }
+  }
+
+  & > ul {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background-color: ${colors.lightGreen};
+    /* backdrop-filter: blur(10px); */
+    border-radius: 10px;
+    /* padding: 10px 0; */
+    text-align: center;
+    overflow: hidden;
+    box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    visibility: hidden;
+    opacity: 0;
+
+    & > li {
+      padding: 10px 0;
+      cursor: pointer;
+
+      &:hover {
+        background-color: ${colors.yellow};
+      }
+
+      &:not(:last-of-type) {
+        /* margin-bottom: 10px; */
+      }
     }
   }
 `;
