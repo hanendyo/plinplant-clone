@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState, useRef, useEffect, useContext } from "react";
+=======
+import React, { useState, useRef, useEffect, useContext } from 'react';
+>>>>>>> 820fd6304f3bfd6b0cb82f50b8c2148dc23d9197
 import {
   StyledProfile,
   ProfileContainer,
@@ -6,6 +10,7 @@ import {
   Information,
   Data,
   RightArea,
+<<<<<<< HEAD
 } from "./Profile.component";
 import ModalAlamat from "../ModalAlamat/ModalAlamat";
 import UploadBox from "../../master/components/additional/UploadBox";
@@ -17,6 +22,19 @@ import PopoutComponent from "../ModalAlamat/PopupComponent/Popout";
 import Button from "../../master/components/additional/Button";
 import { colors } from "../../master/constant/style";
 import { openModalTambahAlamat } from "../../context/actions/modalActions";
+=======
+} from './Profile.component';
+import ModalAlamat from '../ModalAlamat/ModalAlamat';
+import UploadBox from '../../master/components/additional/UploadBox';
+import ProductsContainer from '../../fajariadi/components/Main/components/Product/ProductsContainer';
+import { addresses } from '../../master/constant/data/dummy-data';
+import ScrollSign from '../../master/components/additional/ScrollSign';
+import { ContextStore } from '../../context/store/ContextStore';
+import PopoutComponent from '../ModalAlamat/PopupComponent/Popout';
+import Button from '../../master/components/additional/Button';
+import { colors } from '../../master/constant/style';
+import { openModalTambahAlamat } from '../../context/actions/modalActions';
+>>>>>>> 820fd6304f3bfd6b0cb82f50b8c2148dc23d9197
 
 const Profile = () => {
   const [visible, setVisible] = useState(true);
@@ -45,7 +63,7 @@ const Profile = () => {
       {trigger ? (
         <>
           <ProfileContainer>
-            <div className="valueChoose">
+            <div className='valueChoose'>
               <TextBox>
                 <p>Biodata Diri</p>
               </TextBox>
@@ -93,7 +111,7 @@ const Profile = () => {
       ) : (
         <>
           <ProfileContainer>
-            <div className="valueChoose">
+            <div className='valueChoose'>
               <TextBox onClick={HandleClick}>
                 <p>Biodata Diri</p>
               </TextBox>
