@@ -1,21 +1,39 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SidebarCMS from "./components/SidebarCMS";
-import Article from "./pages/Article";
-import Category from "./pages/Category";
-import City from "./pages/City";
-import Contact from "./pages/Contact";
-import Gender from "./pages/Gender";
-import Order from "./pages/Order";
-import OrderItem from "./pages/OrderItem";
-import Plant from "./pages/Plant";
-import PlantBreeding from "./pages/PlantBreeding";
-import PriceList from "./pages/PriceList";
-import Review from "./pages/Review";
-import ShippingCharges from "./pages/ShippingCharges";
-import Stock from "./pages/Stock";
-import User from "./pages/User";
-import Weight from "./pages/Weight";
+// import Article from "./pages/Article";
+// import Category from "./pages/Category";
+// import City from "./pages/City";
+// import Contact from "./pages/Contact";
+// import Gender from "./pages/Gender";
+// import Order from "./pages/Order";
+// import OrderItem from "./pages/OrderItem";
+// import Plant from "./pages/Plant";
+// import PlantBreeding from "./pages/PlantBreeding";
+// import PriceList from "./pages/PriceList";
+// import Review from "./pages/Review";
+// import ShippingCharges from "./pages/ShippingCharges";
+// import Stock from "./pages/Stock";
+// import User from "./pages/User";
+// import Weight from "./pages/Weight";
+import {
+  Article,
+  Category,
+  City,
+  Contact,
+  Gender,
+  Order,
+  OrderItem,
+  Plant,
+  PlantBreeding,
+  PriceList,
+  Review,
+  ShippingCharges,
+  Stock,
+  User,
+  Weight,
+} from "../../hanendyo/CMS/cmsPages";
+//"./cmsPages";
 
 const NavigationCMS = () => {
   return (
