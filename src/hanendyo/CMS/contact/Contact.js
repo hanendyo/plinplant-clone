@@ -276,7 +276,7 @@ const Contact = () => {
                 <li>CONTACT ID: <span>{data.pk_contact_id}</span></li>
                 <li>RECIPIENT NAME: <span>{data.recipient_name}</span></li>
                 <li>ADDRESS: <span>{data.address}</span></li>
-                <li>PHONE NUMBER: <span>{data.recipient_name}</span></li>
+                <li>PHONE NUMBER: <span>{data.phone_number}</span></li>
                 <li>CITY ID: <span>{data.fk_city_id}</span></li>
                 {
                   <div>

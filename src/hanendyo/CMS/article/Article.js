@@ -47,6 +47,7 @@ const Article = () => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
   const [fileImage, setFileImage] = useState(null);
+  const [imageUpload, setImageUpload] = useState(null)
 
   // USE EFFECT
   useEffect(() => {
@@ -84,6 +85,7 @@ const Article = () => {
     data.append("content", form.content);
     data.append("created_at", form.created_at);
     data.append("article_image", form.article_image);
+    data.append("article_image_upload", imageUpload);
 
     axios
       .post(url + endPoint + `_input`, data, {
@@ -124,6 +126,7 @@ const Article = () => {
     data.append("title", form.title);
     data.append("content", form.content);
     data.append("created_at", form.created_at);
+    // data.append('image-upload' form.)
     data.append("article_image", form.article_image);
 
     axios
@@ -211,8 +214,11 @@ const Article = () => {
 
   const formImage = (e) => {
     const img = e.target.files[0];
-    articleDispatch(cmsAction("article_image", img));
+    const imgName = e.target.files[0].name
+    console.log(`IMEJ: `, img);
+    articleDispatch(cmsAction("article_image", imgName));
     setFileImage(URL.createObjectURL(img));
+    setImageUpload(img)
   };
 
   return (
@@ -254,7 +260,7 @@ const Article = () => {
 
         {/* ----- IMAGE ----- */}
         <span>Pick image:</span>
-        <input name="article_image" type="file" onChange={(e) => formImage(e)} />
+        <input name="article_image_upload" type="file" onChange={(e) => formImage(e)} />
         <img src={fileImage} alt="" />
         {/* ----- IMAGE ----- */}
 
@@ -291,7 +297,7 @@ const Article = () => {
         <h3>Result: </h3>
         {dataArticle.map(
           (data, index) => (
-            console.log(`data article map: `, dataArticle),
+            // console.log(`data article map: `, dataArticle),
             (
               <ul className="map" key={index}>
                 <li>
