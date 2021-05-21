@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SidebarCMS from "./components/SidebarCMS";
 // import Article from "./pages/Article";
@@ -33,12 +33,14 @@ import {
   User,
   Weight,
 } from "../../hanendyo/CMS/cmsPages";
+import { CMSContainer } from "./style/Container";
 //"./cmsPages";
 
 const NavigationCMS = () => {
   return (
     <Router>
       <SidebarCMS />
+
       <Switch>
         <Route exact path="/cms/article_input" component={Article}></Route>
         <Route exact path="/cms/category_input" component={Category}></Route>

@@ -11,7 +11,8 @@ import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { articlePost, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import '../CMS.css'
+import "../CMS.css";
+import { Container, BoxInput, InputContainer } from "./Article_component";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -191,45 +192,49 @@ const Article = () => {
   };
 
   return (
-    <div className="article cmsForm">
-      <h3>Article input</h3>
-      <form
-        enctype="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          value={articleState.author}
-          name="author"
-          onChange={(e) => formChange(`author`, e.target.value)}
-          id="outlined-basic"
-          label="Author"
-          variant="outlined"
-        />
-        <TextField
-          value={articleState.title}
-          onChange={(e) => formChange("title", e.target.value)}
-          name="title"
-          id="outlined-basic"
-          label="Title"
-          variant="outlined"
-        />
-        <TextField
-          value={articleState.content}
-          onChange={(e) => formChange("content", e.target.value)}
-          name="content"
-          id="outlined-multiline-static"
-          label="Content"
-          multiline
-          rows={10}
-          variant="outlined"
-        />
+    <div>
+      <Container>
+        <h4>Article input</h4>
+        <BoxInput>
+          <form
+            enctype="multipart/form-data"
+            className={classes.root}
+            onSubmit={(e) => handleSubmit(e)}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField
+              value={articleState.author}
+              name="author"
+              onChange={(e) => formChange(`author`, e.target.value)}
+              id="outlined-basic"
+              label="Author"
+              variant="outlined"
+              size="small"
+            />
+            <TextField
+              value={articleState.title}
+              onChange={(e) => formChange("title", e.target.value)}
+              name="title"
+              id="outlined-basic"
+              label="Title"
+              variant="outlined"
+              size="small"
+            />
+            <TextField
+              value={articleState.content}
+              onChange={(e) => formChange("content", e.target.value)}
+              name="content"
+              id="outlined-multiline-static"
+              label="Content"
+              multiline
+              // rows={10}
+              variant="outlined"
+              size="small"
+            />
 
-
-        {/* ----- IMAGE ----- */}
-        {/* <TextField
+            {/* ----- IMAGE ----- */}
+            {/* <TextField
           value={articleState.image}
           onChange={(e) => formChange("image", e.target.value)}
           name="image"
@@ -238,16 +243,28 @@ const Article = () => {
           label="input image"
           variant="outlined"
         /> */}
-        <input
-          id="image-upload"
-          name="image-upload"
-          type="file"
-          // value={articleState.image}
-          // onChange={(e) => console.log(`image: `, e.target.files[0].name)}
-          // onChange={(e) => formChange(`image`, e.target.value)}
-          // onChange={(e) => console.log(`FILE: `, e.target.files[0].name)}
-        />
-        {/* <label htmlFor="raised-button-file">
+            <input
+              accept="image/*"
+              className={classes.input}
+              id="contained-button-file"
+              multiple
+              type="file"
+            />
+            <label htmlFor="contained-button-file">
+              <Button variant="contained" color="primary" component="span">
+                Upload
+              </Button>
+            </label>
+            {/* <input
+              // id="image-upload"
+              // name="image-upload"
+              // type="file"
+              // value={articleState.image}
+              // onChange={(e) => console.log(`image: `, e.target.files[0].name)}
+              // onChange={(e) => formChange(`image`, e.target.value)}
+              // onChange={(e) => console.log(`FILE: `, e.target.files[0].name)}
+            /> */}
+            {/* <label htmlFor="raised-button-file">
           <Button
             value={articleState.image}
             className={classes.button}
@@ -260,70 +277,87 @@ const Article = () => {
             Upload Image
           </Button>
         </label> */}
-        {/* ----- IMAGE ----- */}
+            {/* ----- IMAGE ----- */}
 
+            <TextField
+              value={articleState.created_at}
+              onChange={(e) => formChange("created_at", e.target.value)}
+              name="created_at"
+              id="outlined-basic"
+              label="Created at"
+              variant="outlined"
+              size="small"
+            />
 
-        <TextField
-          value={articleState.created_at}
-          onChange={(e) => formChange("created_at", e.target.value)}
-          name="created_at"
-          id="outlined-basic"
-          label="Created at"
-          variant="outlined"
-        />
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              type="submit"
+            >
+              {isUpdate ? "Update" : "Submit"}
+            </Button>
+            {isUpdate && (
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                onClick={() => handleCancel()}
+              >
+                Cancel
+              </Button>
+            )}
+          </form>
+        </BoxInput>
 
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
-        >
-          {isUpdate ? "Update" : "Submit"}
-        </Button>
-        {isUpdate && (
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-            onClick={() => handleCancel()}
-          >
-            Cancel
-          </Button>
-        )}
-      </form>
-      <div >
-        <br />
-        <h3>Result: </h3>
-        {dataArticle.map(
-          (data, index) => (
-            console.log(`data article map: `, dataArticle),
-            (
-              <ul className='map' key={index}>
-                <li>NO: <span>{index + 1}</span></li>
-                <li>ARTICLE ID: <span>{data.pk_article_id}</span></li>
-                <li>IMAGE: <span>{data.image}</span>'</li>
-                <li>AUTHOR: <span>{data.author}</span></li>
-                <li>CREATED AT: <span>{data.created_at}</span></li>
-                <li>TITLE: <span>{data.title}</span></li>
-                <li>CONTENT: <span>{data.content}</span></li>
-                {
-                  <div>
-                    <button
-                      onClick={() => handleDelete(data.pk_article_id, index)}
-                    >
-                      delete
-                    </button>
-                    <button onClick={() => handleUpdate(data, index)}>
-                      Update
-                    </button>
-                    <br />
-                  </div>
-                }
-              </ul>
+        <div>
+          <br />
+          <h3>Result: </h3>
+          {dataArticle.map(
+            (data, index) => (
+              console.log(`data article map: `, dataArticle),
+              (
+                <ul className="map" key={index}>
+                  <li>
+                    NO: <span>{index + 1}</span>
+                  </li>
+                  <li>
+                    ARTICLE ID: <span>{data.pk_article_id}</span>
+                  </li>
+                  <li>
+                    IMAGE: <span>{data.image}</span>'
+                  </li>
+                  <li>
+                    AUTHOR: <span>{data.author}</span>
+                  </li>
+                  <li>
+                    CREATED AT: <span>{data.created_at}</span>
+                  </li>
+                  <li>
+                    TITLE: <span>{data.title}</span>
+                  </li>
+                  <li>
+                    CONTENT: <span>{data.content}</span>
+                  </li>
+                  {
+                    <div>
+                      <button
+                        onClick={() => handleDelete(data.pk_article_id, index)}
+                      >
+                        delete
+                      </button>
+                      <button onClick={() => handleUpdate(data, index)}>
+                        Update
+                      </button>
+                      <br />
+                    </div>
+                  }
+                </ul>
+              )
             )
-          )
-        )}
-      </div>
+          )}
+        </div>
+      </Container>
     </div>
   );
 };

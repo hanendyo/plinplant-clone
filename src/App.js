@@ -15,6 +15,7 @@ import ModalPengiriman from "./dhika/Pengiriman/ModalPengiriman";
 import { ReviewModal } from "./fajariadi/modals";
 import RatingInput from "./master/components/additional/RatingInput";
 import NavigationCMS from "./dhika/SidebarCMS/Navigation";
+import CMS from "./hanendyo/CMS/CMS";
 const App = () => {
   return (
     <Router>
@@ -31,7 +32,7 @@ const App = () => {
         <Route path="/alamat" component={ModalPengiriman} />
         <Route path="/modaltest" component={ReviewModal} />
         <Route path="/ratingtest" component={RatingInput} />
-        <Route path="/cms" component={NavigationCMS} />
+        <Route path="/cms" component={CMS} />
       </Switch>
     </Router>
   );
