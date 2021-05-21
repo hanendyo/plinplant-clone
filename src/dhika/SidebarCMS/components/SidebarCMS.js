@@ -16,6 +16,7 @@ const Nav = styled.div`
   align-items: center;
   position: sticky;
   top: 0;
+  z-index: 99;s
 `;
 
 const NavIcon = styled.div`
