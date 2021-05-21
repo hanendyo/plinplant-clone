@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { colors, StyledContainer } from "../../../master/constant/style";
+import styled from 'styled-components';
+import { colors, StyledContainer } from '../../../master/constant/style';
 
 export const HeaderTag = styled.header`
   min-height: 100vh;
@@ -29,6 +29,18 @@ export const Container = styled(StyledContainer)`
     height: 550px;
     object-fit: cover;
   }
+
+  @media (max-width: 900px) {
+    & > img:first-of-type {
+      min-width: 200px;
+      margin-right: 30px;
+    }
+
+    & > img:nth-of-type(2) {
+      min-width: 300px;
+      height: 450px;
+    }
+  }
 `;
 
 export const Typography = styled.div`
@@ -45,6 +57,10 @@ export const Typography = styled.div`
 
   & > h1 {
     color: ${colors.white};
+  }
+
+  @media (max-width: 900px) {
+    max-width: 400px;
   }
 `;
 

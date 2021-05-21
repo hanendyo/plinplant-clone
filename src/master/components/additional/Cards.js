@@ -361,7 +361,8 @@ const CardProductLandingPage = styled.div`
     position: absolute;
     background-color: #22222280;
     padding: 20px 0;
-    width: 100%;
+    right: 0;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
     text-align: center;
@@ -391,13 +392,14 @@ const CardProductLandingPage = styled.div`
 
   & > img {
     border-radius: 10px;
+    width: 500px;
   }
 
   &:hover {
     & > span {
-      top: 0;
+      /* top: 0; */
       opacity: 0;
-      transform: translateY(-120%);
+      transform: translateY(-150%);
     }
 
     & > div {
@@ -412,7 +414,7 @@ const CardProductSearched = styled(CardProductLandingPage)`
 
   & > img {
     width: 100%;
-    max-width: 200px;
+    max-width: 300px;
   }
 `;
 
