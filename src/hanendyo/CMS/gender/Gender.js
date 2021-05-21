@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
-  Box,
   Button,
-  Link,
   makeStyles,
   TextField,
-  Typography,
 } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
@@ -38,7 +35,7 @@ const Contact = () => {
   const { genderState, genderDispatch } = context;
 
   // USE STATE
-  const [dataArticle, setDataArticle] = useState([
+  const [dataGender, setDataGender] = useState([
     {
         type: ''
     },
@@ -49,7 +46,7 @@ const Contact = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
-    console.log(`dataArticle: `, dataArticle);
+    console.log(`dataGender: `, dataGender);
   }, []);
 
   const url = "http://localhost:5000/input/";
@@ -59,9 +56,9 @@ const Contact = () => {
     await axios
       .get(url + `${endPoint}_get_all_datas`)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.type === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
-          setDataArticle(res.data.data);
+          setDataGender(res.data.data);
         } else {
           console.log("Error");
         }
@@ -72,16 +69,28 @@ const Contact = () => {
   };
 
   // POST
-  const postAPI = async (data) => {
-    await axios
-      .post(url + `${endPoint}_input`, data)
+  const postAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("type", form.type);
+
+
+    axios
+      .post(url + `${endPoint}_input`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
-        console.log(res);
         getAllDatasAPI();
-        console.log(`get`);
+        console.log(`Gender successfuly created!`);
+        console.log(res);
+        return res;
       })
       .catch((err) => {
+        console.log(`ERROR!`);
         console.log(err);
+        return err;
       });
   };
 
@@ -97,19 +106,28 @@ const Contact = () => {
   };
 
   // UPDATE
-  const updateAPI = async (data) => {
-    // console.log(`ID ID ID: `, index);
-    console.log(`DATA UPDATE: `, data);
-    await axios
-      .put(url + `${endPoint}_update`, data)
+  const updateAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("type", form.type);
+
+
+    axios
+      .put(url + `${endPoint}_update`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
-        console.log(res);
-        setIsUpdate(false);
         getAllDatasAPI();
-        console.log(`update!`);
+        console.log(`Gender successfuly updated!`);
+        console.log(res);
+        return res;
       })
       .catch((err) => {
+        console.log(`ERROR!`);
         console.log(err);
+        return err;
       });
   };
 
@@ -123,9 +141,9 @@ const Contact = () => {
       postAPI(genderState);
     }
   
-    setDataArticle([
+    setDataGender([
       {
-        ...dataArticle,
+        ...dataGender,
         type: genderState.type
       },
     ]);
@@ -134,8 +152,8 @@ const Contact = () => {
 
     console.log(`GENDER STATE SUBMIT: `, genderState);
     // console.log(`ARTICLE STATE AUTHOR: `, genderState.author);
-    // console.log(`DATA ARTICLE SUBMIT: `, dataArticle);
-    // console.log(`DATA ARTICLE AUTHOR: `, dataArticle.author);
+    // console.log(`DATA ARTICLE SUBMIT: `, dataGender);
+    // console.log(`DATA ARTICLE AUTHOR: `, dataGender.author);
     // console.log(`UPDATED ARTICLE STATE: `, genderState);
     // console.log(`UPDATED ARTICLE STATE AUTHOR: `, genderState.author);
   };
@@ -153,8 +171,8 @@ const Contact = () => {
     setIndexUpdate(index);
     genderDispatch(cmsAction(`type`, data.type));
     
-    // console.log(`update from dataArticle: `, dataArticle[index]);
-    // console.log(`update from dataArticle: `, dataArticle[index]);
+    // console.log(`update from dataGender: `, dataGender[index]);
+    // console.log(`update from dataGender: `, dataGender[index]);
     console.log(`update from genderState: `, genderState);
   };
 
@@ -179,7 +197,7 @@ const Contact = () => {
     <div className="cmsForm">
       <h3>Gender input</h3>
       <form
-        enctype="multipart/form-data"
+        encType="multipart/form-data"
         className={classes.root}
         onSubmit={(e) => handleSubmit(e)}
         noValidate
@@ -216,12 +234,12 @@ const Contact = () => {
       <div>
         <br />
         <h3>Result: </h3>
-        {dataArticle.map(
+        {dataGender.map(
           (data, index) => (
-            console.log(`data article map: `, dataArticle),
+            console.log(`data article map: `, dataGender),
             (
               <ul className='map' key={index}>
-                <li>CONTACT ID: <span>{data.pk_gender_id}</span></li>
+                <li>GENDER ID: <span>{data.pk_gender_id}</span></li>
                 <li>GENDER TYPE: <span>{data.type}</span></li>
                 {
                   <div>

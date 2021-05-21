@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import {
-  Box,
   Button,
-  Link,
   makeStyles,
   TextField,
-  Typography,
 } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
-import { articlePost, cmsAction } from "../../../context/actions/CmsAction";
+import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import '../CMS.css'
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +38,7 @@ const Article = () => {
   const [dataArticle, setDataArticle] = useState([
     {
       author: "",
-      image: "",
+      article_image: "",
       created_at: "",
       title: "",
       content: "",
@@ -49,19 +46,21 @@ const Article = () => {
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
+  const [fileImage, setFileImage] = useState(null);
 
   // USE EFFECT
   useEffect(() => {
-    articleGetAllData();
+    getAllDatasAPI();
     console.log(`dataArticle: `, dataArticle);
   }, []);
 
   const url = "http://localhost:5000/input/";
+  const endPoint = "article";
 
   // GET
-  const articleGetAllData = async () => {
+  const getAllDatasAPI = async () => {
     await axios
-      .get(url + "article_get_all_datas")
+      .get(url + endPoint + "_get_all_datas")
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
@@ -76,44 +75,73 @@ const Article = () => {
   };
 
   // POST
-  const articlePost = async (data) => {
-    await axios
-      .post(url + "article_input", data)
+  const postAPI = async (form) => {
+    // const fileImg = fileImage
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("author", form.author);
+    data.append("title", form.title);
+    data.append("content", form.content);
+    data.append("created_at", form.created_at);
+    data.append("article_image", form.article_image);
+
+    axios
+      .post(url + endPoint + `_input`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
+        getAllDatasAPI();
+        console.log(`Article successfuly created!`);
         console.log(res);
-        articleGetAllData();
-        console.log(`get`);
+        return res;
       })
       .catch((err) => {
+        console.log(`ERROR!`);
         console.log(err);
+        return err;
       });
   };
 
   // DELETE
-  const articleDelete = async (id, index) => {
+  const deleteAPI = async (id, index) => {
     await axios
-      .delete(url + "article_delete/" + id)
+      .delete(url + endPoint + "_delete/" + id)
       .then((deleted) => {
         console.log(`DELETED: `, deleted);
-        articleGetAllData();
+        getAllDatasAPI();
       })
       .catch((err) => err);
   };
 
   // UPDATE
-  const articleUpdate = async (data) => {
-    // console.log(`ID ID ID: `, index);
+  const updateAPI = async (form) => {
     console.log(`DATA UPDATE: `, data);
-    await axios
-      .put(url + `article_update`, data)
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("author", form.author);
+    data.append("title", form.title);
+    data.append("content", form.content);
+    data.append("created_at", form.created_at);
+    data.append("article_image", form.article_image);
+
+    axios
+      .put(url + endPoint + `_update`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
+        getAllDatasAPI();
+        console.log(`Article successfuly updated!`);
         console.log(res);
-        setIsUpdate(false);
-        articleGetAllData();
-        console.log(`update!`);
+        return res;
       })
       .catch((err) => {
+        console.log(`ERROR!`);
         console.log(err);
+        return err;
       });
   };
 
@@ -121,10 +149,10 @@ const Article = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isUpdate) {
-      articleUpdate(articleState);
+      updateAPI(articleState);
       setIsUpdate(false);
     } else {
-      articlePost(articleState);
+      postAPI(articleState);
     }
 
     setDataArticle([
@@ -141,32 +169,23 @@ const Article = () => {
     clearFormData();
 
     console.log(`ARTICLE STATE SUBMIT: `, articleState);
-    // console.log(`ARTICLE STATE AUTHOR: `, articleState.author);
-    // console.log(`DATA ARTICLE SUBMIT: `, dataArticle);
-    // console.log(`DATA ARTICLE AUTHOR: `, dataArticle.author);
-    // console.log(`UPDATED ARTICLE STATE: `, articleState);
-    // console.log(`UPDATED ARTICLE STATE AUTHOR: `, articleState.author);
   };
 
   // HANDLE DELETE
   const handleDelete = (id, index) => {
-    articleDelete(id, index);
+    deleteAPI(id, index);
   };
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
-    // console.log(`index update: `, index);
-    // console.log(`data id update: `, data.pk_article_id);
     setIsUpdate(true);
     setIndexUpdate(index);
     articleDispatch(cmsAction(`author`, data.author));
     articleDispatch(cmsAction(`title`, data.title));
     articleDispatch(cmsAction(`content`, data.content));
     articleDispatch(cmsAction(`created_at`, data.created_at));
-    articleDispatch(cmsAction(`image`, data.image));
+    articleDispatch(cmsAction(`article_image`, data.article_image));
     articleDispatch(cmsAction(`pk_article_id`, data.pk_article_id));
-    // console.log(`update from dataArticle: `, dataArticle[index]);
-    // console.log(`update from dataArticle: `, dataArticle[index]);
     console.log(`update from articleState: `, articleState);
   };
 
@@ -182,7 +201,7 @@ const Article = () => {
     articleDispatch(cmsAction(`title`, ""));
     articleDispatch(cmsAction(`content`, ""));
     articleDispatch(cmsAction(`created_at`, ""));
-    articleDispatch(cmsAction(`image`, ""));
+    articleDispatch(cmsAction(`article_image`, null));
   };
 
   // FORM CHANGE
@@ -190,11 +209,17 @@ const Article = () => {
     articleDispatch(cmsAction(name, value));
   };
 
+  const formImage = (e) => {
+    const img = e.target.files[0];
+    articleDispatch(cmsAction("article_image", img));
+    setFileImage(URL.createObjectURL(img));
+  };
+
   return (
     <div className="article cmsForm">
       <h3>Article input</h3>
       <form
-        enctype="multipart/form-data"
+        encType="multipart/form-data"
         className={classes.root}
         onSubmit={(e) => handleSubmit(e)}
         noValidate
@@ -227,41 +252,11 @@ const Article = () => {
           variant="outlined"
         />
 
-
         {/* ----- IMAGE ----- */}
-        {/* <TextField
-          value={articleState.image}
-          onChange={(e) => formChange("image", e.target.value)}
-          name="image"
-          // onChange={updateField}
-          id="outlined-basic"
-          label="input image"
-          variant="outlined"
-        /> */}
-        <input
-          id="image-upload"
-          name="image-upload"
-          type="file"
-          // value={articleState.image}
-          // onChange={(e) => console.log(`image: `, e.target.files[0].name)}
-          // onChange={(e) => formChange(`image`, e.target.value)}
-          // onChange={(e) => console.log(`FILE: `, e.target.files[0].name)}
-        />
-        {/* <label htmlFor="raised-button-file">
-          <Button
-            value={articleState.image}
-            className={classes.button}
-            variant="raised"
-            color="primary"
-            component="span"
-            className={classes.button}
-            onChange={(e) => console.log(`FILE: `, e.target.files)}
-          >
-            Upload Image
-          </Button>
-        </label> */}
+        <span>Pick image:</span>
+        <input name="article_image" type="file" onChange={(e) => formImage(e)} />
+        <img src={fileImage} alt="" />
         {/* ----- IMAGE ----- */}
-
 
         <TextField
           value={articleState.created_at}
@@ -291,21 +286,35 @@ const Article = () => {
           </Button>
         )}
       </form>
-      <div >
+      <div>
         <br />
         <h3>Result: </h3>
         {dataArticle.map(
           (data, index) => (
             console.log(`data article map: `, dataArticle),
             (
-              <ul className='map' key={index}>
-                <li>NO: <span>{index + 1}</span></li>
-                <li>ARTICLE ID: <span>{data.pk_article_id}</span></li>
-                <li>IMAGE: <span>{data.image}</span>'</li>
-                <li>AUTHOR: <span>{data.author}</span></li>
-                <li>CREATED AT: <span>{data.created_at}</span></li>
-                <li>TITLE: <span>{data.title}</span></li>
-                <li>CONTENT: <span>{data.content}</span></li>
+              <ul className="map" key={index}>
+                <li>
+                  NO: <span>{index + 1}</span>
+                </li>
+                <li>
+                  ARTICLE ID: <span>{data.pk_article_id}</span>
+                </li>
+                {/* <li>
+                  IMAGE: <span>{data.image}</span>'
+                </li> */}
+                <li>
+                  AUTHOR: <span>{data.author}</span>
+                </li>
+                <li>
+                  CREATED AT: <span>{data.created_at}</span>
+                </li>
+                <li>
+                  TITLE: <span>{data.title}</span>
+                </li>
+                <li>
+                  CONTENT: <span>{data.content}</span>
+                </li>
                 {
                   <div>
                     <button

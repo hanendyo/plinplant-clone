@@ -37,15 +37,15 @@ const ProductsContainer = ({
   const chevronWidth = 50;
 
   const isMediumScreen = useMediaQuery({ minWidth: 1200 });
-  const isIpadPro = useMediaQuery({ minWidth: 990 });
+  const isIpadPro = useMediaQuery({ minWidth: 900 });
   const isIpad = useMediaQuery({ minWidth: 768 });
   const isPhone = useMediaQuery({ maxWidth: 768 });
 
   const numberOfCards = () => {
-    if (isMediumScreen) return 5;
-    if (isIpadPro) return 4;
-    if (isIpad) return 3;
-    if (isPhone) return 2;
+    if (isMediumScreen) return 4;
+    if (isIpadPro) return 3;
+    if (isIpad) return 2;
+    if (isPhone) return 1;
   };
 
   const categoryName = (category) => {
