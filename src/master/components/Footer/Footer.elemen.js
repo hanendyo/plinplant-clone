@@ -31,6 +31,19 @@ export const Container = styled(StyledContainer)`
       font-size: 36px;
     }
   }
+
+  @media (max-width: 760px) {
+    flex-direction: column;
+
+    & > div {
+      margin-bottom: 20px;
+      text-align: center;
+
+      &:last-of-type > ul {
+        justify-content: center;
+      }
+    }
+  }
 `;
 
 export const FooterLogo = styled(Logo)`

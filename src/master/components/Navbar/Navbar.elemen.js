@@ -38,6 +38,10 @@ export const Logo = styled.h1`
   font-size: 36px;
   font-family: 'Elsie Swash Caps', sans-serif;
   color: ${colors.white};
+
+  @media (max-width: 760px) {
+    font-size: 28px;
+  }
 `;
 
 export const LinksContainer = styled.ul`
@@ -149,6 +153,12 @@ export const LinksContainer = styled.ul`
       &:hover {
         color: ${colors.lightGreen};
       }
+    }
+  }
+
+  @media (max-width: 760px) {
+    & > li:last-of-type > button > p {
+      display: none;
     }
   }
 
