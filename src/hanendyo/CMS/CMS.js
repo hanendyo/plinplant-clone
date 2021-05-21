@@ -42,11 +42,12 @@ export default CMS;
 // import { Link } from "react-router-dom";
 // import * as FaIcons from "react-icons/fa";
 // import { FaTimes } from "react-icons/fa";
-// // import { colors } from "../../../master/constant/style/index";
-// // import { SidebarData } from "./DummyData";
-// // import SubMenu from "./SubMenu";
+// import { colors } from "../../../src/master/constant/style/index"
+// import { SidebarData } from "./SidebarList";
+// import SubMenu from "./SubMenu";
 
 // const Nav = styled.div`
+// background: ${colors.green};
 //   height: 80px;
 //   display: flex;
 //   justify-content: flex-start;
@@ -67,6 +68,7 @@ export default CMS;
 // `;
 
 // const SidebarNav = styled.nav`
+// background: ${colors.yellow};
 //   width: 250px;
 //   height: 100vh;
 //   display: flex;

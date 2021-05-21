@@ -14,7 +14,7 @@ import { SignUpReducer } from '../reducer/SignUpReducer';
 export const ContextStore = createContext();
 
 export const ContextProvider = ({ children }) => {
-  // AUTH
+  //! AUTH
   // SIGNUP
   const [signUpState, signUpDispatch] = useReducer(
     SignUpReducer,
@@ -24,7 +24,7 @@ export const ContextProvider = ({ children }) => {
   // LOGIN
   const [loginState, loginDispatch] = useReducer(SignInReducer, SignInInitial);
 
-  // CMS
+  //! CMS
   // ARTICLE
   const [articleState, articleDispatch] = useReducer(
     CmsReducer,
@@ -131,6 +131,9 @@ export const ContextProvider = ({ children }) => {
         signUpState,
         signUpDispatch,
 
+        // login
+        loginState,
+        loginDispatch,
         // article
         articleState,
         articleDispatch,
