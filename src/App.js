@@ -12,6 +12,7 @@ import {
 } from './fajariadi/pages';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavigationCMS from './dhika/SidebarCMS/Navigation';
+import CMS from './hanendyo/CMS/CMS';
 const App = () => {
   return (
     <Router>
@@ -25,7 +26,7 @@ const App = () => {
         <Route path='/transaction' component={TransactionPage} />
         <Route path='/article' component={ArticlePage} />
         <Route path='/profile' component={ProfilePage} />
-        <Route path='/cms' component={NavigationCMS} />
+        <Route path='/cms' component={CMS} />
       </Switch>
     </Router>
   );
