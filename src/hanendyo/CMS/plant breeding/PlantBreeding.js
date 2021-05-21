@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Link,
-  makeStyles,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Button, makeStyles, TextField } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
@@ -38,7 +31,7 @@ const PlantBreeding = () => {
   const { plantBreedingState, plantBreedingDispatch } = context;
 
   // USE STATE
-  const [dataArticle, setDataArticle] = useState([
+  const [dataPlantBreeding, setDataPlantBreeding] = useState([
     {
       seed: "",
       tuber: "",
@@ -48,20 +41,21 @@ const PlantBreeding = () => {
       tuber_image: "",
       young_image: "",
       mature_image: "",
-      fk_plant_id: 0,
+      fk_plant_id: "",
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
+  const [fileImage, setFileImage] = useState([]);
 
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
-    console.log(`dataArticle: `, dataArticle);
+    console.log(`dataPlantBreeding: `, dataPlantBreeding);
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = "plant";
+  const endPoint = "plant_breeding";
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -69,7 +63,7 @@ const PlantBreeding = () => {
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
-          setDataArticle(res.data.data);
+          setDataPlantBreeding(res.data.data);
         } else {
           console.log("Error");
         }
@@ -80,16 +74,35 @@ const PlantBreeding = () => {
   };
 
   // POST
-  const postAPI = async (data) => {
-    await axios
-      .post(url + `${endPoint}_input`, data)
+  const postAPI = async (form) => {
+    // const fileImg = fileImage
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("seed", form.seed);
+    data.append("tuber", form.tuber);
+    data.append("young", form.young);
+    data.append("mature", form.mature);
+    data.append("seed_image", form.seed_image);
+    data.append("tuber_image", form.tuber_image);
+    data.append("young_image", form.young_image);
+    data.append("mature_image", form.mature_image);
+
+    axios
+      .post(url + `${endPoint}_input`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
-        console.log(res);
         getAllDatasAPI();
-        console.log(`get`);
+        console.log(`Plant breeeding successfuly created!`);
+        console.log(res);
+        return res;
       })
       .catch((err) => {
+        console.log(`ERROR!`);
         console.log(err);
+        return err;
       });
   };
 
@@ -105,19 +118,35 @@ const PlantBreeding = () => {
   };
 
   // UPDATE
-  const updateAPI = async (data) => {
-    // console.log(`ID ID ID: `, index);
-    console.log(`DATA UPDATE: `, data);
-    await axios
-      .put(url + `${endPoint}_update`, data)
+  const updateAPI = async (form) => {
+    console.log(`DATA UPDATE: `, form);
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("seed", form.seed);
+    data.append("tuber", form.tuber);
+    data.append("young", form.young);
+    data.append("mature", form.mature);
+    data.append("seed_image", form.seed_image);
+    data.append("tuber_image", form.tuber_image);
+    data.append("young_image", form.young_image);
+    data.append("mature_image", form.mature_image);
+
+    axios
+      .put(url + `${endPoint}_update`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
-        console.log(res);
-        setIsUpdate(false);
         getAllDatasAPI();
-        console.log(`update!`);
+        console.log(`Article successfuly created!`);
+        console.log(res);
+        return res;
       })
       .catch((err) => {
+        console.log(`ERROR!`);
         console.log(err);
+        return err;
       });
   };
 
@@ -131,9 +160,9 @@ const PlantBreeding = () => {
       postAPI(plantBreedingState);
     }
 
-    setDataArticle([
+    setDataPlantBreeding([
       {
-        ...dataArticle,
+        ...dataPlantBreeding,
         seed: plantBreedingState.seed,
         tuber: plantBreedingState.tuber,
         young: plantBreedingState.young,
@@ -148,12 +177,7 @@ const PlantBreeding = () => {
 
     clearFormData();
 
-    console.log(`PLANT STATE SUBMIT: `, plantBreedingState);
-    // console.log(`ARTICLE STATE AUTHOR: `, plantBreedingState.author);
-    // console.log(`DATA ARTICLE SUBMIT: `, dataArticle);
-    // console.log(`DATA ARTICLE AUTHOR: `, dataArticle.author);
-    // console.log(`UPDATED ARTICLE STATE: `, plantBreedingState);
-    // console.log(`UPDATED ARTICLE STATE AUTHOR: `, plantBreedingState.author);
+    console.log(`PLANT BREEDING STATE SUBMIT: `, plantBreedingState);
   };
 
   // HANDLE DELETE
@@ -163,8 +187,6 @@ const PlantBreeding = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
-    // console.log(`index update: `, index);
-    // console.log(`data id update: `, data.pk_article_id);
     setIsUpdate(true);
     setIndexUpdate(index);
     plantBreedingDispatch(cmsAction(`seed`, data.seed));
@@ -176,9 +198,6 @@ const PlantBreeding = () => {
     plantBreedingDispatch(cmsAction(`young_image`, data.young_image));
     plantBreedingDispatch(cmsAction(`mature_image`, data.mature_image));
     plantBreedingDispatch(cmsAction(`fk_plant_id`, data.fk_plant_id));
-
-    // console.log(`update from dataArticle: `, dataArticle[index]);
-    // console.log(`update from dataArticle: `, dataArticle[index]);
     console.log(`update from plantBreedingState: `, plantBreedingState);
   };
 
@@ -206,11 +225,18 @@ const PlantBreeding = () => {
     plantBreedingDispatch(cmsAction(name, value));
   };
 
+  const formImage = async (e) => {
+    const img = e.target.files[0];
+    const name = e.target.name;
+    await setFileImage((fileImage) => [...fileImage, URL.createObjectURL(img)]);
+    plantBreedingDispatch(cmsAction(name, img));
+  };
+
   return (
     <div className="cmsForm">
       <h3>Plant breeding input</h3>
       <form
-        enctype="multipart/form-data"
+        encType="multipart/form-data"
         className={classes.root}
         onSubmit={(e) => handleSubmit(e)}
         noValidate
@@ -248,28 +274,32 @@ const PlantBreeding = () => {
           label="Plant qualities"
           variant="outlined"
         />
-          <p>Seed Image</p>
-        <input
-          label="Plant image"
-          id="image-upload"
-          name="image-upload"
-          type="file"
-          // value={articleState.image}
-          onChange={(e) => console.log(`image: `, e.target.files[0])}
-          // onChange={(e) => formChange(`image`, e.target.value)}
-          // onChan
-        />
+        {/* ----- IMAGE ----- */}
+        <span>Pick seed image:</span>
+        <input name="seed_image" type="file" onChange={(e) => formImage(e)} />
+        <img src={fileImage[0]} alt="" />
+        {/* ----- IMAGE ----- */}
+        {/* ----- IMAGE ----- */}
+        <span>Pick tuber image:</span>
+        <input name="tuber_image" type="file" onChange={(e) => formImage(e)} />
+        <img src={fileImage[1]} alt="" />
+        {/* ----- IMAGE ----- */}
+        {/* ----- IMAGE ----- */}
+        <span>Pick young image:</span>
+        <input name="young_image" type="file" onChange={(e) => formImage(e)} />
+        <img src={fileImage[2]} alt="" />
+        {/* ----- IMAGE ----- */}
+        {/* ----- IMAGE ----- */}
+        <span>Pick mature image:</span>
+        <input name="mature_image" type="file" onChange={(e) => formImage(e)} />
+        <img src={fileImage[3]} alt="" />
+        {/* ----- IMAGE ----- */}
         <TextField
           value={plantBreedingState.fk_plant_id}
           name="fk_plant_id"
           onChange={(e) => formChange(`fk_plant_id`, e.target.value)}
           id="outlined-basic"
           label="Category_id"
-          variant="outlined"
-        />
-        <TextField
-          id="outlined-basic"
-          label="Review_id"
           variant="outlined"
         />
         <Button
@@ -294,47 +324,33 @@ const PlantBreeding = () => {
       <div>
         <br />
         <h3>Result: </h3>
-        {dataArticle.map(
+        {dataPlantBreeding.map(
           (data, index) => (
-            console.log(`data article map: `, dataArticle),
+            console.log(`data article map: `, dataPlantBreeding),
             (
               <ul className="map" key={index}>
                 <li>
-                  PLANT ID: <span>{data.pk_plant_id}</span>
+                  PLANT ID: <span>{data.pk_plant_breeding_id}</span>
                 </li>
                 <li>
-                  PLANT NAME: <span>{data.seed}</span>
+                  SEED: <span>{data.seed}</span>
                 </li>
                 <li>
-                  PLANT ORIGIN: <span>{data.young}</span>
+                  TUBER: <span>{data.tuber}</span>
                 </li>
                 <li>
-                  PLANT IMAGE: <span>{data.tuber}</span>
+                  YOUNG: <span>{data.young}</span>
                 </li>
                 <li>
-                  PLANT QUALITIES: <span>{data.mature}</span>
+                  MATURE: <span>{data.mature}</span>
                 </li>
-                <li>
-                  PLANT USE: <span>{data.seed_image}</span>
-                </li>
-                <li>
-                  DAYS TO SPROUT: <span>{data.tuber_image}</span>
-                </li>
-                <li>
-                  MATURES IN: <span>{data.young_image}</span>
-                </li>
-                <li>
-                  GROWTH IN: <span>{data.mature_image}</span>
-                </li>
-                <li>
-                  CATEGORY_ID: <span>{data.fk_plant_id}</span>
-                </li>
-                <li>
-                </li>
+                <li></li>
                 {
                   <div>
                     <button
-                      onClick={() => handleDelete(data.pk_plant_id, index)}
+                      onClick={() =>
+                        handleDelete(data.pk_plant_breeding_id, index)
+                      }
                     >
                       delete
                     </button>

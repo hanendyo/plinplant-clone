@@ -91,6 +91,9 @@ export const ContextProvider = ({ children }) => {
         // signup
         signUpState,
         signUpDispatch,
+        // login
+        loginState,
+        loginDispatch,
         // article
         articleState,
         articleDispatch,

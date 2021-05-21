@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
-  Box,
   Button,
-  Link,
   makeStyles,
   TextField,
-  Typography,
 } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
@@ -38,10 +35,10 @@ const OrderItem = () => {
   const { orderItemState, orderItemDispatch } = context;
 
   // USE STATE
-  const [dataArticle, setDataArticle] = useState([
+  const [dataOrderItem, setDataOrderItem] = useState([
     {
-        quantity: 0,
-        fk_price_list_id: 0
+        quantity: '',
+        fk_price_list_id: ''
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -50,7 +47,7 @@ const OrderItem = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
-    console.log(`dataArticle: `, dataArticle);
+    console.log(`dataOrderItem: `, dataOrderItem);
   }, []);
 
   const url = "http://localhost:5000/input/";
@@ -62,7 +59,7 @@ const OrderItem = () => {
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
-          setDataArticle(res.data.data);
+          setDataOrderItem(res.data.data);
         } else {
           console.log("Error");
         }
@@ -73,16 +70,28 @@ const OrderItem = () => {
   };
 
   // POST
-  const postAPI = async (data) => {
-    await axios
-      .post(url + `${endPoint}_input`, data)
+  const postAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("quantity", form.quantity);
+    data.append("fk_price_list_id", form.fk_price_list_id);
+
+    axios
+      .post(url + `${endPoint}_input`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
-        console.log(res);
         getAllDatasAPI();
-        console.log(`get`);
+        console.log(`Order item successfuly created!`);
+        console.log(res);
+        return res;
       })
       .catch((err) => {
+        console.log(`ERROR!`);
         console.log(err);
+        return err;
       });
   };
 
@@ -98,18 +107,28 @@ const OrderItem = () => {
   };
 
   // UPDATE
-  const updateAPI = async (data) => {
-    console.log(`DATA UPDATE: `, data);
-    await axios
-      .put(url + `${endPoint}_update`, data)
+  const updateAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("quantity", form.quantity);
+    data.append("fk_price_list_id", form.fk_price_list_id);
+
+    axios
+      .post(url + `${endPoint}_update`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
-        console.log(res);
-        setIsUpdate(false);
         getAllDatasAPI();
-        console.log(`update!`);
+        console.log(`Order Item successfuly updated!`);
+        console.log(res);
+        return res;
       })
       .catch((err) => {
+        console.log(`ERROR!`);
         console.log(err);
+        return err;
       });
   };
 
@@ -123,9 +142,9 @@ const OrderItem = () => {
       postAPI(orderItemState);
     }
   
-    setDataArticle([
+    setDataOrderItem([
       {
-        ...dataArticle,
+        ...dataOrderItem,
         quantity: orderItemState.quantity,
         fk_price_list_id: orderItemState.fk_price_list_id,
       },
@@ -135,8 +154,8 @@ const OrderItem = () => {
 
     console.log(`ORDERITEM STATE SUBMIT: `, orderItemState);
     // console.log(`ARTICLE STATE AUTHOR: `, orderItemState.author);
-    // console.log(`DATA ARTICLE SUBMIT: `, dataArticle);
-    // console.log(`DATA ARTICLE AUTHOR: `, dataArticle.author);
+    // console.log(`DATA ARTICLE SUBMIT: `, dataOrderItem);
+    // console.log(`DATA ARTICLE AUTHOR: `, dataOrderItem.author);
     // console.log(`UPDATED ARTICLE STATE: `, orderItemState);
     // console.log(`UPDATED ARTICLE STATE AUTHOR: `, orderItemState.author);
   };
@@ -155,8 +174,8 @@ const OrderItem = () => {
     orderItemDispatch(cmsAction(`quantity`, data.quantity));
     orderItemDispatch(cmsAction(`fk_price_list_id`, data.fk_price_list_id));
     
-    // console.log(`update from dataArticle: `, dataArticle[index]);
-    // console.log(`update from dataArticle: `, dataArticle[index]);
+    // console.log(`update from dataOrderItem: `, dataOrderItem[index]);
+    // console.log(`update from dataOrderItem: `, dataOrderItem[index]);
     console.log(`update from orderItemState: `, orderItemState);
   };
 
@@ -181,7 +200,7 @@ const OrderItem = () => {
     <div className="cmsForm">
       <h3>Order item input</h3>
       <form
-        enctype="multipart/form-data"
+        encType="multipart/form-data"
         className={classes.root}
         onSubmit={(e) => handleSubmit(e)}
         noValidate
@@ -225,9 +244,9 @@ const OrderItem = () => {
       <div>
         <br />
         <h3>Result: </h3>
-        {dataArticle.map(
+        {dataOrderItem.map(
           (data, index) => (
-            console.log(`data article map: `, dataArticle),
+            console.log(`data article map: `, dataOrderItem),
             (
               <ul className='map' key={index}>
                 <li>ORDER ITEM ID: <span>{data.pk_order_item_id}</span></li>
