@@ -536,8 +536,8 @@ const CardCart = styled.div`
         display: inline-block;
         background-color: ${colors.lightGreenTransparent};
         padding: 3px 10px;
-        border-radius: 10px;
-        font-size: 12px;
+        border-radius: 5px;
+        font-size: 14px;
         margin-top: 5px;
       }
     }
@@ -579,16 +579,35 @@ const CardCart = styled.div`
 
 const CardCheckout = styled(CardCart)`
   & > div {
-    &:first-of-type > span:first-of-type {
+    & > h5 {
       margin-top: 0;
+      margin-bottom: 5px;
+    }
+
+    &:first-of-type > span:first-of-type {
+      background-color: ${colors.lightGreenTransparent};
+      padding: 3px 7px;
+      border-radius: 5px;
+      font-size: 14px;
     }
 
     &:first-of-type > span:last-of-type {
       display: block;
-      background-color: unset;
-      padding: unset;
       font-size: 14px;
       margin-top: 10px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    align-items: center;
+
+    & > div:first-of-type {
+      flex: 1;
+      margin-right: 10px;
+    }
+
+    & > h5 {
+      margin-right: unset;
     }
   }
 `;

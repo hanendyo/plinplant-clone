@@ -46,7 +46,7 @@ export const Logo = styled.h1`
   color: ${colors.white};
 
   @media (max-width: 760px) {
-    font-size: 24px;
+    font-size: 28px;
   }
 `;
 
