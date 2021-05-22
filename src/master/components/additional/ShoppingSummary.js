@@ -73,12 +73,18 @@ const SummarySection = styled.section`
   max-width: 330px;
   padding: 20px 20px 30px;
   border-radius: 10px;
-  margin-left: 30px;
+  margin-left: 20px;
   box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1);
 
   & > h4 {
     color: ${colors.white};
     margin-bottom: 20px;
+  }
+
+  @media (max-width: 1200px) {
+    margin-left: unset;
+    max-width: 100%;
+    margin-top: 30px;
   }
 `;
 

@@ -37,9 +37,11 @@ const Counter = styled.div`
   }
 
   @media (max-width: 760px) {
-    position: absolute;
-    bottom: -60px;
-    right: 30px;
+    position: ${({ shop }) => (shop ? 'absolute' : 'auto')};
+    bottom: ${({ shop }) => (shop ? '-60px' : 'auto')};
+    right: ${({ shop }) => (shop ? '30px' : 'auto')};
+    margin: unset;
+    margin-left: 20px;
   }
 `;
 

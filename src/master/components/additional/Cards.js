@@ -155,15 +155,17 @@ const Cards = ({
           <img src={img} alt='' />
 
           <div>
-            <h5>{name}</h5>
-            <span>{phase}</span>
-          </div>
+            <div>
+              <h5>{name}</h5>
+              <span>{phase}</span>
+            </div>
 
-          <h5>{price}</h5>
+            <h5>{price}</h5>
+          </div>
 
           <Quantity quantity={quantity} />
 
-          <FaRegTrashAlt />
+          <FaRegTrashAlt className='trash' />
         </CardCart>
       )}
 
@@ -507,6 +509,7 @@ const CardCart = styled.div`
   border-radius: 10px;
   padding: 10px;
   padding-right: 30px;
+  position: relative;
 
   &:not(:last-of-type) {
     margin-bottom: 5px;
@@ -524,27 +527,53 @@ const CardCart = styled.div`
     flex: 1;
     margin-right: 10px;
 
-    &:last-of-type {
-      justify-content: center;
+    & > div {
+      & > h5 {
+        color: ${colors.white};
+      }
+
+      & > span {
+        display: inline-block;
+        background-color: ${colors.lightGreenTransparent};
+        padding: 3px 10px;
+        border-radius: 10px;
+        font-size: 12px;
+        margin-top: 5px;
+      }
     }
 
     & > h5 {
       color: ${colors.white};
-    }
-
-    &:first-of-type > span {
-      display: inline-block;
-      background-color: ${colors.lightGreenTransparent};
-      padding: 3px 10px;
-      border-radius: 10px;
-      font-size: 12px;
-      margin-top: 5px;
+      margin-top: 20px;
     }
   }
 
   & > h5 {
     color: ${colors.white};
     margin-right: 10px;
+  }
+
+  @media (max-width: 760px) {
+    align-items: flex-start;
+    padding-right: 10px;
+
+    & > img {
+      margin-right: 10px;
+    }
+
+    & > div {
+      &:last-of-type {
+        flex: unset;
+        margin-right: unset;
+      }
+    }
+
+    & > .trash {
+      position: absolute;
+      bottom: 20px;
+      right: 10px;
+      font-size: 20px;
+    }
   }
 `;
 
