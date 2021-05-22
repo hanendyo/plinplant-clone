@@ -13,12 +13,33 @@ export const Container = styled(StyledContainer)`
     max-width: 600px;
     margin-right: 20px;
 
-    & > p {
-      padding: unset;
-    }
-
     & > h2 {
       color: white;
+      margin-bottom: 20px;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    & > div {
+      max-width: 450px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    padding: 30px;
+
+    & > div {
+      max-width: 400px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    flex-direction: column;
+    align-items: unset;
+    padding: 20px;
+
+    & > div {
+      margin-right: unset;
       margin-bottom: 20px;
     }
   }

@@ -31,6 +31,12 @@ export const Container = styled(StyledContainer)`
     transform: translate(-50%, -50%);
   }
 
+  @media (max-width: 760px) {
+    & > .logo-center {
+      left: 20%;
+    }
+  }
+
   /* background-color: burlywood; */
 `;
 
@@ -40,7 +46,7 @@ export const Logo = styled.h1`
   color: ${colors.white};
 
   @media (max-width: 760px) {
-    font-size: 28px;
+    font-size: 24px;
   }
 `;
 
@@ -142,6 +148,10 @@ export const LinksContainer = styled.ul`
             }
           }
         }
+
+        @media (max-width: 760px) {
+          right: 5px;
+        }
       }
     }
 
@@ -156,9 +166,15 @@ export const LinksContainer = styled.ul`
     }
   }
 
-  @media (max-width: 760px) {
-    & > li:last-of-type > button > p {
-      display: none;
+  @media (max-width: 900px) {
+    & > li:last-of-type > button {
+      & > p {
+        display: none;
+      }
+
+      & > img {
+        margin-right: unset;
+      }
     }
   }
 
@@ -168,12 +184,18 @@ export const LinksContainer = styled.ul`
 `;
 
 // Navbar.js style
-export const Home = styled.p`
+export const Home = styled.a`
   display: flex;
   align-items: center;
 
   & > .icon {
     margin-right: 10px;
     font-size: 12px;
+  }
+
+  @media (max-width: 760px) {
+    & > p {
+      display: none;
+    }
   }
 `;

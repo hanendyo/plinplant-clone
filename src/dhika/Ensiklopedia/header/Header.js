@@ -14,41 +14,39 @@ const Header = () => {
   return (
     <StyledHeader>
       <Container>
-        <div>
-          <Left>
-            <img src={image1} alt='basil' />
-          </Left>
+        <Left>
+          <img src={image1} alt='basil' />
+        </Left>
 
-          <Right>
-            <h1>Basil</h1>
-            <h5>Asal Tanaman</h5>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-              aliquam, purus sit amet luctus venenatis, lectus magna fringilla
-              urna, porttitor
-            </p>
+        <Right>
+          <h1>Basil</h1>
+          <h5>Asal Tanaman</h5>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
+            purus sit amet luctus venenatis, lectus magna fringilla urna,
+            porttitor
+          </p>
 
-            <h5>Kualitas</h5>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-              aliquam, purus sit amet luctus venenatis, lectus magna fringilla
-              urna, porttitor rhoncus dolor purus non enim praesent elementum
-              facilisis leo, vel
-            </p>
+          <h5>Kualitas</h5>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
+            purus sit amet luctus venenatis, lectus magna fringilla urna,
+            porttitor rhoncus dolor purus non enim praesent elementum facilisis
+            leo, vel
+          </p>
 
-            <h5>Kegunaan</h5>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-              aliquam, purus sit amet luctus venenatis, lectus magna fringilla
-              urna, porttitor rhoncus dolor purus non enim
-            </p>
-          </Right>
-        </div>
+          <h5>Kegunaan</h5>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
+            purus sit amet luctus venenatis, lectus magna fringilla urna,
+            porttitor rhoncus dolor purus non enim
+          </p>
+        </Right>
 
         <BoxGroup>
           <Box>
             <div>
-              <FaSeedling size={80} />
+              <FaSeedling className='icon' />
             </div>
             <p>WAKTU TUMBUH</p>
             <h4>5-21 HARI</h4>
@@ -56,7 +54,7 @@ const Header = () => {
 
           <Box>
             <div>
-              <FaClock size={80} />
+              <FaClock className='icon' />
             </div>
             <p>DEWASA DALAM</p>
             <h4>68 HARI</h4>
@@ -64,7 +62,7 @@ const Header = () => {
 
           <Box>
             <div>
-              <FaPagelines size={80} />
+              <FaPagelines className='icon' />
             </div>
             <p>TIPE PERTUMBUHAN</p>
             <h4>MERAMBAT</h4>
