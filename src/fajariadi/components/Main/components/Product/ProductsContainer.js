@@ -409,7 +409,6 @@ const TransactionContainer = styled.div`
 `;
 
 const InvoiceContainer = styled.div`
-  /* background-color: red; */
   margin-left: 10px;
   border-radius: 10px;
   height: 310px;
@@ -426,6 +425,11 @@ const InvoiceContainer = styled.div`
       transform: translateY(0);
       visibility: visible;
     }
+  }
+
+  @media (max-width: 760px) {
+    margin-left: unset;
+    height: 385px;
   }
 `;
 

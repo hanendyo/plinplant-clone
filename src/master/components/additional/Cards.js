@@ -743,10 +743,19 @@ const CardInvoice = styled.div`
         &:first-of-type {
           background-color: ${colors.lightGreenTransparent};
           width: fit-content;
-          padding: 3px 10px;
-          border-radius: 10px;
+          padding: 3px 7px;
+          border-radius: 5px;
           margin-bottom: 5px;
         }
+      }
+    }
+  }
+
+  @media (max-width: 760px) {
+    & > div:first-of-type {
+      & > div {
+        /* background-color: red; */
+        width: 120px;
       }
     }
   }
