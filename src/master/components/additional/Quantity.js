@@ -35,6 +35,12 @@ const Counter = styled.div`
       text-align: center;
     }
   }
+
+  @media (max-width: 760px) {
+    position: absolute;
+    bottom: -60px;
+    right: 30px;
+  }
 `;
 
 export default Quantity;

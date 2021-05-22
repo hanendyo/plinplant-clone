@@ -33,7 +33,7 @@ export const Container = styled(StyledContainer)`
 
   @media (max-width: 760px) {
     & > .logo-center {
-      left: 20%;
+      left: 25%;
     }
   }
 

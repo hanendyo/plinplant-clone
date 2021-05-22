@@ -16,6 +16,7 @@ import {
 import { plant, reviews } from '../../../master/constant/data/dummy-data';
 import Quantity from '../../../master/components/additional/Quantity';
 import ScrollSign from '../../../master/components/additional/ScrollSign';
+import { useMediaQuery } from 'react-responsive';
 
 const Shop = () => {
   const [scroll, setScroll] = useState(true);
@@ -24,6 +25,9 @@ const Shop = () => {
     if (reviews.length < 4) setScroll(false);
     if (reviews.length > 3) setScroll(true);
   }, [reviews]);
+
+  const isIpad = useMediaQuery({ maxWidth: 900 });
+  const isPhone = useMediaQuery({ maxWidth: 760 });
 
   return (
     <main
@@ -34,9 +38,15 @@ const Shop = () => {
       }}
     >
       <Container>
-        <RelatedProduct>
-          <h5>Tanaman Terkait</h5>
-          <ProductsContainer scroll category='hias' />
+        <RelatedProduct isIpad={isIpad}>
+          {isIpad ? (
+            <ProductsContainer related category='hias' />
+          ) : (
+            <>
+              <h5>Tanaman Terkait</h5>
+              <ProductsContainer scroll category='hias' />
+            </>
+          )}
 
           <ScrollSign center />
         </RelatedProduct>

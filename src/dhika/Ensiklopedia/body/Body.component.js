@@ -95,6 +95,7 @@ export const Textbox = styled.div`
   @media (max-width: 760px) {
     border-radius: 0 0 10px 10px;
     padding: 5px 20px 20px;
+    max-width: 420px;
 
     & > h5 {
       margin-bottom: 10px;
