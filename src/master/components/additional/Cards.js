@@ -9,6 +9,7 @@ import StatusOrder from './StatusOrder';
 import { Link } from 'react-router-dom';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { openModalReview } from '../../../context/actions';
+import { useMediaQuery } from 'react-responsive';
 
 const Cards = ({
   name,
@@ -46,6 +47,7 @@ const Cards = ({
   selectAddress,
 }) => {
   const { modalReviewDispatch } = useContext(ContextStore);
+  const isMini = useMediaQuery({ maxWidth: 370 });
 
   return (
     <>
@@ -298,10 +300,15 @@ const Cards = ({
             <span>
               Oleh <strong>{author}</strong>
             </span>
-            <p>
-              {release_date} <FaCircle size={5} className='circle' />{' '}
-              {reading_time} menit baca
-            </p>
+
+            {isMini ? (
+              <p>{release_date}</p>
+            ) : (
+              <p>
+                {release_date} <FaCircle size={5} className='circle' />{' '}
+                {reading_time} menit baca
+              </p>
+            )}
           </div>
         </CardArticle>
       )}
@@ -788,7 +795,7 @@ const CardArticle = styled.div`
 
   & > img {
     width: 130px;
-    height: 100px;
+    height: 120px;
     object-fit: cover;
     margin-right: 10px;
   }
