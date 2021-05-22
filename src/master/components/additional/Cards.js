@@ -190,11 +190,11 @@ const Cards = ({
           {/* Header Info */}
           <div>
             <p>
-              Tanggal Pembelian <span>: {created}</span>
+              Tanggal Pembelian :<span>{created}</span>
             </p>
 
             <p>
-              No. Order <span>: PP-{no_order}</span>
+              No. Order :<span>PP-{no_order}</span>
             </p>
 
             <StatusOrder status={status} />
@@ -623,7 +623,6 @@ const CardTransaction = styled.div`
   background-color: ${colors.darkGreen};
   padding: 15px 30px 70px;
   border-radius: 10px;
-  /* box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1); */
   position: relative;
 
   &:not(:last-of-type) {
@@ -692,8 +691,6 @@ const CardTransaction = styled.div`
 
     & > div:nth-of-type(2) {
       border-left: 1px solid ${colors.lightGreenTransparent};
-      /* background-color: red; */
-      /* margin-right: 50px; */
       padding-left: 30px;
 
       & > h6 {
@@ -711,6 +708,69 @@ const CardTransaction = styled.div`
 
     & > button {
       margin-left: 10px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    & > div:nth-of-type(1) {
+      & > p {
+        display: flex;
+        flex-direction: column;
+
+        & > span {
+          margin-left: unset;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 760px) {
+    padding: 15px 15px 80px;
+
+    & > div:nth-of-type(1) {
+      flex-direction: column;
+      align-items: unset;
+      margin-bottom: 30px;
+
+      & > p {
+        margin-bottom: 10px;
+        flex-direction: row;
+        justify-content: space-between;
+
+        &:nth-of-type(2) {
+          flex: 1;
+          border-left: unset;
+          margin-left: unset;
+          padding-left: unset !important;
+        }
+
+        & > span {
+          margin-left: 10px;
+        }
+      }
+
+      /* :: STATUS :: */
+      & > span {
+        align-self: flex-end;
+      }
+    }
+
+    & > div:nth-of-type(2) {
+      align-items: flex-start;
+
+      & > div:nth-of-type(1) {
+        margin-left: 10px;
+      }
+
+      & > div:nth-of-type(2) {
+        padding-left: 20px;
+        margin-left: 20px;
+      }
+    }
+
+    & > div:nth-of-type(3) {
+      bottom: 15px;
+      right: 15px;
     }
   }
 `;

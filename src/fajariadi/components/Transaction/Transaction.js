@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import ScrollSign from '../../../master/components/additional/ScrollSign';
 import { transactions } from '../../../master/constant/data/dummy-data';
-import { colors } from '../../../master/constant/style';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
-import { Container } from './Transaction.elemen';
+import { Container, TransactionSection } from './Transaction.elemen';
 
 const Transaction = () => {
   const [scroll, setScroll] = useState(true);
@@ -14,13 +13,7 @@ const Transaction = () => {
   }, [transactions]);
 
   return (
-    <main
-      style={{
-        minHeight: '100vh',
-        backgroundColor: colors.green,
-        paddingTop: 130,
-      }}
-    >
+    <TransactionSection>
       <Container>
         <h2>Daftar Transaksi (4)</h2>
 
@@ -28,7 +21,7 @@ const Transaction = () => {
 
         {scroll && <ScrollSign center />}
       </Container>
-    </main>
+    </TransactionSection>
   );
 };
 
