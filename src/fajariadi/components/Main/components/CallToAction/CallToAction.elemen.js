@@ -31,4 +31,12 @@ export const Container = styled(StyledContainer)`
       /* min-width: 300px; */
     }
   }
+
+  @media (max-width: 900px) {
+    & > div:nth-of-type(2) {
+      & > img {
+        max-width: 300px;
+      }
+    }
+  }
 `;

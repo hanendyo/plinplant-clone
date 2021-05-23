@@ -11,9 +11,6 @@ import {
   ProfilePage,
 } from "./fajariadi/pages";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ModalPengiriman from "./dhika/Pengiriman/ModalPengiriman";
-import { ReviewModal } from "./fajariadi/modals";
-import RatingInput from "./master/components/additional/RatingInput";
 import NavigationCMS from "./dhika/SidebarCMS/Navigation";
 import CMS from "./hanendyo/CMS/CMS";
 const App = () => {
@@ -29,9 +26,6 @@ const App = () => {
         <Route path="/transaction" component={TransactionPage} />
         <Route path="/article" component={ArticlePage} />
         <Route path="/profile" component={ProfilePage} />
-        <Route path="/alamat" component={ModalPengiriman} />
-        <Route path="/modaltest" component={ReviewModal} />
-        <Route path="/ratingtest" component={RatingInput} />
         <Route path="/cms" component={CMS} />
       </Switch>
     </Router>
