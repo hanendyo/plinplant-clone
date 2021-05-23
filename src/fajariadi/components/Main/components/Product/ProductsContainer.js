@@ -32,6 +32,7 @@ const ProductsContainer = ({
   search,
   searching,
   selectAddress,
+  related,
 }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
@@ -45,6 +46,13 @@ const ProductsContainer = ({
     if (isMediumScreen) return 4;
     if (isIpadPro) return 3;
     if (isIpad) return 2;
+    if (isPhone) return 1;
+  };
+
+  const numberOfCardsRelated = () => {
+    if (isMediumScreen) return 5;
+    if (isIpadPro) return 4;
+    if (isIpad) return 3;
     if (isPhone) return 1;
   };
 
@@ -74,6 +82,30 @@ const ProductsContainer = ({
             requestToChangeActive={setActiveItemIndex}
             activeItemIndex={activeItemIndex}
             numberOfCards={numberOfCards()}
+            gutter={5}
+            leftChevron={<FaChevronLeft />}
+            rightChevron={<FaChevronRight />}
+            outsideChevron
+            chevronWidth={chevronWidth}
+            // infiniteLoop
+          >
+            {products
+              .filter((item) => category === item.category)
+              .map(({ name, img }, index) => (
+                <Cards slider name={name} img={img} key={index} />
+              ))}
+          </ItemsCarousel>
+        </CardContainer>
+      )}
+
+      {related && (
+        <CardContainer>
+          <h4>{categoryName(category)}</h4>
+
+          <ItemsCarousel
+            requestToChangeActive={setActiveItemIndex}
+            activeItemIndex={activeItemIndex}
+            numberOfCards={numberOfCardsRelated()}
             gutter={5}
             leftChevron={<FaChevronLeft />}
             rightChevron={<FaChevronRight />}
@@ -377,7 +409,6 @@ const TransactionContainer = styled.div`
 `;
 
 const InvoiceContainer = styled.div`
-  /* background-color: red; */
   margin-left: 10px;
   border-radius: 10px;
   height: 310px;
@@ -394,6 +425,11 @@ const InvoiceContainer = styled.div`
       transform: translateY(0);
       visibility: visible;
     }
+  }
+
+  @media (max-width: 760px) {
+    margin-left: unset;
+    height: 385px;
   }
 `;
 

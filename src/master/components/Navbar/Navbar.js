@@ -29,11 +29,10 @@ const Navbar = () => {
   return (
     <Nav shadow={shadow}>
       <Container shadow={shadow}>
-        <a href='/'>
-          <Home>
-            <FaChevronLeft className='icon' /> Home
-          </Home>
-        </a>
+        <Home href='/'>
+          <FaChevronLeft className='icon' />
+          <p>Home</p>
+        </Home>
 
         <Logo className='logo-center'>PlinPlant</Logo>
 

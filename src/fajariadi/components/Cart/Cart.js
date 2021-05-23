@@ -7,7 +7,7 @@ import ShoppingSummary from '../../../master/components/additional/ShoppingSumma
 import { cartItems } from '../../../master/constant/data/dummy-data';
 import { colors } from '../../../master/constant/style';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
-import { Container, ListCart } from './Cart.elemen';
+import { CartSection, Container, ListCart } from './Cart.elemen';
 
 const Cart = () => {
   const { modalTambahAlamatState } = useContext(ContextStore);
@@ -20,13 +20,7 @@ const Cart = () => {
   }, [cartItems]);
 
   return (
-    <main
-      style={{
-        backgroundColor: colors.green,
-        paddingTop: 130,
-        minHeight: '100vh',
-      }}
-    >
+    <CartSection>
       <Container>
         <h2>Keranjang</h2>
 
@@ -42,7 +36,7 @@ const Cart = () => {
       </Container>
 
       <PopoutComponent modal={modalTambahAlamatState} />
-    </main>
+    </CartSection>
   );
 };
 

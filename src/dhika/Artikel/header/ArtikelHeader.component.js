@@ -5,12 +5,21 @@ export const Main = styled.main`
   background-color: ${colors.green};
   min-height: 100vh;
   padding: 130px 0 100px;
+
+  @media (max-width: 1200px) {
+    min-height: calc(100vh - 186px);
+    padding-bottom: 50px;
+  }
 `;
 
 export const News = styled(StyledContainer)`
   display: flex;
   justify-content: space-between;
   position: relative;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+  }
 `;
 
 export const HeaderComponent = styled.div`
@@ -22,6 +31,24 @@ export const HeaderComponent = styled.div`
     height: 400px;
     object-fit: cover;
     border-radius: 20px;
+  }
+
+  @media (max-width: 1200px) {
+    & > img {
+      height: 250px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    & > img {
+      height: 400px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    & > img {
+      height: 230px;
+    }
   }
 `;
 
@@ -63,5 +90,11 @@ export const NewsContainer = styled.section`
     color: ${colors.white};
     text-align: center;
     margin-bottom: 10px;
+  }
+
+  @media (max-width: 900px) {
+    margin-left: unset;
+    margin-top: 30px;
+    max-width: 100%;
   }
 `;

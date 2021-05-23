@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
-  Box,
   Button,
-  Link,
   makeStyles,
   TextField,
-  Typography,
 } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
@@ -38,7 +35,7 @@ const City = () => {
   const { cityState, cityDispatch } = context;
 
   // USE STATE
-  const [dataArticle, setDataArticle] = useState([
+  const [dataCity, setDataCity] = useState([
     {
         city_name: '',
     },
@@ -49,7 +46,7 @@ const City = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
-    console.log(`dataArticle: `, dataArticle);
+    console.log(`dataCity: `, dataCity);
   }, []);
 
   const url = "http://localhost:5000/input/";
@@ -61,7 +58,7 @@ const City = () => {
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
-          setDataArticle(res.data.data);
+          setDataCity(res.data.data);
         } else {
           console.log("Error");
         }
@@ -72,16 +69,27 @@ const City = () => {
   };
 
   // POST
-  const postAPI = async (data) => {
-    await axios
-      .post(url + `${endPoint}_input`, data)
+  const postAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("city_name", form.city_name);
+
+    axios
+      .post(url + `${endPoint}_input`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
-        console.log(res);
         getAllDatasAPI();
-        console.log(`get`);
+        console.log(`City successfuly created!`);
+        console.log(res);
+        return res;
       })
       .catch((err) => {
+        console.log(`ERROR!`);
         console.log(err);
+        return err;
       });
   };
 
@@ -97,19 +105,27 @@ const City = () => {
   };
 
   // UPDATE
-  const updateAPI = async (data) => {
-    // console.log(`ID ID ID: `, index);
-    console.log(`DATA UPDATE: `, data);
-    await axios
-      .put(url + `${endPoint}_update`, data)
+  const updateAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("city_name", form.city_name);
+
+    axios
+      .post(url + `${endPoint}_input`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
-        console.log(res);
-        setIsUpdate(false);
         getAllDatasAPI();
-        console.log(`update!`);
+        console.log(`City successfuly updated!`);
+        console.log(res);
+        return res;
       })
       .catch((err) => {
+        console.log(`ERROR!`);
         console.log(err);
+        return err;
       });
   };
 
@@ -123,9 +139,9 @@ const City = () => {
       postAPI(cityState);
     }
   
-    setDataArticle([
+    setDataCity([
       {
-        ...dataArticle,
+        ...dataCity,
         city_name: cityState.city_name
       },
     ]);
@@ -134,8 +150,8 @@ const City = () => {
 
     console.log(`CITY STATE SUBMIT: `, cityState);
     // console.log(`ARTICLE STATE AUTHOR: `, cityState.author);
-    // console.log(`DATA ARTICLE SUBMIT: `, dataArticle);
-    // console.log(`DATA ARTICLE AUTHOR: `, dataArticle.author);
+    // console.log(`DATA ARTICLE SUBMIT: `, dataCity);
+    // console.log(`DATA ARTICLE AUTHOR: `, dataCity.author);
     // console.log(`UPDATED ARTICLE STATE: `, cityState);
     // console.log(`UPDATED ARTICLE STATE AUTHOR: `, cityState.author);
   };
@@ -153,8 +169,8 @@ const City = () => {
     setIndexUpdate(index);
     cityDispatch(cmsAction(`city_name`, data.city_name));
     
-    // console.log(`update from dataArticle: `, dataArticle[index]);
-    // console.log(`update from dataArticle: `, dataArticle[index]);
+    // console.log(`update from dataCity: `, dataCity[index]);
+    // console.log(`update from dataCity: `, dataCity[index]);
     console.log(`update from cityState: `, cityState);
   };
 
@@ -179,7 +195,7 @@ const City = () => {
     <div className="cmsForm">
       <h3>City input</h3>
       <form
-        enctype="multipart/form-data"
+        encType="multipart/form-data"
         className={classes.root}
         onSubmit={(e) => handleSubmit(e)}
         noValidate
@@ -215,9 +231,9 @@ const City = () => {
       <div>
         <br />
         <h3>Result: </h3>
-        {dataArticle.map(
+        {dataCity.map(
           (data, index) => (
-            console.log(`data article map: `, dataArticle),
+            console.log(`data article map: `, dataCity),
             (
               <ul className='map' key={index}>
                 <li>CITY NAME: <span>{data.city_name}</span></li>

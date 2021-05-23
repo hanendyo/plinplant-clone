@@ -7,7 +7,7 @@ const RelatedProduct = () => {
   return (
     <SectionRP>
       <Container>
-        <ProductsContainer slider category='hias' />
+        <ProductsContainer related category='hias' />
       </Container>
     </SectionRP>
   );
@@ -18,6 +18,12 @@ const SectionRP = styled.section`
   padding-bottom: 50px;
 `;
 
-const Container = styled(StyledContainer)``;
+const Container = styled(StyledContainer)`
+  padding: 0 30px;
+
+  @media (max-width: 760px) {
+    padding: 0 50px;
+  }
+`;
 
 export default RelatedProduct;

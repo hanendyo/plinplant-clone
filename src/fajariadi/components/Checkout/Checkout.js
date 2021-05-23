@@ -16,6 +16,7 @@ import {
   ListItem,
   Payment,
   ShippingAddress,
+  CheckoutSection,
 } from './Checkout.elemen';
 
 const Checkout = () => {
@@ -33,13 +34,7 @@ const Checkout = () => {
   } = useContext(ContextStore);
 
   return (
-    <main
-      style={{
-        minHeight: '100vh',
-        backgroundColor: colors.green,
-        paddingTop: 130,
-      }}
-    >
+    <CheckoutSection>
       <Container>
         <h2>Checkout</h2>
 
@@ -112,7 +107,7 @@ const Checkout = () => {
 
       <PopoutPengiriman modal={modalPilihAlamatState} />
       <PopoutComponent modal={modalTambahAlamatState} />
-    </main>
+    </CheckoutSection>
   );
 };
 

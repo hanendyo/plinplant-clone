@@ -8,10 +8,12 @@ export const StyledHeader = styled.header`
 export const Container = styled(StyledContainer)`
   padding: 130px 0 150px;
   position: relative;
+  display: flex;
+  justify-content: space-between;
 
-  & > div:nth-of-type(1) {
-    display: flex;
-    justify-content: space-between;
+  @media (max-width: 760px) {
+    flex-direction: column;
+    padding: 130px 0 50px;
   }
 `;
 
@@ -22,6 +24,23 @@ export const Left = styled.div`
     width: 750px;
     min-width: 400px;
     border-radius: 10px;
+    position: sticky;
+    top: 100px;
+  }
+
+  @media (max-width: 900px) {
+    & > img {
+      min-width: 300px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    margin-right: unset;
+    margin-bottom: 10px;
+
+    & > img {
+      position: unset;
+    }
   }
 `;
 
@@ -42,6 +61,10 @@ export const Right = styled.div`
     padding: unset;
     margin-bottom: 20px;
   }
+
+  @media (max-width: 760px) {
+    margin-bottom: 20px;
+  }
 `;
 
 export const BoxGroup = styled.div`
@@ -49,41 +72,73 @@ export const BoxGroup = styled.div`
   position: absolute;
   bottom: -120px;
   right: 0;
-  /* @media screen and (max-width: 768px) {
+
+  @media (max-width: 900px) {
+    left: 0;
+  }
+
+  @media (max-width: 760px) {
+    position: unset;
     flex-direction: column;
-    width: 100%;
-    margin: 0 10px;
-    height: 500px;
-  } */
+    align-items: center;
+  }
 `;
 
 export const Box = styled.div`
   background-color: ${colors.yellow};
   color: ${colors.green};
   width: 240px;
-  height: 240px;
+  padding: 30px 0;
   display: flex;
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  margin-left: 24px;
+
+  &:nth-of-type(2) {
+    margin: 0 24px;
+  }
 
   & > div {
     margin-bottom: 20px;
+
+    & > .icon {
+      font-size: 80px;
+    }
   }
 
   & > p {
     font-size: 24px;
-    padding: unset;
   }
 
-  /* @media screen and (max-width: 768px) {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+  @media (max-width: 900px) {
+    & > div {
+      & > .icon {
+        font-size: 60px;
+      }
+    }
+
+    & > p {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    margin-bottom: 10px;
     width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-  } */
+
+    &:nth-of-type(2) {
+      margin: unset;
+      margin-bottom: 10px;
+    }
+
+    & > div {
+      & > .icon {
+        font-size: 40px;
+      }
+    }
+
+    & > p {
+      font-size: 16px;
+    }
+  }
 `;

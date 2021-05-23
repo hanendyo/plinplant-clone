@@ -4,6 +4,15 @@ import { colors, StyledContainer } from '../../../master/constant/style';
 export const HeaderTag = styled.header`
   min-height: 100vh;
   background-color: ${colors.green};
+
+  @media (max-width: 1200px) {
+    min-height: fit-content;
+    padding-bottom: 5rem;
+  }
+
+  @media (max-width: 760px) {
+    min-height: 100vh;
+  }
 `;
 
 export const Container = styled(StyledContainer)`
@@ -41,6 +50,22 @@ export const Container = styled(StyledContainer)`
       height: 450px;
     }
   }
+
+  @media (max-width: 760px) {
+    flex-direction: column;
+    padding-top: 110px;
+
+    & > img:first-of-type {
+      max-width: 500px;
+      width: 100%;
+      margin-right: unset;
+      margin-bottom: 20px;
+    }
+
+    & > img:nth-of-type(2) {
+      display: none;
+    }
+  }
 `;
 
 export const Typography = styled.div`
@@ -61,6 +86,10 @@ export const Typography = styled.div`
 
   @media (max-width: 900px) {
     max-width: 400px;
+  }
+
+  @media (max-width: 760px) {
+    position: unset;
   }
 `;
 
@@ -85,5 +114,9 @@ export const ScrollBtn = styled.div`
 
   & > p {
     padding: unset;
+  }
+
+  @media (max-width: 760px) {
+    display: none;
   }
 `;

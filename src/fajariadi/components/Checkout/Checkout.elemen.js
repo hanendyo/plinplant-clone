@@ -2,6 +2,17 @@ import styled from 'styled-components';
 import { colors, StyledContainer } from '../../../master/constant/style';
 import { ListCart } from '../Cart/Cart.elemen';
 
+export const CheckoutSection = styled.main`
+  background-color: ${colors.green};
+  padding-top: 130px;
+  min-height: 100vh;
+
+  @media (max-width: 1200px) {
+    min-height: calc(100vh - 186px);
+    padding-bottom: 50px;
+  }
+`;
+
 export const Container = styled(StyledContainer)`
   & > h2 {
     color: ${colors.white};
@@ -20,6 +31,31 @@ export const Container = styled(StyledContainer)`
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
+      }
+    }
+  }
+
+  @media (max-width: 1200px) {
+    & > div {
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 760px) {
+    & > div {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      & > div {
+        width: 100%;
+
+        & > div {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          flex-wrap: wrap;
+        }
       }
     }
   }
@@ -43,6 +79,13 @@ export const ShippingAddress = styled.section`
     border-bottom: 1px solid ${colors.lightGreenTransparent};
     padding-bottom: 10px;
   }
+
+  @media (max-width: 760px) {
+    & > div {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
 `;
 
 export const Address = styled.div`
@@ -63,6 +106,10 @@ export const Address = styled.div`
       background-color: ${colors.lightGreenTransparent};
       margin-left: 10px;
     }
+  }
+
+  @media (max-width: 760px) {
+    margin-bottom: 20px;
   }
 `;
 
@@ -167,5 +214,10 @@ export const Payment = styled.section`
         /* margin-bottom: 10px; */
       }
     }
+  }
+
+  @media (max-width: 760px) {
+    margin-left: unset;
+    margin: 20px auto 0;
   }
 `;
