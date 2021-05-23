@@ -36,6 +36,7 @@ const Article = () => {
   // USE STATE
   const [dataArticle, setDataArticle] = useState([
     {
+      pk_article_id: "",
       author: "",
       article_image: "",
       created_at: "",
@@ -216,10 +217,10 @@ const Article = () => {
 
   // REACT DATA GRID
   const columns = [
-    { field: "id", headerName: "No", width: 70 },
+    { field: "pk_article_id", headerName: "ArticleId", width: 70 },
     { field: "author", headerName: "Author", width: 130 },
     { field: "title", headerName: "Title", width: 130 },
-    { field: "createdAt", headerName: "Created at", width: 150 },
+    { field: "created_at", headerName: "created AT", width: 150 },
     { field: "image", headerName: "Image", width: 120 },
     { field: "content", headerName: "Content", width: 300 },
     {
@@ -228,7 +229,9 @@ const Article = () => {
       width: 130,
       renderCell: () => (
         <Button
-          onClick={() => handleUpdate(rows, rows.id)}
+          onClick={() =>
+            handleUpdate(dataArticle, dataArticle.pk_article_id - 1)
+          }
           variant="contained"
           color="primary"
           component="span"
@@ -257,24 +260,30 @@ const Article = () => {
   ];
 
   // ROW DATA GRID -> DUMMY
-  const rows = [
-    {
-      id: 1,
-      author: "Dhika",
-      title: "Merawat Tanaman",
-      createdAt: "10 Nov 2020",
-      image: "null",
-      content: "BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla",
-    },
-    {
-      id: 2,
-      author: "Dyo",
-      title: "Tanaman Hits jaman now",
-      createdAt: "11 Nov 2020",
-      image: "null2",
-      content: "BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla",
-    },
-  ];
+  const rows = dataArticle.map((row) => {
+    console.log(`ROW :`, row);
+    const { pk_article_id, ...rest } = row;
+    return { id: pk_article_id, ...rest };
+  });
+
+  // [
+  // {
+  //   id: 1,
+  //   author: "Dhika",
+  //   title: "Merawat Tanaman",
+  //   createdAt: "10 Nov 2020",
+  //   image: "null",
+  //   content: "BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla",
+  // },
+  // {
+  //   id: 2,
+  //   author: "Dyo",
+  //   title: "Tanaman Hits jaman now",
+  //   createdAt: "11 Nov 2020",
+  //   image: "null2",
+  //   content: "BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla",
+  // },
+  // ];
 
   return (
     <div>
@@ -413,7 +422,7 @@ const Article = () => {
                 (
                   <ul className="map" key={index}>
                     <li>
-                      NO: <span>{index + 1}</span>
+                      id: <span>{index + 1}</span>
                     </li>
                     <li>
                       ARTICLE ID: <span>{data.pk_article_id}</span>
