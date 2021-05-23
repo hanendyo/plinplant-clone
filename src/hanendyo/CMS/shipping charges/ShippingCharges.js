@@ -71,12 +71,7 @@ const Article = () => {
   };
 
   // POST
-  const postAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("shipping_price", form.shipping_price);
-    data.append("fk_city_id", form.fk_city_id);
-
+  const postAPI = async (data) => {
     axios
       .post(url + endPoint + `_input`, data, {
         headers: {
@@ -108,13 +103,8 @@ const Article = () => {
   };
 
   // UPDATE
-  const updateAPI = async (form) => {
+  const updateAPI = async (data) => {
     console.log(`DATA UPDATE: `, data);
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("shipping_price", form.shipping_price);
-    data.append("fk_city_id", form.fk_city_id);
-
     axios
       .put(url + endPoint + `_update`, data, {
         headers: {

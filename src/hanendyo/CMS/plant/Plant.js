@@ -51,7 +51,8 @@ const Plant = () => {
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
-  const [fileImage, setFileImage] = useState(null);
+  const [reviewImage, setReviewImage] = useState(null);
+  const [imageUpload, setImageUpload] = useState(null)
 
   // USE EFFECT
   useEffect(() => {
@@ -84,6 +85,7 @@ const Plant = () => {
     console.log(`formdata:`, form);
     data.append("plant_name", form.plant_name);
     data.append("plant_image", form.plant_image);
+    data.append("plant_image_upload", imageUpload);
     data.append("plant_origin", form.plant_origin);
     data.append("plant_use", form.plant_use);
     data.append("days_to_sprout", form.days_to_sprout);
@@ -92,7 +94,7 @@ const Plant = () => {
     data.append("fk_review_id", form.fk_review_id);
 
     axios
-      .post(url + `${endPoint}_update`, data, {
+      .post(url + `${endPoint}_input`, data, {
         headers: {
           "content-type": "multipart/form-data",
         },
@@ -127,6 +129,7 @@ const Plant = () => {
     console.log(`formdata:`, form);
     data.append("plant_name", form.plant_name);
     data.append("plant_image", form.tuber);
+    data.append("plant_image_upload", imageUpload);
     data.append("plant_origin", form.plant_origin);
     data.append("plant_use", form.plant_use);
     data.append("days_to_sprout", form.days_to_sprout);
@@ -142,7 +145,7 @@ const Plant = () => {
       })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Article successfuly created!`);
+        console.log(`Plant successfuly created!`);
         console.log(res);
         return res;
       })
@@ -191,8 +194,6 @@ const Plant = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
-    // console.log(`index update: `, index);
-    // console.log(`data id update: `, data.pk_article_id);
     setIsUpdate(true);
     setIndexUpdate(index);
     plantDispatch(cmsAction(`plant_name`, data.plant_name));
@@ -206,8 +207,6 @@ const Plant = () => {
     plantDispatch(cmsAction(`fk_category_id`, data.fk_category_id));
     plantDispatch(cmsAction(`fk_review_id`, data.fk_review_id));
 
-    // console.log(`update from dataPlant: `, dataPlant[index]);
-    // console.log(`update from dataPlant: `, dataPlant[index]);
     console.log(`update from plantState: `, plantState);
   };
 
@@ -238,8 +237,10 @@ const Plant = () => {
 
   const formImage = (e) => {
     const img = e.target.files[0];
-    plantDispatch(cmsAction("image", img));
-    setFileImage(URL.createObjectURL(img));
+    const imgName = e.target.files[0].name
+    plantDispatch(cmsAction("plant_image", imgName));
+    setReviewImage(URL.createObjectURL(img));
+    setImageUpload(img)
   };
 
   return (
@@ -264,7 +265,7 @@ const Plant = () => {
         {/* ----- IMAGE ----- */}
         <span>Pick plant image:</span>
         <input name="plant_image" type="file" onChange={(e) => formImage(e)} />
-        <img src={fileImage} alt="" />
+        <img src={reviewImage} alt="" />
         {/* ----- IMAGE ----- */}
 
         <TextField

@@ -37,7 +37,7 @@ const Contact = () => {
   // USE STATE
   const [dataGender, setDataGender] = useState([
     {
-        type: ''
+      type: ''
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -54,14 +54,10 @@ const Contact = () => {
   // GET
   const getAllDatasAPI = async () => {
     await axios
-      .get(url + `${endPoint}_get_all_datas`)
+      .get(url + endPoint + `_get_all_datas`)
       .then((res) => {
-        if (res.type === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
-          setDataGender(res.data.data);
-        } else {
-          console.log("Error");
-        }
+        console.log(`GET RES DATA DATA: `, res.data.data);
+        setDataGender(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -69,18 +65,9 @@ const Contact = () => {
   };
 
   // POST
-  const postAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("type", form.type);
-
-
+  const postAPI = async (data) => {
     axios
-      .post(url + `${endPoint}_input`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .post(url + `${endPoint}_input`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`Gender successfuly created!`);
@@ -106,18 +93,9 @@ const Contact = () => {
   };
 
   // UPDATE
-  const updateAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("type", form.type);
-
-
+  const updateAPI = async (data) => {
     axios
-      .put(url + `${endPoint}_update`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`Gender successfuly updated!`);
@@ -140,7 +118,7 @@ const Contact = () => {
     } else {
       postAPI(genderState);
     }
-  
+
     setDataGender([
       {
         ...dataGender,
@@ -170,7 +148,7 @@ const Contact = () => {
     setIsUpdate(true);
     setIndexUpdate(index);
     genderDispatch(cmsAction(`type`, data.type));
-    
+
     // console.log(`update from dataGender: `, dataGender[index]);
     // console.log(`update from dataGender: `, dataGender[index]);
     console.log(`update from genderState: `, genderState);
@@ -185,7 +163,7 @@ const Contact = () => {
   // CLEAR FORM
   const clearFormData = () => {
     genderDispatch(cmsAction(`type`, ''));
-  
+
   };
 
   // FORM CHANGE
@@ -211,7 +189,7 @@ const Contact = () => {
           label="Gender Type"
           variant="outlined"
         />
-       
+
         <Button
           className={classes.button}
           variant="contained"
@@ -254,7 +232,7 @@ const Contact = () => {
                     <br />
                   </div>
                 }
-                <br/>
+                <br />
               </ul>
             )
           )

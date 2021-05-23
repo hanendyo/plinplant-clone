@@ -51,19 +51,19 @@ const Category = () => {
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = 'city'
+  const endPoint = 'category'
 
   // GET
   const getAllDatasAPI = async () => {
     await axios
-      .get(url + "category_get_all_datas")
+      .get(url + endPoint + "_get_all_datas")
       .then((res) => {
-        if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
-          setDataCategory(res.data.data);
-        } else {
-          console.log("Error");
-        }
+        console.log(`GET RES DATA DATA: `, res.data.data);
+        setDataCategory(res.data.data);
+        // if (res.status === 200) {
+        // } else {
+        //   console.log("Error");
+        // }
       })
       .catch((err) => {
         console.log(err);
@@ -72,28 +72,36 @@ const Category = () => {
 
   // POST
   const categoryPost = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("pk_category_id", form.pk_category_id);
-    data.append("category_name", form.category_name);
+    // const data = new FormData();
+    // console.log(`formdata:`, form);
+    // data.append("pk_category_id", form.pk_category_id);
+    // data.append("category_name", form.category_name);
 
-    axios
-      .post(url + `${endPoint}_input`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        getAllDatasAPI();
-        console.log(`Category successfuly created!`);
-        console.log(res);
-        return res;
-      })
-      .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
-        return err;
-      });
+    // axios
+    //   .post(url + `${endPoint}_input`, data, {
+    //     headers: {
+    //       "content-type": "multipart/form-data",
+    //     },
+    //   })
+    //   .then((res) => {
+    //     getAllDatasAPI();
+    //     console.log(`Category successfuly created!`);
+    //     console.log(res);
+    //     return res;
+    //   })
+    //   .catch((err) => {
+    //     console.log(`ERROR!`);
+    //     console.log(err);
+    //     return err;
+    //   });
+    await axios.post(url + endPoint + '_input', form)
+    .then((res)=>{
+      getAllDatasAPI();
+      console.log(res);
+    })
+    .catch(err=> {
+      console.log(err);
+    })
   };
 
   // DELETE
@@ -108,18 +116,9 @@ const Category = () => {
   };
 
   // UPDATE
-  const categoryUpdate = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("pk_category_id", form.pk_category_id);
-    data.append("category_name", form.category_name);
-
+  const categoryUpdate = async (data) => {
     axios
-      .put(url + `${endPoint}_input`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`Category successfuly created!`);
@@ -154,11 +153,6 @@ const Category = () => {
     clearFormData();
 
     console.log(`CATEGORY STATE SUBMIT: `, categoryState);
-    // console.log(`ARTICLE STATE AUTHOR: `, categoryState.author);
-    // console.log(`DATA ARTICLE SUBMIT: `, dataCategory);
-    // console.log(`DATA ARTICLE AUTHOR: `, dataCategory.author);
-    // console.log(`UPDATED ARTICLE STATE: `, categoryState);
-    // console.log(`UPDATED ARTICLE STATE AUTHOR: `, categoryState.author);
   };
 
   // HANDLE DELETE
@@ -168,8 +162,6 @@ const Category = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
-    // console.log(`index update: `, index);
-    // console.log(`data id update: `, data.pk_article_id);
     setIsUpdate(true);
     setIndexUpdate(index);
     categoryDispatch(cmsAction(`category_name`, data.category_name));

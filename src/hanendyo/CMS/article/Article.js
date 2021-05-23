@@ -46,7 +46,7 @@ const Article = () => {
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
-  const [fileImage, setFileImage] = useState(null);
+  const [reviewImage, setReviewImage] = useState(null);
   const [imageUpload, setImageUpload] = useState(null)
 
   // USE EFFECT
@@ -77,7 +77,7 @@ const Article = () => {
 
   // POST
   const postAPI = async (form) => {
-    // const fileImg = fileImage
+    // const fileImg = reviewImage
     const data = new FormData();
     console.log(`formdata:`, form);
     data.append("author", form.author);
@@ -118,25 +118,26 @@ const Article = () => {
   };
 
   // UPDATE
-  const updateAPI = async (form) => {
-    console.log(`DATA UPDATE: `, data);
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("author", form.author);
-    data.append("title", form.title);
-    data.append("content", form.content);
-    data.append("created_at", form.created_at);
-    // data.append('image-upload' form.)
-    data.append("article_image", form.article_image);
+  const updateAPI = async (data) => {
+    // const data = new FormData();
+    // console.log(`formdata:`, form);
+    // data.append("author", form.author);
+    // data.append("title", form.title);
+    // data.append("content", form.content);
+    // data.append("created_at", form.created_at);
+    // data.append("article_image", form.article_image);
+    // data.append('article_image_upload', imageUpload)
 
     axios
-      .put(url + endPoint + `_update`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .put(url + endPoint + `_update`, data, 
+      // {
+      //   headers: {
+      //     "content-type": "multipart/form-data",
+      //   },
+      // }
+      )
       .then((res) => {
-        getAllDatasAPI();
+        getAllDatasAPI();  
         console.log(`Article successfuly updated!`);
         console.log(res);
         return res;
@@ -162,7 +163,7 @@ const Article = () => {
       {
         ...dataArticle,
         author: articleState.author,
-        image: articleState.image,
+        article_image: articleState.article_image,
         created_at: articleState.created_at,
         title: articleState.title,
         content: articleState.content,
@@ -217,7 +218,7 @@ const Article = () => {
     const imgName = e.target.files[0].name
     console.log(`IMEJ: `, img);
     articleDispatch(cmsAction("article_image", imgName));
-    setFileImage(URL.createObjectURL(img));
+    setReviewImage(URL.createObjectURL(img));
     setImageUpload(img)
   };
 
@@ -261,7 +262,7 @@ const Article = () => {
         {/* ----- IMAGE ----- */}
         <span>Pick image:</span>
         <input name="article_image_upload" type="file" onChange={(e) => formImage(e)} />
-        <img src={fileImage} alt="" />
+        <img src={reviewImage} alt="" />
         {/* ----- IMAGE ----- */}
 
         <TextField

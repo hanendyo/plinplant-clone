@@ -37,8 +37,8 @@ const OrderItem = () => {
   // USE STATE
   const [dataOrderItem, setDataOrderItem] = useState([
     {
-        quantity: '',
-        fk_price_list_id: ''
+      quantity: '',
+      fk_price_list_id: ''
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -70,18 +70,9 @@ const OrderItem = () => {
   };
 
   // POST
-  const postAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("quantity", form.quantity);
-    data.append("fk_price_list_id", form.fk_price_list_id);
-
+  const postAPI = async (data) => {
     axios
-      .post(url + `${endPoint}_input`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .post(url + `${endPoint}_input`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`Order item successfuly created!`);
@@ -107,18 +98,9 @@ const OrderItem = () => {
   };
 
   // UPDATE
-  const updateAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("quantity", form.quantity);
-    data.append("fk_price_list_id", form.fk_price_list_id);
-
+  const updateAPI = async (data) => {
     axios
-      .post(url + `${endPoint}_update`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .post(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`Order Item successfuly updated!`);
@@ -141,7 +123,7 @@ const OrderItem = () => {
     } else {
       postAPI(orderItemState);
     }
-  
+
     setDataOrderItem([
       {
         ...dataOrderItem,
@@ -173,7 +155,7 @@ const OrderItem = () => {
     setIndexUpdate(index);
     orderItemDispatch(cmsAction(`quantity`, data.quantity));
     orderItemDispatch(cmsAction(`fk_price_list_id`, data.fk_price_list_id));
-    
+
     // console.log(`update from dataOrderItem: `, dataOrderItem[index]);
     // console.log(`update from dataOrderItem: `, dataOrderItem[index]);
     console.log(`update from orderItemState: `, orderItemState);
@@ -265,7 +247,7 @@ const OrderItem = () => {
                     <br />
                   </div>
                 }
-                <br/>
+                <br />
               </ul>
             )
           )

@@ -37,10 +37,10 @@ const Contact = () => {
   // USE STATE
   const [dataContact, setDataContact] = useState([
     {
-        recipient_name: '',
-        address: '',
-        phone_number: '',
-        fk_city_id: ''
+      recipient_name: '',
+      address: '',
+      phone_number: '',
+      fk_city_id: ''
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -72,20 +72,9 @@ const Contact = () => {
   };
 
   // POST
-  const postAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("recipient_name", form.recipient_name);
-    data.append("address", form.address);
-    data.append("phone_number", form.phone_number);
-    data.append("fk_city_id", form.fk_city_id);
-
+  const postAPI = async (data) => {
     axios
-      .post(url + `${endPoint}_input`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .post(url + `${endPoint}_input`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`Contact successfuly created!`);
@@ -111,20 +100,9 @@ const Contact = () => {
   };
 
   // UPDATE
-  const updateAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("recipient_name", form.recipient_name);
-    data.append("address", form.address);
-    data.append("phone_number", form.phone_number);
-    data.append("fk_city_id", form.fk_city_id);
-
+  const updateAPI = async (data) => {
     axios
-      .put(url + `${endPoint}_input`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .put(url + `${endPoint}_input`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`Contact successfuly updated!`);
@@ -147,7 +125,7 @@ const Contact = () => {
     } else {
       postAPI(contactState);
     }
-  
+
     setDataContact([
       {
         ...dataContact,
@@ -178,7 +156,7 @@ const Contact = () => {
     contactDispatch(cmsAction(`address`, data.address));
     contactDispatch(cmsAction(`phone_number`, data.phone_number));
     contactDispatch(cmsAction(`fk_city_id`, data.fk_city_id));
-    
+
     // console.log(`update from dataContact: `, dataContact[index]);
     // console.log(`update from dataContact: `, dataContact[index]);
     console.log(`update from contactState: `, contactState);
@@ -194,9 +172,9 @@ const Contact = () => {
   const clearFormData = () => {
     contactDispatch(cmsAction(`recipient_name`, ""));
     contactDispatch(cmsAction(`address`, ''));
-    contactDispatch(cmsAction(`phone_number`,''));
+    contactDispatch(cmsAction(`phone_number`, ''));
     contactDispatch(cmsAction(`fk_city_id`, ''));
-  
+
   };
 
   // FORM CHANGE
@@ -291,7 +269,7 @@ const Contact = () => {
                     <br />
                   </div>
                 }
-                <br/>
+                <br />
               </ul>
             )
           )

@@ -42,7 +42,6 @@ const Plant = () => {
       email: "",
       password: "",
       birth_date: "",
-      fk_login_id: "",
       fk_contact_id: "",
       fk_gender_id: "",
     },
@@ -50,6 +49,7 @@ const Plant = () => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
   const [fileImage, setFileImage] = useState(null);
+  const [imageUpload, setImageUpload] = useState(null)
 
   // USE EFFECT
   useEffect(() => {
@@ -82,9 +82,9 @@ const Plant = () => {
     console.log(`formdata:`, form);
     data.append("fullname", form.fullname);
     data.append("picture", form.tuber);
+    data.append("picture_upload", imageUpload);
     data.append("email", form.email);
     data.append("birth_date", form.birth_date);
-    data.append("fk_login_id", form.fk_login_id);
     data.append("fk_gender_id", form.fk_gender_id);
 
 
@@ -96,7 +96,7 @@ const Plant = () => {
       })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Article successfuly created!`);
+        console.log(`User successfuly created!`);
         console.log(res);
         return res;
       })
@@ -124,9 +124,9 @@ const Plant = () => {
     console.log(`formdata:`, form);
     data.append("fullname", form.fullname);
     data.append("picture", form.tuber);
+    data.append("picture_upload", imageUpload);
     data.append("email", form.email);
     data.append("birth_date", form.birth_date);
-    data.append("fk_login_id", form.fk_login_id);
     data.append("fk_gender_id", form.fk_gender_id);
 
     axios
@@ -166,7 +166,6 @@ const Plant = () => {
         email: userState.email,
         password: userState.password,
         birth_date: userState.birth_date,
-        fk_login_id: userState.fk_login_id,
         fk_contact_id: userState.fk_contact_id,
         fk_gender_id: userState.fk_gender_id,
       },
@@ -191,7 +190,6 @@ const Plant = () => {
     userDispatch(cmsAction(`email`, data.email));
     userDispatch(cmsAction(`password`, data.password));
     userDispatch(cmsAction(`birth_date`, data.birth_date));
-    userDispatch(cmsAction(`fk_login_id`, data.fk_login_id));
     userDispatch(cmsAction(`fk_contact_id`, data.fk_contact_id));
     userDispatch(cmsAction(`fk_gender_id`, data.fk_gender_id));
 
@@ -211,7 +209,6 @@ const Plant = () => {
     userDispatch(cmsAction(`email`, ""));
     userDispatch(cmsAction(`password`, ""));
     userDispatch(cmsAction(`birth_date`, ""));
-    userDispatch(cmsAction(`fk_login_id`, ""));
     userDispatch(cmsAction(`fk_contact_id`, ""));
     userDispatch(cmsAction(`fk_gender_id`, ""));
   };
@@ -223,8 +220,10 @@ const Plant = () => {
 
   const formImage = (e) => {
     const img = e.target.files[0];
-    userDispatch(cmsAction("image", img));
+    const imgName = e.target.files[0].name
+    userDispatch(cmsAction("image", imgName));
     setFileImage(URL.createObjectURL(img));
+    setImageUpload(img)
   };
 
   return (
@@ -278,14 +277,6 @@ const Plant = () => {
         {/* ----- IMAGE ----- */}
 
         <TextField
-          value={userState.fk_login_id}
-          name="fk_login_id"
-          onChange={(e) => formChange(`fk_login_id`, e.target.value)}
-          id="outlined-basic"
-          label="Login_ID"
-          variant="outlined"
-        />
-        <TextField
           value={userState.fk_contact_id}
           name="fk_contact_id"
           onChange={(e) => formChange(`fk_contact_id`, e.target.value)}
@@ -298,7 +289,7 @@ const Plant = () => {
           name="fk_gender_id"
           onChange={(e) => formChange(`fk_gender_id`, e.target.value)}
           id="outlined-basic"
-          label="Gneder_id"
+          label="Gender_id"
           variant="outlined"
         />
 
@@ -330,42 +321,33 @@ const Plant = () => {
             (
               <ul className="map" key={index}>
                 <li>
-                  PLANT ID: <span>{data.pk_plant_id}</span>
+                  USER ID: <span>{data.pk_user_id}</span>
                 </li>
                 <li>
-                  PLANT NAME: <span>{data.fullname}</span>
+                  FULLNAME: <span>{data.fullname}</span>
                 </li>
                 <li>
-                  PLANT ORIGIN: <span>{data.email}</span>
+                  EMAIL: <span>{data.email}</span>
                 </li>
                 <li>
-                  PLANT IMAGE: <span>{data.picture}</span>
+                  PICTURE: <span>{data.picture}</span>
                 </li>
                 <li>
-                  PLANT QUALITIES: <span>{data.password}</span>
+                  PASSWORD: <span>{data.password}</span>
                 </li>
                 <li>
-                  PLANT USE: <span>{data.birth_date}</span>
+                  BIRTH DATE: <span>{data.birth_date}</span>
                 </li>
                 <li>
-                  DAYS TO SPROUT: <span>{data.fk_login_id}</span>
+                  CONTACT_ID: <span>{data.fk_contact_id}</span>
                 </li>
                 <li>
-                  MATURES IN: <span>{data.fk_contact_id}</span>
-                </li>
-                <li>
-                  GROWTH IN: <span>{data.fk_gender_id}</span>
-                </li>
-                <li>
-                  {/* CATEGORY_ID: <span>{data.fk_category_id}</span> */}
-                </li>
-                <li>
-                  {/* REVIEW_ID: <span>{data.fk_review_id}</span> */}
+                  GENDER_ID: <span>{data.fk_gender_id}</span>
                 </li>
                 {
                   <div>
                     <button
-                      onClick={() => handleDelete(data.pk_plant_id, index)}
+                      onClick={() => handleDelete(data.pk_user_id, index)}
                     >
                       delete
                     </button>

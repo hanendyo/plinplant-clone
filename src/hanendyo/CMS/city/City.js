@@ -37,7 +37,7 @@ const City = () => {
   // USE STATE
   const [dataCity, setDataCity] = useState([
     {
-        city_name: '',
+      city_name: '',
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -69,17 +69,9 @@ const City = () => {
   };
 
   // POST
-  const postAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("city_name", form.city_name);
-
+  const postAPI = async (data) => {
     axios
-      .post(url + `${endPoint}_input`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .post(url + `${endPoint}_input`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`City successfuly created!`);
@@ -105,17 +97,9 @@ const City = () => {
   };
 
   // UPDATE
-  const updateAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("city_name", form.city_name);
-
+  const updateAPI = async (data) => {
     axios
-      .post(url + `${endPoint}_input`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .post(url + `${endPoint}_input`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`City successfuly updated!`);
@@ -138,7 +122,7 @@ const City = () => {
     } else {
       postAPI(cityState);
     }
-  
+
     setDataCity([
       {
         ...dataCity,
@@ -168,7 +152,7 @@ const City = () => {
     setIsUpdate(true);
     setIndexUpdate(index);
     cityDispatch(cmsAction(`city_name`, data.city_name));
-    
+
     // console.log(`update from dataCity: `, dataCity[index]);
     // console.log(`update from dataCity: `, dataCity[index]);
     console.log(`update from cityState: `, cityState);
@@ -183,7 +167,7 @@ const City = () => {
   // CLEAR FORM
   const clearFormData = () => {
     cityDispatch(cmsAction(`city_name`, ""));
-  
+
   };
 
   // FORM CHANGE
@@ -251,7 +235,7 @@ const City = () => {
                     <br />
                   </div>
                 }
-                <br/>
+                <br />
               </ul>
             )
           )

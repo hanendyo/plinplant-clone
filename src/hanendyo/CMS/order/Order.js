@@ -37,9 +37,9 @@ const Order = () => {
   // USE STATE
   const [dataOrder, setDataOrder] = useState([
     {
-        status: '',
-        created_at: '',
-        fk_user_id: ''
+      status: '',
+      created_at: '',
+      fk_user_id: ''
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -71,19 +71,9 @@ const Order = () => {
   };
 
   // POST
-  const postAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("status", form.status);
-    data.append("created_at", form.created_at);
-    data.append("fk_user_id", form.fk_user_id);
-
+  const postAPI = async (data) => {
     axios
-      .post(url + `${endPoint}_input`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .post(url + `${endPoint}_input`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`Order successfuly created!`);
@@ -109,19 +99,9 @@ const Order = () => {
   };
 
   // UPDATE
-  const updateAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("status", form.status);
-    data.append("created_at", form.created_at);
-    data.append("fk_user_id", form.fk_user_id);
-
+  const updateAPI = async (data) => {
     axios
-      .post(url + `${endPoint}_update`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .post(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`Order successfuly updated!`);
@@ -144,7 +124,7 @@ const Order = () => {
     } else {
       postAPI(orderState);
     }
-  
+
     setDataOrder([
       {
         ...dataOrder,
@@ -157,11 +137,6 @@ const Order = () => {
     clearFormData();
 
     console.log(`ORDER STATE SUBMIT: `, orderState);
-    // console.log(`ARTICLE STATE AUTHOR: `, orderState.author);
-    // console.log(`DATA ARTICLE SUBMIT: `, dataOrder);
-    // console.log(`DATA ARTICLE AUTHOR: `, dataOrder.author);
-    // console.log(`UPDATED ARTICLE STATE: `, orderState);
-    // console.log(`UPDATED ARTICLE STATE AUTHOR: `, orderState.author);
   };
 
   // HANDLE DELETE
@@ -177,7 +152,7 @@ const Order = () => {
     orderDispatch(cmsAction(`status`, data.status));
     orderDispatch(cmsAction(`created_at`, data.created_at));
     orderDispatch(cmsAction(`fk_user_id`, data.fk_user_id));
-    
+
     console.log(`update from orderState: `, orderState);
   };
 
@@ -191,8 +166,8 @@ const Order = () => {
   const clearFormData = () => {
     orderDispatch(cmsAction(`status`, ""));
     orderDispatch(cmsAction(`created_at`, ''));
-    orderDispatch(cmsAction(`fk_user_id`,''));
-  
+    orderDispatch(cmsAction(`fk_user_id`, ''));
+
   };
 
   // FORM CHANGE
@@ -278,7 +253,7 @@ const Order = () => {
                     <br />
                   </div>
                 }
-                <br/>
+                <br />
               </ul>
             )
           )

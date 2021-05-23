@@ -69,11 +69,7 @@ const Contact = () => {
   };
 
   // POST
-  const postAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("weight", form.weight);
-   
+  const postAPI = async (data) => {
     axios
       .post(url + `${endPoint}_input`, data, {
         headers: {
@@ -105,11 +101,7 @@ const Contact = () => {
   };
 
   // UPDATE
-  const updateAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("weight", form.weight);
-   
+  const updateAPI = async (data) => {
     axios
       .put(url + `${endPoint}_update`, data, {
         headers: {
