@@ -21,13 +21,15 @@ import { openModalTambahAlamat } from "../../context/actions/modalActions";
 const Profile = () => {
   const [visible, setVisible] = useState(true);
 
-  const [trigger, setTrigger] = useState(true);
+  const [biodata, setBiodata] = useState(true);
+  const [address, setAddress] = useState(false);
+
   const [empty, setEmpty] = useState(true);
+
   const [selected, setSelected] = useState(false);
 
-  const { modalTambahAlamatState, modalTambahAlamatDispatch } = useContext(
-    ContextStore
-  );
+  const { modalTambahAlamatState, modalTambahAlamatDispatch } =
+    useContext(ContextStore);
 
   const [scroll, setScroll] = useState(true);
 
@@ -36,92 +38,94 @@ const Profile = () => {
     if (addresses.length > 3) setScroll(true);
   }, [addresses]);
 
-  const HandleClick = () => {
-    setTrigger(!trigger);
-  };
-
   return (
     <StyledProfile>
-      {trigger ? (
-        <>
-          <ProfileContainer>
-            <div className="valueChoose">
-              <TextBox>
-                <p>Biodata Diri</p>
-              </TextBox>
+      {biodata && (
+        <ProfileContainer>
+          <div className="valueChoose">
+            <TextBox biodata={biodata}>
+              <p>Biodata Diri</p>
+            </TextBox>
 
-              <TextBox onClick={HandleClick}>
-                <p>Daftar Alamat</p>
-              </TextBox>
-            </div>
+            <TextBox
+              onClick={() => {
+                setBiodata(!biodata);
+                setAddress(!address);
+              }}
+            >
+              <p>Daftar Alamat</p>
+            </TextBox>
+          </div>
 
-            <UploadBox profile />
+          <UploadBox profile />
 
-            <Information>
-              <h4>Ubah Biodata Diri</h4>
-              <Data>
-                <li>Nama</li>
-                <li>Muhammad Adhika Adhiwijna</li>
-                <li>Ubah</li>
-              </Data>
+          <Information>
+            <h4>Ubah Biodata Diri</h4>
+            <Data>
+              <li>Nama</li>
+              <li>Muhammad Adhika Adhiwijna</li>
+              <li>Ubah</li>
+            </Data>
 
-              <Data>
-                <li>Tanggal Lahir</li>
-                <li>9 May 2021</li>
-                <li>Ubah</li>
-              </Data>
+            <Data>
+              <li>Tanggal Lahir</li>
+              <li>9 May 2021</li>
+              <li>Ubah</li>
+            </Data>
 
-              <Data>
-                <li>Jenis Kelamin</li>
-                <li>Laki-Laki</li>
-                <li>Ubah</li>
-              </Data>
+            <Data>
+              <li>Jenis Kelamin</li>
+              <li>Laki-Laki</li>
+              <li>Ubah</li>
+            </Data>
 
-              <h4>Ubah Kontak</h4>
-              <Data>
-                <li>Email</li>
-                <li>adiwijna@gmail.com</li>
-              </Data>
+            <h4>Ubah Kontak</h4>
+            <Data>
+              <li>Email</li>
+              <li>adiwijna@gmail.com</li>
+            </Data>
 
-              <Data empty={empty}>
-                <li>Nomor HP</li>
-                <li>Tambah Nomor HP</li>
-              </Data>
-            </Information>
-          </ProfileContainer>
-        </>
-      ) : (
-        <>
-          <ProfileContainer>
-            <div className="valueChoose">
-              <TextBox onClick={HandleClick}>
-                <p>Biodata Diri</p>
-              </TextBox>
+            <Data empty={empty}>
+              <li>Nomor HP</li>
+              <li>Tambah Nomor HP</li>
+            </Data>
+          </Information>
+        </ProfileContainer>
+      )}
 
-              <TextBox>
-                <p>Daftar Alamat</p>
-              </TextBox>
-            </div>
+      {address && (
+        <ProfileContainer>
+          <div className="valueChoose">
+            <TextBox
+              onClick={() => {
+                setBiodata(!biodata);
+                setAddress(!address);
+              }}
+            >
+              <p>Biodata Diri</p>
+            </TextBox>
 
-            <RightArea>
-              <Button
-                primary
-                address
-                text="Tambah Alamat Baru"
-                bgColor={colors.yellow}
-                onClick={() =>
-                  modalTambahAlamatDispatch(openModalTambahAlamat())
-                }
-              />
+            <TextBox address={address}>
+              <p>Daftar Alamat</p>
+            </TextBox>
+          </div>
 
-              <ProductsContainer profileAddress selected={selected} />
+          <RightArea>
+            <Button
+              primary
+              address
+              text="Tambah Alamat Baru"
+              bgColor={colors.yellow}
+              onClick={() => modalTambahAlamatDispatch(openModalTambahAlamat())}
+            />
 
-              {scroll && <ScrollSign center />}
-            </RightArea>
+            <ProductsContainer profileAddress selected={selected} />
 
-            <PopoutComponent modal={modalTambahAlamatState} />
-          </ProfileContainer>
-        </>
+            {scroll && <ScrollSign center />}
+          </RightArea>
+
+          <PopoutComponent modal={modalTambahAlamatState} />
+        </ProfileContainer>
       )}
     </StyledProfile>
   );

@@ -5,6 +5,15 @@ export const StyledProfile = styled.main`
   min-height: 100vh;
   background-color: ${colors.green};
   padding-top: 130px;
+
+  @media (max-width: 1200px) {
+    min-height: calc(100vh - 186px);
+    padding-bottom: 50px;
+  }
+
+  @media (max-width: 900px) {
+    padding-bottom: 83px;
+  }
 `;
 
 export const ProfileContainer = styled(StyledContainer)`
@@ -15,23 +24,48 @@ export const ProfileContainer = styled(StyledContainer)`
   & > .valueChoose {
     width: 180px;
     margin-right: 20px;
-    margin-top: 65px;
+  }
+
+  @media (max-width: 900px) {
+    padding-top: 100px;
+
+    & > .valueChoose {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  @media (max-width: 760px) {
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
 export const TextBox = styled.div`
   width: 175px;
   height: 25px;
-  padding: 20px 10px;
+  padding: 20px 12px;
   display: flex;
   align-items: center;
-  border-left: 2px solid rgba(255, 255, 255, 0.3);
   cursor: pointer;
   transition: all 0.3s;
 
+  padding-left: ${({ biodata, address }) =>
+    biodata || address ? '10px' : '12px'};
+
+  background: ${({ biodata, address }) =>
+    biodata || address ? colors.lightGreenTransparent : 'unset'};
+
+  border-left: ${({ biodata, address }) =>
+    biodata || address
+      ? '4px solid white'
+      : '2px solid rgba(255, 255, 255, 0.3)'};
+
   &:hover {
     background: rgba(255, 255, 255, 0.3);
-    border-left: 3px solid white;
+    border-left: 4px solid white;
+    padding-left: 10px;
   }
 `;
 
@@ -45,6 +79,10 @@ export const Information = styled.div`
     &:last-of-type {
       margin-top: 50px;
     }
+  }
+
+  @media (max-width: 760px) {
+    max-width: 340px;
   }
 `;
 
@@ -73,6 +111,16 @@ export const Data = styled.ul`
     &:last-of-type {
       color: ${({ empty }) => (empty ? colors.yellow : 'auto')};
       cursor: ${({ empty }) => (empty ? 'pointer' : 'auto')};
+    }
+  }
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+
+    & > li {
+      &:nth-of-type(2) {
+        margin-left: unset;
+      }
     }
   }
 `;
