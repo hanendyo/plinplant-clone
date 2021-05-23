@@ -944,6 +944,26 @@ const CardAddress = styled.div`
     right: 30px;
     transform: translateY(-50%);
   }
+
+  @media (max-width: 760px) {
+    padding: 10px 15px;
+
+    &::before {
+      width: 15px;
+      height: 40px;
+      top: 30px;
+      left: -8px;
+    }
+
+    & > p {
+      width: 200px;
+    }
+
+    & > button:nth-of-type(2),
+    & > .checked {
+      right: 15px;
+    }
+  }
 `;
 
 const CardModalAddress = styled(CardAddress)`
