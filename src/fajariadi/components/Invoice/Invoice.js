@@ -131,7 +131,7 @@ const Invoice = () => {
         </ShoppingDetail>
       </Container>
 
-      <UploadBox invoice modal={modalUploadState} />
+      <UploadBox invoice profile={false} modal={modalUploadState} />
       <ReviewModal modal={modalReviewState} />
     </InvoiceSection>
   );
