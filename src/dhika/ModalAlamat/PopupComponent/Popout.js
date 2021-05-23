@@ -46,7 +46,7 @@ const PopoutComponent = ({ modal }) => {
 
             <TextField
               className='form'
-              id='outlined-basic'
+              id='name'
               label='Tulis nama penerima'
               variant='outlined'
               value={input.penerima}
@@ -64,7 +64,7 @@ const PopoutComponent = ({ modal }) => {
 
             <TextField
               className='form'
-              id='outlined-basic'
+              id='number'
               label='Tulis nomor ponsel'
               variant='outlined'
               value={input.handphone}
@@ -84,7 +84,7 @@ const PopoutComponent = ({ modal }) => {
 
             <TextField
               className='form'
-              id='outlined-basic'
+              id='city'
               label='Tulis kota/kecamatan'
               variant='outlined'
               value={input.kota}
@@ -102,7 +102,7 @@ const PopoutComponent = ({ modal }) => {
 
             <TextField
               className='form'
-              id='outlined-basic'
+              id='postalcode'
               label='5 digit kode pos'
               variant='outlined'
               value={input.kodepos}
@@ -122,7 +122,7 @@ const PopoutComponent = ({ modal }) => {
 
             <TextField
               className='form'
-              id='outlined-basic'
+              id='address'
               label='Tulis Detail Alamat'
               variant='outlined'
               value={input.alamat}
