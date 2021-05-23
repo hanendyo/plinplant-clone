@@ -57,7 +57,7 @@ const Profile = () => {
             </TextBox>
           </div>
 
-          <UploadBox profile={true} />
+          <UploadBox profile />
 
           <Information>
             <h4>Ubah Biodata Diri</h4>
