@@ -18,20 +18,9 @@ import {
 import { ContextStore } from '../../../context/store/ContextStore';
 import Button from '../../../master/components/additional/Button';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: '5px 10px',
-      width: '90%',
-    },
-  },
-}));
-
 const PopoutComponent = ({ modal }) => {
   const { modalTambahAlamatDispatch, modalPilihAlamatDispatch } =
     useContext(ContextStore);
-
-  const classes = useStyles();
 
   const [input, setInput] = useState({
     penerima: '',
@@ -43,7 +32,7 @@ const PopoutComponent = ({ modal }) => {
 
   const HandleSubmit = () => {
     console.log(input);
-    alert("Alamat berhasil dimasukkan");
+    alert('Alamat berhasil dimasukkan');
   };
 
   return (
@@ -53,23 +42,13 @@ const PopoutComponent = ({ modal }) => {
 
         <LineData>
           <InsertData>
-            <label
-              style={{
-                color: `${colors.black}`,
-                padding: '0 5px',
-                fontWeight: '600',
-                margin: '0 5px',
-              }}
-            >
-              Nama Penerima
-            </label>
+            <label>Nama Penerima</label>
 
             <TextField
-              className={classes.root}
+              className='form'
               id='outlined-basic'
               label='Tulis nama penerima'
               variant='outlined'
-              style={{ width: '30ch' }}
               value={input.penerima}
               onChange={(e) =>
                 setInput({
@@ -81,23 +60,13 @@ const PopoutComponent = ({ modal }) => {
           </InsertData>
 
           <InsertData>
-            <label
-              style={{
-                color: `${colors.black}`,
-                padding: '0 5px',
-                fontWeight: '600',
-                margin: '0 5px',
-              }}
-            >
-              No. Ponsel
-            </label>
+            <label>No. Ponsel</label>
 
             <TextField
-              className={classes.root}
+              className='form'
               id='outlined-basic'
               label='Tulis nomor ponsel'
               variant='outlined'
-              style={{ width: '30ch' }}
               value={input.handphone}
               onChange={(e) =>
                 setInput({
@@ -111,23 +80,13 @@ const PopoutComponent = ({ modal }) => {
 
         <LineData>
           <InsertData>
-            <label
-              style={{
-                color: `${colors.black}`,
-                padding: '0 5px',
-                fontWeight: '600',
-                margin: '0 5px',
-              }}
-            >
-              Kota atau Kecamatan
-            </label>
+            <label>Kota atau Kecamatan</label>
 
             <TextField
-              className={classes.root}
+              className='form'
               id='outlined-basic'
               label='Tulis kota/kecamatan'
               variant='outlined'
-              style={{ width: '40ch' }}
               value={input.kota}
               onChange={(e) =>
                 setInput({
@@ -139,23 +98,13 @@ const PopoutComponent = ({ modal }) => {
           </InsertData>
 
           <InsertData>
-            <label
-              style={{
-                color: `${colors.black}`,
-                padding: '0 5px',
-                fontWeight: '600',
-                margin: '0 5px',
-              }}
-            >
-              Kode Pos
-            </label>
+            <label>Kode Pos</label>
 
             <TextField
-              className={classes.root}
+              className='form'
               id='outlined-basic'
               label='5 digit kode pos'
               variant='outlined'
-              style={{ width: '19ch' }}
               value={input.kodepos}
               onChange={(e) =>
                 setInput({
@@ -169,23 +118,13 @@ const PopoutComponent = ({ modal }) => {
 
         <LineData>
           <InsertData>
-            <label
-              style={{
-                color: `${colors.black}`,
-                padding: '0 5px',
-                fontWeight: '600',
-                margin: '0 5px',
-              }}
-            >
-              Alamat
-            </label>
+            <label>Alamat</label>
 
             <TextField
-              className={classes.root}
+              className='form'
               id='outlined-basic'
-              label='Tulis nama jalan, nomor rumah, nomor komplel'
+              label='Tulis Detail Alamat'
               variant='outlined'
-              style={{ width: '64ch' }}
               value={input.alamat}
               onChange={(e) =>
                 setInput({
@@ -207,6 +146,7 @@ const PopoutComponent = ({ modal }) => {
               modalPilihAlamatDispatch(openModalPilihAlamat());
             }}
           />
+
           <Button primary text='Tambah' bgColor={colors.green} />
         </ButtonContainer>
       </PopupInner>
