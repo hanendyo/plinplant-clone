@@ -8,7 +8,7 @@ import { SidebarData } from "./SidebarList";
 import SubMenu from "./SubMenu";
 
 const Container = styled.div`
-  background: #d5d3d3;
+  background: #fff;
   width: 100%;
   height: 100%;
   position: absolute;

@@ -5,7 +5,9 @@ import { ContextStore } from "../../../context/store/ContextStore";
 import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
 import "../CMS.css";
-import { Container, BoxInput, InputContainer } from "./Article_component";
+import { Container, BoxInput, SpanImage } from "./Article_component";
+import { colors } from "../../../master/constant/style/index";
+import { DataGrid } from "@material-ui/data-grid";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -212,6 +214,68 @@ const Article = () => {
     setFileImage(URL.createObjectURL(img));
   };
 
+  // REACT DATA GRID
+  const columns = [
+    { field: "id", headerName: "No", width: 70 },
+    { field: "author", headerName: "Author", width: 130 },
+    { field: "title", headerName: "Title", width: 130 },
+    { field: "createdAt", headerName: "Created at", width: 150 },
+    { field: "image", headerName: "Image", width: 120 },
+    { field: "content", headerName: "Content", width: 300 },
+    {
+      field: "Update",
+      headerName: "Update",
+      width: 130,
+      renderCell: () => (
+        <Button
+          onClick={() => handleUpdate(rows, rows.id)}
+          variant="contained"
+          color="primary"
+          component="span"
+          style={{ backgroundColor: `${colors.green}` }}
+        >
+          Update
+        </Button>
+      ),
+    },
+    {
+      field: "Delete",
+      headerName: "Delete",
+      width: 130,
+      renderCell: () => (
+        <Button
+          onClick={() => handleDelete(rows.id, rows.id)}
+          variant="contained"
+          color="primary"
+          component="span"
+          style={{ backgroundColor: `${colors.green}` }}
+        >
+          delete
+        </Button>
+      ),
+    },
+  ];
+
+  // ROW DATA GRID -> DUMMY
+  const rows = [
+    {
+      id: 1,
+      author: "Dhika",
+      title: "Merawat Tanaman",
+      createdAt: "10 Nov 2020",
+      image: "null",
+      content: "BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla",
+    },
+    {
+      id: 2,
+      author: "Dyo",
+      title: "Tanaman Hits jaman now",
+      createdAt: "11 Nov 2020",
+      image: "null2",
+      content: "BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla",
+    },
+  ];
+
   return (
     <div>
       <Container>
@@ -232,6 +296,7 @@ const Article = () => {
               label="Author"
               variant="outlined"
               size="small"
+              color="green"
             />
             <TextField
               value={articleState.title}
@@ -239,17 +304,6 @@ const Article = () => {
               name="title"
               id="outlined-basic"
               label="Title"
-              variant="outlined"
-              size="small"
-            />
-            <TextField
-              value={articleState.content}
-              onChange={(e) => formChange("content", e.target.value)}
-              name="content"
-              id="outlined-multiline-static"
-              label="Content"
-              multiline
-              // rows={10}
               variant="outlined"
               size="small"
             />
@@ -263,22 +317,56 @@ const Article = () => {
               variant="outlined"
               size="small"
             />
-
-            <input
-              accept="image/*"
-              className={classes.input}
-              id="contained-button-file"
-              multiple
-              type="file"
-              style={{ display: "none", cursor: "pointer" }}
-              onChange={(e) => formImage(e)}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <SpanImage>
+                <h6>Upload Your Image</h6>
+                <img src={fileImage} alt="" />
+              </SpanImage>
+              <div>
+                <input
+                  accept="image/*"
+                  className={classes.input}
+                  id="contained-button-file"
+                  multiple
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={(e) => formImage(e)}
+                />
+                <label htmlFor="contained-button-file">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    component="span"
+                    style={{
+                      backgroundColor: `${colors.green}`,
+                      marginTop: "10px",
+                    }}
+                  >
+                    Upload
+                  </Button>
+                </label>
+              </div>
+            </div>
+            <TextField
+              value={articleState.content}
+              onChange={(e) => formChange("content", e.target.value)}
+              name="content"
+              id="outlined-multiline-static"
+              label="Content"
+              multiline
+              rows={10}
+              columns={20}
+              variant="outlined"
+              size="small"
+              style={{ marginBottom: "51px" }}
             />
-            <label htmlFor="contained-button-file">
-              <Button variant="contained" color="primary" component="span">
-                Upload
-              </Button>
-            </label>
-            <img src={fileImage} alt="" />
 
             {/* ----- IMAGE ----- */}
             {/* <span>Pick image:</span>
@@ -295,6 +383,7 @@ const Article = () => {
               variant="contained"
               color="primary"
               type="submit"
+              style={{ backgroundColor: `${colors.green}`, marginLeft: "50px" }}
             >
               {isUpdate ? "Update" : "Submit"}
             </Button>
@@ -313,50 +402,57 @@ const Article = () => {
 
         <div>
           <br />
-          <h3>Result: </h3>
-          {dataArticle.map(
-            (data, index) => (
-              console.log(`data article map: `, dataArticle),
-              (
-                <ul className="map" key={index}>
-                  <li>
-                    NO: <span>{index + 1}</span>
-                  </li>
-                  <li>
-                    ARTICLE ID: <span>{data.pk_article_id}</span>
-                  </li>
-                  <li>
-                    IMAGE: <span>{data.image}</span>'
-                  </li>
-                  <li>
-                    AUTHOR: <span>{data.author}</span>
-                  </li>
-                  <li>
-                    CREATED AT: <span>{data.created_at}</span>
-                  </li>
-                  <li>
-                    TITLE: <span>{data.title}</span>
-                  </li>
-                  <li>
-                    CONTENT: <span>{data.content}</span>
-                  </li>
-                  {
-                    <div>
-                      <button
-                        onClick={() => handleDelete(data.pk_article_id, index)}
-                      >
-                        delete
-                      </button>
-                      <button onClick={() => handleUpdate(data, index)}>
-                        Update
-                      </button>
-                      <br />
-                    </div>
-                  }
-                </ul>
+          <h4>Data </h4>
+          <BoxInput>
+            <div style={{ height: 400, width: "100%" }}>
+              <DataGrid rows={rows} columns={columns} pageSize={5} />
+            </div>
+            {/* {dataArticle.map(
+              (data, index) => (
+                console.log(`data article map: `, dataArticle),
+                (
+                  <ul className="map" key={index}>
+                    <li>
+                      NO: <span>{index + 1}</span>
+                    </li>
+                    <li>
+                      ARTICLE ID: <span>{data.pk_article_id}</span>
+                    </li>
+                    <li>
+                      IMAGE: <span>{data.image}</span>'
+                    </li>
+                    <li>
+                      AUTHOR: <span>{data.author}</span>
+                    </li>
+                    <li>
+                      CREATED AT: <span>{data.created_at}</span>
+                    </li>
+                    <li>
+                      TITLE: <span>{data.title}</span>
+                    </li>
+                    <li>
+                      CONTENT: <span>{data.content}</span>
+                    </li>
+                    {
+                      <div>
+                        <button
+                          onClick={() =>
+                            handleDelete(data.pk_article_id, index)
+                          }
+                        >
+                          delete
+                        </button>
+                        <button onClick={() => handleUpdate(data, index)}>
+                          Update
+                        </button>
+                        <br />
+                      </div>
+                    }
+                  </ul>
+                )
               )
-            )
-          )}
+            )} */}
+          </BoxInput>
         </div>
       </Container>
     </div>
