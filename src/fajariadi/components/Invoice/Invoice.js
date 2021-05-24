@@ -16,6 +16,7 @@ import {
   Payment,
   Shipping,
   ShoppingDetail,
+  InvoiceSection,
 } from './Invoice.elemen';
 
 const Invoice = () => {
@@ -32,13 +33,7 @@ const Invoice = () => {
   }, [invoiceProduct]);
 
   return (
-    <main
-      style={{
-        minHeight: '100vh',
-        backgroundColor: colors.green,
-        paddingTop: 130,
-      }}
-    >
+    <InvoiceSection>
       <Container>
         <h2>Invoice</h2>
 
@@ -138,7 +133,7 @@ const Invoice = () => {
 
       <UploadBox invoice modal={modalUploadState} />
       <ReviewModal modal={modalReviewState} />
-    </main>
+    </InvoiceSection>
   );
 };
 

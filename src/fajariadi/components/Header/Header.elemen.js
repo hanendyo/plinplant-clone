@@ -1,9 +1,18 @@
-import styled from "styled-components";
-import { colors, StyledContainer } from "../../../master/constant/style";
+import styled from 'styled-components';
+import { colors, StyledContainer } from '../../../master/constant/style';
 
 export const HeaderTag = styled.header`
   min-height: 100vh;
   background-color: ${colors.green};
+
+  @media (max-width: 1200px) {
+    min-height: fit-content;
+    padding-bottom: 5rem;
+  }
+
+  @media (max-width: 760px) {
+    min-height: 100vh;
+  }
 `;
 
 export const Container = styled(StyledContainer)`
@@ -29,6 +38,34 @@ export const Container = styled(StyledContainer)`
     height: 550px;
     object-fit: cover;
   }
+
+  @media (max-width: 900px) {
+    & > img:first-of-type {
+      min-width: 200px;
+      margin-right: 30px;
+    }
+
+    & > img:nth-of-type(2) {
+      min-width: 300px;
+      height: 450px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    flex-direction: column;
+    padding-top: 100px;
+
+    & > img:first-of-type {
+      max-width: 500px;
+      width: 100%;
+      margin-right: unset;
+      margin-bottom: 10px;
+    }
+
+    & > img:nth-of-type(2) {
+      display: none;
+    }
+  }
 `;
 
 export const Typography = styled.div`
@@ -45,6 +82,18 @@ export const Typography = styled.div`
 
   & > h1 {
     color: ${colors.white};
+  }
+
+  @media (max-width: 900px) {
+    max-width: 400px;
+  }
+
+  @media (max-width: 760px) {
+    position: unset;
+
+    & > p {
+      margin: 10px 0 20px;
+    }
   }
 `;
 
@@ -69,5 +118,9 @@ export const ScrollBtn = styled.div`
 
   & > p {
     padding: unset;
+  }
+
+  @media (max-width: 760px) {
+    /* display: none; */
   }
 `;

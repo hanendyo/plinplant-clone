@@ -9,6 +9,7 @@ import StatusOrder from './StatusOrder';
 import { Link } from 'react-router-dom';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { openModalReview } from '../../../context/actions';
+import { useMediaQuery } from 'react-responsive';
 
 const Cards = ({
   name,
@@ -46,6 +47,7 @@ const Cards = ({
   selectAddress,
 }) => {
   const { modalReviewDispatch } = useContext(ContextStore);
+  const isMini = useMediaQuery({ maxWidth: 370 });
 
   return (
     <>
@@ -155,15 +157,17 @@ const Cards = ({
           <img src={img} alt='' />
 
           <div>
-            <h5>{name}</h5>
-            <span>{phase}</span>
-          </div>
+            <div>
+              <h5>{name}</h5>
+              <span>{phase}</span>
+            </div>
 
-          <h5>{price}</h5>
+            <h5>{price}</h5>
+          </div>
 
           <Quantity quantity={quantity} />
 
-          <FaRegTrashAlt />
+          <FaRegTrashAlt className='trash' />
         </CardCart>
       )}
 
@@ -186,11 +190,11 @@ const Cards = ({
           {/* Header Info */}
           <div>
             <p>
-              Tanggal Pembelian <span>: {created}</span>
+              Tanggal Pembelian :<span>{created}</span>
             </p>
 
             <p>
-              No. Order <span>: PP-{no_order}</span>
+              No. Order :<span>PP-{no_order}</span>
             </p>
 
             <StatusOrder status={status} />
@@ -296,10 +300,15 @@ const Cards = ({
             <span>
               Oleh <strong>{author}</strong>
             </span>
-            <p>
-              {release_date} <FaCircle size={5} className='circle' />{' '}
-              {reading_time} menit baca
-            </p>
+
+            {isMini ? (
+              <p>{release_date}</p>
+            ) : (
+              <p>
+                {release_date} <FaCircle size={5} className='circle' />{' '}
+                {reading_time} menit baca
+              </p>
+            )}
           </div>
         </CardArticle>
       )}
@@ -361,7 +370,8 @@ const CardProductLandingPage = styled.div`
     position: absolute;
     background-color: #22222280;
     padding: 20px 0;
-    width: 100%;
+    right: 0;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
     text-align: center;
@@ -391,13 +401,14 @@ const CardProductLandingPage = styled.div`
 
   & > img {
     border-radius: 10px;
+    width: 500px;
   }
 
   &:hover {
     & > span {
-      top: 0;
+      /* top: 0; */
       opacity: 0;
-      transform: translateY(-120%);
+      transform: translateY(-150%);
     }
 
     & > div {
@@ -412,7 +423,7 @@ const CardProductSearched = styled(CardProductLandingPage)`
 
   & > img {
     width: 100%;
-    max-width: 200px;
+    max-width: 300px;
   }
 `;
 
@@ -505,6 +516,7 @@ const CardCart = styled.div`
   border-radius: 10px;
   padding: 10px;
   padding-right: 30px;
+  position: relative;
 
   &:not(:last-of-type) {
     margin-bottom: 5px;
@@ -522,21 +534,24 @@ const CardCart = styled.div`
     flex: 1;
     margin-right: 10px;
 
-    &:last-of-type {
-      justify-content: center;
+    & > div {
+      & > h5 {
+        color: ${colors.white};
+      }
+
+      & > span {
+        display: inline-block;
+        background-color: ${colors.lightGreenTransparent};
+        padding: 3px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        margin-top: 5px;
+      }
     }
 
     & > h5 {
       color: ${colors.white};
-    }
-
-    &:first-of-type > span {
-      display: inline-block;
-      background-color: ${colors.lightGreenTransparent};
-      padding: 3px 10px;
-      border-radius: 10px;
-      font-size: 12px;
-      margin-top: 5px;
+      margin-top: 20px;
     }
   }
 
@@ -544,20 +559,62 @@ const CardCart = styled.div`
     color: ${colors.white};
     margin-right: 10px;
   }
+
+  @media (max-width: 760px) {
+    align-items: flex-start;
+    padding-right: 10px;
+
+    & > img {
+      margin-right: 10px;
+    }
+
+    & > div {
+      &:last-of-type {
+        flex: unset;
+        margin-right: unset;
+      }
+    }
+
+    & > .trash {
+      position: absolute;
+      bottom: 20px;
+      right: 10px;
+      font-size: 20px;
+    }
+  }
 `;
 
 const CardCheckout = styled(CardCart)`
   & > div {
-    &:first-of-type > span:first-of-type {
+    & > h5 {
       margin-top: 0;
+      margin-bottom: 5px;
+    }
+
+    &:first-of-type > span:first-of-type {
+      background-color: ${colors.lightGreenTransparent};
+      padding: 3px 7px;
+      border-radius: 5px;
+      font-size: 14px;
     }
 
     &:first-of-type > span:last-of-type {
       display: block;
-      background-color: unset;
-      padding: unset;
       font-size: 14px;
       margin-top: 10px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    align-items: center;
+
+    & > div:first-of-type {
+      flex: 1;
+      margin-right: 10px;
+    }
+
+    & > h5 {
+      margin-right: unset;
     }
   }
 `;
@@ -566,7 +623,6 @@ const CardTransaction = styled.div`
   background-color: ${colors.darkGreen};
   padding: 15px 30px 70px;
   border-radius: 10px;
-  /* box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1); */
   position: relative;
 
   &:not(:last-of-type) {
@@ -635,8 +691,6 @@ const CardTransaction = styled.div`
 
     & > div:nth-of-type(2) {
       border-left: 1px solid ${colors.lightGreenTransparent};
-      /* background-color: red; */
-      /* margin-right: 50px; */
       padding-left: 30px;
 
       & > h6 {
@@ -654,6 +708,69 @@ const CardTransaction = styled.div`
 
     & > button {
       margin-left: 10px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    & > div:nth-of-type(1) {
+      & > p {
+        display: flex;
+        flex-direction: column;
+
+        & > span {
+          margin-left: unset;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 760px) {
+    padding: 15px 15px 80px;
+
+    & > div:nth-of-type(1) {
+      flex-direction: column;
+      align-items: unset;
+      margin-bottom: 30px;
+
+      & > p {
+        margin-bottom: 10px;
+        flex-direction: row;
+        justify-content: space-between;
+
+        &:nth-of-type(2) {
+          flex: 1;
+          border-left: unset;
+          margin-left: unset;
+          padding-left: unset !important;
+        }
+
+        & > span {
+          margin-left: 10px;
+        }
+      }
+
+      /* :: STATUS :: */
+      & > span {
+        align-self: flex-end;
+      }
+    }
+
+    & > div:nth-of-type(2) {
+      align-items: flex-start;
+
+      & > div:nth-of-type(1) {
+        margin-left: 10px;
+      }
+
+      & > div:nth-of-type(2) {
+        padding-left: 20px;
+        margin-left: 20px;
+      }
+    }
+
+    & > div:nth-of-type(3) {
+      bottom: 15px;
+      right: 15px;
     }
   }
 `;
@@ -693,10 +810,19 @@ const CardInvoice = styled.div`
         &:first-of-type {
           background-color: ${colors.lightGreenTransparent};
           width: fit-content;
-          padding: 3px 10px;
-          border-radius: 10px;
+          padding: 3px 7px;
+          border-radius: 5px;
           margin-bottom: 5px;
         }
+      }
+    }
+  }
+
+  @media (max-width: 760px) {
+    & > div:first-of-type {
+      & > div {
+        /* background-color: red; */
+        width: 120px;
       }
     }
   }
@@ -729,7 +855,7 @@ const CardArticle = styled.div`
 
   & > img {
     width: 130px;
-    height: 100px;
+    height: 120px;
     object-fit: cover;
     margin-right: 10px;
   }
@@ -817,6 +943,26 @@ const CardAddress = styled.div`
     top: 50%;
     right: 30px;
     transform: translateY(-50%);
+  }
+
+  @media (max-width: 760px) {
+    padding: 10px 15px;
+
+    &::before {
+      width: 15px;
+      height: 40px;
+      top: 30px;
+      left: -8px;
+    }
+
+    & > p {
+      width: 200px;
+    }
+
+    & > button:nth-of-type(2),
+    & > .checked {
+      right: 15px;
+    }
   }
 `;
 

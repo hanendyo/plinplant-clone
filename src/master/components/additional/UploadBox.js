@@ -132,6 +132,11 @@ const ModalBox = styled.div`
       margin-left: 5px;
     }
   }
+
+  @media (max-width: 760px) {
+    margin-right: ${({ profile }) => (profile ? 'unset' : 'unset')};
+    margin-bottom: ${({ profile }) => (profile ? '30px' : 'unset')};
+  }
 `;
 
 export default UploadBox;

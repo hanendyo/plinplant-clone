@@ -3,7 +3,11 @@ import { colors, StyledContainer } from '../../../../../master/constant/style';
 
 export const SectionCTA = styled.section`
   background-color: ${colors.yellowTransparent};
-  margin-bottom: 50px;
+  margin: 50px 0;
+
+  @media (max-width: 760px) {
+    padding: 50px 0;
+  }
 `;
 
 export const Container = styled(StyledContainer)`
@@ -21,7 +25,6 @@ export const Container = styled(StyledContainer)`
     & > p {
       color: ${colors.black};
       margin: 10px 0 40px;
-      padding: unset;
     }
   }
 
@@ -29,6 +32,32 @@ export const Container = styled(StyledContainer)`
     & > img {
       max-width: 400px;
       /* min-width: 300px; */
+    }
+  }
+
+  @media (max-width: 900px) {
+    & > div:nth-of-type(2) {
+      & > img {
+        max-width: 300px;
+      }
+    }
+  }
+
+  @media (max-width: 760px) {
+    flex-direction: column-reverse;
+    justify-content: center;
+    margin-top: unset;
+
+    & > div:nth-of-type(1) {
+      margin-right: unset;
+    }
+
+    & > div:nth-of-type(2) {
+      & > img {
+        max-width: 100%;
+        margin-bottom: 30px;
+        /* min-width: 300px; */
+      }
     }
   }
 `;

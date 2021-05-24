@@ -5,7 +5,7 @@ export default {
     },
     review: {
         comment: '',
-        rating: 0
+        rating: ''
     },
     plant: {
         plant_name: '',
@@ -15,9 +15,9 @@ export default {
         plant_use: '',
         days_to_sprout: '',
         matures_in: '',
-        growth_in: '',
-        fk_category_id: 0,
-        fk_review_id: 0
+        growth_type: '',
+        fk_category_id: '',
+        fk_review_id: ''
     },
     plant_breeding: {
         seed: '',
@@ -28,30 +28,30 @@ export default {
         tuber_image: '',
         young_image: '',
         mature_image: '',
-        fk_plant_id: 0
+        fk_plant_id: ''
     },
     price_list: {
-        seed_price: 0,
-        tuber_price: 0,
-        young_price: 0,
-        mature_price: 0,
-        fk_plant_breeding_id: 0,
-        fk_stock_id: 0
+        seed_price: '',
+        tuber_price: '',
+        young_price: '',
+        mature_price: '',
+        fk_plant_breeding_id: '',
+        fk_stock_id: ''
     },
     order_item: {
-        quantity: 0,
-        fk_price_list_id: 0
+        quantity: '',
+        fk_price_list_id: ''
     },
     stock: {
-        seed_stock: 0,
-        tuber_stock: 0,
-        young_stock: 0,
-        mature_stock: 0
+        seed_stock: '',
+        tuber_stock: '',
+        young_stock: '',
+        mature_stock: ''
     },
     order: {
         status: '',
         created_at: '',
-        fk_user_id: 0
+        fk_user_id: ''
     },
     user: {
         fullname: '',
@@ -76,18 +76,17 @@ export default {
         city_name: ''
     },
     article: {
-        image: '',
+        article_image: '',
         author: '',
         title: '',
         content: '',
         created_at: ''
     },
     shipping_charges: {
-        shipping_price: 0,
-        fk_city_id: 0
+        shipping_price: '',
+        fk_city_id: ''
     },
     weight: {
-        weight: 0
+        weight: ''
     }
-
 }

@@ -38,4 +38,14 @@ export const PopupInner = styled.div`
     right: 30px;
     cursor: pointer;
   }
+
+  @media (max-width: 760px) {
+    margin: 10px;
+    padding: 10px;
+
+    & > .times {
+      top: 10px;
+      right: 10px;
+    }
+  }
 `;

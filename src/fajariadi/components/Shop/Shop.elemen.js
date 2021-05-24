@@ -4,25 +4,54 @@ import { colors, StyledContainer } from '../../../master/constant/style';
 export const Container = styled(StyledContainer)`
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 1200px) {
+    flex-wrap: wrap;
+  }
 `;
 
 export const RelatedProduct = styled.section`
-  background-color: ${colors.darkGreen};
+  background-color: ${({ isIpad }) => (isIpad ? 'unset' : colors.darkGreen)};
   width: 100%;
   max-width: 255px;
   padding: 10px;
   border-radius: 20px;
   height: 550px;
-  margin-right: 30px;
+  /* margin-right: 30px; */
 
   & > h5 {
     text-align: center;
     margin-bottom: 10px;
     color: ${colors.white};
   }
+
+  @media (max-width: 1200px) {
+    order: 2;
+  }
+
+  @media (max-width: 900px) {
+    order: 3;
+    margin-top: 30px;
+    max-width: 100%;
+    padding: 0 30px;
+    height: fit-content;
+    margin-bottom: 50px;
+  }
+
+  @media (max-width: 900px) {
+    padding: 0 50px;
+  }
+
+  /* @media (max-width: 760px) {
+    max-width: 255px;
+    padding: 10px;
+    margin: 30px auto 50px;
+  } */
 `;
 
 export const Product = styled.section`
+  margin: 0 20px 0 30px;
+
   & > div:nth-of-type(1) {
     background-color: ${colors.darkGreen};
     width: 100%;
@@ -37,6 +66,8 @@ export const Product = styled.section`
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
+    width: 100%;
+    max-width: 500px;
 
     & > div {
       text-align: center;
@@ -47,6 +78,34 @@ export const Product = styled.section`
 
       & > h6 {
         color: ${colors.white};
+      }
+    }
+  }
+
+  @media (max-width: 1200px) {
+    order: 1;
+  }
+
+  @media (max-width: 900px) {
+    margin: unset;
+    width: 100%;
+
+    & > div:nth-of-type(1) {
+      margin: 0 auto;
+    }
+
+    & > div:nth-of-type(2) {
+      margin: 30px auto 0;
+    }
+  }
+
+  @media (max-width: 760px) {
+    & > div:nth-of-type(2) {
+      flex-wrap: wrap;
+      justify-content: center;
+
+      & > div {
+        margin: 10px;
       }
     }
   }
@@ -70,6 +129,11 @@ export const Image = styled.img`
     box-shadow: 0px 7px 0px rgba(0, 0, 0, 0.2);
     transform: translateY(-7px);
   }
+
+  @media (max-width: 760px) {
+    width: 150px;
+    height: 150px;
+  }
 `;
 
 export const ProductHighlight = styled.div`
@@ -80,11 +144,11 @@ export const ProductHighlight = styled.div`
   /* KOLOM KIRI */
   & > div:nth-of-type(1) {
     /* ....... */
-    /* background-color: burlywood; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-right: 20px;
+    position: relative;
 
     & > img {
       width: 170px;
@@ -141,6 +205,25 @@ export const ProductHighlight = styled.div`
       font-size: 14px;
     }
   }
+
+  @media (max-width: 760px) {
+    flex-direction: column;
+    margin-left: unset;
+
+    & > div:nth-of-type(1) {
+      margin-right: unset;
+
+      & > img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+      }
+    }
+
+    & > div:nth-of-type(2) {
+      max-width: 100%;
+    }
+  }
 `;
 
 export const ButtonCart = styled.button`
@@ -194,11 +277,21 @@ export const ReviewContainer = styled.section`
   padding: 10px 15px 15px 5px;
   border-radius: 20px;
   height: 550px;
-  margin-left: 20px;
+  /* margin-left: 20px; */
 
   & > h5 {
     color: ${colors.white};
     text-align: center;
     margin-bottom: 10px;
+  }
+
+  @media (max-width: 1200px) {
+    order: 3;
+    max-width: 100%;
+    margin-top: 30px;
+  }
+
+  @media (max-width: 900px) {
+    order: 2;
   }
 `;

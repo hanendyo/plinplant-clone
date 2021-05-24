@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
-  Box,
   Button,
-  Link,
   makeStyles,
   TextField,
-  Typography,
 } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
@@ -38,7 +35,7 @@ const Category = () => {
   const { categoryState, categoryDispatch } = context;
 
   // USE STATE
-  const [dataArticle, setDataArticle] = useState([
+  const [dataCategory, setDataCategory] = useState([
     {
         pk_category_id: '',
         category_name: '',
@@ -49,20 +46,21 @@ const Category = () => {
 
   // USE EFFECT
   useEffect(() => {
-    categoryGetAllDatas();
-    console.log(`dataArticle: `, dataArticle);
+    getAllDatasAPI();
+    console.log(`dataCategory: `, dataCategory);
   }, []);
 
   const url = "http://localhost:5000/input/";
+  const endPoint = 'city'
 
   // GET
-  const categoryGetAllDatas = async () => {
+  const getAllDatasAPI = async () => {
     await axios
       .get(url + "category_get_all_datas")
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
-          setDataArticle(res.data.data);
+          setDataCategory(res.data.data);
         } else {
           console.log("Error");
         }
@@ -73,16 +71,28 @@ const Category = () => {
   };
 
   // POST
-  const categoryPost = async (data) => {
-    await axios
-      .post(url + "category_input", data)
+  const categoryPost = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("pk_category_id", form.pk_category_id);
+    data.append("category_name", form.category_name);
+
+    axios
+      .post(url + `${endPoint}_input`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
+        getAllDatasAPI();
+        console.log(`Category successfuly created!`);
         console.log(res);
-        categoryGetAllDatas();
-        console.log(`get`);
+        return res;
       })
       .catch((err) => {
+        console.log(`ERROR!`);
         console.log(err);
+        return err;
       });
   };
 
@@ -92,25 +102,34 @@ const Category = () => {
       .delete(url + "category_delete/" + id)
       .then((deleted) => {
         console.log(`DELETED: `, deleted);
-        categoryGetAllDatas();
+        getAllDatasAPI();
       })
       .catch((err) => err);
   };
 
   // UPDATE
-  const categoryUpdate = async (data) => {
-    // console.log(`ID ID ID: `, index);
-    console.log(`DATA UPDATE: `, data);
-    await axios
-      .put(url + `category_update`, data)
+  const categoryUpdate = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("pk_category_id", form.pk_category_id);
+    data.append("category_name", form.category_name);
+
+    axios
+      .put(url + `${endPoint}_input`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
+        getAllDatasAPI();
+        console.log(`Category successfuly created!`);
         console.log(res);
-        setIsUpdate(false);
-        categoryGetAllDatas();
-        console.log(`update!`);
+        return res;
       })
       .catch((err) => {
+        console.log(`ERROR!`);
         console.log(err);
+        return err;
       });
   };
 
@@ -124,9 +143,9 @@ const Category = () => {
       categoryPost(categoryState);
     }
   
-    setDataArticle([
+    setDataCategory([
       {
-        ...dataArticle,
+        ...dataCategory,
         pk_category_id: categoryState.pk_category_id,
         category_name: categoryState.category_name
       },
@@ -136,8 +155,8 @@ const Category = () => {
 
     console.log(`CATEGORY STATE SUBMIT: `, categoryState);
     // console.log(`ARTICLE STATE AUTHOR: `, categoryState.author);
-    // console.log(`DATA ARTICLE SUBMIT: `, dataArticle);
-    // console.log(`DATA ARTICLE AUTHOR: `, dataArticle.author);
+    // console.log(`DATA ARTICLE SUBMIT: `, dataCategory);
+    // console.log(`DATA ARTICLE AUTHOR: `, dataCategory.author);
     // console.log(`UPDATED ARTICLE STATE: `, categoryState);
     // console.log(`UPDATED ARTICLE STATE AUTHOR: `, categoryState.author);
   };
@@ -156,8 +175,8 @@ const Category = () => {
     categoryDispatch(cmsAction(`category_name`, data.category_name));
     categoryDispatch(cmsAction(`pk_category_id`, data.pk_category_id));
     
-    // console.log(`update from dataArticle: `, dataArticle[index]);
-    // console.log(`update from dataArticle: `, dataArticle[index]);
+    // console.log(`update from dataCategory: `, dataCategory[index]);
+    // console.log(`update from dataCategory: `, dataCategory[index]);
     console.log(`update from categoryState: `, categoryState);
   };
 
@@ -183,7 +202,7 @@ const Category = () => {
     <div className="cmsForm">
       <h3>Category input</h3>
       <form
-        enctype="multipart/form-data"
+        encType="multipart/form-data"
         className={classes.root}
         onSubmit={(e) => handleSubmit(e)}
         noValidate
@@ -227,9 +246,9 @@ const Category = () => {
       <div>
         <br />
         <h3>Result: </h3>
-        {dataArticle.map(
+        {dataCategory.map(
           (data, index) => (
-            console.log(`data article map: `, dataArticle),
+            console.log(`data article map: `, dataCategory),
             (
               <ul className='map' key={index}>
                 <li>CATEGORY NAME: <span>{data.category_name}</span></li>

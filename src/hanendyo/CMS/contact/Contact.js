@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
-  Box,
   Button,
-  Link,
   makeStyles,
   TextField,
-  Typography,
 } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
@@ -38,7 +35,7 @@ const Contact = () => {
   const { contactState, contactDispatch } = context;
 
   // USE STATE
-  const [dataArticle, setDataArticle] = useState([
+  const [dataContact, setDataContact] = useState([
     {
         recipient_name: '',
         address: '',
@@ -52,7 +49,7 @@ const Contact = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
-    console.log(`dataArticle: `, dataArticle);
+    console.log(`dataContact: `, dataContact);
   }, []);
 
   const url = "http://localhost:5000/input/";
@@ -64,7 +61,7 @@ const Contact = () => {
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
-          setDataArticle(res.data.data);
+          setDataContact(res.data.data);
         } else {
           console.log("Error");
         }
@@ -75,16 +72,30 @@ const Contact = () => {
   };
 
   // POST
-  const postAPI = async (data) => {
-    await axios
-      .post(url + `${endPoint}_input`, data)
+  const postAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("recipient_name", form.recipient_name);
+    data.append("address", form.address);
+    data.append("phone_number", form.phone_number);
+    data.append("fk_city_id", form.fk_city_id);
+
+    axios
+      .post(url + `${endPoint}_input`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
-        console.log(res);
         getAllDatasAPI();
-        console.log(`get`);
+        console.log(`Contact successfuly created!`);
+        console.log(res);
+        return res;
       })
       .catch((err) => {
+        console.log(`ERROR!`);
         console.log(err);
+        return err;
       });
   };
 
@@ -100,19 +111,30 @@ const Contact = () => {
   };
 
   // UPDATE
-  const updateAPI = async (data) => {
-    // console.log(`ID ID ID: `, index);
-    console.log(`DATA UPDATE: `, data);
-    await axios
-      .put(url + `${endPoint}_update`, data)
+  const updateAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("recipient_name", form.recipient_name);
+    data.append("address", form.address);
+    data.append("phone_number", form.phone_number);
+    data.append("fk_city_id", form.fk_city_id);
+
+    axios
+      .put(url + `${endPoint}_input`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
-        console.log(res);
-        setIsUpdate(false);
         getAllDatasAPI();
-        console.log(`update!`);
+        console.log(`Contact successfuly updated!`);
+        console.log(res);
+        return res;
       })
       .catch((err) => {
+        console.log(`ERROR!`);
         console.log(err);
+        return err;
       });
   };
 
@@ -126,9 +148,9 @@ const Contact = () => {
       postAPI(contactState);
     }
   
-    setDataArticle([
+    setDataContact([
       {
-        ...dataArticle,
+        ...dataContact,
         recipient_name: contactState.recipient_name,
         address: contactState.address,
         phone_number: contactState.phone_number,
@@ -139,11 +161,6 @@ const Contact = () => {
     clearFormData();
 
     console.log(`CONTACT STATE SUBMIT: `, contactState);
-    // console.log(`ARTICLE STATE AUTHOR: `, contactState.author);
-    // console.log(`DATA ARTICLE SUBMIT: `, dataArticle);
-    // console.log(`DATA ARTICLE AUTHOR: `, dataArticle.author);
-    // console.log(`UPDATED ARTICLE STATE: `, contactState);
-    // console.log(`UPDATED ARTICLE STATE AUTHOR: `, contactState.author);
   };
 
   // HANDLE DELETE
@@ -162,8 +179,8 @@ const Contact = () => {
     contactDispatch(cmsAction(`phone_number`, data.phone_number));
     contactDispatch(cmsAction(`fk_city_id`, data.fk_city_id));
     
-    // console.log(`update from dataArticle: `, dataArticle[index]);
-    // console.log(`update from dataArticle: `, dataArticle[index]);
+    // console.log(`update from dataContact: `, dataContact[index]);
+    // console.log(`update from dataContact: `, dataContact[index]);
     console.log(`update from contactState: `, contactState);
   };
 
@@ -191,7 +208,7 @@ const Contact = () => {
     <div className="cmsForm">
       <h3>Contact input</h3>
       <form
-        enctype="multipart/form-data"
+        encType="multipart/form-data"
         className={classes.root}
         onSubmit={(e) => handleSubmit(e)}
         noValidate
@@ -251,9 +268,9 @@ const Contact = () => {
       <div>
         <br />
         <h3>Result: </h3>
-        {dataArticle.map(
+        {dataContact.map(
           (data, index) => (
-            console.log(`data article map: `, dataArticle),
+            console.log(`data article map: `, dataContact),
             (
               <ul className='map' key={index}>
                 <li>CONTACT ID: <span>{data.pk_contact_id}</span></li>

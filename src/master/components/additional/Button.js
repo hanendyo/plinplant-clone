@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
+import { useMediaQuery } from 'react-responsive';
 
 const Button = ({
   primary,
@@ -16,6 +17,8 @@ const Button = ({
   onClick,
   type,
 }) => {
+  const isIpad = useMediaQuery({ maxWidth: 900 });
+
   return (
     <BtnComponent
       primary={primary}
@@ -29,14 +32,19 @@ const Button = ({
       bgColor={bgColor}
       onClick={onClick}
       type={type}
+      isIpad={isIpad}
     >
       {text}
     </BtnComponent>
   );
 };
 
-const styledPadding = (primary, cta, card, summary, address) => {
-  if (primary && cta) return '15px 50px';
+const styledPadding = (primary, cta, card, summary, address, isIpad) => {
+  if (primary && cta) {
+    if (isIpad) return '15px 30px';
+    return '15px 50px';
+  }
+
   if (primary && summary) return '10px 50px';
   if (primary && address) return '10px 20px';
   if (primary) return '5px 20px';
@@ -44,8 +52,12 @@ const styledPadding = (primary, cta, card, summary, address) => {
   if (!primary && !cta && !card) return '3px 20px';
 };
 
-const styledFontSize = (primary, cta, card, shop, summary, invoice) => {
-  if ((primary && cta) || (primary && summary)) return '20px';
+const styledFontSize = (primary, cta, card, shop, summary, isIpad) => {
+  if ((primary && cta) || (primary && summary)) {
+    if (isIpad) return '16px';
+
+    return '20px';
+  }
   if (primary && shop) return '12px';
   if (card) return '16px';
   if (primary || !primary) return 'inherit';
@@ -60,8 +72,8 @@ const BtnComponent = styled.button`
   color: ${({ bgColor }) =>
     bgColor === 'unset' ? colors.yellow : colors.white};
 
-  padding: ${({ primary, cta, card, summary, address }) =>
-    styledPadding(primary, cta, card, summary, address)};
+  padding: ${({ primary, cta, card, summary, address, isIpad }) =>
+    styledPadding(primary, cta, card, summary, address, isIpad)};
 
   background-color: ${({ primary, card, bgColor }) =>
     primary || card ? bgColor : 'transparent'};
@@ -69,8 +81,8 @@ const BtnComponent = styled.button`
   border: ${({ primary, card, bgColor }) =>
     primary || card ? `none` : `2px solid ${bgColor}`};
 
-  font-size: ${({ primary, cta, card, shop, summary, invoice }) =>
-    styledFontSize(primary, cta, card, shop, summary, invoice)};
+  font-size: ${({ primary, cta, card, shop, summary, isIpad }) =>
+    styledFontSize(primary, cta, card, shop, summary, isIpad)};
 
   font-weight: ${({ cta, summary, address }) =>
     cta || summary || address ? '500' : 'unset'};

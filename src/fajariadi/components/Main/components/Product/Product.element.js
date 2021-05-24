@@ -49,6 +49,14 @@ export const SearchBar = styled.div`
 
 export const ProductSlider = styled.div`
   background-color: ${colors.darkGreen};
-  padding: 50px 100px;
+  padding: 50px 70px;
   border-radius: 0 20px 20px 20px;
+
+  @media (max-width: 900px) {
+    border-radius: 0 0 20px 20px;
+  }
+
+  @media (max-width: 760px) {
+    padding: 50px;
+  }
 `;

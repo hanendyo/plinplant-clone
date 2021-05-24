@@ -35,6 +35,14 @@ const Counter = styled.div`
       text-align: center;
     }
   }
+
+  @media (max-width: 760px) {
+    position: ${({ shop }) => (shop ? 'absolute' : 'auto')};
+    bottom: ${({ shop }) => (shop ? '-60px' : 'auto')};
+    right: ${({ shop }) => (shop ? '30px' : 'auto')};
+    margin: unset;
+    margin-left: 20px;
+  }
 `;
 
 export default Quantity;

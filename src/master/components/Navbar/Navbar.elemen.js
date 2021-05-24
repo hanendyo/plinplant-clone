@@ -31,6 +31,12 @@ export const Container = styled(StyledContainer)`
     transform: translate(-50%, -50%);
   }
 
+  @media (max-width: 760px) {
+    & > .logo-center {
+      left: 25%;
+    }
+  }
+
   /* background-color: burlywood; */
 `;
 
@@ -38,6 +44,10 @@ export const Logo = styled.h1`
   font-size: 36px;
   font-family: 'Elsie Swash Caps', sans-serif;
   color: ${colors.white};
+
+  @media (max-width: 760px) {
+    font-size: 28px;
+  }
 `;
 
 export const LinksContainer = styled.ul`
@@ -138,6 +148,10 @@ export const LinksContainer = styled.ul`
             }
           }
         }
+
+        @media (max-width: 760px) {
+          right: 5px;
+        }
       }
     }
 
@@ -152,18 +166,36 @@ export const LinksContainer = styled.ul`
     }
   }
 
+  @media (max-width: 900px) {
+    & > li:last-of-type > button {
+      & > p {
+        display: none;
+      }
+
+      & > img {
+        margin-right: unset;
+      }
+    }
+  }
+
   /* & > button {
     z-index: 999
   } */
 `;
 
 // Navbar.js style
-export const Home = styled.p`
+export const Home = styled.a`
   display: flex;
   align-items: center;
 
   & > .icon {
     margin-right: 10px;
     font-size: 12px;
+  }
+
+  @media (max-width: 760px) {
+    & > p {
+      display: none;
+    }
   }
 `;
