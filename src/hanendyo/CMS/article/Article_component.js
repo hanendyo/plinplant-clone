@@ -5,7 +5,7 @@ export const Container = styled.div`
 `;
 
 export const BoxInput = styled.div`
-  width: 100%;
+  width: auto;
   margin-top: 20px;
   padding: 10px;
   border-radius: 5px;

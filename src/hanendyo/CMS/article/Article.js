@@ -52,7 +52,7 @@ const Article = () => {
   useEffect(() => {
     getAllDatasAPI();
     console.log(`dataArticle: `, dataArticle);
-  }, []);
+  }, [dataArticle]);
 
   const url = "http://localhost:5000/input/";
   const endPoint = "article";
@@ -217,10 +217,10 @@ const Article = () => {
 
   // REACT DATA GRID
   const columns = [
-    { field: "pk_article_id", headerName: "ArticleId", width: 70 },
+    { field: "pk_article_id", headerName: "_id", width: 100 },
     { field: "author", headerName: "Author", width: 130 },
     { field: "title", headerName: "Title", width: 130 },
-    { field: "created_at", headerName: "created AT", width: 150 },
+    { field: "created_at", headerName: "created at", width: 150 },
     { field: "image", headerName: "Image", width: 120 },
     { field: "content", headerName: "Content", width: 300 },
     {
@@ -261,29 +261,10 @@ const Article = () => {
 
   // ROW DATA GRID -> DUMMY
   const rows = dataArticle.map((row) => {
-    console.log(`ROW :`, row);
+    // console.log(`ROW :`, row);
     const { pk_article_id, ...rest } = row;
     return { id: pk_article_id, ...rest };
   });
-
-  // [
-  // {
-  //   id: 1,
-  //   author: "Dhika",
-  //   title: "Merawat Tanaman",
-  //   createdAt: "10 Nov 2020",
-  //   image: "null",
-  //   content: "BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla",
-  // },
-  // {
-  //   id: 2,
-  //   author: "Dyo",
-  //   title: "Tanaman Hits jaman now",
-  //   createdAt: "11 Nov 2020",
-  //   image: "null2",
-  //   content: "BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla",
-  // },
-  // ];
 
   return (
     <div>
@@ -413,56 +394,66 @@ const Article = () => {
           <br />
           <h4>Data </h4>
           <BoxInput>
-            <div style={{ height: 400, width: "100%" }}>
+            {/* {dataArticle.map((data, index) => (
+              <ul>
+                <li style={{ color: "black" }}>pk_article_id: {index + 1}</li>
+                <li style={{ color: "black" }}>
+                  created at: {data.created_at + 1}
+                </li>
+                <li style={{ color: "black" }}>title: {data.title + 1}</li>
+                <li style={{ color: "black" }}>content: {data.content + 1}</li>
+                <li style={{ color: "black" }}>author: {data.author + 1}</li>
+                <li style={{ color: "black" }}>image: {data.image + 1}</li>
+              </ul>
+            ))} */}
+            {/* <div style={{ height: 400, width: "100%" }}>
               <DataGrid rows={rows} columns={columns} pageSize={5} />
-            </div>
-            {/* {dataArticle.map(
-              (data, index) => (
-                console.log(`data article map: `, dataArticle),
-                (
-                  <ul className="map" key={index}>
-                    <li>
-                      id: <span>{index + 1}</span>
-                    </li>
-                    <li>
-                      ARTICLE ID: <span>{data.pk_article_id}</span>
-                    </li>
-                    <li>
-                      IMAGE: <span>{data.image}</span>'
-                    </li>
-                    <li>
-                      AUTHOR: <span>{data.author}</span>
-                    </li>
-                    <li>
-                      CREATED AT: <span>{data.created_at}</span>
-                    </li>
-                    <li>
-                      TITLE: <span>{data.title}</span>
-                    </li>
-                    <li>
-                      CONTENT: <span>{data.content}</span>
-                    </li>
-                    {
-                      <div>
-                        <button
-                          onClick={() =>
-                            handleDelete(data.pk_article_id, index)
-                          }
-                        >
-                          delete
-                        </button>
-                        <button onClick={() => handleUpdate(data, index)}>
-                          Update
-                        </button>
-                        <br />
-                      </div>
-                    }
-                  </ul>
-                )
-              )
-            )} */}
+            </div> */}
           </BoxInput>
         </div>
+        {dataArticle.map(
+          (data, index) => (
+            console.log(`data article map: `, dataArticle),
+            (
+              <ul className="map" key={index}>
+                <li>
+                  id: <span>{index + 1}</span>
+                </li>
+                <li>
+                  ARTICLE ID: <span>{data.pk_article_id}</span>
+                </li>
+                <li>
+                  IMAGE: <span>{data.image}</span>'
+                </li>
+                <li>
+                  AUTHOR: <span>{data.author}</span>
+                </li>
+                <li>
+                  CREATED AT: <span>{data.created_at}</span>
+                </li>
+                <li>
+                  TITLE: <span>{data.title}</span>
+                </li>
+                <li>
+                  CONTENT: <span>{data.content}</span>
+                </li>
+                {
+                  <div>
+                    <button
+                      onClick={() => handleDelete(data.pk_article_id, index)}
+                    >
+                      delete
+                    </button>
+                    <button onClick={() => handleUpdate(data, index)}>
+                      Update
+                    </button>
+                    <br />
+                  </div>
+                }
+              </ul>
+            )
+          )
+        )}
       </Container>
     </div>
   );
