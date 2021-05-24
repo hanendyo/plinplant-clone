@@ -7,6 +7,14 @@ import { colors } from "../../../master/constant/style/index";
 import { SidebarData } from "./SidebarList";
 import SubMenu from "./SubMenu";
 
+const Container = styled.div`
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+`;
+
 const Nav = styled.div`
   background: ${colors.green};
   height: 80px;
@@ -16,6 +24,7 @@ const Nav = styled.div`
   align-items: center;
   position: sticky;
   top: 0;
+  z-index: 99;
 `;
 
 const NavIcon = styled.div`
@@ -103,27 +112,32 @@ const SidebarCMS = () => {
 
   return (
     <>
-      <Nav>
-        <NavIcon>
-          <FaIcons.FaBars onClick={showSidebar} style={{ cursor: "pointer" }} />
-          <Logo className="logo-center">PlinPlant CMS</Logo>
-          <h5>Hello, Admin</h5>
-        </NavIcon>
-        <SidebarNav sidebar={sidebar}>
-          <SidebarWrap>
-            <NavIcon to="#">
-              <FaTimes onClick={showSidebar} style={{ cursor: "pointer" }} />
-            </NavIcon>
-            {SidebarData.map((item, index) => {
-              return <SubMenu item={item} key={index} />;
-            })}
-            <NavOut>
-              <h5>Keluar</h5>
-              <FaSignOutAlt />
-            </NavOut>
-          </SidebarWrap>
-        </SidebarNav>
-      </Nav>
+      <Container>
+        <Nav>
+          <NavIcon>
+            <FaIcons.FaBars
+              onClick={showSidebar}
+              style={{ cursor: "pointer" }}
+            />
+            <Logo className="logo-center">PlinPlant CMS</Logo>
+            <h5>Hello, Admin</h5>
+          </NavIcon>
+          <SidebarNav sidebar={sidebar}>
+            <SidebarWrap>
+              <NavIcon to="#">
+                <FaTimes onClick={showSidebar} style={{ cursor: "pointer" }} />
+              </NavIcon>
+              {SidebarData.map((item, index) => {
+                return <SubMenu item={item} key={index} />;
+              })}
+              <NavOut>
+                <h5>Keluar</h5>
+                <FaSignOutAlt />
+              </NavOut>
+            </SidebarWrap>
+          </SidebarNav>
+        </Nav>
+      </Container>
     </>
   );
 };

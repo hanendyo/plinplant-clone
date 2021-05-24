@@ -13,7 +13,6 @@ import {
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavigationCMS from './dhika/SidebarCMS/Navigation';
 import CMS from './hanendyo/CMS/CMS';
-
 const App = () => {
   return (
     <Router>
