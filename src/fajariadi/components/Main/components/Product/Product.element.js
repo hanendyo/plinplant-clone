@@ -55,4 +55,8 @@ export const ProductSlider = styled.div`
   @media (max-width: 900px) {
     border-radius: 0 0 20px 20px;
   }
+
+  @media (max-width: 760px) {
+    padding: 50px;
+  }
 `;
