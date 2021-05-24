@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  makeStyles,
-  TextField,
-} from "@material-ui/core";
+import { Button, makeStyles, TextField } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
 import "../CMS.css";
+import { Container, BoxInput, SpanImage } from "./Article_component";
+import { colors } from "../../../master/constant/style/index";
+import { DataGrid } from "@material-ui/data-grid";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +36,7 @@ const Article = () => {
   // USE STATE
   const [dataArticle, setDataArticle] = useState([
     {
+      pk_article_id: "",
       author: "",
       article_image: "",
       created_at: "",
@@ -52,7 +52,7 @@ const Article = () => {
   useEffect(() => {
     getAllDatasAPI();
     console.log(`dataArticle: `, dataArticle);
-  }, []);
+  }, [dataArticle]);
 
   const url = "http://localhost:5000/input/";
   const endPoint = "article";
@@ -215,94 +215,216 @@ const Article = () => {
     setFileImage(URL.createObjectURL(img));
   };
 
-  return (
-    <div className="article cmsForm">
-      <h3>Article input</h3>
-      <form
-        encType="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          value={articleState.author}
-          name="author"
-          onChange={(e) => formChange(`author`, e.target.value)}
-          id="outlined-basic"
-          label="Author"
-          variant="outlined"
-        />
-        <TextField
-          value={articleState.title}
-          onChange={(e) => formChange("title", e.target.value)}
-          name="title"
-          id="outlined-basic"
-          label="Title"
-          variant="outlined"
-        />
-        <TextField
-          value={articleState.content}
-          onChange={(e) => formChange("content", e.target.value)}
-          name="content"
-          id="outlined-multiline-static"
-          label="Content"
-          multiline
-          rows={10}
-          variant="outlined"
-        />
-
-        {/* ----- IMAGE ----- */}
-        <span>Pick image:</span>
-        <input name="article_image" type="file" onChange={(e) => formImage(e)} />
-        <img src={fileImage} alt="" />
-        {/* ----- IMAGE ----- */}
-
-        <TextField
-          value={articleState.created_at}
-          onChange={(e) => formChange("created_at", e.target.value)}
-          name="created_at"
-          id="outlined-basic"
-          label="Created at"
-          variant="outlined"
-        />
-
+  // REACT DATA GRID
+  const columns = [
+    { field: "pk_article_id", headerName: "_id", width: 100 },
+    { field: "author", headerName: "Author", width: 130 },
+    { field: "title", headerName: "Title", width: 130 },
+    { field: "created_at", headerName: "created at", width: 150 },
+    { field: "image", headerName: "Image", width: 120 },
+    { field: "content", headerName: "Content", width: 300 },
+    {
+      field: "Update",
+      headerName: "Update",
+      width: 130,
+      renderCell: () => (
         <Button
-          className={classes.button}
+          onClick={() =>
+            handleUpdate(dataArticle, dataArticle.pk_article_id - 1)
+          }
           variant="contained"
           color="primary"
-          type="submit"
+          component="span"
+          style={{ backgroundColor: `${colors.green}` }}
         >
-          {isUpdate ? "Update" : "Submit"}
+          Update
         </Button>
-        {isUpdate && (
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-            onClick={() => handleCancel()}
+      ),
+    },
+    {
+      field: "Delete",
+      headerName: "Delete",
+      width: 130,
+      renderCell: () => (
+        <Button
+          onClick={() => handleDelete(rows.id, rows.id)}
+          variant="contained"
+          color="primary"
+          component="span"
+          style={{ backgroundColor: `${colors.green}` }}
+        >
+          delete
+        </Button>
+      ),
+    },
+  ];
+
+  // ROW DATA GRID -> DUMMY
+  const rows = dataArticle.map((row) => {
+    // console.log(`ROW :`, row);
+    const { pk_article_id, ...rest } = row;
+    return { id: pk_article_id, ...rest };
+  });
+
+  return (
+    <div>
+      <Container>
+        <h4>Article input</h4>
+        <BoxInput>
+          <form
+            enctype="multipart/form-data"
+            className={classes.root}
+            onSubmit={(e) => handleSubmit(e)}
+            noValidate
+            autoComplete="off"
           >
-            Cancel
-          </Button>
-        )}
-      </form>
-      <div>
-        <br />
-        <h3>Result: </h3>
+            <TextField
+              value={articleState.author}
+              name="author"
+              onChange={(e) => formChange(`author`, e.target.value)}
+              id="outlined-basic"
+              label="Author"
+              variant="outlined"
+              size="small"
+              color="green"
+            />
+            <TextField
+              value={articleState.title}
+              onChange={(e) => formChange("title", e.target.value)}
+              name="title"
+              id="outlined-basic"
+              label="Title"
+              variant="outlined"
+              size="small"
+            />
+
+            <TextField
+              value={articleState.created_at}
+              onChange={(e) => formChange("created_at", e.target.value)}
+              name="created_at"
+              id="outlined-basic"
+              label="Created at"
+              variant="outlined"
+              size="small"
+            />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <SpanImage>
+                <h6>Upload Your Image</h6>
+                <img src={fileImage} alt="" />
+              </SpanImage>
+              <div>
+                <input
+                  accept="image/*"
+                  className={classes.input}
+                  id="contained-button-file"
+                  multiple
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={(e) => formImage(e)}
+                />
+                <label htmlFor="contained-button-file">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    component="span"
+                    style={{
+                      backgroundColor: `${colors.green}`,
+                      marginTop: "10px",
+                    }}
+                  >
+                    Upload
+                  </Button>
+                </label>
+              </div>
+            </div>
+            <TextField
+              value={articleState.content}
+              onChange={(e) => formChange("content", e.target.value)}
+              name="content"
+              id="outlined-multiline-static"
+              label="Content"
+              multiline
+              rows={10}
+              columns={20}
+              variant="outlined"
+              size="small"
+              style={{ marginBottom: "51px" }}
+            />
+
+            {/* ----- IMAGE ----- */}
+            {/* <span>Pick image:</span>
+            <input
+              name="article_image"
+              type="file"
+              onChange={(e) => formImage(e)}
+            />
+            <img src={fileImage} alt="" /> */}
+            {/* ----- IMAGE ----- */}
+
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              type="submit"
+              style={{ backgroundColor: `${colors.green}`, marginLeft: "50px" }}
+            >
+              {isUpdate ? "Update" : "Submit"}
+            </Button>
+            {isUpdate && (
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                onClick={() => handleCancel()}
+              >
+                Cancel
+              </Button>
+            )}
+          </form>
+        </BoxInput>
+
+        <div>
+          <br />
+          <h4>Data </h4>
+          <BoxInput>
+            {/* {dataArticle.map((data, index) => (
+              <ul>
+                <li style={{ color: "black" }}>pk_article_id: {index + 1}</li>
+                <li style={{ color: "black" }}>
+                  created at: {data.created_at + 1}
+                </li>
+                <li style={{ color: "black" }}>title: {data.title + 1}</li>
+                <li style={{ color: "black" }}>content: {data.content + 1}</li>
+                <li style={{ color: "black" }}>author: {data.author + 1}</li>
+                <li style={{ color: "black" }}>image: {data.image + 1}</li>
+              </ul>
+            ))} */}
+            {/* <div style={{ height: 400, width: "100%" }}>
+              <DataGrid rows={rows} columns={columns} pageSize={5} />
+            </div> */}
+          </BoxInput>
+        </div>
         {dataArticle.map(
           (data, index) => (
             console.log(`data article map: `, dataArticle),
             (
               <ul className="map" key={index}>
                 <li>
-                  NO: <span>{index + 1}</span>
+                  id: <span>{index + 1}</span>
                 </li>
                 <li>
                   ARTICLE ID: <span>{data.pk_article_id}</span>
                 </li>
-                {/* <li>
+                <li>
                   IMAGE: <span>{data.image}</span>'
-                </li> */}
+                </li>
                 <li>
                   AUTHOR: <span>{data.author}</span>
                 </li>
@@ -332,7 +454,7 @@ const Article = () => {
             )
           )
         )}
-      </div>
+      </Container>
     </div>
   );
 };

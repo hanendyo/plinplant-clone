@@ -1,6 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SidebarCMS from "./components/SidebarCMS";
+<<<<<<< HEAD
+=======
+// import Article from "./pages/Article";
+// import Category from "./pages/Category";
+// import City from "./pages/City";
+// import Contact from "./pages/Contact";
+// import Gender from "./pages/Gender";
+// import Order from "./pages/Order";
+// import OrderItem from "./pages/OrderItem";
+// import Plant from "./pages/Plant";
+// import PlantBreeding from "./pages/PlantBreeding";
+// import PriceList from "./pages/PriceList";
+// import Review from "./pages/Review";
+// import ShippingCharges from "./pages/ShippingCharges";
+// import Stock from "./pages/Stock";
+// import User from "./pages/User";
+// import Weight from "./pages/Weight";
+>>>>>>> 90cfd21ecdf75d34b782bc99e101a007413edb65
 import {
   Article,
   Category,
@@ -18,6 +36,7 @@ import {
   User,
   Weight,
 } from "../../hanendyo/CMS/cmsPages";
+<<<<<<< HEAD
 // import Article from "./pages/Article";
 // import Category from "./pages/Category";
 // import City from "./pages/City";
@@ -33,11 +52,16 @@ import {
 // import Stock from "./pages/Stock";
 // import User from "./pages/User";
 // import Weight from "./pages/Weight";
+=======
+import { CMSContainer } from "./style/Container";
+//"./cmsPages";
+>>>>>>> 90cfd21ecdf75d34b782bc99e101a007413edb65
 
 const NavigationCMS = () => {
   return (
     <Router>
       <SidebarCMS />
+
       <Switch>
         <Route exact path="/cms/article_input" component={Article}></Route>
         <Route exact path="/cms/category_input" component={Category}></Route>

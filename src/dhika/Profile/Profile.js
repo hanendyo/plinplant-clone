@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React, { useState, useRef, useEffect, useContext } from "react";
 import {
   StyledProfile,
   ProfileContainer,
@@ -6,17 +6,17 @@ import {
   Information,
   Data,
   RightArea,
-} from './Profile.component';
-import ModalAlamat from '../ModalAlamat/ModalAlamat';
-import UploadBox from '../../master/components/additional/UploadBox';
-import ProductsContainer from '../../fajariadi/components/Main/components/Product/ProductsContainer';
-import { addresses } from '../../master/constant/data/dummy-data';
-import ScrollSign from '../../master/components/additional/ScrollSign';
-import { ContextStore } from '../../context/store/ContextStore';
-import PopoutComponent from '../ModalAlamat/PopupComponent/Popout';
-import Button from '../../master/components/additional/Button';
-import { colors } from '../../master/constant/style';
-import { openModalTambahAlamat } from '../../context/actions/modalActions';
+} from "./Profile.component";
+import ModalAlamat from "../ModalAlamat/ModalAlamat";
+import UploadBox from "../../master/components/additional/UploadBox";
+import ProductsContainer from "../../fajariadi/components/Main/components/Product/ProductsContainer";
+import { addresses } from "../../master/constant/data/dummy-data";
+import ScrollSign from "../../master/components/additional/ScrollSign";
+import { ContextStore } from "../../context/store/ContextStore";
+import PopoutComponent from "../ModalAlamat/PopupComponent/Popout";
+import Button from "../../master/components/additional/Button";
+import { colors } from "../../master/constant/style";
+import { openModalTambahAlamat } from "../../context/actions/modalActions";
 
 const Profile = () => {
   const [visible, setVisible] = useState(true);
@@ -42,7 +42,7 @@ const Profile = () => {
     <StyledProfile>
       {biodata && (
         <ProfileContainer>
-          <div className='valueChoose'>
+          <div className="valueChoose">
             <TextBox biodata={biodata}>
               <p>Biodata Diri</p>
             </TextBox>
@@ -95,7 +95,7 @@ const Profile = () => {
 
       {address && (
         <ProfileContainer>
-          <div className='valueChoose'>
+          <div className="valueChoose">
             <TextBox
               onClick={() => {
                 setBiodata(!biodata);
@@ -114,7 +114,7 @@ const Profile = () => {
             <Button
               primary
               address
-              text='Tambah Alamat Baru'
+              text="Tambah Alamat Baru"
               bgColor={colors.yellow}
               onClick={() => modalTambahAlamatDispatch(openModalTambahAlamat())}
             />

@@ -1,50 +1,55 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Container,
   SearchBar,
   SectionProduct,
   ProductSlider,
-} from './Product.element';
-import { FaSearch } from 'react-icons/fa';
+} from "./Product.element";
+import { FaSearch } from "react-icons/fa";
 import {
   products,
   productsCategory,
-} from '../../../../../master/constant/data/dummy-data';
-import ProductsContainer from './ProductsContainer';
+} from "../../../../../master/constant/data/dummy-data";
+import ProductsContainer from "./ProductsContainer";
 
 const Product = () => {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   useEffect(() => {}, []);
 
   const searching = search
     .toLowerCase()
-    .split('')
+    .split("")
     .filter((item) => item.trim())
+<<<<<<< HEAD
     .join('');
+=======
+    .join("");
+  console.log(searching);
+>>>>>>> 90cfd21ecdf75d34b782bc99e101a007413edb65
 
   const searchedProduct = products.map((item) =>
     item.name
       .toLowerCase()
-      .split('')
+      .split("")
       .filter((item) => item.trim())
-      .join('')
+      .join("")
   );
 
   const searched = searchedProduct.map((item) => item.includes(searching));
 
   return (
-    <SectionProduct id='content'>
+    <SectionProduct id="content">
       <Container>
         <SearchBar>
           <h4>Pertama, mari cari tanaman favoritmu</h4>
 
           <div>
             <input
-              type='text'
+              type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder='Contoh: Aglonema'
+              placeholder="Contoh: Aglonema"
             />
 
             <div>
@@ -59,7 +64,7 @@ const Product = () => {
               {searched.includes(true) ? (
                 <ProductsContainer search={search} searching={searching} />
               ) : (
-                <p style={{ textAlign: 'center' }}>
+                <p style={{ textAlign: "center" }}>
                   Mohon maaf, tanaman yang Anda cari belum tersedia.
                 </p>
               )}
