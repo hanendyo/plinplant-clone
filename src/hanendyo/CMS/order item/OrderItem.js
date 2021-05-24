@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const OrderItem = () => {
+const Contact = () => {
   // USE STYLES
   const classes = useStyles();
 
@@ -38,7 +38,9 @@ const OrderItem = () => {
   const [dataOrderItem, setDataOrderItem] = useState([
     {
       quantity: '',
-      fk_price_list_id: ''
+      fk_price_list_id: '',
+      // fk_user_id: '',
+      // fk_city_id: ''
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -57,12 +59,8 @@ const OrderItem = () => {
     await axios
       .get(url + `${endPoint}_get_all_datas`)
       .then((res) => {
-        if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
-          setDataOrderItem(res.data.data);
-        } else {
-          console.log("Error");
-        }
+        setDataOrderItem(res.data.data);
+        console.log(`GET RES DATA DATA: `, res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -70,9 +68,20 @@ const OrderItem = () => {
   };
 
   // POST
-  const postAPI = async (data) => {
+  const postAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("quantity", form.quantity);
+    data.append("fk_price_list_id", form.fk_price_list_id);
+    // // data.append("fk_user_id", form.fk_user_id);
+    // data.append("pk_city_id", form.pk_city_id);
+
     axios
-      .post(url + `${endPoint}_input`, data)
+      .post(url + `${endPoint}_input`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
         getAllDatasAPI();
         console.log(`Order item successfuly created!`);
@@ -100,10 +109,10 @@ const OrderItem = () => {
   // UPDATE
   const updateAPI = async (data) => {
     axios
-      .post(url + `${endPoint}_update`, data)
+      .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Order Item successfuly updated!`);
+        console.log(`Order item successfuly updated!`);
         console.log(res);
         return res;
       })
@@ -129,17 +138,15 @@ const OrderItem = () => {
         ...dataOrderItem,
         quantity: orderItemState.quantity,
         fk_price_list_id: orderItemState.fk_price_list_id,
+        pk_order_item_id: orderItemState.pk_order_item_id
+        // // fk_user_id: orderItemState.fk_user_id,
+        // // fk_city_id: orderItemState.fk_city_id
       },
     ]);
 
     clearFormData();
 
-    console.log(`ORDERITEM STATE SUBMIT: `, orderItemState);
-    // console.log(`ARTICLE STATE AUTHOR: `, orderItemState.author);
-    // console.log(`DATA ARTICLE SUBMIT: `, dataOrderItem);
-    // console.log(`DATA ARTICLE AUTHOR: `, dataOrderItem.author);
-    // console.log(`UPDATED ARTICLE STATE: `, orderItemState);
-    // console.log(`UPDATED ARTICLE STATE AUTHOR: `, orderItemState.author);
+    console.log(`CONTACT STATE SUBMIT: `, orderItemState);
   };
 
   // HANDLE DELETE
@@ -150,14 +157,15 @@ const OrderItem = () => {
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
     // console.log(`index update: `, index);
-    // console.log(`data id update: `, data.pk_article_id);
+    console.log(`data id update: `, data.pk_order_item_id);
     setIsUpdate(true);
     setIndexUpdate(index);
+    orderItemDispatch(cmsAction(`pk_order_item_id`, data.pk_order_item_id));
     orderItemDispatch(cmsAction(`quantity`, data.quantity));
     orderItemDispatch(cmsAction(`fk_price_list_id`, data.fk_price_list_id));
+    // // orderItemDispatch(cmsAction(`fk_user_id`, data.fk_user_id));
+    // // orderItemDispatch(cmsAction(`fk_city_id`, data.fk_city_id));
 
-    // console.log(`update from dataOrderItem: `, dataOrderItem[index]);
-    // console.log(`update from dataOrderItem: `, dataOrderItem[index]);
     console.log(`update from orderItemState: `, orderItemState);
   };
 
@@ -169,8 +177,11 @@ const OrderItem = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    orderItemDispatch(cmsAction(`quantity`, ''));
+    orderItemDispatch(cmsAction(`quantity`, ""));
     orderItemDispatch(cmsAction(`fk_price_list_id`, ''));
+    // orderItemDispatch(cmsAction(`fk_user_id`, ''));
+    // orderItemDispatch(cmsAction(`fk_city_id`, ''));
+
   };
 
   // FORM CHANGE
@@ -180,7 +191,7 @@ const OrderItem = () => {
 
   return (
     <div className="cmsForm">
-      <h3>Order item input</h3>
+      <h3>Order Item input</h3>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -201,9 +212,10 @@ const OrderItem = () => {
           name="fk_price_list_id"
           onChange={(e) => formChange(`fk_price_list_id`, e.target.value)}
           id="outlined-basic"
-          label="Price_list_id"
+          label="Price_list_ID"
           variant="outlined"
         />
+       
         <Button
           className={classes.button}
           variant="contained"
@@ -228,12 +240,13 @@ const OrderItem = () => {
         <h3>Result: </h3>
         {dataOrderItem.map(
           (data, index) => (
-            console.log(`data article map: `, dataOrderItem),
+            console.log(`data contact map: `, dataOrderItem),
             (
               <ul className='map' key={index}>
                 <li>ORDER ITEM ID: <span>{data.pk_order_item_id}</span></li>
                 <li>QUANTITY: <span>{data.quantity}</span></li>
                 <li>PRICE_LIST_ID: <span>{data.fk_price_list_id}</span></li>
+                {/* <li>USER_ID: <span>{data.fk_user_id}</span></li> */}
                 {
                   <div>
                     <button
@@ -257,4 +270,4 @@ const OrderItem = () => {
   );
 };
 
-export default OrderItem;
+export default Contact;

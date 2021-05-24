@@ -72,12 +72,23 @@ const Contact = () => {
   };
 
   // POST
-  const postAPI = async (data) => {
+  const postAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("recipient_name", form.recipient_name);
+    data.append("address", form.address);
+    data.append("phone_number", form.phone_number);
+    data.append("pk_city_id", form.pk_city_id);
+
     axios
-      .post(url + `${endPoint}_input`, data)
+      .post(url + `${endPoint}_input`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Contact successfuly created!`);
+        console.log(`Category successfuly created!`);
         console.log(res);
         return res;
       })
@@ -102,7 +113,7 @@ const Contact = () => {
   // UPDATE
   const updateAPI = async (data) => {
     axios
-      .put(url + `${endPoint}_input`, data)
+      .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`Contact successfuly updated!`);
@@ -149,9 +160,10 @@ const Contact = () => {
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
     // console.log(`index update: `, index);
-    // console.log(`data id update: `, data.pk_article_id);
+    console.log(`data id update: `, data.pk_contact_id);
     setIsUpdate(true);
     setIndexUpdate(index);
+    contactDispatch(cmsAction(`pk_contact_id`, data.pk_contact_id));
     contactDispatch(cmsAction(`recipient_name`, data.recipient_name));
     contactDispatch(cmsAction(`address`, data.address));
     contactDispatch(cmsAction(`phone_number`, data.phone_number));
@@ -248,7 +260,7 @@ const Contact = () => {
         <h3>Result: </h3>
         {dataContact.map(
           (data, index) => (
-            console.log(`data article map: `, dataContact),
+            console.log(`data contact map: `, dataContact),
             (
               <ul className='map' key={index}>
                 <li>CONTACT ID: <span>{data.pk_contact_id}</span></li>

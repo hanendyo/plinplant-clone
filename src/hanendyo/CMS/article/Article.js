@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  makeStyles,
-  TextField,
-} from "@material-ui/core";
+import { Button, makeStyles, TextField } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { cmsAction } from "../../../context/actions/CmsAction";
@@ -47,7 +43,7 @@ const Article = () => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
   const [reviewImage, setReviewImage] = useState(null);
-  const [imageUpload, setImageUpload] = useState(null)
+  const [imageUpload, setImageUpload] = useState(null);
 
   // USE EFFECT
   useEffect(() => {
@@ -77,7 +73,6 @@ const Article = () => {
 
   // POST
   const postAPI = async (form) => {
-    // const fileImg = reviewImage
     const data = new FormData();
     console.log(`formdata:`, form);
     data.append("author", form.author);
@@ -119,25 +114,10 @@ const Article = () => {
 
   // UPDATE
   const updateAPI = async (data) => {
-    // const data = new FormData();
-    // console.log(`formdata:`, form);
-    // data.append("author", form.author);
-    // data.append("title", form.title);
-    // data.append("content", form.content);
-    // data.append("created_at", form.created_at);
-    // data.append("article_image", form.article_image);
-    // data.append('article_image_upload', imageUpload)
-
     axios
-      .put(url + endPoint + `_update`, data, 
-      // {
-      //   headers: {
-      //     "content-type": "multipart/form-data",
-      //   },
-      // }
-      )
+      .put(url + endPoint + `_update`, data)
       .then((res) => {
-        getAllDatasAPI();  
+        getAllDatasAPI();
         console.log(`Article successfuly updated!`);
         console.log(res);
         return res;
@@ -215,11 +195,11 @@ const Article = () => {
 
   const formImage = (e) => {
     const img = e.target.files[0];
-    const imgName = e.target.files[0].name
+    const imgName = e.target.files[0].name;
     console.log(`IMEJ: `, img);
     articleDispatch(cmsAction("article_image", imgName));
     setReviewImage(URL.createObjectURL(img));
-    setImageUpload(img)
+    setImageUpload(img);
   };
 
   return (
@@ -261,7 +241,11 @@ const Article = () => {
 
         {/* ----- IMAGE ----- */}
         <span>Pick image:</span>
-        <input name="article_image_upload" type="file" onChange={(e) => formImage(e)} />
+        <input
+          name="article_image_upload"
+          type="file"
+          onChange={(e) => formImage(e)}
+        />
         <img src={reviewImage} alt="" />
         {/* ----- IMAGE ----- */}
 
@@ -296,49 +280,43 @@ const Article = () => {
       <div>
         <br />
         <h3>Result: </h3>
-        {dataArticle.map(
-          (data, index) => (
-            // console.log(`data article map: `, dataArticle),
-            (
-              <ul className="map" key={index}>
-                <li>
-                  NO: <span>{index + 1}</span>
-                </li>
-                <li>
-                  ARTICLE ID: <span>{data.pk_article_id}</span>
-                </li>
-                {/* <li>
-                  IMAGE: <span>{data.image}</span>'
-                </li> */}
-                <li>
-                  AUTHOR: <span>{data.author}</span>
-                </li>
-                <li>
-                  CREATED AT: <span>{data.created_at}</span>
-                </li>
-                <li>
-                  TITLE: <span>{data.title}</span>
-                </li>
-                <li>
-                  CONTENT: <span>{data.content}</span>
-                </li>
-                {
-                  <div>
-                    <button
-                      onClick={() => handleDelete(data.pk_article_id, index)}
-                    >
-                      delete
-                    </button>
-                    <button onClick={() => handleUpdate(data, index)}>
-                      Update
-                    </button>
-                    <br />
-                  </div>
-                }
-              </ul>
-            )
-          )
-        )}
+        {dataArticle.map((data, index) => (
+          // console.log(`data article map: `, dataArticle),
+          <ul className="map" key={index}>
+            <li>
+              NO: <span>{index + 1}</span>
+            </li>
+            <li>
+              ARTICLE ID: <span>{data.pk_article_id}</span>
+            </li>
+            <li>
+              IMAGE NAME: <span>{data.article_image}</span>
+            </li>
+            <li>
+              AUTHOR: <span>{data.author}</span>
+            </li>
+            <li>
+              CREATED AT: <span>{data.created_at}</span>
+            </li>
+            <li>
+              TITLE: <span>{data.title}</span>
+            </li>
+            <li>
+              CONTENT: <span>{data.content}</span>
+            </li>
+            {
+              <div>
+                <button onClick={() => handleDelete(data.pk_article_id, index)}>
+                  delete
+                </button>
+                <button onClick={() => handleUpdate(data, index)}>
+                  Update
+                </button>
+                <br />
+              </div>
+            }
+          </ul>
+        ))}
       </div>
     </div>
   );

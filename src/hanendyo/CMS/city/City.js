@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const City = () => {
+const Category = () => {
   // USE STYLES
   const classes = useStyles();
 
@@ -37,7 +37,7 @@ const City = () => {
   // USE STATE
   const [dataCity, setDataCity] = useState([
     {
-      city_name: '',
+        city_name: '',
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -51,17 +51,14 @@ const City = () => {
 
   const url = "http://localhost:5000/input/";
   const endPoint = 'city'
+
   // GET
   const getAllDatasAPI = async () => {
     await axios
-      .get(url + `${endPoint}_get_all_datas`)
+      .get(url + endPoint + "_get_all_datas")
       .then((res) => {
-        if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
-          setDataCity(res.data.data);
-        } else {
-          console.log("Error");
-        }
+        console.log(`GET RES DATA DATA: `, res.data.data);
+        setDataCity(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -69,9 +66,18 @@ const City = () => {
   };
 
   // POST
-  const postAPI = async (data) => {
+  const postAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    // data.append("pk_city_id", form.pk_city_id);
+    data.append("city_name", form.city_name);
+
     axios
-      .post(url + `${endPoint}_input`, data)
+      .post(url + `${endPoint}_input`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
         getAllDatasAPI();
         console.log(`City successfuly created!`);
@@ -88,7 +94,7 @@ const City = () => {
   // DELETE
   const deleteAPI = async (id, index) => {
     await axios
-      .delete(url + `${endPoint}_delete/` + id)
+      .delete(url + endPoint + "_delete/" + id)
       .then((deleted) => {
         console.log(`DELETED: `, deleted);
         getAllDatasAPI();
@@ -99,7 +105,7 @@ const City = () => {
   // UPDATE
   const updateAPI = async (data) => {
     axios
-      .post(url + `${endPoint}_input`, data)
+      .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`City successfuly updated!`);
@@ -122,22 +128,18 @@ const City = () => {
     } else {
       postAPI(cityState);
     }
-
+  
     setDataCity([
       {
         ...dataCity,
+        // pk_city_id: cityState.pk_city_id,
         city_name: cityState.city_name
       },
     ]);
 
     clearFormData();
 
-    console.log(`CITY STATE SUBMIT: `, cityState);
-    // console.log(`ARTICLE STATE AUTHOR: `, cityState.author);
-    // console.log(`DATA ARTICLE SUBMIT: `, dataCity);
-    // console.log(`DATA ARTICLE AUTHOR: `, dataCity.author);
-    // console.log(`UPDATED ARTICLE STATE: `, cityState);
-    // console.log(`UPDATED ARTICLE STATE AUTHOR: `, cityState.author);
+    console.log(`CATEGORY STATE SUBMIT: `, cityState);
   };
 
   // HANDLE DELETE
@@ -147,14 +149,10 @@ const City = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
-    // console.log(`index update: `, index);
-    // console.log(`data id update: `, data.pk_article_id);
     setIsUpdate(true);
     setIndexUpdate(index);
     cityDispatch(cmsAction(`city_name`, data.city_name));
-
-    // console.log(`update from dataCity: `, dataCity[index]);
-    // console.log(`update from dataCity: `, dataCity[index]);
+    cityDispatch(cmsAction(`pk_city_id`, data.pk_city_id));
     console.log(`update from cityState: `, cityState);
   };
 
@@ -167,7 +165,7 @@ const City = () => {
   // CLEAR FORM
   const clearFormData = () => {
     cityDispatch(cmsAction(`city_name`, ""));
-
+    cityDispatch(cmsAction(`pk_city_id`, ""));
   };
 
   // FORM CHANGE
@@ -193,6 +191,7 @@ const City = () => {
           label="City name"
           variant="outlined"
         />
+       
         <Button
           className={classes.button}
           variant="contained"
@@ -220,8 +219,8 @@ const City = () => {
             console.log(`data article map: `, dataCity),
             (
               <ul className='map' key={index}>
-                <li>CITY NAME: <span>{data.city_name}</span></li>
-                <li>ID: <span>{data.pk_city_id}</span></li>
+                <li>CATEGORY NAME: <span>{data.city_name}</span></li>
+                <li>CATEGORY ID: <span>{data.pk_city_id}</span></li>
                 {
                   <div>
                     <button
@@ -235,7 +234,7 @@ const City = () => {
                     <br />
                   </div>
                 }
-                <br />
+                <br/>
               </ul>
             )
           )
@@ -245,4 +244,4 @@ const City = () => {
   );
 };
 
-export default City;
+export default Category;

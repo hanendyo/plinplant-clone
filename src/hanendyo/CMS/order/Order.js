@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Order = () => {
+const Contact = () => {
   // USE STYLES
   const classes = useStyles();
 
@@ -39,7 +39,8 @@ const Order = () => {
     {
       status: '',
       created_at: '',
-      fk_user_id: ''
+      fk_user_id: '',
+      // fk_city_id: ''
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -71,12 +72,23 @@ const Order = () => {
   };
 
   // POST
-  const postAPI = async (data) => {
+  const postAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("status", form.status);
+    data.append("created_at", form.created_at);
+    data.append("fk_user_id", form.fk_user_id);
+    // data.append("pk_city_id", form.pk_city_id);
+
     axios
-      .post(url + `${endPoint}_input`, data)
+      .post(url + `${endPoint}_input`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Order successfuly created!`);
+        console.log(`Category successfuly created!`);
         console.log(res);
         return res;
       })
@@ -101,10 +113,10 @@ const Order = () => {
   // UPDATE
   const updateAPI = async (data) => {
     axios
-      .post(url + `${endPoint}_update`, data)
+      .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Order successfuly updated!`);
+        console.log(`Contact successfuly updated!`);
         console.log(res);
         return res;
       })
@@ -131,12 +143,13 @@ const Order = () => {
         status: orderState.status,
         created_at: orderState.created_at,
         fk_user_id: orderState.fk_user_id,
+        // // fk_city_id: orderState.fk_city_id
       },
     ]);
 
     clearFormData();
 
-    console.log(`ORDER STATE SUBMIT: `, orderState);
+    console.log(`CONTACT STATE SUBMIT: `, orderState);
   };
 
   // HANDLE DELETE
@@ -146,12 +159,15 @@ const Order = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
-
+    // console.log(`index update: `, index);
+    console.log(`data id update: `, data.pk_order_id);
     setIsUpdate(true);
     setIndexUpdate(index);
+    orderDispatch(cmsAction(`pk_order_id`, data.pk_order_id));
     orderDispatch(cmsAction(`status`, data.status));
     orderDispatch(cmsAction(`created_at`, data.created_at));
     orderDispatch(cmsAction(`fk_user_id`, data.fk_user_id));
+    // // orderDispatch(cmsAction(`fk_city_id`, data.fk_city_id));
 
     console.log(`update from orderState: `, orderState);
   };
@@ -167,6 +183,7 @@ const Order = () => {
     orderDispatch(cmsAction(`status`, ""));
     orderDispatch(cmsAction(`created_at`, ''));
     orderDispatch(cmsAction(`fk_user_id`, ''));
+    // orderDispatch(cmsAction(`fk_city_id`, ''));
 
   };
 
@@ -206,9 +223,10 @@ const Order = () => {
           name="fk_user_id"
           onChange={(e) => formChange(`fk_user_id`, e.target.value)}
           id="outlined-basic"
-          label="User_id"
+          label="User_ID"
           variant="outlined"
         />
+       
         <Button
           className={classes.button}
           variant="contained"
@@ -233,7 +251,7 @@ const Order = () => {
         <h3>Result: </h3>
         {dataOrder.map(
           (data, index) => (
-            console.log(`data article map: `, dataOrder),
+            console.log(`data contact map: `, dataOrder),
             (
               <ul className='map' key={index}>
                 <li>ORDER ID: <span>{data.pk_order_id}</span></li>
@@ -263,4 +281,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default Contact;

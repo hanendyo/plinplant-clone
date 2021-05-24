@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Contact = () => {
+const Category = () => {
   // USE STYLES
   const classes = useStyles();
 
@@ -37,7 +37,8 @@ const Contact = () => {
   // USE STATE
   const [dataGender, setDataGender] = useState([
     {
-      type: ''
+        pk_gender_id: '',
+        type: '',
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -51,13 +52,18 @@ const Contact = () => {
 
   const url = "http://localhost:5000/input/";
   const endPoint = 'gender'
+
   // GET
   const getAllDatasAPI = async () => {
     await axios
-      .get(url + endPoint + `_get_all_datas`)
+      .get(url + endPoint + "_get_all_datas")
       .then((res) => {
         console.log(`GET RES DATA DATA: `, res.data.data);
         setDataGender(res.data.data);
+        // if (res.status === 200) {
+        // } else {
+        //   console.log("Error");
+        // }
       })
       .catch((err) => {
         console.log(err);
@@ -65,12 +71,21 @@ const Contact = () => {
   };
 
   // POST
-  const postAPI = async (data) => {
+  const postAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("pk_gender_id", form.pk_gender_id);
+    data.append("type", form.type);
+
     axios
-      .post(url + `${endPoint}_input`, data)
+      .post(url + `${endPoint}_input`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Gender successfuly created!`);
+        console.log(`Category successfuly created!`);
         console.log(res);
         return res;
       })
@@ -79,12 +94,20 @@ const Contact = () => {
         console.log(err);
         return err;
       });
+    // await axios.post(url + endPoint + '_input', form)
+    // .then((res)=>{
+    //   getAllDatasAPI();
+    //   console.log(res);
+    // })
+    // .catch(err=> {
+    //   console.log(err);
+    // })
   };
 
   // DELETE
   const deleteAPI = async (id, index) => {
     await axios
-      .delete(url + `${endPoint}_delete/` + id)
+      .delete(url + endPoint + "_delete/" + id)
       .then((deleted) => {
         console.log(`DELETED: `, deleted);
         getAllDatasAPI();
@@ -98,7 +121,7 @@ const Contact = () => {
       .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Gender successfuly updated!`);
+        console.log(`Category successfuly updated!`);
         console.log(res);
         return res;
       })
@@ -118,22 +141,18 @@ const Contact = () => {
     } else {
       postAPI(genderState);
     }
-
+  
     setDataGender([
       {
         ...dataGender,
+        pk_gender_id: genderState.pk_gender_id,
         type: genderState.type
       },
     ]);
 
     clearFormData();
 
-    console.log(`GENDER STATE SUBMIT: `, genderState);
-    // console.log(`ARTICLE STATE AUTHOR: `, genderState.author);
-    // console.log(`DATA ARTICLE SUBMIT: `, dataGender);
-    // console.log(`DATA ARTICLE AUTHOR: `, dataGender.author);
-    // console.log(`UPDATED ARTICLE STATE: `, genderState);
-    // console.log(`UPDATED ARTICLE STATE AUTHOR: `, genderState.author);
+    console.log(`CATEGORY STATE SUBMIT: `, genderState);
   };
 
   // HANDLE DELETE
@@ -143,14 +162,10 @@ const Contact = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
-    // console.log(`index update: `, index);
-    // console.log(`data id update: `, data.pk_article_id);
     setIsUpdate(true);
     setIndexUpdate(index);
     genderDispatch(cmsAction(`type`, data.type));
-
-    // console.log(`update from dataGender: `, dataGender[index]);
-    // console.log(`update from dataGender: `, dataGender[index]);
+    genderDispatch(cmsAction(`pk_gender_id`, data.pk_gender_id));
     console.log(`update from genderState: `, genderState);
   };
 
@@ -162,8 +177,9 @@ const Contact = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    genderDispatch(cmsAction(`type`, ''));
-
+    genderDispatch(cmsAction(`type`, ""));
+    genderDispatch(cmsAction(`pk_gender_id`, ""));
+  
   };
 
   // FORM CHANGE
@@ -186,7 +202,7 @@ const Contact = () => {
           name="type"
           onChange={(e) => formChange(`type`, e.target.value)}
           id="outlined-basic"
-          label="Gender Type"
+          label="Gender type"
           variant="outlined"
         />
 
@@ -217,8 +233,8 @@ const Contact = () => {
             console.log(`data article map: `, dataGender),
             (
               <ul className='map' key={index}>
-                <li>GENDER ID: <span>{data.pk_gender_id}</span></li>
                 <li>GENDER TYPE: <span>{data.type}</span></li>
+                <li>GENDER ID: <span>{data.pk_gender_id}</span></li>
                 {
                   <div>
                     <button
@@ -232,7 +248,7 @@ const Contact = () => {
                     <br />
                   </div>
                 }
-                <br />
+                <br/>
               </ul>
             )
           )
@@ -242,4 +258,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default Category;
