@@ -8,4 +8,12 @@ import {
   closeModalReview,
 } from './modalActions';
 
-export { openModalUpload, closeModalUpload, openModalReview, closeModalReview };
+import { getPlants } from './fetchingActions';
+
+export {
+  openModalUpload,
+  closeModalUpload,
+  openModalReview,
+  closeModalReview,
+  getPlants,
+};

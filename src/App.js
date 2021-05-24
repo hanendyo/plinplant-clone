@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   LandingPage,
   Ensiklopedia,
@@ -13,7 +13,25 @@ import {
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavigationCMS from './dhika/SidebarCMS/Navigation';
 import CMS from './hanendyo/CMS/CMS';
+import axios from 'axios';
+import { ContextStore } from './context/store/ContextStore';
+import { getPlants } from './context/actions';
+
 const App = () => {
+  const { tablePlantDispatch } = useContext(ContextStore);
+
+  useEffect(() => {
+    const getTablePlant = async () => {
+      const res = await axios.get(
+        'http://localhost:5000/input/plant_get_all_datas'
+      );
+
+      tablePlantDispatch(getPlants(res.data.data));
+    };
+
+    getTablePlant();
+  }, []);
+
   return (
     <Router>
       <Switch>

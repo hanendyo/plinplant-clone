@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Container,
   SearchBar,
@@ -6,14 +6,17 @@ import {
   ProductSlider,
 } from './Product.element';
 import { FaSearch } from 'react-icons/fa';
-import {
-  products,
-  productsCategory,
-} from '../../../../../master/constant/data/dummy-data';
+// import {
+//   products,
+//   productsCategory,
+// } from '../../../../../master/constant/data/dummy-data';
 import ProductsContainer from './ProductsContainer';
+import { ContextStore } from '../../../../../context/store/ContextStore';
 
 const Product = () => {
   const [search, setSearch] = useState('');
+
+  const { tablePlantState } = useContext(ContextStore);
 
   useEffect(() => {}, []);
 
@@ -23,8 +26,8 @@ const Product = () => {
     .filter((item) => item.trim())
     .join('');
 
-  const searchedProduct = products.map((item) =>
-    item.name
+  const searchedProduct = tablePlantState.map((item) =>
+    item.plant_name
       .toLowerCase()
       .split('')
       .filter((item) => item.trim())
@@ -32,6 +35,10 @@ const Product = () => {
   );
 
   const searched = searchedProduct.map((item) => item.includes(searching));
+
+  const productsCategory = tablePlantState
+    .map((item) => item.fk_category_id)
+    .filter((item, index, arr) => arr.indexOf(item) === index);
 
   return (
     <SectionProduct id='content'>

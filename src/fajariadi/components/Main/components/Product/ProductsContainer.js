@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ItemsCarousel from 'react-items-carousel';
 import Cards from '../../../../../master/components/additional/Cards';
@@ -15,6 +15,7 @@ import {
 import { colors } from '../../../../../master/constant/style';
 import styled from 'styled-components';
 import { useMediaQuery } from 'react-responsive';
+import { ContextStore } from '../../../../../context/store/ContextStore';
 
 const ProductsContainer = ({
   category,
@@ -34,6 +35,8 @@ const ProductsContainer = ({
   selectAddress,
   related,
 }) => {
+  const { tablePlantState } = useContext(ContextStore);
+
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
 
@@ -56,15 +59,15 @@ const ProductsContainer = ({
     if (isPhone) return 1;
   };
 
-  const categoryName = (category) => {
-    if (category === 'hias') return 'Tanaman Hias';
-    if (category === 'sayur') return 'Sayuran Hijau';
-    if (category === 'rempah') return 'Rempah';
-    if (category === 'buah') return 'Buah';
+  const categoryName = (num) => {
+    if (num === 1) return 'Tanaman Hias';
+    if (num === 2) return 'Sayuran Hijau';
+    if (num === 3) return 'Buah';
+    if (num === 4) return 'Rempah';
   };
 
-  const productSearched = products.filter((item) =>
-    item.name
+  const productSearched = tablePlantState.filter((item) =>
+    item.plant_name
       .toLowerCase()
       .split('')
       .filter((item) => item.trim())
@@ -89,10 +92,15 @@ const ProductsContainer = ({
             chevronWidth={chevronWidth}
             // infiniteLoop
           >
-            {products
-              .filter((item) => category === item.category)
-              .map(({ name, img }, index) => (
-                <Cards slider name={name} img={img} key={index} />
+            {tablePlantState
+              .filter((item) => category === item.fk_category_id)
+              .map(({ plant_name, plant_image, pk_plant_id }) => (
+                <Cards
+                  slider
+                  name={plant_name}
+                  img={plant_image}
+                  key={pk_plant_id}
+                />
               ))}
           </ItemsCarousel>
         </CardContainer>
@@ -127,8 +135,13 @@ const ProductsContainer = ({
           <h4>Hasil Pencarian: {search}</h4>
 
           <div>
-            {productSearched.map(({ name, img }, index) => (
-              <Cards search name={name} img={img} key={index} />
+            {productSearched.map(({ plant_name, plant_image, pk_plant_id }) => (
+              <Cards
+                search
+                name={plant_name}
+                img={plant_image}
+                key={pk_plant_id}
+              />
             ))}
           </div>
         </SearchedContainer>
