@@ -41,7 +41,6 @@ const Article = () => {
   // USE STATE
   const [dataArticle, setDataArticle] = useState([
     {
-      pk_article_id: '',
       author: '',
       article_image: '',
       created_at: '',
@@ -51,7 +50,8 @@ const Article = () => {
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
-  const [fileImage, setFileImage] = useState(null);
+  const [reviewImage, setReviewImage] = useState(null);
+  const [imageUpload, setImageUpload] = useState(null);
 
   // USE EFFECT
   useEffect(() => {
@@ -81,7 +81,6 @@ const Article = () => {
 
   // POST
   const postAPI = async (form) => {
-    // const fileImg = fileImage
     const data = new FormData();
     console.log(`formdata:`, form);
     data.append('author', form.author);
@@ -89,6 +88,7 @@ const Article = () => {
     data.append('content', form.content);
     data.append('created_at', form.created_at);
     data.append('article_image', form.article_image);
+    data.append('article_image_upload', imageUpload);
 
     axios
       .post(url + endPoint + `_input`, data, {
@@ -121,22 +121,9 @@ const Article = () => {
   };
 
   // UPDATE
-  const updateAPI = async (form) => {
-    console.log(`DATA UPDATE: `, data);
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append('author', form.author);
-    data.append('title', form.title);
-    data.append('content', form.content);
-    data.append('created_at', form.created_at);
-    data.append('article_image', form.article_image);
-
+  const updateAPI = async (data) => {
     axios
-      .put(url + endPoint + `_update`, data, {
-        headers: {
-          'content-type': 'multipart/form-data',
-        },
-      })
+      .put(url + endPoint + `_update`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`Article successfuly updated!`);
@@ -164,7 +151,7 @@ const Article = () => {
       {
         ...dataArticle,
         author: articleState.author,
-        image: articleState.image,
+        article_image: articleState.article_image,
         created_at: articleState.created_at,
         title: articleState.title,
         content: articleState.content,
@@ -216,60 +203,63 @@ const Article = () => {
 
   const formImage = (e) => {
     const img = e.target.files[0];
-    articleDispatch(cmsAction('article_image', img));
-    setFileImage(URL.createObjectURL(img));
+    const imgName = e.target.files[0].name;
+    console.log(`IMEJ: `, img);
+    articleDispatch(cmsAction('article_image', imgName));
+    setReviewImage(URL.createObjectURL(img));
+    setImageUpload(img);
   };
 
   // REACT DATA GRID
-  const columns = [
-    { field: 'pk_article_id', headerName: '_id', width: 100 },
-    { field: 'author', headerName: 'Author', width: 130 },
-    { field: 'title', headerName: 'Title', width: 130 },
-    { field: 'created_at', headerName: 'created at', width: 150 },
-    { field: 'image', headerName: 'Image', width: 120 },
-    { field: 'content', headerName: 'Content', width: 300 },
-    {
-      field: 'Update',
-      headerName: 'Update',
-      width: 130,
-      renderCell: () => (
-        <Button
-          onClick={() =>
-            handleUpdate(dataArticle, dataArticle.pk_article_id - 1)
-          }
-          variant='contained'
-          color='primary'
-          component='span'
-          style={{ backgroundColor: `${colors.green}` }}
-        >
-          Update
-        </Button>
-      ),
-    },
-    {
-      field: 'Delete',
-      headerName: 'Delete',
-      width: 130,
-      renderCell: () => (
-        <Button
-          onClick={() => handleDelete(rows.id, rows.id)}
-          variant='contained'
-          color='primary'
-          component='span'
-          style={{ backgroundColor: `${colors.green}` }}
-        >
-          delete
-        </Button>
-      ),
-    },
-  ];
+  // const columns = [
+  //   { field: 'pk_article_id', headerName: '_id', width: 100 },
+  //   { field: 'author', headerName: 'Author', width: 130 },
+  //   { field: 'title', headerName: 'Title', width: 130 },
+  //   { field: 'created_at', headerName: 'created at', width: 150 },
+  //   { field: 'image', headerName: 'Image', width: 120 },
+  //   { field: 'content', headerName: 'Content', width: 300 },
+  //   {
+  //     field: 'Update',
+  //     headerName: 'Update',
+  //     width: 130,
+  //     renderCell: () => (
+  //       <Button
+  //         onClick={() =>
+  //           handleUpdate(dataArticle, dataArticle.pk_article_id - 1)
+  //         }
+  //         variant='contained'
+  //         color='primary'
+  //         component='span'
+  //         style={{ backgroundColor: `${colors.green}` }}
+  //       >
+  //         Update
+  //       </Button>
+  //     ),
+  //   },
+  //   {
+  //     field: 'Delete',
+  //     headerName: 'Delete',
+  //     width: 130,
+  //     renderCell: () => (
+  //       <Button
+  //         onClick={() => handleDelete(rows.id, rows.id)}
+  //         variant='contained'
+  //         color='primary'
+  //         component='span'
+  //         style={{ backgroundColor: `${colors.green}` }}
+  //       >
+  //         delete
+  //       </Button>
+  //     ),
+  //   },
+  // ];
 
-  // ROW DATA GRID -> DUMMY
-  const rows = dataArticle.map((row) => {
-    // console.log(`ROW :`, row);
-    const { pk_article_id, ...rest } = row;
-    return { id: pk_article_id, ...rest };
-  });
+  // // ROW DATA GRID -> DUMMY
+  // const rows = dataArticle.map((row) => {
+  //   // console.log(`ROW :`, row);
+  //   const { pk_article_id, ...rest } = row;
+  //   return { id: pk_article_id, ...rest };
+  // });
 
   return (
     <div>
@@ -322,7 +312,7 @@ const Article = () => {
             >
               <SpanImage>
                 <h6>Choose Image</h6>
-                <img src={fileImage} alt='' />
+                <img src={reviewImage} alt='' />
               </SpanImage>
               <div>
                 <input
@@ -406,29 +396,29 @@ const Article = () => {
         <div>
           <br />
           <h4>Data </h4>
-          <BoxTable>
-            {/* {dataArticle.map((data, index) => (
+          {/* <BoxTable>
+            {dataArticle.map((data, index) => (
               <ul>
-                <li style={{ color: "black" }}>pk_article_id: {index + 1}</li>
-                <li style={{ color: "black" }}>
+                <li style={{ color: 'black' }}>pk_article_id: {index + 1}</li>
+                <li style={{ color: 'black' }}>
                   created at: {data.created_at + 1}
                 </li>
-                <li style={{ color: "black" }}>title: {data.title + 1}</li>
-                <li style={{ color: "black" }}>content: {data.content + 1}</li>
-                <li style={{ color: "black" }}>author: {data.author + 1}</li>
-                <li style={{ color: "black" }}>image: {data.image + 1}</li>
+                <li style={{ color: 'black' }}>title: {data.title + 1}</li>
+                <li style={{ color: 'black' }}>content: {data.content + 1}</li>
+                <li style={{ color: 'black' }}>author: {data.author + 1}</li>
+                <li style={{ color: 'black' }}>image: {data.image + 1}</li>
               </ul>
-            ))} */}
+            ))}
             <div style={{ height: 400, width: '100%' }}>
               <DataGrid rows={rows} columns={columns} pageSize={5} />
             </div>
-          </BoxTable>
+          </BoxTable> */}
         </div>
-        {/* {dataArticle.map(
+        {dataArticle.map(
           (data, index) => (
             console.log(`data article map: `, dataArticle),
             (
-              <ul className="map" key={index}>
+              <ul className='map' key={index}>
                 <li>
                   id: <span>{index + 1}</span>
                 </li>
@@ -436,7 +426,7 @@ const Article = () => {
                   ARTICLE ID: <span>{data.pk_article_id}</span>
                 </li>
                 <li>
-                  IMAGE: <span>{data.image}</span>'
+                  IMAGE: <span>{data.article_image}</span>'
                 </li>
                 <li>
                   AUTHOR: <span>{data.author}</span>
@@ -466,7 +456,7 @@ const Article = () => {
               </ul>
             )
           )
-        )} */}
+        )}
       </Container>
     </div>
   );

@@ -13,10 +13,10 @@ const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     let fieldName = file.fieldname;
     if (fieldName === 'article_image_upload') {
-      cb(null, './images/article_image');
+      cb(null, '../public/images/article_image');
     }
     if (fieldName === 'plant_image_upload') {
-      cb(null, './images/plant_image');
+      cb(null, '../public/images/plant_image');
     }
     if (
       fieldName === 'seed_image_upload' ||
@@ -24,10 +24,10 @@ const fileStorage = multer.diskStorage({
       fieldName === 'young_image_upload' ||
       fieldName === 'mature_image_upload'
     ) {
-      cb(null, './images/plant_breeding_image');
+      cb(null, '../public/images/plant_breeding_image');
     }
     if (fieldName === 'picture_upload') {
-      cb(null, './images/user_image');
+      cb(null, '../public/images/user_image');
     }
     console.log(`FILE DES: `, file);
   },
