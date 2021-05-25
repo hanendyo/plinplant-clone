@@ -315,7 +315,7 @@ const Article = () => {
               }}
             >
               <SpanImage>
-                <h6>Upload Your Image</h6>
+                <h6>Choose Image</h6>
                 <img src={fileImage} alt="" />
               </SpanImage>
               <div>

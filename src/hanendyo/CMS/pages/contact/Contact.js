@@ -208,7 +208,7 @@ const Contact = () => {
   return (
     <div>
       <Container>
-      <h3>Contact input</h3>
+      <h4>Contact input</h4>
       <BoxInput>
       <form
         encType="multipart/form-data"
@@ -272,7 +272,7 @@ const Contact = () => {
       </BoxInput>
       
       <br />
-        <h3>Data </h3>
+        <h4>Contact Data </h4>
       <div>
       
         {dataContact.map(
