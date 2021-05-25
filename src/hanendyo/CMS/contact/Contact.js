@@ -1,28 +1,24 @@
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  makeStyles,
-  TextField,
-} from "@material-ui/core";
-import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { postAPI, cmsAction } from "../../../../context/actions/CmsAction";
-import axios from "axios";
-import { colors } from "../../../../master/constant/style/index";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
+import React, { useEffect, useState } from 'react';
+import { Button, makeStyles, TextField } from '@material-ui/core';
+import { useContext } from 'react';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { postAPI, cmsAction } from '../../../context/actions/CmsAction';
+import axios from 'axios';
+import { colors } from '../../../master/constant/style/index';
+import { Container, BoxInput, SpanImage, ButtonContainer } from '../style/Form';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& > *": {
+    '& > *': {
       margin: theme.spacing(1),
-      width: "25ch",
-      display: "flex",
+      width: '25ch',
+      display: 'flex',
     },
     button: {
-      width: "80%",
-      margin: "5px 0",
-      backgroundColor: "rgb(187, 203, 194)",
-      color: "primary",
+      width: '80%',
+      margin: '5px 0',
+      backgroundColor: 'rgb(187, 203, 194)',
+      color: 'primary',
     },
   },
 }));
@@ -41,7 +37,7 @@ const Contact = () => {
       recipient_name: '',
       address: '',
       phone_number: '',
-      fk_city_id: ''
+      fk_city_id: '',
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -53,8 +49,8 @@ const Contact = () => {
     console.log(`dataContact: `, dataContact);
   }, []);
 
-  const url = "http://localhost:5000/input/";
-  const endPoint = 'contact'
+  const url = 'http://localhost:5000/input/';
+  const endPoint = 'contact';
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -64,7 +60,7 @@ const Contact = () => {
           console.log(`GET RES DATA DATA: `, res.data.data);
           setDataContact(res.data.data);
         } else {
-          console.log("Error");
+          console.log('Error');
         }
       })
       .catch((err) => {
@@ -76,15 +72,15 @@ const Contact = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append("recipient_name", form.recipient_name);
-    data.append("address", form.address);
-    data.append("phone_number", form.phone_number);
-    data.append("pk_city_id", form.pk_city_id);
+    data.append('recipient_name', form.recipient_name);
+    data.append('address', form.address);
+    data.append('phone_number', form.phone_number);
+    data.append('pk_city_id', form.pk_city_id);
 
     axios
       .post(url + `${endPoint}_input`, data, {
         headers: {
-          "content-type": "multipart/form-data",
+          'content-type': 'multipart/form-data',
         },
       })
       .then((res) => {
@@ -144,7 +140,7 @@ const Contact = () => {
         recipient_name: contactState.recipient_name,
         address: contactState.address,
         phone_number: contactState.phone_number,
-        fk_city_id: contactState.fk_city_id
+        fk_city_id: contactState.fk_city_id,
       },
     ]);
 
@@ -183,11 +179,10 @@ const Contact = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    contactDispatch(cmsAction(`recipient_name`, ""));
+    contactDispatch(cmsAction(`recipient_name`, ''));
     contactDispatch(cmsAction(`address`, ''));
     contactDispatch(cmsAction(`phone_number`, ''));
     contactDispatch(cmsAction(`fk_city_id`, ''));
-
   };
 
   // FORM CHANGE
@@ -198,104 +193,112 @@ const Contact = () => {
   return (
     <div>
       <Container>
-      <h4>Contact input</h4>
-      <BoxInput>
-      <form
-        encType="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          value={contactState.recipient_name}
-          name="recipient_name"
-          onChange={(e) => formChange(`recipient_name`, e.target.value)}
-          id="outlined-basic"
-          label="Recipient name"
-          variant="outlined"
-        />
-        <TextField
-          value={contactState.address}
-          name="address"
-          onChange={(e) => formChange(`address`, e.target.value)}
-          id="outlined-basic"
-          label="Address"
-          variant="outlined"
-        />
-        <TextField
-          value={contactState.phone_number}
-          name="phone_number"
-          onChange={(e) => formChange(`phone_number`, e.target.value)}
-          id="outlined-basic"
-          label="Phone Number"
-          variant="outlined"
-        />
-        <TextField
-          value={contactState.fk_city_id}
-          name="fk_city_id"
-          onChange={(e) => formChange(`fk_city_id`, e.target.value)}
-          id="outlined-basic"
-          label="City ID"
-          variant="outlined"
-        />
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
-        >
-          {isUpdate ? "Update" : "Submit"}
-        </Button>
-        {isUpdate && (
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-            onClick={() => handleCancel()}
+        <h4>Contact input</h4>
+        <BoxInput>
+          <form
+            encType='multipart/form-data'
+            className={classes.root}
+            onSubmit={(e) => handleSubmit(e)}
+            noValidate
+            autoComplete='off'
           >
-            Cancel
-          </Button>
-        )}
-      </form>
-      </BoxInput>
-      
-      <br />
+            <TextField
+              value={contactState.recipient_name}
+              name='recipient_name'
+              onChange={(e) => formChange(`recipient_name`, e.target.value)}
+              id='outlined-basic'
+              label='Recipient name'
+              variant='outlined'
+            />
+            <TextField
+              value={contactState.address}
+              name='address'
+              onChange={(e) => formChange(`address`, e.target.value)}
+              id='outlined-basic'
+              label='Address'
+              variant='outlined'
+            />
+            <TextField
+              value={contactState.phone_number}
+              name='phone_number'
+              onChange={(e) => formChange(`phone_number`, e.target.value)}
+              id='outlined-basic'
+              label='Phone Number'
+              variant='outlined'
+            />
+            <TextField
+              value={contactState.fk_city_id}
+              name='fk_city_id'
+              onChange={(e) => formChange(`fk_city_id`, e.target.value)}
+              id='outlined-basic'
+              label='City ID'
+              variant='outlined'
+            />
+            <Button
+              className={classes.button}
+              variant='contained'
+              color='primary'
+              type='submit'
+              style={{ backgroundColor: `${colors.green}`, marginLeft: '25px' }}
+            >
+              {isUpdate ? 'Update' : 'Submit'}
+            </Button>
+            {isUpdate && (
+              <Button
+                className={classes.button}
+                variant='contained'
+                color='primary'
+                onClick={() => handleCancel()}
+              >
+                Cancel
+              </Button>
+            )}
+          </form>
+        </BoxInput>
+
+        <br />
         <h4>Contact Data </h4>
-      <div>
-      
-        {dataContact.map(
-          (data, index) => (
-            console.log(`data contact map: `, dataContact),
-            (
-              <ul className='map' key={index}>
-                <li>CONTACT ID: <span>{data.pk_contact_id}</span></li>
-                <li>RECIPIENT NAME: <span>{data.recipient_name}</span></li>
-                <li>ADDRESS: <span>{data.address}</span></li>
-                <li>PHONE NUMBER: <span>{data.phone_number}</span></li>
-                <li>CITY ID: <span>{data.fk_city_id}</span></li>
-                {
-                  <div>
-                    <button
-                      onClick={() => handleDelete(data.pk_contact_id, index)}
-                    >
-                      delete
-                    </button>
-                    <button onClick={() => handleUpdate(data, index)}>
-                      Update
-                    </button>
-                    <br />
-                  </div>
-                }
-                <br />
-              </ul>
+        <div>
+          {dataContact.map(
+            (data, index) => (
+              console.log(`data contact map: `, dataContact),
+              (
+                <ul className='map' key={index}>
+                  <li>
+                    CONTACT ID: <span>{data.pk_contact_id}</span>
+                  </li>
+                  <li>
+                    RECIPIENT NAME: <span>{data.recipient_name}</span>
+                  </li>
+                  <li>
+                    ADDRESS: <span>{data.address}</span>
+                  </li>
+                  <li>
+                    PHONE NUMBER: <span>{data.phone_number}</span>
+                  </li>
+                  <li>
+                    CITY ID: <span>{data.fk_city_id}</span>
+                  </li>
+                  {
+                    <div>
+                      <button
+                        onClick={() => handleDelete(data.pk_contact_id, index)}
+                      >
+                        delete
+                      </button>
+                      <button onClick={() => handleUpdate(data, index)}>
+                        Update
+                      </button>
+                      <br />
+                    </div>
+                  }
+                  <br />
+                </ul>
+              )
             )
-          )
-        )}
-      </div>
+          )}
+        </div>
       </Container>
-      
     </div>
   );
 };

@@ -3,17 +3,12 @@ import { Button, makeStyles, TextField } from '@material-ui/core';
 import { useContext } from 'react';
 // import { ContextStore } from '../../../context/store/ContextStore';
 // import { postAPI, cmsAction } from '../../../context/actions/CmsAction';
-import { ContextStore } from '../../../../context/store/ContextStore';
-import { categoryPost, cmsAction } from '../../../../context/actions/CmsAction';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { categoryPost, cmsAction } from '../../../context/actions/CmsAction';
 import axios from 'axios';
-import {
-  Container,
-  BoxInput,
-  SpanImage,
-  ButtonContainer,
-} from '../../style/Form';
+import { Container, BoxInput, SpanImage, ButtonContainer } from '../style/Form';
 import { DataGrid } from '@material-ui/data-grid';
-import { colors } from '../../../../master/constant/style/index';
+import { colors } from '../../../master/constant/style/index';
 
 const useStyles = makeStyles((theme) => ({
   root: {

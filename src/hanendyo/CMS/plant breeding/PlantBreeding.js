@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { Button, makeStyles, TextField } from "@material-ui/core";
-import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { postAPI, cmsAction } from "../../../../context/actions/CmsAction";
-import axios from "axios";
-import { colors } from "../../../../master/constant/style/index";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
+import React, { useEffect, useState } from 'react';
+import { Button, makeStyles, TextField } from '@material-ui/core';
+import { useContext } from 'react';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { postAPI, cmsAction } from '../../../context/actions/CmsAction';
+import axios from 'axios';
+import { colors } from '../../../master/constant/style/index';
+import { Container, BoxInput, SpanImage, ButtonContainer } from '../style/Form';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& > *": {
+    '& > *': {
       margin: theme.spacing(1),
-      width: "25ch",
-      display: "flex",
+      width: '25ch',
+      display: 'flex',
     },
     button: {
-      width: "80%",
-      margin: "5px 0",
-      backgroundColor: "rgb(187, 203, 194)",
-      color: "primary",
+      width: '80%',
+      margin: '5px 0',
+      backgroundColor: 'rgb(187, 203, 194)',
+      color: 'primary',
     },
   },
 }));
@@ -34,21 +34,21 @@ const PlantBreeding = () => {
   // USE STATE
   const [dataPlantBreeding, setDataPlantBreeding] = useState([
     {
-      seed: "",
-      tuber: "",
-      young: "",
-      mature: "",
-      seed_image: "",
-      tuber_image: "",
-      young_image: "",
-      mature_image: "",
-      fk_plant_id: "",
+      seed: '',
+      tuber: '',
+      young: '',
+      mature: '',
+      seed_image: '',
+      tuber_image: '',
+      young_image: '',
+      mature_image: '',
+      fk_plant_id: '',
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
   const [fileImage, setFileImage] = useState([]);
-  const [imageUpload, setImageUpload] = useState([])
+  const [imageUpload, setImageUpload] = useState([]);
 
   // USE EFFECT
   useEffect(() => {
@@ -56,8 +56,8 @@ const PlantBreeding = () => {
     console.log(`dataPlantBreeding: `, dataPlantBreeding);
   }, []);
 
-  const url = "http://localhost:5000/input/";
-  const endPoint = "plant_breeding";
+  const url = 'http://localhost:5000/input/';
+  const endPoint = 'plant_breeding';
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -67,7 +67,7 @@ const PlantBreeding = () => {
           console.log(`GET RES DATA DATA: `, res.data.data);
           setDataPlantBreeding(res.data.data);
         } else {
-          console.log("Error");
+          console.log('Error');
         }
       })
       .catch((err) => {
@@ -80,23 +80,23 @@ const PlantBreeding = () => {
     console.log(`DATA POST: `, form);
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append("seed", form.seed);
-    data.append("tuber", form.tuber);
-    data.append("young", form.young);
-    data.append("mature", form.mature);
-    data.append("seed_image", form.seed_image);
-    data.append("seed_image_upload", imageUpload[0]);
-    data.append("tuber_image", form.tuber_image);
-    data.append("tuber_image_upload", imageUpload[1]);
-    data.append("young_image", form.young_image);
-    data.append("young_image_upload", imageUpload[2]);
-    data.append("mature_image", form.mature_image);
-    data.append("mature_image_upload", imageUpload[3]);
+    data.append('seed', form.seed);
+    data.append('tuber', form.tuber);
+    data.append('young', form.young);
+    data.append('mature', form.mature);
+    data.append('seed_image', form.seed_image);
+    data.append('seed_image_upload', imageUpload[0]);
+    data.append('tuber_image', form.tuber_image);
+    data.append('tuber_image_upload', imageUpload[1]);
+    data.append('young_image', form.young_image);
+    data.append('young_image_upload', imageUpload[2]);
+    data.append('mature_image', form.mature_image);
+    data.append('mature_image_upload', imageUpload[3]);
 
     axios
       .post(url + `${endPoint}_input`, data, {
         headers: {
-          "content-type": "multipart/form-data",
+          'content-type': 'multipart/form-data',
         },
       })
       .then((res) => {
@@ -199,15 +199,15 @@ const PlantBreeding = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    plantBreedingDispatch(cmsAction(`seed`, ""));
-    plantBreedingDispatch(cmsAction(`tuber`, ""));
-    plantBreedingDispatch(cmsAction(`young`, ""));
-    plantBreedingDispatch(cmsAction(`mature`, ""));
-    plantBreedingDispatch(cmsAction(`seed_image`, ""));
-    plantBreedingDispatch(cmsAction(`tuber_image`, ""));
-    plantBreedingDispatch(cmsAction(`young_image`, ""));
-    plantBreedingDispatch(cmsAction(`mature_image`, ""));
-    plantBreedingDispatch(cmsAction(`fk_plant_id`, ""));
+    plantBreedingDispatch(cmsAction(`seed`, ''));
+    plantBreedingDispatch(cmsAction(`tuber`, ''));
+    plantBreedingDispatch(cmsAction(`young`, ''));
+    plantBreedingDispatch(cmsAction(`mature`, ''));
+    plantBreedingDispatch(cmsAction(`seed_image`, ''));
+    plantBreedingDispatch(cmsAction(`tuber_image`, ''));
+    plantBreedingDispatch(cmsAction(`young_image`, ''));
+    plantBreedingDispatch(cmsAction(`mature_image`, ''));
+    plantBreedingDispatch(cmsAction(`fk_plant_id`, ''));
   };
 
   // FORM CHANGE
@@ -217,10 +217,10 @@ const PlantBreeding = () => {
 
   const formImage = async (e) => {
     const img = e.target.files[0];
-    const imgName = e.target.files[0].name
+    const imgName = e.target.files[0].name;
     const name = e.target.name;
     await setFileImage((fileImage) => [...fileImage, URL.createObjectURL(img)]);
-    await setImageUpload((imageUpload) => [...imageUpload,(img)]);
+    await setImageUpload((imageUpload) => [...imageUpload, img]);
     plantBreedingDispatch(cmsAction(name, imgName));
     console.log(`IMG UPLOAD: `, imageUpload);
   };
@@ -230,252 +230,251 @@ const PlantBreeding = () => {
       <h4>Plant breeding input</h4>
       <BoxInput>
         <form
-        encType="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-       >
-        <TextField
-          value={plantBreedingState.seed}
-          name="seed"
-          onChange={(e) => formChange(`seed`, e.target.value)}
-          id="outlined-basic"
-          label="Seed"
-          variant="outlined"
-        />
-        <TextField
-          value={plantBreedingState.tuber}
-          name="tuber"
-          onChange={(e) => formChange(`tuber`, e.target.value)}
-          id="outlined-basic"
-          label="Tuber"
-          variant="outlined"
-        />
-        <TextField
-          value={plantBreedingState.young}
-          name="young"
-          onChange={(e) => formChange(`young`, e.target.value)}
-          id="outlined-basic"
-          label="Young"
-          variant="outlined"
-        />
-        <TextField
-          value={plantBreedingState.mature}
-          name="mature"
-          onChange={(e) => formChange(`mature`, e.target.value)}
-          id="outlined-basic"
-          label="Plant qualities"
-          variant="outlined"
-        />
-        <TextField
-          value={plantBreedingState.fk_plant_id}
-          name="fk_plant_id"
-          onChange={(e) => formChange(`fk_plant_id`, e.target.value)}
-          id="outlined-basic"
-          label="Category_id"
-          variant="outlined"
-        />
-        <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <SpanImage>
-                <h6>Choose Image</h6>
-                <img src={fileImage[0]} alt="" />
-              </SpanImage>
-              <div>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => formImage(e)}
-                />
-                <label htmlFor="contained-button-file">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    component="span"
-                    style={{
-                      backgroundColor: `${colors.green}`,
-                      marginTop: "10px",
-                    }}
-                  >
-                    Upload Seed
-                  </Button>
-                </label>
-              </div>
+          encType='multipart/form-data'
+          className={classes.root}
+          onSubmit={(e) => handleSubmit(e)}
+          noValidate
+          autoComplete='off'
+        >
+          <TextField
+            value={plantBreedingState.seed}
+            name='seed'
+            onChange={(e) => formChange(`seed`, e.target.value)}
+            id='outlined-basic'
+            label='Seed'
+            variant='outlined'
+          />
+          <TextField
+            value={plantBreedingState.tuber}
+            name='tuber'
+            onChange={(e) => formChange(`tuber`, e.target.value)}
+            id='outlined-basic'
+            label='Tuber'
+            variant='outlined'
+          />
+          <TextField
+            value={plantBreedingState.young}
+            name='young'
+            onChange={(e) => formChange(`young`, e.target.value)}
+            id='outlined-basic'
+            label='Young'
+            variant='outlined'
+          />
+          <TextField
+            value={plantBreedingState.mature}
+            name='mature'
+            onChange={(e) => formChange(`mature`, e.target.value)}
+            id='outlined-basic'
+            label='Plant qualities'
+            variant='outlined'
+          />
+          <TextField
+            value={plantBreedingState.fk_plant_id}
+            name='fk_plant_id'
+            onChange={(e) => formChange(`fk_plant_id`, e.target.value)}
+            id='outlined-basic'
+            label='Category_id'
+            variant='outlined'
+          />
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <SpanImage>
+              <h6>Choose Image</h6>
+              <img src={fileImage[0]} alt='' />
+            </SpanImage>
+            <div>
+              <input
+                accept='image/*'
+                className={classes.input}
+                id='contained-button-file'
+                multiple
+                type='file'
+                style={{ display: 'none' }}
+                onChange={(e) => formImage(e)}
+              />
+              <label htmlFor='contained-button-file'>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  component='span'
+                  style={{
+                    backgroundColor: `${colors.green}`,
+                    marginTop: '10px',
+                  }}
+                >
+                  Upload Seed
+                </Button>
+              </label>
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <SpanImage>
-                <h6>Choose Image</h6>
-                <img src={fileImage[1]} alt="" />
-              </SpanImage>
-              <div>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => formImage(e)}
-                />
-                <label htmlFor="contained-button-file">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    component="span"
-                    style={{
-                      backgroundColor: `${colors.green}`,
-                      marginTop: "10px",
-                    }}
-                  >
-                    Upload Tuber
-                  </Button>
-                </label>
-              </div>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <SpanImage>
+              <h6>Choose Image</h6>
+              <img src={fileImage[1]} alt='' />
+            </SpanImage>
+            <div>
+              <input
+                accept='image/*'
+                className={classes.input}
+                id='contained-button-file'
+                multiple
+                type='file'
+                style={{ display: 'none' }}
+                onChange={(e) => formImage(e)}
+              />
+              <label htmlFor='contained-button-file'>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  component='span'
+                  style={{
+                    backgroundColor: `${colors.green}`,
+                    marginTop: '10px',
+                  }}
+                >
+                  Upload Tuber
+                </Button>
+              </label>
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <SpanImage>
-                <h6>Choose Image</h6>
-                <img src={fileImage[2]} alt="" />
-              </SpanImage>
-              <div>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => formImage(e)}
-                />
-                <label htmlFor="contained-button-file">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    component="span"
-                    style={{
-                      backgroundColor: `${colors.green}`,
-                      marginTop: "10px",
-                    }}
-                  >
-                    Upload Juvenil
-                  </Button>
-                </label>
-              </div>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <SpanImage>
+              <h6>Choose Image</h6>
+              <img src={fileImage[2]} alt='' />
+            </SpanImage>
+            <div>
+              <input
+                accept='image/*'
+                className={classes.input}
+                id='contained-button-file'
+                multiple
+                type='file'
+                style={{ display: 'none' }}
+                onChange={(e) => formImage(e)}
+              />
+              <label htmlFor='contained-button-file'>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  component='span'
+                  style={{
+                    backgroundColor: `${colors.green}`,
+                    marginTop: '10px',
+                  }}
+                >
+                  Upload Juvenil
+                </Button>
+              </label>
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <SpanImage>
-                <h6>Choose Image</h6>
-                <img src={fileImage[3]} alt="" />
-              </SpanImage>
-              <div>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => formImage(e)}
-                />
-                <label htmlFor="contained-button-file">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    component="span"
-                    style={{
-                      backgroundColor: `${colors.green}`,
-                      marginTop: "10px",
-                    }}
-                  >
-                    Upload Mature
-                  </Button>
-                </label>
-              </div>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <SpanImage>
+              <h6>Choose Image</h6>
+              <img src={fileImage[3]} alt='' />
+            </SpanImage>
+            <div>
+              <input
+                accept='image/*'
+                className={classes.input}
+                id='contained-button-file'
+                multiple
+                type='file'
+                style={{ display: 'none' }}
+                onChange={(e) => formImage(e)}
+              />
+              <label htmlFor='contained-button-file'>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  component='span'
+                  style={{
+                    backgroundColor: `${colors.green}`,
+                    marginTop: '10px',
+                  }}
+                >
+                  Upload Mature
+                </Button>
+              </label>
             </div>
-        {/* ----- IMAGE ----- */}
-        {/* <span>Pick seed image:</span>
+          </div>
+          {/* ----- IMAGE ----- */}
+          {/* <span>Pick seed image:</span>
         <input name="seed_image" type="file" onChange={(e) => formImage(e)} />
         <img src={fileImage[0]} alt="" /> */}
-        {/* ----- IMAGE ----- */}
-        {/* ----- IMAGE ----- */}
-        {/* <span>Pick tuber image:</span>
+          {/* ----- IMAGE ----- */}
+          {/* ----- IMAGE ----- */}
+          {/* <span>Pick tuber image:</span>
         <input name="tuber_image" type="file" onChange={(e) => formImage(e)} />
         <img src={fileImage[1]} alt="" /> */}
-        {/* ----- IMAGE ----- */}
-        {/* ----- IMAGE ----- */}
-        {/* <span>Pick young image:</span>
+          {/* ----- IMAGE ----- */}
+          {/* ----- IMAGE ----- */}
+          {/* <span>Pick young image:</span>
         <input name="young_image" type="file" onChange={(e) => formImage(e)} />
         <img src={fileImage[2]} alt="" /> */}
-        {/* ----- IMAGE ----- */}
-        {/* ----- IMAGE ----- */}
-        {/* <span>Pick mature image:</span>
+          {/* ----- IMAGE ----- */}
+          {/* ----- IMAGE ----- */}
+          {/* <span>Pick mature image:</span>
         <input name="mature_image" type="file" onChange={(e) => formImage(e)} />
         <img src={fileImage[3]} alt="" /> */}
-        {/* ----- IMAGE ----- */}
-    
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
-        >
-          {isUpdate ? "Update" : "Submit"}
-        </Button>
-        {isUpdate && (
+          {/* ----- IMAGE ----- */}
+
           <Button
             className={classes.button}
-            variant="contained"
-            color="primary"
-            onClick={() => handleCancel()}
+            variant='contained'
+            color='primary'
+            type='submit'
+            style={{ backgroundColor: `${colors.green}`, marginLeft: '25px' }}
           >
-            Cancel
+            {isUpdate ? 'Update' : 'Submit'}
           </Button>
-        )}
-      </form>
+          {isUpdate && (
+            <Button
+              className={classes.button}
+              variant='contained'
+              color='primary'
+              onClick={() => handleCancel()}
+            >
+              Cancel
+            </Button>
+          )}
+        </form>
       </BoxInput>
       <br />
-        <h4>Plant Breeding Data</h4>
-       
+      <h4>Plant Breeding Data</h4>
+
       <div>
-        
         {dataPlantBreeding.map(
           (data, index) => (
             console.log(`data article map: `, dataPlantBreeding),
             (
-              <ul className="map" key={index}>
+              <ul className='map' key={index}>
                 <li>
                   PLANT ID: <span>{data.pk_plant_breeding_id}</span>
                 </li>
