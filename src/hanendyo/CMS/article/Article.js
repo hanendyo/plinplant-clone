@@ -57,7 +57,7 @@ const Article = () => {
   useEffect(() => {
     getAllDatasAPI();
     console.log(`dataArticle: `, dataArticle);
-  }, [dataArticle]);
+  }, []);
 
   const url = 'http://localhost:5000/input/';
   const endPoint = 'article';
