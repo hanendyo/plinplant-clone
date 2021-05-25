@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button, makeStyles, TextField } from '@material-ui/core';
 import { useContext } from 'react';
-import { ContextStore } from '../../../../context/store/ContextStore';
-import { postAPI, cmsAction } from '../../../../context/actions/CmsAction';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { postAPI, cmsAction } from '../../../context/actions/CmsAction';
 import axios from 'axios';
-import { colors } from '../../../../master/constant/style/index';
-import {
-  Container,
-  BoxInput,
-  SpanImage,
-  ButtonContainer,
-} from '../../style/Form';
+import { colors } from '../../../master/constant/style/index';
+import { Container, BoxInput, SpanImage, ButtonContainer } from '../style/Form';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -191,57 +186,54 @@ const Contact = () => {
   };
 
   return (
-    <Container>
-      <h4>Order item input</h4>
-      <BoxInput>
-        <form
-          encType='multipart/form-data'
-          className={classes.root}
-          onSubmit={(e) => handleSubmit(e)}
-          noValidate
-          autoComplete='off'
-        >
-          <TextField
-            value={orderItemState.quantity}
-            name='quantity'
-            onChange={(e) => formChange(`quantity`, e.target.value)}
-            id='outlined-basic'
-            label='Quantity'
-            variant='outlined'
-          />
-          <TextField
-            value={orderItemState.fk_price_list_id}
-            name='fk_price_list_id'
-            onChange={(e) => formChange(`fk_price_list_id`, e.target.value)}
-            id='outlined-basic'
-            label='Price_list_ID'
-            variant='outlined'
-          />
+    <div className='cmsForm'>
+      <h3>Order Item input</h3>
+      <form
+        encType='multipart/form-data'
+        className={classes.root}
+        onSubmit={(e) => handleSubmit(e)}
+        noValidate
+        autoComplete='off'
+      >
+        <TextField
+          value={orderItemState.quantity}
+          name='quantity'
+          onChange={(e) => formChange(`quantity`, e.target.value)}
+          id='outlined-basic'
+          label='Quantity'
+          variant='outlined'
+        />
+        <TextField
+          value={orderItemState.fk_price_list_id}
+          name='fk_price_list_id'
+          onChange={(e) => formChange(`fk_price_list_id`, e.target.value)}
+          id='outlined-basic'
+          label='Price_list_ID'
+          variant='outlined'
+        />
 
+        <Button
+          className={classes.button}
+          variant='contained'
+          color='primary'
+          type='submit'
+        >
+          {isUpdate ? 'Update' : 'Submit'}
+        </Button>
+        {isUpdate && (
           <Button
             className={classes.button}
             variant='contained'
             color='primary'
-            type='submit'
-            style={{ backgroundColor: `${colors.green}`, marginLeft: '25px' }}
+            onClick={() => handleCancel()}
           >
-            {isUpdate ? 'Update' : 'Submit'}
+            Cancel
           </Button>
-          {isUpdate && (
-            <Button
-              className={classes.button}
-              variant='contained'
-              color='primary'
-              onClick={() => handleCancel()}
-            >
-              Cancel
-            </Button>
-          )}
-        </form>
-      </BoxInput>
-      <br />
-      <h4>Data Order Item</h4>
+        )}
+      </form>
       <div>
+        <br />
+        <h3>Result: </h3>
         {dataOrderItem.map(
           (data, index) => (
             console.log(`data contact map: `, dataOrderItem),
@@ -276,7 +268,7 @@ const Contact = () => {
           )
         )}
       </div>
-    </Container>
+    </div>
   );
 };
 

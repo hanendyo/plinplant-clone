@@ -5,11 +5,10 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { postAPI, cmsAction } from "../../../../context/actions/CmsAction";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
-import { colors } from "../../../../master/constant/style/index";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -175,10 +174,8 @@ const Category = () => {
   };
 
   return (
-    <div>
-      <Container>
-      <h4>City Input</h4>
-      <BoxInput>
+    <div className="cmsForm">
+      <h3>City input</h3>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -200,7 +197,6 @@ const Category = () => {
           variant="contained"
           color="primary"
           type="submit"
-          style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -215,11 +211,9 @@ const Category = () => {
           </Button>
         )}
       </form>
-      </BoxInput>
-      <br />
-      <h4>Data</h4>
       <div>
-      
+        <br />
+        <h3>Result: </h3>
         {dataCity.map(
           (data, index) => (
             console.log(`data article map: `, dataCity),
@@ -246,8 +240,6 @@ const Category = () => {
           )
         )}
       </div>
-      </Container>
-      
     </div>
   );
 };

@@ -5,11 +5,10 @@ import {
     TextField,
 } from "@material-ui/core";
 import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { cmsAction } from "../../../../context/actions/CmsAction";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import { colors } from "../../../../master/constant/style/index";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -191,9 +190,8 @@ const PriceList = () => {
     };
 
     return (
-        <Container>
-            <h4>Stock input</h4>
-            <BoxInput>
+        <div className="cmsForm">
+            <h3>Stock input</h3>
             <form
                 encType="multipart/form-data"
                 className={classes.root}
@@ -242,7 +240,6 @@ const PriceList = () => {
                     variant="contained"
                     color="primary"
                     type="submit"
-                    style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
                 >
                     {isUpdate ? "Update" : "Submit"}
                 </Button>
@@ -258,11 +255,9 @@ const PriceList = () => {
                     </Button>
                 )}
             </form>
-            </BoxInput>
-            <br />
-                <h4>Stock Data </h4>
             <div>
-                
+                <br />
+                <h3>Result: </h3>
                 {dataStock.map(
                     (data, index) => (
                         console.log(`data article map: `, dataStock),
@@ -304,7 +299,7 @@ const PriceList = () => {
                     )
                 )}
             </div>
-        </Container>
+        </div>
     );
 };
 

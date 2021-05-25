@@ -5,11 +5,10 @@ import {
     TextField,
 } from "@material-ui/core";
 import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { cmsAction } from "../../../../context/actions/CmsAction";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import { colors } from "../../../../master/constant/style/index";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -173,9 +172,8 @@ const Article = () => {
 
 
     return (
-        <Container>
-            <h4>Review input</h4>
-            <BoxInput>
+        <div className="article cmsForm">
+            <h3>Review input</h3>
             <form
                 encType="multipart/form-data"
                 className={classes.root}
@@ -205,7 +203,6 @@ const Article = () => {
                     variant="contained"
                     color="primary"
                     type="submit"
-                    style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
                 >
                     {isUpdate ? "Update" : "Submit"}
                 </Button>
@@ -220,11 +217,9 @@ const Article = () => {
                     </Button>
                 )}
             </form>
-            </BoxInput>
-            <br />
-                <h4>Review Data</h4>
             <div>
-                
+                <br />
+                <h3>Result: </h3>
                 {dataReview.map(
                     (data, index) => (
                         console.log(`data article map: `, dataReview),
@@ -257,7 +252,7 @@ const Article = () => {
                     )
                 )}
             </div>
-        </Container>
+        </div>
     );
 };
 

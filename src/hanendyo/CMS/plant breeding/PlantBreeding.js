@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, makeStyles, TextField } from "@material-ui/core";
 import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { postAPI, cmsAction } from "../../../../context/actions/CmsAction";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import { colors } from "../../../../master/constant/style/index";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -226,16 +225,15 @@ const PlantBreeding = () => {
   };
 
   return (
-    <Container>
-      <h4>Plant breeding input</h4>
-      <BoxInput>
-        <form
+    <div className="cmsForm">
+      <h3>Plant breeding input</h3>
+      <form
         encType="multipart/form-data"
         className={classes.root}
         onSubmit={(e) => handleSubmit(e)}
         noValidate
         autoComplete="off"
-       >
+      >
         <TextField
           value={plantBreedingState.seed}
           name="seed"
@@ -268,6 +266,26 @@ const PlantBreeding = () => {
           label="Plant qualities"
           variant="outlined"
         />
+        {/* ----- IMAGE ----- */}
+        <span>Pick seed image:</span>
+        <input name="seed_image" type="file" onChange={(e) => formImage(e)} />
+        <img src={fileImage[0]} alt="" />
+        {/* ----- IMAGE ----- */}
+        {/* ----- IMAGE ----- */}
+        <span>Pick tuber image:</span>
+        <input name="tuber_image" type="file" onChange={(e) => formImage(e)} />
+        <img src={fileImage[1]} alt="" />
+        {/* ----- IMAGE ----- */}
+        {/* ----- IMAGE ----- */}
+        <span>Pick young image:</span>
+        <input name="young_image" type="file" onChange={(e) => formImage(e)} />
+        <img src={fileImage[2]} alt="" />
+        {/* ----- IMAGE ----- */}
+        {/* ----- IMAGE ----- */}
+        <span>Pick mature image:</span>
+        <input name="mature_image" type="file" onChange={(e) => formImage(e)} />
+        <img src={fileImage[3]} alt="" />
+        {/* ----- IMAGE ----- */}
         <TextField
           value={plantBreedingState.fk_plant_id}
           name="fk_plant_id"
@@ -276,181 +294,11 @@ const PlantBreeding = () => {
           label="Category_id"
           variant="outlined"
         />
-        <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <SpanImage>
-                <h6>Choose Image</h6>
-                <img src={fileImage[0]} alt="" />
-              </SpanImage>
-              <div>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => formImage(e)}
-                />
-                <label htmlFor="contained-button-file">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    component="span"
-                    style={{
-                      backgroundColor: `${colors.green}`,
-                      marginTop: "10px",
-                    }}
-                  >
-                    Upload Seed
-                  </Button>
-                </label>
-              </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <SpanImage>
-                <h6>Choose Image</h6>
-                <img src={fileImage[1]} alt="" />
-              </SpanImage>
-              <div>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => formImage(e)}
-                />
-                <label htmlFor="contained-button-file">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    component="span"
-                    style={{
-                      backgroundColor: `${colors.green}`,
-                      marginTop: "10px",
-                    }}
-                  >
-                    Upload Tuber
-                  </Button>
-                </label>
-              </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <SpanImage>
-                <h6>Choose Image</h6>
-                <img src={fileImage[2]} alt="" />
-              </SpanImage>
-              <div>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => formImage(e)}
-                />
-                <label htmlFor="contained-button-file">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    component="span"
-                    style={{
-                      backgroundColor: `${colors.green}`,
-                      marginTop: "10px",
-                    }}
-                  >
-                    Upload Juvenil
-                  </Button>
-                </label>
-              </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <SpanImage>
-                <h6>Choose Image</h6>
-                <img src={fileImage[3]} alt="" />
-              </SpanImage>
-              <div>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => formImage(e)}
-                />
-                <label htmlFor="contained-button-file">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    component="span"
-                    style={{
-                      backgroundColor: `${colors.green}`,
-                      marginTop: "10px",
-                    }}
-                  >
-                    Upload Mature
-                  </Button>
-                </label>
-              </div>
-            </div>
-        {/* ----- IMAGE ----- */}
-        {/* <span>Pick seed image:</span>
-        <input name="seed_image" type="file" onChange={(e) => formImage(e)} />
-        <img src={fileImage[0]} alt="" /> */}
-        {/* ----- IMAGE ----- */}
-        {/* ----- IMAGE ----- */}
-        {/* <span>Pick tuber image:</span>
-        <input name="tuber_image" type="file" onChange={(e) => formImage(e)} />
-        <img src={fileImage[1]} alt="" /> */}
-        {/* ----- IMAGE ----- */}
-        {/* ----- IMAGE ----- */}
-        {/* <span>Pick young image:</span>
-        <input name="young_image" type="file" onChange={(e) => formImage(e)} />
-        <img src={fileImage[2]} alt="" /> */}
-        {/* ----- IMAGE ----- */}
-        {/* ----- IMAGE ----- */}
-        {/* <span>Pick mature image:</span>
-        <input name="mature_image" type="file" onChange={(e) => formImage(e)} />
-        <img src={fileImage[3]} alt="" /> */}
-        {/* ----- IMAGE ----- */}
-    
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
           type="submit"
-          style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -465,12 +313,9 @@ const PlantBreeding = () => {
           </Button>
         )}
       </form>
-      </BoxInput>
-      <br />
-        <h4>Plant Breeding Data</h4>
-       
       <div>
-        
+        <br />
+        <h3>Result: </h3>
         {dataPlantBreeding.map(
           (data, index) => (
             console.log(`data article map: `, dataPlantBreeding),
@@ -513,7 +358,7 @@ const PlantBreeding = () => {
           )
         )}
       </div>
-    </Container>
+    </div>
   );
 };
 

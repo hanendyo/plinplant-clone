@@ -5,11 +5,10 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { postAPI, cmsAction } from "../../../../context/actions/CmsAction";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import { colors } from "../../../../master/constant/style/index";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,19 +26,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Category = () => {
+const Contact = () => {
   // USE STYLES
   const classes = useStyles();
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { genderState, genderDispatch } = context;
+  const { contactState, contactDispatch } = context;
 
   // USE STATE
-  const [dataGender, setDataGender] = useState([
+  const [dataContact, setDataContact] = useState([
     {
-        pk_gender_id: '',
-        type: '',
+      recipient_name: '',
+      address: '',
+      phone_number: '',
+      fk_city_id: ''
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -48,23 +49,22 @@ const Category = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
-    console.log(`dataGender: `, dataGender);
+    console.log(`dataContact: `, dataContact);
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = 'gender'
-
+  const endPoint = 'contact'
   // GET
   const getAllDatasAPI = async () => {
     await axios
-      .get(url + endPoint + "_get_all_datas")
+      .get(url + `${endPoint}_get_all_datas`)
       .then((res) => {
-        console.log(`GET RES DATA DATA: `, res.data.data);
-        setDataGender(res.data.data);
-        // if (res.status === 200) {
-        // } else {
-        //   console.log("Error");
-        // }
+        if (res.status === 200) {
+          console.log(`GET RES DATA DATA: `, res.data.data);
+          setDataContact(res.data.data);
+        } else {
+          console.log("Error");
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -75,8 +75,10 @@ const Category = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append("pk_gender_id", form.pk_gender_id);
-    data.append("type", form.type);
+    data.append("recipient_name", form.recipient_name);
+    data.append("address", form.address);
+    data.append("phone_number", form.phone_number);
+    data.append("pk_city_id", form.pk_city_id);
 
     axios
       .post(url + `${endPoint}_input`, data, {
@@ -95,20 +97,12 @@ const Category = () => {
         console.log(err);
         return err;
       });
-    // await axios.post(url + endPoint + '_input', form)
-    // .then((res)=>{
-    //   getAllDatasAPI();
-    //   console.log(res);
-    // })
-    // .catch(err=> {
-    //   console.log(err);
-    // })
   };
 
   // DELETE
   const deleteAPI = async (id, index) => {
     await axios
-      .delete(url + endPoint + "_delete/" + id)
+      .delete(url + `${endPoint}_delete/` + id)
       .then((deleted) => {
         console.log(`DELETED: `, deleted);
         getAllDatasAPI();
@@ -122,7 +116,7 @@ const Category = () => {
       .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Category successfuly updated!`);
+        console.log(`Contact successfuly updated!`);
         console.log(res);
         return res;
       })
@@ -137,23 +131,25 @@ const Category = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isUpdate) {
-      updateAPI(genderState);
+      updateAPI(contactState);
       setIsUpdate(false);
     } else {
-      postAPI(genderState);
+      postAPI(contactState);
     }
-  
-    setDataGender([
+
+    setDataContact([
       {
-        ...dataGender,
-        pk_gender_id: genderState.pk_gender_id,
-        type: genderState.type
+        ...dataContact,
+        recipient_name: contactState.recipient_name,
+        address: contactState.address,
+        phone_number: contactState.phone_number,
+        fk_city_id: contactState.fk_city_id
       },
     ]);
 
     clearFormData();
 
-    console.log(`CATEGORY STATE SUBMIT: `, genderState);
+    console.log(`CONTACT STATE SUBMIT: `, contactState);
   };
 
   // HANDLE DELETE
@@ -163,11 +159,19 @@ const Category = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    // console.log(`index update: `, index);
+    console.log(`data id update: `, data.pk_contact_id);
     setIsUpdate(true);
     setIndexUpdate(index);
-    genderDispatch(cmsAction(`type`, data.type));
-    genderDispatch(cmsAction(`pk_gender_id`, data.pk_gender_id));
-    console.log(`update from genderState: `, genderState);
+    contactDispatch(cmsAction(`pk_contact_id`, data.pk_contact_id));
+    contactDispatch(cmsAction(`recipient_name`, data.recipient_name));
+    contactDispatch(cmsAction(`address`, data.address));
+    contactDispatch(cmsAction(`phone_number`, data.phone_number));
+    contactDispatch(cmsAction(`fk_city_id`, data.fk_city_id));
+
+    // console.log(`update from dataContact: `, dataContact[index]);
+    // console.log(`update from dataContact: `, dataContact[index]);
+    console.log(`update from contactState: `, contactState);
   };
 
   // HANDLE CANCEL
@@ -178,21 +182,21 @@ const Category = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    genderDispatch(cmsAction(`type`, ""));
-    genderDispatch(cmsAction(`pk_gender_id`, ""));
-  
+    contactDispatch(cmsAction(`recipient_name`, ""));
+    contactDispatch(cmsAction(`address`, ''));
+    contactDispatch(cmsAction(`phone_number`, ''));
+    contactDispatch(cmsAction(`fk_city_id`, ''));
+
   };
 
   // FORM CHANGE
   const formChange = (name, value) => {
-    genderDispatch(cmsAction(name, value));
+    contactDispatch(cmsAction(name, value));
   };
 
   return (
-    <div>
-      <Container>
-      <h4>Gender input</h4>
-      <BoxInput>
+    <div className="cmsForm">
+      <h3>Contact input</h3>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -201,20 +205,42 @@ const Category = () => {
         autoComplete="off"
       >
         <TextField
-          value={genderState.type}
-          name="type"
-          onChange={(e) => formChange(`type`, e.target.value)}
+          value={contactState.recipient_name}
+          name="recipient_name"
+          onChange={(e) => formChange(`recipient_name`, e.target.value)}
           id="outlined-basic"
-          label="Gender type"
+          label="Recipient name"
           variant="outlined"
         />
-
+        <TextField
+          value={contactState.address}
+          name="address"
+          onChange={(e) => formChange(`address`, e.target.value)}
+          id="outlined-basic"
+          label="Address"
+          variant="outlined"
+        />
+        <TextField
+          value={contactState.phone_number}
+          name="phone_number"
+          onChange={(e) => formChange(`phone_number`, e.target.value)}
+          id="outlined-basic"
+          label="Phone Number"
+          variant="outlined"
+        />
+        <TextField
+          value={contactState.fk_city_id}
+          name="fk_city_id"
+          onChange={(e) => formChange(`fk_city_id`, e.target.value)}
+          id="outlined-basic"
+          label="City ID"
+          variant="outlined"
+        />
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
           type="submit"
-          style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -229,22 +255,23 @@ const Category = () => {
           </Button>
         )}
       </form>
-      </BoxInput>
-      <br />
-        <h4>Data Gender </h4>
       <div>
-        
-        {dataGender.map(
+        <br />
+        <h3>Result: </h3>
+        {dataContact.map(
           (data, index) => (
-            console.log(`data article map: `, dataGender),
+            console.log(`data contact map: `, dataContact),
             (
               <ul className='map' key={index}>
-                <li>GENDER TYPE: <span>{data.type}</span></li>
-                <li>GENDER ID: <span>{data.pk_gender_id}</span></li>
+                <li>CONTACT ID: <span>{data.pk_contact_id}</span></li>
+                <li>RECIPIENT NAME: <span>{data.recipient_name}</span></li>
+                <li>ADDRESS: <span>{data.address}</span></li>
+                <li>PHONE NUMBER: <span>{data.phone_number}</span></li>
+                <li>CITY ID: <span>{data.fk_city_id}</span></li>
                 {
                   <div>
                     <button
-                      onClick={() => handleDelete(data.pk_gender_id, index)}
+                      onClick={() => handleDelete(data.pk_contact_id, index)}
                     >
                       delete
                     </button>
@@ -254,16 +281,14 @@ const Category = () => {
                     <br />
                   </div>
                 }
-                <br/>
+                <br />
               </ul>
             )
           )
         )}
       </div>
-      </Container>
-      
     </div>
   );
 };
 
-export default Category;
+export default Contact;

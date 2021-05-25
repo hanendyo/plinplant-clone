@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 export const Container = styled.div`
   position: relative;
   display: flex;
@@ -26,7 +26,6 @@ export const BoxInput = styled.div`
     align-items: center;
     width: 100%;
     height: inherit;
-    
   }
 `;
 
@@ -68,4 +67,4 @@ export const SpanImage = styled.span`
 export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
