@@ -5,11 +5,10 @@ import {
     TextField,
 } from "@material-ui/core";
 import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { cmsAction } from "../../../../context/actions/CmsAction";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import { colors } from "../../../../master/constant/style/index";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,21 +26,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const PriceList = () => {
+const Article = () => {
     // USE STYLES
     const classes = useStyles();
 
     // USE CONTEXT
     const context = useContext(ContextStore);
-    const { stockState, stockDispatch } = context;
+    const { reviewState, reviewDispatch } = context;
 
     // USE STATE
-    const [dataStock, setDataStock] = useState([
+    const [dataReview, setDataReview] = useState([
         {
-            seed_stock: "",
-            tuber_stock: "",
-            young_stock: "",
-            mature_stock: "",
+            quantity: "",
+            fk_price_list_id: "",
         },
     ]);
     const [isUpdate, setIsUpdate] = useState(false);
@@ -50,11 +47,11 @@ const PriceList = () => {
     // USE EFFECT
     useEffect(() => {
         getAllDataAPI();
-        console.log(`dataStock: `, dataStock);
+        console.log(`dataReview: `, dataReview);
     }, []);
 
     const url = "http://localhost:5000/input/";
-    const endPoint = "article";
+    const endPoint = "review";
 
     // GET
     const getAllDataAPI = async () => {
@@ -63,7 +60,7 @@ const PriceList = () => {
             .then((res) => {
                 if (res.status === 200) {
                     console.log(`GET RES DATA DATA: `, res.data.data);
-                    setDataStock(res.data.data);
+                    setDataReview(res.data.data);
                 } else {
                     console.log("Error");
                 }
@@ -76,14 +73,10 @@ const PriceList = () => {
     // POST
     const postAPI = async (data) => {
         axios
-            .post(url + endPoint + `_input`, data, {
-                headers: {
-                    "fk_plant_breeding_id-type": "multipart/form-data",
-                },
-            })
+            .post(url + endPoint + `_input`, data)
             .then((res) => {
                 getAllDataAPI();
-                console.log(`Stock successfuly created!`);
+                console.log(`Article successfuly created!`);
                 console.log(res);
                 return res;
             })
@@ -95,7 +88,7 @@ const PriceList = () => {
     };
 
     // DELETE
-    const deleleAPI = async (id, index) => {
+    const deleteAPI = async (id, index) => {
         await axios
             .delete(url + endPoint + "_delete/" + id)
             .then((deleted) => {
@@ -107,15 +100,12 @@ const PriceList = () => {
 
     // UPDATE
     const updateAPI = async (data) => {
+        console.log(`DATA UPDATE: `, data);
         axios
-            .put(url + endPoint + `_update`, data, {
-                headers: {
-                    "fk_plant_breeding_id-type": "multipart/form-data",
-                },
-            })
+            .put(url + endPoint + `_update`, data)
             .then((res) => {
                 getAllDataAPI();
-                console.log(`Stock successfuly updated!`);
+                console.log(`Review successfuly updated!`);
                 console.log(res);
                 return res;
             })
@@ -130,44 +120,37 @@ const PriceList = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (isUpdate) {
-            updateAPI(stockState);
+            updateAPI(reviewState);
             setIsUpdate(false);
         } else {
-            postAPI(stockState);
+            postAPI(reviewState);
         }
 
-        setDataStock([
+        setDataReview([
             {
-                ...dataStock,
-                seed_stock: stockState.seed_stock,
-                image: stockState.image,
-                young_stock: stockState.young_stock,
-                mature_stock: stockState.mature_stock,
-                fk_plant_breeding_id: stockState.fk_plant_breeding_id,
+                ...dataReview,
+                quantity: reviewState.quantity,
+                fk_price_list_id: reviewState.fk_price_list_id,
             },
         ]);
 
         clearFormData();
 
-        console.log(`STOCK STATE SUBMIT: `, stockState);
+        console.log(`REVIEW STATE SUBMIT: `, reviewState);
     };
 
     // HANDLE DELETE
     const handleDelete = (id, index) => {
-        deleleAPI(id, index);
+        deleteAPI(id, index);
     };
 
     // HANDLE UPDATE
     const handleUpdate = (data, index) => {
         setIsUpdate(true);
         setIndexUpdate(index);
-        stockDispatch(cmsAction(`seed_stock`, data.seed_stock));
-        stockDispatch(cmsAction(`mature_stock`, data.mature_stock));
-        stockDispatch(cmsAction(`fk_plant_breeding_id`, data.fk_plant_breeding_id));
-        stockDispatch(cmsAction(`young_stock`, data.young_stock));
-        stockDispatch(cmsAction(`tuber_stock`, data.tuber_stock));
-        stockDispatch(cmsAction(`pk_article_id`, data.pk_article_id));
-        console.log(`update from stockState: `, stockState);
+        reviewDispatch(cmsAction(`quantity`, data.quantity));
+        reviewDispatch(cmsAction(`fk_price_list_id`, data.fk_price_list_id));
+        console.log(`update from reviewState: `, reviewState);
     };
 
     // HANDLE CANCEL
@@ -178,22 +161,19 @@ const PriceList = () => {
 
     // CLEAR FORM
     const clearFormData = () => {
-        stockDispatch(cmsAction(`seed_stock`, ""));
-        stockDispatch(cmsAction(`mature_stock`, ""));
-        stockDispatch(cmsAction(`fk_plant_breeding_id`, ""));
-        stockDispatch(cmsAction(`young_stock`, ""));
-        stockDispatch(cmsAction(`tuber_stock`, null));
+        reviewDispatch(cmsAction(`quantity`, ""));
+        reviewDispatch(cmsAction(`fk_price_list_id`, ""));
     };
 
     // FORM CHANGE
     const formChange = (name, value) => {
-        stockDispatch(cmsAction(name, value));
+        reviewDispatch(cmsAction(name, value));
     };
 
+
     return (
-        <Container>
-            <h4>Stock input</h4>
-            <BoxInput>
+        <div className="article cmsForm">
+            <h3>Review input</h3>
             <form
                 encType="multipart/form-data"
                 className={classes.root}
@@ -202,38 +182,19 @@ const PriceList = () => {
                 autoComplete="off"
             >
                 <TextField
-                    value={stockState.seed_stock}
-                    name="seed_stock"
-                    onChange={(e) => formChange(`seed_stock`, e.target.value)}
+                    value={reviewState.quantity}
+                    name="quantity"
+                    onChange={(e) => formChange(`quantity`, e.target.value)}
                     id="outlined-basic"
-                    label="Seed stock"
+                    label="quantity"
                     variant="outlined"
                 />
-
                 <TextField
-                    value={stockState.tuber_stock}
-                    onChange={(e) => formChange("tuber_stock", e.target.value)}
-                    name="tuber_stock"
+                    value={reviewState.fk_price_list_id}
+                    onChange={(e) => formChange("fk_price_list_id", e.target.value)}
+                    name="fk_price_list_id"
                     id="outlined-basic"
-                    label="Tuber stock"
-                    variant="outlined"
-                />
-
-                <TextField
-                    value={stockState.young_stock}
-                    onChange={(e) => formChange("young_stock", e.target.value)}
-                    name="young_stock"
-                    id="outlined-basic"
-                    label="Young stock"
-                    variant="outlined"
-                />
-
-                <TextField
-                    value={stockState.mature_stock}
-                    onChange={(e) => formChange("mature_stock", e.target.value)}
-                    name="mature_stock"
-                    id="outlined-basic"
-                    label="Mature stock"
+                    label="fk_price_list_id"
                     variant="outlined"
                 />
 
@@ -242,11 +203,9 @@ const PriceList = () => {
                     variant="contained"
                     color="primary"
                     type="submit"
-                    style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
                 >
                     {isUpdate ? "Update" : "Submit"}
                 </Button>
-
                 {isUpdate && (
                     <Button
                         className={classes.button}
@@ -258,33 +217,22 @@ const PriceList = () => {
                     </Button>
                 )}
             </form>
-            </BoxInput>
-            <br />
-                <h4>Stock Data </h4>
             <div>
-                
-                {dataStock.map(
+                <br />
+                <h3>Result: </h3>
+                {dataReview.map(
                     (data, index) => (
-                        console.log(`data article map: `, dataStock),
+                        console.log(`data article map: `, dataReview),
                         (
                             <ul className="map" key={index}>
                                 <li>
                                     NO: <span>{index + 1}</span>
                                 </li>
                                 <li>
-                                    STOCK ID: <span>{data.pk_article_id}</span>
+                                    quantity: <span>{data.quantity}</span>
                                 </li>
                                 <li>
-                                    SEED STOCK: <span>{data.seed_stock}</span>
-                                </li>
-                                <li>
-                                    YOUNG STOCK: <span>{data.young_stock}</span>
-                                </li>
-                                <li>
-                                    MATURE STOCK: <span>{data.mature_stock}</span>
-                                </li>
-                                <li>
-                                    PLANT_BREEDING_ID: <span>{data.fk_plant_breeding_id}</span>
+                                    PRICE_LIST_ID: <span>{data.fk_price_list_id}</span>
                                 </li>
                                 {
                                     <div>
@@ -304,8 +252,8 @@ const PriceList = () => {
                     )
                 )}
             </div>
-        </Container>
+        </div>
     );
 };
 
-export default PriceList;
+export default Article;

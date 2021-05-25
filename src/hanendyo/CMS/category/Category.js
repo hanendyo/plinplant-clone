@@ -5,11 +5,10 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { postAPI, cmsAction } from "../../../../context/actions/CmsAction";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import { colors } from "../../../../master/constant/style/index";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,13 +32,13 @@ const Category = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { genderState, genderDispatch } = context;
+  const { categoryState, categoryDispatch } = context;
 
   // USE STATE
-  const [dataGender, setDataGender] = useState([
+  const [dataCategory, setDataCategory] = useState([
     {
-        pk_gender_id: '',
-        type: '',
+        pk_category_id: '',
+        category_name: '',
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -48,11 +47,11 @@ const Category = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
-    console.log(`dataGender: `, dataGender);
+    console.log(`dataCategory: `, dataCategory);
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = 'gender'
+  const endPoint = 'category'
 
   // GET
   const getAllDatasAPI = async () => {
@@ -60,7 +59,7 @@ const Category = () => {
       .get(url + endPoint + "_get_all_datas")
       .then((res) => {
         console.log(`GET RES DATA DATA: `, res.data.data);
-        setDataGender(res.data.data);
+        setDataCategory(res.data.data);
         // if (res.status === 200) {
         // } else {
         //   console.log("Error");
@@ -75,8 +74,8 @@ const Category = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append("pk_gender_id", form.pk_gender_id);
-    data.append("type", form.type);
+    data.append("pk_category_id", form.pk_category_id);
+    data.append("category_name", form.category_name);
 
     axios
       .post(url + `${endPoint}_input`, data, {
@@ -137,23 +136,23 @@ const Category = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isUpdate) {
-      updateAPI(genderState);
+      updateAPI(categoryState);
       setIsUpdate(false);
     } else {
-      postAPI(genderState);
+      postAPI(categoryState);
     }
   
-    setDataGender([
+    setDataCategory([
       {
-        ...dataGender,
-        pk_gender_id: genderState.pk_gender_id,
-        type: genderState.type
+        ...dataCategory,
+        pk_category_id: categoryState.pk_category_id,
+        category_name: categoryState.category_name
       },
     ]);
 
     clearFormData();
 
-    console.log(`CATEGORY STATE SUBMIT: `, genderState);
+    console.log(`CATEGORY STATE SUBMIT: `, categoryState);
   };
 
   // HANDLE DELETE
@@ -165,9 +164,9 @@ const Category = () => {
   const handleUpdate = (data, index) => {
     setIsUpdate(true);
     setIndexUpdate(index);
-    genderDispatch(cmsAction(`type`, data.type));
-    genderDispatch(cmsAction(`pk_gender_id`, data.pk_gender_id));
-    console.log(`update from genderState: `, genderState);
+    categoryDispatch(cmsAction(`category_name`, data.category_name));
+    categoryDispatch(cmsAction(`pk_category_id`, data.pk_category_id));
+    console.log(`update from categoryState: `, categoryState);
   };
 
   // HANDLE CANCEL
@@ -178,21 +177,19 @@ const Category = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    genderDispatch(cmsAction(`type`, ""));
-    genderDispatch(cmsAction(`pk_gender_id`, ""));
+    categoryDispatch(cmsAction(`category_name`, ""));
+    categoryDispatch(cmsAction(`pk_category_id`, ""));
   
   };
 
   // FORM CHANGE
   const formChange = (name, value) => {
-    genderDispatch(cmsAction(name, value));
+    categoryDispatch(cmsAction(name, value));
   };
 
   return (
-    <div>
-      <Container>
-      <h4>Gender input</h4>
-      <BoxInput>
+    <div className="cmsForm">
+      <h3>Category input</h3>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -201,20 +198,27 @@ const Category = () => {
         autoComplete="off"
       >
         <TextField
-          value={genderState.type}
-          name="type"
-          onChange={(e) => formChange(`type`, e.target.value)}
+          value={categoryState.category_name}
+          name="category_name"
+          onChange={(e) => formChange(`category_name`, e.target.value)}
           id="outlined-basic"
-          label="Gender type"
+          label="Category name"
           variant="outlined"
         />
-
+        <TextField
+          value={categoryState.pk_category_id}
+          name="pk_category_id"
+          onChange={(e) => formChange(`pk_category_id`, e.target.value)}
+          id="outlined-basic"
+          label="Category ID (input 1-4)"
+          variant="outlined"
+          />
+          <p style={{fontSize:'15px'}}>note: ID tidak bisa diedit, edit NAME saja!</p>
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
           type="submit"
-          style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -229,22 +233,20 @@ const Category = () => {
           </Button>
         )}
       </form>
-      </BoxInput>
-      <br />
-        <h4>Data Gender </h4>
       <div>
-        
-        {dataGender.map(
+        <br />
+        <h3>Result: </h3>
+        {dataCategory.map(
           (data, index) => (
-            console.log(`data article map: `, dataGender),
+            console.log(`data article map: `, dataCategory),
             (
               <ul className='map' key={index}>
-                <li>GENDER TYPE: <span>{data.type}</span></li>
-                <li>GENDER ID: <span>{data.pk_gender_id}</span></li>
+                <li>CATEGORY NAME: <span>{data.category_name}</span></li>
+                <li>CATEGORY ID: <span>{data.pk_category_id}</span></li>
                 {
                   <div>
                     <button
-                      onClick={() => handleDelete(data.pk_gender_id, index)}
+                      onClick={() => handleDelete(data.pk_category_id, index)}
                     >
                       delete
                     </button>
@@ -260,8 +262,6 @@ const Category = () => {
           )
         )}
       </div>
-      </Container>
-      
     </div>
   );
 };

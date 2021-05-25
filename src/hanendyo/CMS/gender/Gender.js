@@ -5,11 +5,10 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { postAPI, cmsAction } from "../../../../context/actions/CmsAction";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
-import { colors } from "../../../../master/constant/style/index";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,12 +32,13 @@ const Category = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { cityState, cityDispatch } = context;
+  const { genderState, genderDispatch } = context;
 
   // USE STATE
-  const [dataCity, setDataCity] = useState([
+  const [dataGender, setDataGender] = useState([
     {
-        city_name: '',
+        pk_gender_id: '',
+        type: '',
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -47,11 +47,11 @@ const Category = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
-    console.log(`dataCity: `, dataCity);
+    console.log(`dataGender: `, dataGender);
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = 'city'
+  const endPoint = 'gender'
 
   // GET
   const getAllDatasAPI = async () => {
@@ -59,7 +59,11 @@ const Category = () => {
       .get(url + endPoint + "_get_all_datas")
       .then((res) => {
         console.log(`GET RES DATA DATA: `, res.data.data);
-        setDataCity(res.data.data);
+        setDataGender(res.data.data);
+        // if (res.status === 200) {
+        // } else {
+        //   console.log("Error");
+        // }
       })
       .catch((err) => {
         console.log(err);
@@ -70,8 +74,8 @@ const Category = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    // data.append("pk_city_id", form.pk_city_id);
-    data.append("city_name", form.city_name);
+    data.append("pk_gender_id", form.pk_gender_id);
+    data.append("type", form.type);
 
     axios
       .post(url + `${endPoint}_input`, data, {
@@ -81,7 +85,7 @@ const Category = () => {
       })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`City successfuly created!`);
+        console.log(`Category successfuly created!`);
         console.log(res);
         return res;
       })
@@ -90,6 +94,14 @@ const Category = () => {
         console.log(err);
         return err;
       });
+    // await axios.post(url + endPoint + '_input', form)
+    // .then((res)=>{
+    //   getAllDatasAPI();
+    //   console.log(res);
+    // })
+    // .catch(err=> {
+    //   console.log(err);
+    // })
   };
 
   // DELETE
@@ -109,7 +121,7 @@ const Category = () => {
       .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`City successfuly updated!`);
+        console.log(`Category successfuly updated!`);
         console.log(res);
         return res;
       })
@@ -124,23 +136,23 @@ const Category = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isUpdate) {
-      updateAPI(cityState);
+      updateAPI(genderState);
       setIsUpdate(false);
     } else {
-      postAPI(cityState);
+      postAPI(genderState);
     }
   
-    setDataCity([
+    setDataGender([
       {
-        ...dataCity,
-        // pk_city_id: cityState.pk_city_id,
-        city_name: cityState.city_name
+        ...dataGender,
+        pk_gender_id: genderState.pk_gender_id,
+        type: genderState.type
       },
     ]);
 
     clearFormData();
 
-    console.log(`CATEGORY STATE SUBMIT: `, cityState);
+    console.log(`CATEGORY STATE SUBMIT: `, genderState);
   };
 
   // HANDLE DELETE
@@ -152,9 +164,9 @@ const Category = () => {
   const handleUpdate = (data, index) => {
     setIsUpdate(true);
     setIndexUpdate(index);
-    cityDispatch(cmsAction(`city_name`, data.city_name));
-    cityDispatch(cmsAction(`pk_city_id`, data.pk_city_id));
-    console.log(`update from cityState: `, cityState);
+    genderDispatch(cmsAction(`type`, data.type));
+    genderDispatch(cmsAction(`pk_gender_id`, data.pk_gender_id));
+    console.log(`update from genderState: `, genderState);
   };
 
   // HANDLE CANCEL
@@ -165,20 +177,19 @@ const Category = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    cityDispatch(cmsAction(`city_name`, ""));
-    cityDispatch(cmsAction(`pk_city_id`, ""));
+    genderDispatch(cmsAction(`type`, ""));
+    genderDispatch(cmsAction(`pk_gender_id`, ""));
+  
   };
 
   // FORM CHANGE
   const formChange = (name, value) => {
-    cityDispatch(cmsAction(name, value));
+    genderDispatch(cmsAction(name, value));
   };
 
   return (
-    <div>
-      <Container>
-      <h4>City Input</h4>
-      <BoxInput>
+    <div className="cmsForm">
+      <h3>Gender input</h3>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -187,20 +198,19 @@ const Category = () => {
         autoComplete="off"
       >
         <TextField
-          value={cityState.city_name}
-          name="city_name"
-          onChange={(e) => formChange(`city_name`, e.target.value)}
+          value={genderState.type}
+          name="type"
+          onChange={(e) => formChange(`type`, e.target.value)}
           id="outlined-basic"
-          label="City name"
+          label="Gender type"
           variant="outlined"
         />
-       
+
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
           type="submit"
-          style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -215,22 +225,20 @@ const Category = () => {
           </Button>
         )}
       </form>
-      </BoxInput>
-      <br />
-      <h4>Data</h4>
       <div>
-      
-        {dataCity.map(
+        <br />
+        <h3>Result: </h3>
+        {dataGender.map(
           (data, index) => (
-            console.log(`data article map: `, dataCity),
+            console.log(`data article map: `, dataGender),
             (
               <ul className='map' key={index}>
-                <li>CATEGORY NAME: <span>{data.city_name}</span></li>
-                <li>CATEGORY ID: <span>{data.pk_city_id}</span></li>
+                <li>GENDER TYPE: <span>{data.type}</span></li>
+                <li>GENDER ID: <span>{data.pk_gender_id}</span></li>
                 {
                   <div>
                     <button
-                      onClick={() => handleDelete(data.pk_city_id, index)}
+                      onClick={() => handleDelete(data.pk_gender_id, index)}
                     >
                       delete
                     </button>
@@ -246,8 +254,6 @@ const Category = () => {
           )
         )}
       </div>
-      </Container>
-      
     </div>
   );
 };

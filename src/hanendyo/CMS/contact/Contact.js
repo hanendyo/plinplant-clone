@@ -5,11 +5,10 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { postAPI, cmsAction } from "../../../../context/actions/CmsAction";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import { colors } from "../../../../master/constant/style/index";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,15 +32,15 @@ const Contact = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { orderState, orderDispatch } = context;
+  const { contactState, contactDispatch } = context;
 
   // USE STATE
-  const [dataOrder, setDataOrder] = useState([
+  const [dataContact, setDataContact] = useState([
     {
-      status: '',
-      created_at: '',
-      fk_user_id: '',
-      // fk_city_id: ''
+      recipient_name: '',
+      address: '',
+      phone_number: '',
+      fk_city_id: ''
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -50,11 +49,11 @@ const Contact = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
-    console.log(`dataOrder: `, dataOrder);
+    console.log(`dataContact: `, dataContact);
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = 'order'
+  const endPoint = 'contact'
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -62,7 +61,7 @@ const Contact = () => {
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
-          setDataOrder(res.data.data);
+          setDataContact(res.data.data);
         } else {
           console.log("Error");
         }
@@ -76,10 +75,10 @@ const Contact = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append("status", form.status);
-    data.append("created_at", form.created_at);
-    data.append("fk_user_id", form.fk_user_id);
-    // data.append("pk_city_id", form.pk_city_id);
+    data.append("recipient_name", form.recipient_name);
+    data.append("address", form.address);
+    data.append("phone_number", form.phone_number);
+    data.append("pk_city_id", form.pk_city_id);
 
     axios
       .post(url + `${endPoint}_input`, data, {
@@ -132,25 +131,25 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isUpdate) {
-      updateAPI(orderState);
+      updateAPI(contactState);
       setIsUpdate(false);
     } else {
-      postAPI(orderState);
+      postAPI(contactState);
     }
 
-    setDataOrder([
+    setDataContact([
       {
-        ...dataOrder,
-        status: orderState.status,
-        created_at: orderState.created_at,
-        fk_user_id: orderState.fk_user_id,
-        // // fk_city_id: orderState.fk_city_id
+        ...dataContact,
+        recipient_name: contactState.recipient_name,
+        address: contactState.address,
+        phone_number: contactState.phone_number,
+        fk_city_id: contactState.fk_city_id
       },
     ]);
 
     clearFormData();
 
-    console.log(`CONTACT STATE SUBMIT: `, orderState);
+    console.log(`CONTACT STATE SUBMIT: `, contactState);
   };
 
   // HANDLE DELETE
@@ -161,16 +160,18 @@ const Contact = () => {
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
     // console.log(`index update: `, index);
-    console.log(`data id update: `, data.pk_order_id);
+    console.log(`data id update: `, data.pk_contact_id);
     setIsUpdate(true);
     setIndexUpdate(index);
-    orderDispatch(cmsAction(`pk_order_id`, data.pk_order_id));
-    orderDispatch(cmsAction(`status`, data.status));
-    orderDispatch(cmsAction(`created_at`, data.created_at));
-    orderDispatch(cmsAction(`fk_user_id`, data.fk_user_id));
-    // // orderDispatch(cmsAction(`fk_city_id`, data.fk_city_id));
+    contactDispatch(cmsAction(`pk_contact_id`, data.pk_contact_id));
+    contactDispatch(cmsAction(`recipient_name`, data.recipient_name));
+    contactDispatch(cmsAction(`address`, data.address));
+    contactDispatch(cmsAction(`phone_number`, data.phone_number));
+    contactDispatch(cmsAction(`fk_city_id`, data.fk_city_id));
 
-    console.log(`update from orderState: `, orderState);
+    // console.log(`update from dataContact: `, dataContact[index]);
+    // console.log(`update from dataContact: `, dataContact[index]);
+    console.log(`update from contactState: `, contactState);
   };
 
   // HANDLE CANCEL
@@ -181,22 +182,21 @@ const Contact = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    orderDispatch(cmsAction(`status`, ""));
-    orderDispatch(cmsAction(`created_at`, ''));
-    orderDispatch(cmsAction(`fk_user_id`, ''));
-    // orderDispatch(cmsAction(`fk_city_id`, ''));
+    contactDispatch(cmsAction(`recipient_name`, ""));
+    contactDispatch(cmsAction(`address`, ''));
+    contactDispatch(cmsAction(`phone_number`, ''));
+    contactDispatch(cmsAction(`fk_city_id`, ''));
 
   };
 
   // FORM CHANGE
   const formChange = (name, value) => {
-    orderDispatch(cmsAction(name, value));
+    contactDispatch(cmsAction(name, value));
   };
 
   return (
-    <Container>
-      <h4>Order input</h4>
-      <BoxInput>
+    <div className="cmsForm">
+      <h3>Contact input</h3>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -205,36 +205,42 @@ const Contact = () => {
         autoComplete="off"
       >
         <TextField
-          value={orderState.status}
-          name="status"
-          onChange={(e) => formChange(`status`, e.target.value)}
+          value={contactState.recipient_name}
+          name="recipient_name"
+          onChange={(e) => formChange(`recipient_name`, e.target.value)}
           id="outlined-basic"
-          label="Order status"
+          label="Recipient name"
           variant="outlined"
         />
         <TextField
-          value={orderState.created_at}
-          name="created_at"
-          onChange={(e) => formChange(`created_at`, e.target.value)}
+          value={contactState.address}
+          name="address"
+          onChange={(e) => formChange(`address`, e.target.value)}
           id="outlined-basic"
-          label="Created at"
+          label="Address"
           variant="outlined"
         />
         <TextField
-          value={orderState.fk_user_id}
-          name="fk_user_id"
-          onChange={(e) => formChange(`fk_user_id`, e.target.value)}
+          value={contactState.phone_number}
+          name="phone_number"
+          onChange={(e) => formChange(`phone_number`, e.target.value)}
           id="outlined-basic"
-          label="User_ID"
+          label="Phone Number"
           variant="outlined"
         />
-       
+        <TextField
+          value={contactState.fk_city_id}
+          name="fk_city_id"
+          onChange={(e) => formChange(`fk_city_id`, e.target.value)}
+          id="outlined-basic"
+          label="City ID"
+          variant="outlined"
+        />
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
           type="submit"
-          style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -249,24 +255,23 @@ const Contact = () => {
           </Button>
         )}
       </form>
-      </BoxInput>
-      <br />
-        <h4>Data Order Status</h4>
       <div>
-        
-        {dataOrder.map(
+        <br />
+        <h3>Result: </h3>
+        {dataContact.map(
           (data, index) => (
-            console.log(`data contact map: `, dataOrder),
+            console.log(`data contact map: `, dataContact),
             (
               <ul className='map' key={index}>
-                <li>ORDER ID: <span>{data.pk_order_id}</span></li>
-                <li>ORDER STATUS: <span>{data.status}</span></li>
-                <li>CREATED AT: <span>{data.created_at}</span></li>
-                <li>USER_ID: <span>{data.fk_user_id}</span></li>
+                <li>CONTACT ID: <span>{data.pk_contact_id}</span></li>
+                <li>RECIPIENT NAME: <span>{data.recipient_name}</span></li>
+                <li>ADDRESS: <span>{data.address}</span></li>
+                <li>PHONE NUMBER: <span>{data.phone_number}</span></li>
+                <li>CITY ID: <span>{data.fk_city_id}</span></li>
                 {
                   <div>
                     <button
-                      onClick={() => handleDelete(data.pk_order_id, index)}
+                      onClick={() => handleDelete(data.pk_contact_id, index)}
                     >
                       delete
                     </button>
@@ -282,7 +287,7 @@ const Contact = () => {
           )
         )}
       </div>
-    </Container>
+    </div>
   );
 };
 

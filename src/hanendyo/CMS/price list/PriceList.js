@@ -5,11 +5,10 @@ import {
     TextField,
 } from "@material-ui/core";
 import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { cmsAction } from "../../../../context/actions/CmsAction";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import { colors } from "../../../../master/constant/style/index";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,19 +26,23 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Article = () => {
+const PriceList = () => {
     // USE STYLES
     const classes = useStyles();
 
     // USE CONTEXT
     const context = useContext(ContextStore);
-    const { reviewState, reviewDispatch } = context;
+    const { priceListState, priceListDispatch } = context;
 
     // USE STATE
-    const [dataReview, setDataReview] = useState([
+    const [priceList, setPriceList] = useState([
         {
-            quantity: "",
-            fk_price_list_id: "",
+            seed_price: "",
+            tuber_price: "",
+            young_price: "",
+            mature_price: "",
+            fk_plant_breeding_id: "",
+            fk_stock_id: ''
         },
     ]);
     const [isUpdate, setIsUpdate] = useState(false);
@@ -48,11 +51,11 @@ const Article = () => {
     // USE EFFECT
     useEffect(() => {
         getAllDataAPI();
-        console.log(`dataReview: `, dataReview);
+        console.log(`priceList: `, priceList);
     }, []);
 
     const url = "http://localhost:5000/input/";
-    const endPoint = "review";
+    const endPoint = "article";
 
     // GET
     const getAllDataAPI = async () => {
@@ -61,7 +64,7 @@ const Article = () => {
             .then((res) => {
                 if (res.status === 200) {
                     console.log(`GET RES DATA DATA: `, res.data.data);
-                    setDataReview(res.data.data);
+                    setPriceList(res.data.data);
                 } else {
                     console.log("Error");
                 }
@@ -77,7 +80,7 @@ const Article = () => {
             .post(url + endPoint + `_input`, data)
             .then((res) => {
                 getAllDataAPI();
-                console.log(`Article successfuly created!`);
+                console.log(`Price list successfuly created!`);
                 console.log(res);
                 return res;
             })
@@ -89,7 +92,7 @@ const Article = () => {
     };
 
     // DELETE
-    const deleteAPI = async (id, index) => {
+    const deleleAPI = async (id, index) => {
         await axios
             .delete(url + endPoint + "_delete/" + id)
             .then((deleted) => {
@@ -106,7 +109,7 @@ const Article = () => {
             .put(url + endPoint + `_update`, data)
             .then((res) => {
                 getAllDataAPI();
-                console.log(`Review successfuly updated!`);
+                console.log(`Article successfuly updated!`);
                 console.log(res);
                 return res;
             })
@@ -121,37 +124,44 @@ const Article = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (isUpdate) {
-            updateAPI(reviewState);
+            updateAPI(priceListState);
             setIsUpdate(false);
         } else {
-            postAPI(reviewState);
+            postAPI(priceListState);
         }
 
-        setDataReview([
+        setPriceList([
             {
-                ...dataReview,
-                quantity: reviewState.quantity,
-                fk_price_list_id: reviewState.fk_price_list_id,
+                ...priceList,
+                seed_price: priceListState.seed_price,
+                image: priceListState.image,
+                young_price: priceListState.young_price,
+                mature_price: priceListState.mature_price,
+                fk_plant_breeding_id: priceListState.fk_plant_breeding_id,
             },
         ]);
 
         clearFormData();
 
-        console.log(`REVIEW STATE SUBMIT: `, reviewState);
+        console.log(`ARTICLE STATE SUBMIT: `, priceListState);
     };
 
     // HANDLE DELETE
     const handleDelete = (id, index) => {
-        deleteAPI(id, index);
+        deleleAPI(id, index);
     };
 
     // HANDLE UPDATE
     const handleUpdate = (data, index) => {
         setIsUpdate(true);
         setIndexUpdate(index);
-        reviewDispatch(cmsAction(`quantity`, data.quantity));
-        reviewDispatch(cmsAction(`fk_price_list_id`, data.fk_price_list_id));
-        console.log(`update from reviewState: `, reviewState);
+        priceListDispatch(cmsAction(`seed_price`, data.seed_price));
+        priceListDispatch(cmsAction(`mature_price`, data.mature_price));
+        priceListDispatch(cmsAction(`fk_plant_breeding_id`, data.fk_plant_breeding_id));
+        priceListDispatch(cmsAction(`young_price`, data.young_price));
+        priceListDispatch(cmsAction(`tuber_price`, data.tuber_price));
+        priceListDispatch(cmsAction(`pk_article_id`, data.pk_article_id));
+        console.log(`update from priceListState: `, priceListState);
     };
 
     // HANDLE CANCEL
@@ -162,20 +172,23 @@ const Article = () => {
 
     // CLEAR FORM
     const clearFormData = () => {
-        reviewDispatch(cmsAction(`quantity`, ""));
-        reviewDispatch(cmsAction(`fk_price_list_id`, ""));
+        priceListDispatch(cmsAction(`seed_price`, ""));
+        priceListDispatch(cmsAction(`tuber_price`, null));
+        priceListDispatch(cmsAction(`mature_price`, ""));
+        priceListDispatch(cmsAction(`young_price`, ""));
+        priceListDispatch(cmsAction(`fk_plant_breeding_id`, ""));
+        priceListDispatch(cmsAction(`fk_stock_id`, ""));
     };
 
     // FORM CHANGE
     const formChange = (name, value) => {
-        reviewDispatch(cmsAction(name, value));
+        priceListDispatch(cmsAction(name, value));
     };
 
 
     return (
-        <Container>
-            <h4>Review input</h4>
-            <BoxInput>
+        <div className="article cmsForm">
+            <h3>Price list input</h3>
             <form
                 encType="multipart/form-data"
                 className={classes.root}
@@ -184,19 +197,56 @@ const Article = () => {
                 autoComplete="off"
             >
                 <TextField
-                    value={reviewState.quantity}
-                    name="quantity"
-                    onChange={(e) => formChange(`quantity`, e.target.value)}
+                    value={priceListState.seed_price}
+                    name="seed_price"
+                    onChange={(e) => formChange(`seed_price`, e.target.value)}
                     id="outlined-basic"
-                    label="quantity"
+                    label="Seed price"
                     variant="outlined"
                 />
+
                 <TextField
-                    value={reviewState.fk_price_list_id}
-                    onChange={(e) => formChange("fk_price_list_id", e.target.value)}
-                    name="fk_price_list_id"
+                    value={priceListState.tuber_price}
+                    onChange={(e) => formChange("tuber_price", e.target.value)}
+                    name="tuber_price"
                     id="outlined-basic"
-                    label="fk_price_list_id"
+                    label="Tuber price"
+                    variant="outlined"
+                />
+
+                <TextField
+                    value={priceListState.young_price}
+                    onChange={(e) => formChange("young_price", e.target.value)}
+                    name="young_price"
+                    id="outlined-basic"
+                    label="Young price"
+                    variant="outlined"
+                />
+
+                <TextField
+                    value={priceListState.mature_price}
+                    onChange={(e) => formChange("mature_price", e.target.value)}
+                    name="mature_price"
+                    id="outlined-basic"
+                    label="Mature price"
+                    variant="outlined"
+                />
+
+                <TextField
+                    value={priceListState.fk_plant_breeding_id}
+                    onChange={(e) => formChange("fk_plant_breeding_id", e.target.value)}
+                    name="fk_plant_breeding_id"
+                    id="outlined-basic"
+                    label="Plant_breeding_id"
+                    variant="outlined"
+                />
+
+                <TextField
+                    value={priceListState.fk_stock_id}
+                    onChange={(e) => formChange("fk_stock_id", e.target.value)}
+                    name="fk_stock_id"
+                    id="outlined-basic"
+                    label="Stock_id"
                     variant="outlined"
                 />
 
@@ -205,7 +255,6 @@ const Article = () => {
                     variant="contained"
                     color="primary"
                     type="submit"
-                    style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
                 >
                     {isUpdate ? "Update" : "Submit"}
                 </Button>
@@ -220,24 +269,37 @@ const Article = () => {
                     </Button>
                 )}
             </form>
-            </BoxInput>
-            <br />
-                <h4>Review Data</h4>
             <div>
-                
-                {dataReview.map(
+                <br />
+                <h3>Result: </h3>
+                {priceList.map(
                     (data, index) => (
-                        console.log(`data article map: `, dataReview),
+                        console.log(`data article map: `, priceList),
                         (
                             <ul className="map" key={index}>
                                 <li>
                                     NO: <span>{index + 1}</span>
                                 </li>
                                 <li>
-                                    quantity: <span>{data.quantity}</span>
+                                    ARTICLE ID: <span>{data.pk_article_id}</span>
                                 </li>
                                 <li>
-                                    PRICE_LIST_ID: <span>{data.fk_price_list_id}</span>
+                                    SEED PRICE: <span>{data.seed_price}</span>
+                                </li>
+                                <li>
+                                    TUBER PRICE: <span>{data.tuber_price}</span>
+                                </li>
+                                <li>
+                                    YOUNG PLANT PRICE: <span>{data.young_price}</span>
+                                </li>
+                                <li>
+                                    MATURE PLANT PRICE: <span>{data.mature_price}</span>
+                                </li>
+                                <li>
+                                    PLANT_BREEDING_ID: <span>{data.fk_plant_breeding_id}</span>
+                                </li>
+                                <li>
+                                   STOCK_ID: <span>{data.fk_stock_id}</span>
                                 </li>
                                 {
                                     <div>
@@ -245,10 +307,10 @@ const Article = () => {
                                             onClick={() => handleDelete(data.pk_article_id, index)}
                                         >
                                             delete
-                                        </button>
+                    </button>
                                         <button onClick={() => handleUpdate(data, index)}>
                                             Update
-                                        </button>
+                    </button>
                                         <br />
                                     </div>
                                 }
@@ -257,8 +319,8 @@ const Article = () => {
                     )
                 )}
             </div>
-        </Container>
+        </div>
     );
 };
 
-export default Article;
+export default PriceList;

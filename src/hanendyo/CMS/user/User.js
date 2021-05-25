@@ -5,11 +5,10 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { cmsAction } from "../../../../context/actions/CmsAction";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import { colors } from "../../../../master/constant/style/index";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -228,9 +227,8 @@ const Plant = () => {
   };
 
   return (
-    <Container>
-      <h4>User input</h4>
-      <BoxInput>
+    <div className="cmsForm">
+      <h3>User input</h3>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -272,6 +270,12 @@ const Plant = () => {
           variant="outlined"
         />
 
+        {/* ----- IMAGE ----- */}
+        <span>Pick User image:</span>
+        <input name="picture" type="file" onChange={(e) => formImage(e)} />
+        <img src={fileImage} alt="" />
+        {/* ----- IMAGE ----- */}
+
         <TextField
           value={userState.fk_contact_id}
           name="fk_contact_id"
@@ -288,54 +292,12 @@ const Plant = () => {
           label="Gender_id"
           variant="outlined"
         />
-<div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <SpanImage>
-                <h6>Choose Image</h6>
-                <img src={fileImage} alt="" />
-              </SpanImage>
-              <div>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => formImage(e)}
-                />
-                <label htmlFor="contained-button-file">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    component="span"
-                    style={{
-                      backgroundColor: `${colors.green}`,
-                      marginTop: "10px",
-                    }}
-                  >
-                    Upload
-                  </Button>
-                </label>
-              </div>
-            </div>
-        {/* ----- IMAGE ----- */}
-        {/* <span>Pick User image:</span>
-        <input name="picture" type="file" onChange={(e) => formImage(e)} />
-        <img src={fileImage} alt="" /> */}
-        {/* ----- IMAGE ----- */}
+
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
           type="submit"
-          style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -350,11 +312,9 @@ const Plant = () => {
           </Button>
         )}
       </form>
-      </BoxInput>
-      <br />
-        <h4>User Data</h4>
       <div>
-        
+        <br />
+        <h3>Result: </h3>
         {dataUser.map(
           (data, index) => (
             console.log(`data article map: `, dataUser),
@@ -403,7 +363,7 @@ const Plant = () => {
           )
         )}
       </div>
-    </Container>
+    </div>
   );
 };
 

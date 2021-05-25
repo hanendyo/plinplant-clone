@@ -5,11 +5,10 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { cmsAction } from "../../../../context/actions/CmsAction";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import { colors } from "../../../../master/constant/style/index";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -181,9 +180,8 @@ const Article = () => {
 
 
   return (
-    <Container>
-      <h4>Shipping charges input</h4>
-      <BoxInput>
+    <div className="cmsForm">
+      <h3>Shipping charges input</h3>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -213,7 +211,6 @@ const Article = () => {
           variant="contained"
           color="primary"
           type="submit"
-          style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -228,12 +225,9 @@ const Article = () => {
           </Button>
         )}
       </form>
-      </BoxInput>
-      
-      <br />
-        <h4>Shipping Charges Data</h4>
       <div>
-       
+        <br />
+        <h3>Result: </h3>
         {dataShippingCharges.map(
           (data, index) => (
             console.log(`data article map: `, dataShippingCharges),
@@ -266,7 +260,7 @@ const Article = () => {
           )
         )}
       </div>
-    </Container>
+    </div>
   );
 };
 

@@ -5,11 +5,10 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { postAPI, cmsAction } from "../../../../context/actions/CmsAction";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import { colors } from "../../../../master/constant/style/index";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,15 +32,15 @@ const Contact = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { contactState, contactDispatch } = context;
+  const { orderItemState, orderItemDispatch } = context;
 
   // USE STATE
-  const [dataContact, setDataContact] = useState([
+  const [dataOrderItem, setDataOrderItem] = useState([
     {
-      recipient_name: '',
-      address: '',
-      phone_number: '',
-      fk_city_id: ''
+      quantity: '',
+      fk_price_list_id: '',
+      // fk_user_id: '',
+      // fk_city_id: ''
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -50,22 +49,18 @@ const Contact = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
-    console.log(`dataContact: `, dataContact);
+    console.log(`dataOrderItem: `, dataOrderItem);
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = 'contact'
+  const endPoint = 'order_item'
   // GET
   const getAllDatasAPI = async () => {
     await axios
       .get(url + `${endPoint}_get_all_datas`)
       .then((res) => {
-        if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
-          setDataContact(res.data.data);
-        } else {
-          console.log("Error");
-        }
+        setDataOrderItem(res.data.data);
+        console.log(`GET RES DATA DATA: `, res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -76,10 +71,10 @@ const Contact = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append("recipient_name", form.recipient_name);
-    data.append("address", form.address);
-    data.append("phone_number", form.phone_number);
-    data.append("pk_city_id", form.pk_city_id);
+    data.append("quantity", form.quantity);
+    data.append("fk_price_list_id", form.fk_price_list_id);
+    // // data.append("fk_user_id", form.fk_user_id);
+    // data.append("pk_city_id", form.pk_city_id);
 
     axios
       .post(url + `${endPoint}_input`, data, {
@@ -89,7 +84,7 @@ const Contact = () => {
       })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Category successfuly created!`);
+        console.log(`Order item successfuly created!`);
         console.log(res);
         return res;
       })
@@ -117,7 +112,7 @@ const Contact = () => {
       .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Contact successfuly updated!`);
+        console.log(`Order item successfuly updated!`);
         console.log(res);
         return res;
       })
@@ -132,25 +127,26 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isUpdate) {
-      updateAPI(contactState);
+      updateAPI(orderItemState);
       setIsUpdate(false);
     } else {
-      postAPI(contactState);
+      postAPI(orderItemState);
     }
 
-    setDataContact([
+    setDataOrderItem([
       {
-        ...dataContact,
-        recipient_name: contactState.recipient_name,
-        address: contactState.address,
-        phone_number: contactState.phone_number,
-        fk_city_id: contactState.fk_city_id
+        ...dataOrderItem,
+        quantity: orderItemState.quantity,
+        fk_price_list_id: orderItemState.fk_price_list_id,
+        pk_order_item_id: orderItemState.pk_order_item_id
+        // // fk_user_id: orderItemState.fk_user_id,
+        // // fk_city_id: orderItemState.fk_city_id
       },
     ]);
 
     clearFormData();
 
-    console.log(`CONTACT STATE SUBMIT: `, contactState);
+    console.log(`CONTACT STATE SUBMIT: `, orderItemState);
   };
 
   // HANDLE DELETE
@@ -161,18 +157,16 @@ const Contact = () => {
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
     // console.log(`index update: `, index);
-    console.log(`data id update: `, data.pk_contact_id);
+    console.log(`data id update: `, data.pk_order_item_id);
     setIsUpdate(true);
     setIndexUpdate(index);
-    contactDispatch(cmsAction(`pk_contact_id`, data.pk_contact_id));
-    contactDispatch(cmsAction(`recipient_name`, data.recipient_name));
-    contactDispatch(cmsAction(`address`, data.address));
-    contactDispatch(cmsAction(`phone_number`, data.phone_number));
-    contactDispatch(cmsAction(`fk_city_id`, data.fk_city_id));
+    orderItemDispatch(cmsAction(`pk_order_item_id`, data.pk_order_item_id));
+    orderItemDispatch(cmsAction(`quantity`, data.quantity));
+    orderItemDispatch(cmsAction(`fk_price_list_id`, data.fk_price_list_id));
+    // // orderItemDispatch(cmsAction(`fk_user_id`, data.fk_user_id));
+    // // orderItemDispatch(cmsAction(`fk_city_id`, data.fk_city_id));
 
-    // console.log(`update from dataContact: `, dataContact[index]);
-    // console.log(`update from dataContact: `, dataContact[index]);
-    console.log(`update from contactState: `, contactState);
+    console.log(`update from orderItemState: `, orderItemState);
   };
 
   // HANDLE CANCEL
@@ -183,23 +177,21 @@ const Contact = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    contactDispatch(cmsAction(`recipient_name`, ""));
-    contactDispatch(cmsAction(`address`, ''));
-    contactDispatch(cmsAction(`phone_number`, ''));
-    contactDispatch(cmsAction(`fk_city_id`, ''));
+    orderItemDispatch(cmsAction(`quantity`, ""));
+    orderItemDispatch(cmsAction(`fk_price_list_id`, ''));
+    // orderItemDispatch(cmsAction(`fk_user_id`, ''));
+    // orderItemDispatch(cmsAction(`fk_city_id`, ''));
 
   };
 
   // FORM CHANGE
   const formChange = (name, value) => {
-    contactDispatch(cmsAction(name, value));
+    orderItemDispatch(cmsAction(name, value));
   };
 
   return (
-    <div>
-      <Container>
-      <h4>Contact input</h4>
-      <BoxInput>
+    <div className="cmsForm">
+      <h3>Order Item input</h3>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -208,43 +200,27 @@ const Contact = () => {
         autoComplete="off"
       >
         <TextField
-          value={contactState.recipient_name}
-          name="recipient_name"
-          onChange={(e) => formChange(`recipient_name`, e.target.value)}
+          value={orderItemState.quantity}
+          name="quantity"
+          onChange={(e) => formChange(`quantity`, e.target.value)}
           id="outlined-basic"
-          label="Recipient name"
+          label="Quantity"
           variant="outlined"
         />
         <TextField
-          value={contactState.address}
-          name="address"
-          onChange={(e) => formChange(`address`, e.target.value)}
+          value={orderItemState.fk_price_list_id}
+          name="fk_price_list_id"
+          onChange={(e) => formChange(`fk_price_list_id`, e.target.value)}
           id="outlined-basic"
-          label="Address"
+          label="Price_list_ID"
           variant="outlined"
         />
-        <TextField
-          value={contactState.phone_number}
-          name="phone_number"
-          onChange={(e) => formChange(`phone_number`, e.target.value)}
-          id="outlined-basic"
-          label="Phone Number"
-          variant="outlined"
-        />
-        <TextField
-          value={contactState.fk_city_id}
-          name="fk_city_id"
-          onChange={(e) => formChange(`fk_city_id`, e.target.value)}
-          id="outlined-basic"
-          label="City ID"
-          variant="outlined"
-        />
+       
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
           type="submit"
-          style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -259,26 +235,22 @@ const Contact = () => {
           </Button>
         )}
       </form>
-      </BoxInput>
-      
-      <br />
-        <h4>Contact Data </h4>
       <div>
-      
-        {dataContact.map(
+        <br />
+        <h3>Result: </h3>
+        {dataOrderItem.map(
           (data, index) => (
-            console.log(`data contact map: `, dataContact),
+            console.log(`data contact map: `, dataOrderItem),
             (
               <ul className='map' key={index}>
-                <li>CONTACT ID: <span>{data.pk_contact_id}</span></li>
-                <li>RECIPIENT NAME: <span>{data.recipient_name}</span></li>
-                <li>ADDRESS: <span>{data.address}</span></li>
-                <li>PHONE NUMBER: <span>{data.phone_number}</span></li>
-                <li>CITY ID: <span>{data.fk_city_id}</span></li>
+                <li>ORDER ITEM ID: <span>{data.pk_order_item_id}</span></li>
+                <li>QUANTITY: <span>{data.quantity}</span></li>
+                <li>PRICE_LIST_ID: <span>{data.fk_price_list_id}</span></li>
+                {/* <li>USER_ID: <span>{data.fk_user_id}</span></li> */}
                 {
                   <div>
                     <button
-                      onClick={() => handleDelete(data.pk_contact_id, index)}
+                      onClick={() => handleDelete(data.pk_order_item_id, index)}
                     >
                       delete
                     </button>
@@ -294,8 +266,6 @@ const Contact = () => {
           )
         )}
       </div>
-      </Container>
-      
     </div>
   );
 };

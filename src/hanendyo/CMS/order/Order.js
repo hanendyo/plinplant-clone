@@ -5,11 +5,10 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useContext } from "react";
-import { ContextStore } from "../../../../context/store/ContextStore";
-import { cmsAction } from "../../../../context/actions/CmsAction";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import { colors } from "../../../../master/constant/style/index";
-import { Container, BoxInput, SpanImage, ButtonContainer} from "../../style/Form";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,12 +32,15 @@ const Contact = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { weightState, weightDispatch } = context;
+  const { orderState, orderDispatch } = context;
 
   // USE STATE
-  const [dataWeight, setDataWeight] = useState([
+  const [dataOrder, setDataOrder] = useState([
     {
-        weight: ''
+      status: '',
+      created_at: '',
+      fk_user_id: '',
+      // fk_city_id: ''
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -47,11 +49,11 @@ const Contact = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
-    console.log(`dataWeight: `, dataWeight);
+    console.log(`dataOrder: `, dataOrder);
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = 'weight'
+  const endPoint = 'order'
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -59,7 +61,7 @@ const Contact = () => {
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
-          setDataWeight(res.data.data);
+          setDataOrder(res.data.data);
         } else {
           console.log("Error");
         }
@@ -70,7 +72,14 @@ const Contact = () => {
   };
 
   // POST
-  const postAPI = async (data) => {
+  const postAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("status", form.status);
+    data.append("created_at", form.created_at);
+    data.append("fk_user_id", form.fk_user_id);
+    // data.append("pk_city_id", form.pk_city_id);
+
     axios
       .post(url + `${endPoint}_input`, data, {
         headers: {
@@ -79,7 +88,7 @@ const Contact = () => {
       })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Weight successfuly created!`);
+        console.log(`Category successfuly created!`);
         console.log(res);
         return res;
       })
@@ -104,14 +113,10 @@ const Contact = () => {
   // UPDATE
   const updateAPI = async (data) => {
     axios
-      .put(url + `${endPoint}_update`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Article successfuly created!`);
+        console.log(`Contact successfuly updated!`);
         console.log(res);
         return res;
       })
@@ -126,22 +131,25 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isUpdate) {
-      updateAPI(weightState);
+      updateAPI(orderState);
       setIsUpdate(false);
     } else {
-      postAPI(weightState);
+      postAPI(orderState);
     }
-  
-    setDataWeight([
+
+    setDataOrder([
       {
-        ...dataWeight,
-        type: weightState.type
+        ...dataOrder,
+        status: orderState.status,
+        created_at: orderState.created_at,
+        fk_user_id: orderState.fk_user_id,
+        // // fk_city_id: orderState.fk_city_id
       },
     ]);
 
     clearFormData();
 
-    console.log(`WEIGHT STATE SUBMIT: `, weightState);
+    console.log(`CONTACT STATE SUBMIT: `, orderState);
   };
 
   // HANDLE DELETE
@@ -151,11 +159,17 @@ const Contact = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    // console.log(`index update: `, index);
+    console.log(`data id update: `, data.pk_order_id);
     setIsUpdate(true);
     setIndexUpdate(index);
-    weightDispatch(cmsAction(`type`, data.type));
+    orderDispatch(cmsAction(`pk_order_id`, data.pk_order_id));
+    orderDispatch(cmsAction(`status`, data.status));
+    orderDispatch(cmsAction(`created_at`, data.created_at));
+    orderDispatch(cmsAction(`fk_user_id`, data.fk_user_id));
+    // // orderDispatch(cmsAction(`fk_city_id`, data.fk_city_id));
 
-    console.log(`update from weightState: `, weightState);
+    console.log(`update from orderState: `, orderState);
   };
 
   // HANDLE CANCEL
@@ -166,19 +180,21 @@ const Contact = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    weightDispatch(cmsAction(`type`, ''));
-  
+    orderDispatch(cmsAction(`status`, ""));
+    orderDispatch(cmsAction(`created_at`, ''));
+    orderDispatch(cmsAction(`fk_user_id`, ''));
+    // orderDispatch(cmsAction(`fk_city_id`, ''));
+
   };
 
   // FORM CHANGE
   const formChange = (name, value) => {
-    weightDispatch(cmsAction(name, value));
+    orderDispatch(cmsAction(name, value));
   };
 
   return (
-    <Container>
-      <h4>Weight input</h4>
-      <BoxInput>
+    <div className="cmsForm">
+      <h3>Order input</h3>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -187,11 +203,27 @@ const Contact = () => {
         autoComplete="off"
       >
         <TextField
-          value={weightState.type}
-          name="type"
-          onChange={(e) => formChange(`type`, e.target.value)}
+          value={orderState.status}
+          name="status"
+          onChange={(e) => formChange(`status`, e.target.value)}
           id="outlined-basic"
-          label="Weight Type"
+          label="Order status"
+          variant="outlined"
+        />
+        <TextField
+          value={orderState.created_at}
+          name="created_at"
+          onChange={(e) => formChange(`created_at`, e.target.value)}
+          id="outlined-basic"
+          label="Created at"
+          variant="outlined"
+        />
+        <TextField
+          value={orderState.fk_user_id}
+          name="fk_user_id"
+          onChange={(e) => formChange(`fk_user_id`, e.target.value)}
+          id="outlined-basic"
+          label="User_ID"
           variant="outlined"
         />
        
@@ -200,7 +232,6 @@ const Contact = () => {
           variant="contained"
           color="primary"
           type="submit"
-          style={{ backgroundColor: `${colors.green}`, marginLeft: "25px" }}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -215,22 +246,22 @@ const Contact = () => {
           </Button>
         )}
       </form>
-      </BoxInput>
-      <br />
-        <h4>Weight Data</h4>
       <div>
-       
-        {dataWeight.map(
+        <br />
+        <h3>Result: </h3>
+        {dataOrder.map(
           (data, index) => (
-            console.log(`data weight map: `, dataWeight),
+            console.log(`data contact map: `, dataOrder),
             (
               <ul className='map' key={index}>
-                <li>WEIGHT ID: <span>{data.pk_weight_id}</span></li>
-                <li>WEIGHT: <span>{data.weight}</span></li>
+                <li>ORDER ID: <span>{data.pk_order_id}</span></li>
+                <li>ORDER STATUS: <span>{data.status}</span></li>
+                <li>CREATED AT: <span>{data.created_at}</span></li>
+                <li>USER_ID: <span>{data.fk_user_id}</span></li>
                 {
                   <div>
                     <button
-                      onClick={() => handleDelete(data.pk_weight_id, index)}
+                      onClick={() => handleDelete(data.pk_order_id, index)}
                     >
                       delete
                     </button>
@@ -240,13 +271,13 @@ const Contact = () => {
                     <br />
                   </div>
                 }
-                <br/>
+                <br />
               </ul>
             )
           )
         )}
       </div>
-    </Container>
+    </div>
   );
 };
 
