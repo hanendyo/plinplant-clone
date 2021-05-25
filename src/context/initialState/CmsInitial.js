@@ -59,7 +59,6 @@ export default {
         password: '',
         birth_date: '',
         picture: '',
-        fk_login_id: '',
         fk_contact_id: '',
         fk_gender_id: ''
     },

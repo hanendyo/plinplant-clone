@@ -37,10 +37,10 @@ const Contact = () => {
   // USE STATE
   const [dataContact, setDataContact] = useState([
     {
-        recipient_name: '',
-        address: '',
-        phone_number: '',
-        fk_city_id: ''
+      recipient_name: '',
+      address: '',
+      phone_number: '',
+      fk_city_id: ''
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -78,7 +78,7 @@ const Contact = () => {
     data.append("recipient_name", form.recipient_name);
     data.append("address", form.address);
     data.append("phone_number", form.phone_number);
-    data.append("fk_city_id", form.fk_city_id);
+    data.append("pk_city_id", form.pk_city_id);
 
     axios
       .post(url + `${endPoint}_input`, data, {
@@ -88,7 +88,7 @@ const Contact = () => {
       })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Contact successfuly created!`);
+        console.log(`Category successfuly created!`);
         console.log(res);
         return res;
       })
@@ -111,20 +111,9 @@ const Contact = () => {
   };
 
   // UPDATE
-  const updateAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("recipient_name", form.recipient_name);
-    data.append("address", form.address);
-    data.append("phone_number", form.phone_number);
-    data.append("fk_city_id", form.fk_city_id);
-
+  const updateAPI = async (data) => {
     axios
-      .put(url + `${endPoint}_input`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`Contact successfuly updated!`);
@@ -147,7 +136,7 @@ const Contact = () => {
     } else {
       postAPI(contactState);
     }
-  
+
     setDataContact([
       {
         ...dataContact,
@@ -171,14 +160,15 @@ const Contact = () => {
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
     // console.log(`index update: `, index);
-    // console.log(`data id update: `, data.pk_article_id);
+    console.log(`data id update: `, data.pk_contact_id);
     setIsUpdate(true);
     setIndexUpdate(index);
+    contactDispatch(cmsAction(`pk_contact_id`, data.pk_contact_id));
     contactDispatch(cmsAction(`recipient_name`, data.recipient_name));
     contactDispatch(cmsAction(`address`, data.address));
     contactDispatch(cmsAction(`phone_number`, data.phone_number));
     contactDispatch(cmsAction(`fk_city_id`, data.fk_city_id));
-    
+
     // console.log(`update from dataContact: `, dataContact[index]);
     // console.log(`update from dataContact: `, dataContact[index]);
     console.log(`update from contactState: `, contactState);
@@ -194,9 +184,9 @@ const Contact = () => {
   const clearFormData = () => {
     contactDispatch(cmsAction(`recipient_name`, ""));
     contactDispatch(cmsAction(`address`, ''));
-    contactDispatch(cmsAction(`phone_number`,''));
+    contactDispatch(cmsAction(`phone_number`, ''));
     contactDispatch(cmsAction(`fk_city_id`, ''));
-  
+
   };
 
   // FORM CHANGE
@@ -270,13 +260,13 @@ const Contact = () => {
         <h3>Result: </h3>
         {dataContact.map(
           (data, index) => (
-            console.log(`data article map: `, dataContact),
+            console.log(`data contact map: `, dataContact),
             (
               <ul className='map' key={index}>
                 <li>CONTACT ID: <span>{data.pk_contact_id}</span></li>
                 <li>RECIPIENT NAME: <span>{data.recipient_name}</span></li>
                 <li>ADDRESS: <span>{data.address}</span></li>
-                <li>PHONE NUMBER: <span>{data.recipient_name}</span></li>
+                <li>PHONE NUMBER: <span>{data.phone_number}</span></li>
                 <li>CITY ID: <span>{data.fk_city_id}</span></li>
                 {
                   <div>
@@ -291,7 +281,7 @@ const Contact = () => {
                     <br />
                   </div>
                 }
-                <br/>
+                <br />
               </ul>
             )
           )

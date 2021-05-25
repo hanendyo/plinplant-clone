@@ -42,11 +42,11 @@ const PriceList = () => {
             young_price: "",
             mature_price: "",
             fk_plant_breeding_id: "",
+            fk_stock_id: ''
         },
     ]);
     const [isUpdate, setIsUpdate] = useState(false);
     const [indexUpdate, setIndexUpdate] = useState(0);
-    const [fileImage, setFileImage] = useState(null);
 
     // USE EFFECT
     useEffect(() => {
@@ -75,21 +75,9 @@ const PriceList = () => {
     };
 
     // POST
-    const postAPI = async (form) => {
-        const data = new FormData();
-        console.log(`formdata:`, form);
-        data.append("seed_price", form.seed_price);
-        data.append("mature_price", form.mature_price);
-        data.append("fk_plant_breeding_id", form.fk_plant_breeding_id);
-        data.append("young_price", form.young_price);
-        data.append("tuber_price", form.tuber_price);
-
+    const postAPI = async (data) => {
         axios
-            .post(url + endPoint + `_input`, data, {
-                headers: {
-                    "fk_plant_breeding_id-type": "multipart/form-data",
-                },
-            })
+            .post(url + endPoint + `_input`, data)
             .then((res) => {
                 getAllDataAPI();
                 console.log(`Price list successfuly created!`);
@@ -115,22 +103,10 @@ const PriceList = () => {
     };
 
     // UPDATE
-    const updateAPI = async (form) => {
+    const updateAPI = async (data) => {
         console.log(`DATA UPDATE: `, data);
-        const data = new FormData();
-        console.log(`formdata:`, form);
-        data.append("seed_price", form.seed_price);
-        data.append("mature_price", form.mature_price);
-        data.append("fk_plant_breeding_id", form.fk_plant_breeding_id);
-        data.append("young_price", form.young_price);
-        data.append("tuber_price", form.tuber_price);
-
         axios
-            .put(url + endPoint + `_update`, data, {
-                headers: {
-                    "fk_plant_breeding_id-type": "multipart/form-data",
-                },
-            })
+            .put(url + endPoint + `_update`, data)
             .then((res) => {
                 getAllDataAPI();
                 console.log(`Article successfuly updated!`);
@@ -197,10 +173,11 @@ const PriceList = () => {
     // CLEAR FORM
     const clearFormData = () => {
         priceListDispatch(cmsAction(`seed_price`, ""));
-        priceListDispatch(cmsAction(`mature_price`, ""));
-        priceListDispatch(cmsAction(`fk_plant_breeding_id`, ""));
-        priceListDispatch(cmsAction(`young_price`, ""));
         priceListDispatch(cmsAction(`tuber_price`, null));
+        priceListDispatch(cmsAction(`mature_price`, ""));
+        priceListDispatch(cmsAction(`young_price`, ""));
+        priceListDispatch(cmsAction(`fk_plant_breeding_id`, ""));
+        priceListDispatch(cmsAction(`fk_stock_id`, ""));
     };
 
     // FORM CHANGE
@@ -208,11 +185,6 @@ const PriceList = () => {
         priceListDispatch(cmsAction(name, value));
     };
 
-    const formImage = (e) => {
-        const img = e.target.files[0];
-        priceListDispatch(cmsAction("tuber_price", img));
-        setFileImage(URL.createObjectURL(img));
-    };
 
     return (
         <div className="article cmsForm">
@@ -229,7 +201,7 @@ const PriceList = () => {
                     name="seed_price"
                     onChange={(e) => formChange(`seed_price`, e.target.value)}
                     id="outlined-basic"
-                    label="seed_price"
+                    label="Seed price"
                     variant="outlined"
                 />
 
@@ -238,7 +210,7 @@ const PriceList = () => {
                     onChange={(e) => formChange("tuber_price", e.target.value)}
                     name="tuber_price"
                     id="outlined-basic"
-                    label="Created at"
+                    label="Tuber price"
                     variant="outlined"
                 />
 
@@ -247,7 +219,7 @@ const PriceList = () => {
                     onChange={(e) => formChange("young_price", e.target.value)}
                     name="young_price"
                     id="outlined-basic"
-                    label="Created at"
+                    label="Young price"
                     variant="outlined"
                 />
 
@@ -256,7 +228,7 @@ const PriceList = () => {
                     onChange={(e) => formChange("mature_price", e.target.value)}
                     name="mature_price"
                     id="outlined-basic"
-                    label="mature_price"
+                    label="Mature price"
                     variant="outlined"
                 />
 
@@ -264,10 +236,8 @@ const PriceList = () => {
                     value={priceListState.fk_plant_breeding_id}
                     onChange={(e) => formChange("fk_plant_breeding_id", e.target.value)}
                     name="fk_plant_breeding_id"
-                    id="outlined-multiline-static"
-                    label="fk_plant_breeding_id"
-                    multiline
-                    rows={10}
+                    id="outlined-basic"
+                    label="Plant_breeding_id"
                     variant="outlined"
                 />
 
@@ -275,10 +245,8 @@ const PriceList = () => {
                     value={priceListState.fk_stock_id}
                     onChange={(e) => formChange("fk_stock_id", e.target.value)}
                     name="fk_stock_id"
-                    id="outlined-multiline-static"
-                    label="fk_stock_id"
-                    multiline
-                    rows={10}
+                    id="outlined-basic"
+                    label="Stock_id"
                     variant="outlined"
                 />
 
@@ -315,20 +283,23 @@ const PriceList = () => {
                                 <li>
                                     ARTICLE ID: <span>{data.pk_article_id}</span>
                                 </li>
-                                {/* <li>
-                  IMAGE: <span>{data.image}</span>'
-                </li> */}
                                 <li>
-                                    seed_price: <span>{data.seed_price}</span>
+                                    SEED PRICE: <span>{data.seed_price}</span>
                                 </li>
                                 <li>
-                                    CREATED AT: <span>{data.young_price}</span>
+                                    TUBER PRICE: <span>{data.tuber_price}</span>
                                 </li>
                                 <li>
-                                    mature_price: <span>{data.mature_price}</span>
+                                    YOUNG PLANT PRICE: <span>{data.young_price}</span>
                                 </li>
                                 <li>
-                                    fk_plant_breeding_id: <span>{data.fk_plant_breeding_id}</span>
+                                    MATURE PLANT PRICE: <span>{data.mature_price}</span>
+                                </li>
+                                <li>
+                                    PLANT_BREEDING_ID: <span>{data.fk_plant_breeding_id}</span>
+                                </li>
+                                <li>
+                                   STOCK_ID: <span>{data.fk_stock_id}</span>
                                 </li>
                                 {
                                     <div>

@@ -6,7 +6,7 @@ import {
 } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
-import { categoryPost, cmsAction } from "../../../context/actions/CmsAction";
+import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
 import "../CMS.css";
 
@@ -51,19 +51,19 @@ const Category = () => {
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = 'city'
+  const endPoint = 'category'
 
   // GET
   const getAllDatasAPI = async () => {
     await axios
-      .get(url + "category_get_all_datas")
+      .get(url + endPoint + "_get_all_datas")
       .then((res) => {
-        if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
-          setDataCategory(res.data.data);
-        } else {
-          console.log("Error");
-        }
+        console.log(`GET RES DATA DATA: `, res.data.data);
+        setDataCategory(res.data.data);
+        // if (res.status === 200) {
+        // } else {
+        //   console.log("Error");
+        // }
       })
       .catch((err) => {
         console.log(err);
@@ -71,7 +71,7 @@ const Category = () => {
   };
 
   // POST
-  const categoryPost = async (form) => {
+  const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
     data.append("pk_category_id", form.pk_category_id);
@@ -94,12 +94,20 @@ const Category = () => {
         console.log(err);
         return err;
       });
+    // await axios.post(url + endPoint + '_input', form)
+    // .then((res)=>{
+    //   getAllDatasAPI();
+    //   console.log(res);
+    // })
+    // .catch(err=> {
+    //   console.log(err);
+    // })
   };
 
   // DELETE
-  const categoryDelete = async (id, index) => {
+  const deleteAPI = async (id, index) => {
     await axios
-      .delete(url + "category_delete/" + id)
+      .delete(url + endPoint + "_delete/" + id)
       .then((deleted) => {
         console.log(`DELETED: `, deleted);
         getAllDatasAPI();
@@ -108,21 +116,12 @@ const Category = () => {
   };
 
   // UPDATE
-  const categoryUpdate = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("pk_category_id", form.pk_category_id);
-    data.append("category_name", form.category_name);
-
+  const updateAPI = async (data) => {
     axios
-      .put(url + `${endPoint}_input`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Category successfuly created!`);
+        console.log(`Category successfuly updated!`);
         console.log(res);
         return res;
       })
@@ -137,10 +136,10 @@ const Category = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isUpdate) {
-      categoryUpdate(categoryState);
+      updateAPI(categoryState);
       setIsUpdate(false);
     } else {
-      categoryPost(categoryState);
+      postAPI(categoryState);
     }
   
     setDataCategory([
@@ -154,29 +153,19 @@ const Category = () => {
     clearFormData();
 
     console.log(`CATEGORY STATE SUBMIT: `, categoryState);
-    // console.log(`ARTICLE STATE AUTHOR: `, categoryState.author);
-    // console.log(`DATA ARTICLE SUBMIT: `, dataCategory);
-    // console.log(`DATA ARTICLE AUTHOR: `, dataCategory.author);
-    // console.log(`UPDATED ARTICLE STATE: `, categoryState);
-    // console.log(`UPDATED ARTICLE STATE AUTHOR: `, categoryState.author);
   };
 
   // HANDLE DELETE
   const handleDelete = (id, index) => {
-    categoryDelete(id, index);
+    deleteAPI(id, index);
   };
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
-    // console.log(`index update: `, index);
-    // console.log(`data id update: `, data.pk_article_id);
     setIsUpdate(true);
     setIndexUpdate(index);
     categoryDispatch(cmsAction(`category_name`, data.category_name));
     categoryDispatch(cmsAction(`pk_category_id`, data.pk_category_id));
-    
-    // console.log(`update from dataCategory: `, dataCategory[index]);
-    // console.log(`update from dataCategory: `, dataCategory[index]);
     console.log(`update from categoryState: `, categoryState);
   };
 
@@ -221,9 +210,10 @@ const Category = () => {
           name="pk_category_id"
           onChange={(e) => formChange(`pk_category_id`, e.target.value)}
           id="outlined-basic"
-          label="ID (input 1-4)"
+          label="Category ID (input 1-4)"
           variant="outlined"
-        />
+          />
+          <p style={{fontSize:'15px'}}>note: ID tidak bisa diedit, edit NAME saja!</p>
         <Button
           className={classes.button}
           variant="contained"
@@ -252,7 +242,7 @@ const Category = () => {
             (
               <ul className='map' key={index}>
                 <li>CATEGORY NAME: <span>{data.category_name}</span></li>
-                <li>ID: <span>{data.pk_category_id}</span></li>
+                <li>CATEGORY ID: <span>{data.pk_category_id}</span></li>
                 {
                   <div>
                     <button

@@ -47,6 +47,7 @@ const PlantBreeding = () => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
   const [fileImage, setFileImage] = useState([]);
+  const [imageUpload, setImageUpload] = useState([])
 
   // USE EFFECT
   useEffect(() => {
@@ -75,7 +76,7 @@ const PlantBreeding = () => {
 
   // POST
   const postAPI = async (form) => {
-    // const fileImg = fileImage
+    console.log(`DATA POST: `, form);
     const data = new FormData();
     console.log(`formdata:`, form);
     data.append("seed", form.seed);
@@ -83,9 +84,13 @@ const PlantBreeding = () => {
     data.append("young", form.young);
     data.append("mature", form.mature);
     data.append("seed_image", form.seed_image);
+    data.append("seed_image_upload", imageUpload[0]);
     data.append("tuber_image", form.tuber_image);
+    data.append("tuber_image_upload", imageUpload[1]);
     data.append("young_image", form.young_image);
+    data.append("young_image_upload", imageUpload[2]);
     data.append("mature_image", form.mature_image);
+    data.append("mature_image_upload", imageUpload[3]);
 
     axios
       .post(url + `${endPoint}_input`, data, {
@@ -95,7 +100,7 @@ const PlantBreeding = () => {
       })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Plant breeeding successfuly created!`);
+        console.log(`Plant breeding successfuly created!`);
         console.log(res);
         return res;
       })
@@ -118,28 +123,12 @@ const PlantBreeding = () => {
   };
 
   // UPDATE
-  const updateAPI = async (form) => {
-    console.log(`DATA UPDATE: `, form);
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("seed", form.seed);
-    data.append("tuber", form.tuber);
-    data.append("young", form.young);
-    data.append("mature", form.mature);
-    data.append("seed_image", form.seed_image);
-    data.append("tuber_image", form.tuber_image);
-    data.append("young_image", form.young_image);
-    data.append("mature_image", form.mature_image);
-
+  const updateAPI = async (data) => {
     axios
-      .put(url + `${endPoint}_update`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Article successfuly created!`);
+        console.log(`Plant breeding successfuly updated!`);
         console.log(res);
         return res;
       })
@@ -227,9 +216,12 @@ const PlantBreeding = () => {
 
   const formImage = async (e) => {
     const img = e.target.files[0];
+    const imgName = e.target.files[0].name
     const name = e.target.name;
     await setFileImage((fileImage) => [...fileImage, URL.createObjectURL(img)]);
-    plantBreedingDispatch(cmsAction(name, img));
+    await setImageUpload((imageUpload) => [...imageUpload,(img)]);
+    plantBreedingDispatch(cmsAction(name, imgName));
+    console.log(`IMG UPLOAD: `, imageUpload);
   };
 
   return (
