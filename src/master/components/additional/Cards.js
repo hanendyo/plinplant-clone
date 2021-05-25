@@ -6,10 +6,10 @@ import Rating from '../../../master/components/additional/Rating';
 import Quantity from './Quantity';
 import { FaCheck, FaCircle, FaRegTrashAlt } from 'react-icons/fa';
 import StatusOrder from './StatusOrder';
-import { Link } from 'react-router-dom';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { openModalReview } from '../../../context/actions';
 import { useMediaQuery } from 'react-responsive';
+import p from '../../../fajariadi/assets/images/dummy.jpg';
 
 const Cards = ({
   name,
@@ -75,7 +75,7 @@ const Cards = ({
             {/* END OF BUTTON CONTAINER */}
           </div>
 
-          <img src={img} alt='' />
+          <img src={process.env.PUBLIC_URL + `/images/${img}`} alt='' />
         </CardProductLandingPage>
       )}
 
@@ -103,7 +103,7 @@ const Cards = ({
             {/* END OF BUTTON CONTAINER */}
           </div>
 
-          <img src={img} alt='' />
+          <img src={process.env.PUBLIC_URL + `/images/${img}`} alt='' />
         </CardProductSearched>
       )}
 
