@@ -68,7 +68,7 @@ const upload = require("../..");
 // POST
 router.post("/article_input", upload.single('article_image_upload'), article_input);
 router.post("/plant_input",upload.single('plant_image_upload'), plant_input);
-router.post("/category_input", category_input);
+router.post("/category_input",upload.none(), category_input);
 router.post("/review_input", review_input);
 router.post("/plant_breeding_input",
 upload.fields(
@@ -87,12 +87,12 @@ upload.fields(
 ),plant_breeding_input);
 router.post("/price_list_input", price_list_input);
 router.post("/stock_input", stock_input);
-router.post("/order_item_input", order_item_input);
-router.post("/order_input", order_input);
+router.post("/order_item_input", upload.none(),order_item_input);
+router.post("/order_input",upload.none(), order_input);
 router.post("/user_input", upload.single('picture_upload'),user_input);
 router.post("/contact_input", contact_input);
-router.post("/gender_input", gender_input);
-router.post("/city_input", city_input);
+router.post("/gender_input", upload.none(),gender_input);
+router.post("/city_input",upload.none(), city_input);
 router.post("/shipping_charges_input", shipping_charges_input);
 router.post("/weight_input", weight_input);
 
@@ -133,15 +133,28 @@ router.delete("/user_delete/:id", user_delete);
 router.delete("/weight_delete/:id", weight_delete);
 
 // UPDATE
-router.put("/article_update",upload.single('article_image_upload'),article_update);
+router.put("/article_update", upload.single('article_image_upload'),article_update);
 router.put("/category_update", category_update);
 router.put("/city_update", city_update);
 router.put("/contact_update", contact_update);
 router.put("/gender_update", gender_update);
 router.put("/order_update", order_update);
 router.put("/order_item_update", order_item_update);
-router.put("/plant_update", plant_update);
-router.put("/plant_breeding_update", plant_breeding_update);
+router.put("/plant_update",upload.single('plant_image_upload'), plant_update);
+router.put("/plant_breeding_update", upload.fields(
+  [{
+  name: 'seed_image_upload', maxCount: 1
+  },
+  {
+    name: 'tuber_image_upload', maxCount: 1
+  },
+  {
+    name: 'young_image_upload', maxCount: 1
+  },
+  {
+    name: 'mature_image_upload', maxCount: 1
+  },]
+), plant_breeding_update);
 router.put("/price_list_update", price_list_update);
 router.put("/review_update", review_update);
 router.put("/shipping_charges_update", shipping_charges_update);

@@ -204,12 +204,13 @@ module.exports = {
   },
   contactUpdate: (data, callback) => {
     pool.query(
-      `update table_contact set recipient_name=?, address=?, phone_number=?,fk_city_id=? where pk_contact_id=?`,
+      `update table_contact set recipient_name=?, address=?, phone_number=?, fk_city_id=? where pk_contact_id=?`,
       [
         data.recipient_name,
         data.address,
         data.phone_number,
         data.fk_city_id,
+        data.pk_contact_id
       ],
       (error, result, fields)=>{
         if (error) {
@@ -256,10 +257,12 @@ module.exports = {
     );
   },
   genderUpdate: (data, callback) => {
+    console.log(`gender data upadteL: `, data);
     pool.query(
       `update table_gender set type=? where pk_gender_id=?`,
       [
-        data.type
+        data.type,
+        data.pk_gender_id
       ],
       (error, result, fields)=>{
         if (error) {
@@ -307,7 +310,7 @@ module.exports = {
     pool.query(
       `update table_order set status=?, created_at=?, fk_user_id=? where pk_order_id=?`,
       [
-        data.status, data.created_at, data.fk_user_id
+        data.status, data.created_at, data.fk_user_id, data.pk_order_id
       ],
       (error, result, fields)=>{
         if (error) {
@@ -353,9 +356,9 @@ module.exports = {
   },
   orderItemUpdate: (data, callback) => {
     pool.query(
-      `update table_order_item set quantity=?, fk_price_list=? where pk_order_item_id=?`,
+      `update table_order_item set quantity=?, fk_price_list_id=? where pk_order_item_id=?`,
       [
-        data.quantity, data.fk_price_list_id
+        data.quantity, data.fk_price_list_id, data.pk_order_item_id
       ],
       (error, result, fields)=>{
         if (error) {
@@ -368,12 +371,13 @@ module.exports = {
     );
   },
   plantInputTable: (data, callback) => {
+    console.log(`SERVICE DATA: `, data);
     const sql = `insert into table_plant (plant_name, plant_image, plant_origin, plant_qualities, plant_use, days_to_sprout, matures_in, growth_type, fk_category_id, fk_review_id)values(?,?,?,?,?,?,?,?,?,?)`;
     const column = [
       data.plant_name,
       data.plant_image,
       data.plant_origin,
-      data.plant_origin,
+      data.plant_qualities,
       data.plant_use,
       data.days_to_sprout,
       data.matures_in,
@@ -414,16 +418,17 @@ module.exports = {
     pool.query(
       `update table_plant set plant_name=?, plant_image=?, plant_origin=?, plant_qualities=?, plant_use=?, days_to_sprout=?, matures_in=?, growth_type=?, fk_category_id=?, fk_review_id=? where pk_plant_id=?`,
       [
-        data.name,
-        data.image,
-        data.origin,
-        data.qualities,
-        data.use,
+        data.plant_name,
+        data.plant_image,
+        data.plant_origin,
+        data.plant_qualities,
+        data.plant_use,
         data.days_to_sprout,
         data.matures_in,
         data.growth_type,
         data.fk_category_id,
         data.fk_review_id,
+        data.pk_plant_id
       ],
       (error, result, fields)=>{
         if (error) {
@@ -491,6 +496,7 @@ module.exports = {
         data.young_image,
         data.mature_image,
         data.fk_plant_id,
+        data.pk_plant_breeding_id
       ],
       (error, result, fields)=>{
         if (error) {

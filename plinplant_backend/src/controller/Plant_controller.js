@@ -263,6 +263,7 @@ module.exports = {
         const body = req.body
         console.log(`BE BODY: `, body);
         console.log(`BE ID: `, id);
+        // console.log(`REQ CITY: `, req);
         cityUpdate(body, (err, result) => {
             if (err) {
                 console.log(`ERROR!: `, err);
@@ -340,6 +341,8 @@ module.exports = {
     },
     gender_input: (req, res) => {
         const body = req.body;
+        console.log(`BE BODY: `, body);
+        // console.log(`BE ID: `, id);
         genderInputTable(body, (err, result) => {
             if (err) {
                 return res.json({
