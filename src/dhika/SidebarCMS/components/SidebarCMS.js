@@ -24,11 +24,7 @@ const Nav = styled.div`
   align-items: center;
   position: sticky;
   top: 0;
-<<<<<<< HEAD
-  z-index: 99;s
-=======
   z-index: 99;
->>>>>>> 90cfd21ecdf75d34b782bc99e101a007413edb65
 `;
 
 const NavIcon = styled.div`

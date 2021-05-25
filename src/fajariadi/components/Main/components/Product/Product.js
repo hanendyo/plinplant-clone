@@ -21,12 +21,8 @@ const Product = () => {
     .toLowerCase()
     .split("")
     .filter((item) => item.trim())
-<<<<<<< HEAD
-    .join('');
-=======
     .join("");
   console.log(searching);
->>>>>>> 90cfd21ecdf75d34b782bc99e101a007413edb65
 
   const searchedProduct = products.map((item) =>
     item.name
