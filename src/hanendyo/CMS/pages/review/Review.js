@@ -72,18 +72,9 @@ const Article = () => {
     };
 
     // POST
-    const postAPI = async (form) => {
-        const data = new FormData();
-        console.log(`formdata:`, form);
-        data.append("quantity", form.quantity);
-        data.append("fk_price_list_id", form.fk_price_list_id);
-
+    const postAPI = async (data) => {
         axios
-            .post(url + endPoint + `_input`, data, {
-                headers: {
-                    "content-type": "multipart/form-data",
-                },
-            })
+            .post(url + endPoint + `_input`, data)
             .then((res) => {
                 getAllDataAPI();
                 console.log(`Article successfuly created!`);
@@ -109,19 +100,10 @@ const Article = () => {
     };
 
     // UPDATE
-    const updateAPI = async (form) => {
+    const updateAPI = async (data) => {
         console.log(`DATA UPDATE: `, data);
-        const data = new FormData();
-        console.log(`formdata:`, form);
-        data.append("quantity", form.quantity);
-        data.append("fk_price_list_id", form.fk_price_list_id);
-
         axios
-            .put(url + endPoint + `_update`, data, {
-                headers: {
-                    "content-type": "multipart/form-data",
-                },
-            })
+            .put(url + endPoint + `_update`, data)
             .then((res) => {
                 getAllDataAPI();
                 console.log(`Review successfuly updated!`);

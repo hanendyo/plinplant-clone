@@ -74,15 +74,7 @@ const PriceList = () => {
     };
 
     // POST
-    const postAPI = async (form) => {
-        // const fileImg = fileImage
-        const data = new FormData();
-        console.log(`formdata:`, form);
-        data.append("seed_stock", form.seed_stock);
-        data.append("tuber_stock", form.tuber_stock);
-        data.append("young_stock", form.young_stock);
-        data.append("mature_stock", form.mature_stock);
-
+    const postAPI = async (data) => {
         axios
             .post(url + endPoint + `_input`, data, {
                 headers: {
@@ -114,15 +106,7 @@ const PriceList = () => {
     };
 
     // UPDATE
-    const updateAPI = async (form) => {
-        console.log(`DATA UPDATE: `, data);
-        const data = new FormData();
-        console.log(`formdata:`, form);
-        data.append("seed_stock", form.seed_stock);
-        data.append("tuber_stock", form.tuber_stock);
-        data.append("young_stock", form.young_stock);
-        data.append("mature_stock", form.mature_stock);
-
+    const updateAPI = async (data) => {
         axios
             .put(url + endPoint + `_update`, data, {
                 headers: {

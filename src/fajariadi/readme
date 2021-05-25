@@ -1,10 +1,10 @@
 :::: BUGS ::::
-Link -> Pindah Page -> Scroll -> FIXED BY CHANGE tag Link from react-router to tag a
 
 
 :::: NEED TO FIX ::::
-INFO HOVER /shop that direct to /ensiklopedia
+
 
 :::: TODO ::::
-RESPONSIVE PROFILE
+KLIK ENSIKLOPEDIA -> FETCH PLANT BY ID -> TANGKEP TABLE PLANT JOIN TABLE PLANT BREEDING -> DISPLAY DI ENSIKLOPEDIA
+
 
