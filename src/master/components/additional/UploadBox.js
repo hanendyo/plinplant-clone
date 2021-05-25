@@ -134,8 +134,8 @@ const ModalBox = styled.div`
   }
 
   @media (max-width: 760px) {
-    margin-right: ${({ profile }) => (profile ? 'unset' : 'auto')};
-    margin-bottom: ${({ profile }) => (profile ? '30px' : 'auto')};
+    margin-right: ${({ profile }) => (profile ? 'unset' : 'unset')};
+    margin-bottom: ${({ profile }) => (profile ? '30px' : 'unset')};
   }
 `;
 

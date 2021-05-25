@@ -53,13 +53,13 @@ export const Container = styled(StyledContainer)`
 
   @media (max-width: 760px) {
     flex-direction: column;
-    padding-top: 110px;
+    padding-top: 100px;
 
     & > img:first-of-type {
       max-width: 500px;
       width: 100%;
       margin-right: unset;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     & > img:nth-of-type(2) {
@@ -90,6 +90,10 @@ export const Typography = styled.div`
 
   @media (max-width: 760px) {
     position: unset;
+
+    & > p {
+      margin: 10px 0 20px;
+    }
   }
 `;
 
@@ -117,6 +121,6 @@ export const ScrollBtn = styled.div`
   }
 
   @media (max-width: 760px) {
-    display: none;
+    /* display: none; */
   }
 `;

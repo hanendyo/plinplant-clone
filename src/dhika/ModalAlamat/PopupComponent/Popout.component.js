@@ -28,6 +28,11 @@ export const PopupInner = styled.div`
     text-align: center;
     margin-bottom: 20px;
   }
+
+  @media (max-width: 760px) {
+    margin: 10px;
+    padding: 20px 10px 10px;
+  }
 `;
 
 export const Button = styled.div`
@@ -45,11 +50,55 @@ export const LineData = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+
+  &:nth-of-type(1) {
+    & > div:first-of-type {
+      margin-right: 20px;
+    }
+  }
+
+  &:nth-of-type(2) {
+    & > div:first-of-type {
+      margin-right: 20px;
+    }
+
+    & > div:last-of-type {
+      width: 250px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    flex-direction: column;
+    margin-bottom: unset;
+
+    &:nth-of-type(2) {
+      & > div:last-of-type {
+        width: 100%;
+      }
+    }
+  }
 `;
 
 export const InsertData = styled.div`
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+
+  & > label {
+    color: ${colors.black};
+    font-weight: 600;
+    display: block;
+  }
+
+  & > .form {
+    width: 100%;
+  }
+
+  @media (max-width: 760px) {
+    margin-bottom: 10px;
+
+    & > .form {
+      width: 100%;
+    }
+  }
 `;
 
 export const ButtonContainer = styled.div`

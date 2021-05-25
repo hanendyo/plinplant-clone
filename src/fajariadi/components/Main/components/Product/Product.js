@@ -31,10 +31,8 @@ const Product = () => {
       .filter((item) => item.trim())
       .join("")
   );
-  console.log(searchedProduct);
 
   const searched = searchedProduct.map((item) => item.includes(searching));
-  console.log(searched);
 
   return (
     <SectionProduct id="content">
