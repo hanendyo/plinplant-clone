@@ -4,6 +4,7 @@ import SignInInitial from '../initialState/SignInInitial';
 import SignUpInitial from '../initialState/SignUpInitial';
 import { modalUploadReducer, modalReviewReducer } from '../reducer';
 import { CmsReducer } from '../reducer/CmsReducer';
+import { tablePlantReducer } from '../reducer/fetchingReducer';
 import {
   modalPilihAlamatReducer,
   modalTambahAlamatReducer,
@@ -100,6 +101,7 @@ export const ContextProvider = ({ children }) => {
     CmsInitial.weight
   );
 
+  // !::: MODAL BOXEX :::
   // ::: MODAL UPLOAD INVOICE :::
   const [modalUploadState, modalUploadDispatch] = useReducer(
     modalUploadReducer,
@@ -122,6 +124,13 @@ export const ContextProvider = ({ children }) => {
   const [modalTambahAlamatState, modalTambahAlamatDispatch] = useReducer(
     modalTambahAlamatReducer,
     false
+  );
+
+  // !::: FETCHING :::
+  // ::: FETCH TABLE PLANT :::
+  const [tablePlantState, tablePlantDispatch] = useReducer(
+    tablePlantReducer,
+    []
   );
 
   return (
@@ -209,6 +218,10 @@ export const ContextProvider = ({ children }) => {
         // ::: MODAL TAMBAH ALAMAT :::
         modalTambahAlamatState,
         modalTambahAlamatDispatch,
+
+        // ::: FETCH TABLE PLANT :::
+        tablePlantState,
+        tablePlantDispatch,
       }}
     >
       {children}
