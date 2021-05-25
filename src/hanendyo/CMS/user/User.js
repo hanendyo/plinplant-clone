@@ -1,27 +1,24 @@
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  makeStyles,
-  TextField,
-} from "@material-ui/core";
-import { useContext } from "react";
-import { ContextStore } from "../../../context/store/ContextStore";
-import { cmsAction } from "../../../context/actions/CmsAction";
-import axios from "axios";
-import "../CMS.css";
+import React, { useEffect, useState } from 'react';
+import { Button, makeStyles, TextField } from '@material-ui/core';
+import { useContext } from 'react';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { cmsAction } from '../../../context/actions/CmsAction';
+import axios from 'axios';
+import { colors } from '../../../master/constant/style/index';
+import { Container, BoxInput, SpanImage, ButtonContainer } from '../style/Form';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& > *": {
+    '& > *': {
       margin: theme.spacing(1),
-      width: "25ch",
-      display: "flex",
+      width: '25ch',
+      display: 'flex',
     },
     button: {
-      width: "80%",
-      margin: "5px 0",
-      backgroundColor: "rgb(187, 203, 194)",
-      color: "primary",
+      width: '80%',
+      margin: '5px 0',
+      backgroundColor: 'rgb(187, 203, 194)',
+      color: 'primary',
     },
   },
 }));
@@ -37,19 +34,19 @@ const Plant = () => {
   // USE STATE
   const [dataUser, setDataUser] = useState([
     {
-      fullname: "",
-      picture: "",
-      email: "",
-      password: "",
-      birth_date: "",
-      fk_contact_id: "",
-      fk_gender_id: "",
+      fullname: '',
+      picture: '',
+      email: '',
+      password: '',
+      birth_date: '',
+      fk_contact_id: '',
+      fk_gender_id: '',
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
   const [fileImage, setFileImage] = useState(null);
-  const [imageUpload, setImageUpload] = useState(null)
+  const [imageUpload, setImageUpload] = useState(null);
 
   // USE EFFECT
   useEffect(() => {
@@ -57,8 +54,8 @@ const Plant = () => {
     console.log(`dataUser: `, dataUser);
   }, []);
 
-  const url = "http://localhost:5000/input/";
-  const endPoint = "user";
+  const url = 'http://localhost:5000/input/';
+  const endPoint = 'user';
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -68,7 +65,7 @@ const Plant = () => {
           console.log(`GET RES DATA DATA: `, res.data.data);
           setDataUser(res.data.data);
         } else {
-          console.log("Error");
+          console.log('Error');
         }
       })
       .catch((err) => {
@@ -80,18 +77,17 @@ const Plant = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append("fullname", form.fullname);
-    data.append("picture", form.tuber);
-    data.append("picture_upload", imageUpload);
-    data.append("email", form.email);
-    data.append("birth_date", form.birth_date);
-    data.append("fk_gender_id", form.fk_gender_id);
-
+    data.append('fullname', form.fullname);
+    data.append('picture', form.tuber);
+    data.append('picture_upload', imageUpload);
+    data.append('email', form.email);
+    data.append('birth_date', form.birth_date);
+    data.append('fk_gender_id', form.fk_gender_id);
 
     axios
       .post(url + `${endPoint}_input`, data, {
         headers: {
-          "content-type": "multipart/form-data",
+          'content-type': 'multipart/form-data',
         },
       })
       .then((res) => {
@@ -122,17 +118,17 @@ const Plant = () => {
   const updateAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append("fullname", form.fullname);
-    data.append("picture", form.tuber);
-    data.append("picture_upload", imageUpload);
-    data.append("email", form.email);
-    data.append("birth_date", form.birth_date);
-    data.append("fk_gender_id", form.fk_gender_id);
+    data.append('fullname', form.fullname);
+    data.append('picture', form.tuber);
+    data.append('picture_upload', imageUpload);
+    data.append('email', form.email);
+    data.append('birth_date', form.birth_date);
+    data.append('fk_gender_id', form.fk_gender_id);
 
     axios
       .put(url + `${endPoint}_update`, data, {
         headers: {
-          "content-type": "multipart/form-data",
+          'content-type': 'multipart/form-data',
         },
       })
       .then((res) => {
@@ -204,13 +200,13 @@ const Plant = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    userDispatch(cmsAction(`fullname`, ""));
-    userDispatch(cmsAction(`picture`, ""));
-    userDispatch(cmsAction(`email`, ""));
-    userDispatch(cmsAction(`password`, ""));
-    userDispatch(cmsAction(`birth_date`, ""));
-    userDispatch(cmsAction(`fk_contact_id`, ""));
-    userDispatch(cmsAction(`fk_gender_id`, ""));
+    userDispatch(cmsAction(`fullname`, ''));
+    userDispatch(cmsAction(`picture`, ''));
+    userDispatch(cmsAction(`email`, ''));
+    userDispatch(cmsAction(`password`, ''));
+    userDispatch(cmsAction(`birth_date`, ''));
+    userDispatch(cmsAction(`fk_contact_id`, ''));
+    userDispatch(cmsAction(`fk_gender_id`, ''));
   };
 
   // FORM CHANGE
@@ -220,106 +216,144 @@ const Plant = () => {
 
   const formImage = (e) => {
     const img = e.target.files[0];
-    const imgName = e.target.files[0].name
-    userDispatch(cmsAction("image", imgName));
+    const imgName = e.target.files[0].name;
+    userDispatch(cmsAction('image', imgName));
     setFileImage(URL.createObjectURL(img));
-    setImageUpload(img)
+    setImageUpload(img);
   };
 
   return (
-    <div className="cmsForm">
-      <h3>User input</h3>
-      <form
-        encType="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          value={userState.fullname}
-          name="fullname"
-          onChange={(e) => formChange(`fullname`, e.target.value)}
-          id="outlined-basic"
-          label="Fullname"
-          variant="outlined"
-        />
-
-        <TextField
-          value={userState.email}
-          name="email"
-          onChange={(e) => formChange(`email`, e.target.value)}
-          id="outlined-basic"
-          label="Email"
-          variant="outlined"
-        />
-        <TextField
-          value={userState.password}
-          name="password"
-          onChange={(e) => formChange(`password`, e.target.value)}
-          id="outlined-basic"
-          label="Password"
-          variant="outlined"
-        />
-        <TextField
-          value={userState.birth_date}
-          name="birth_date"
-          onChange={(e) => formChange(`birth_date`, e.target.value)}
-          id="outlined-basic"
-          label="Birth date"
-          variant="outlined"
-        />
-
-        {/* ----- IMAGE ----- */}
-        <span>Pick User image:</span>
-        <input name="picture" type="file" onChange={(e) => formImage(e)} />
-        <img src={fileImage} alt="" />
-        {/* ----- IMAGE ----- */}
-
-        <TextField
-          value={userState.fk_contact_id}
-          name="fk_contact_id"
-          onChange={(e) => formChange(`fk_contact_id`, e.target.value)}
-          id="outlined-basic"
-          label="Contact_id"
-          variant="outlined"
-        />
-        <TextField
-          value={userState.fk_gender_id}
-          name="fk_gender_id"
-          onChange={(e) => formChange(`fk_gender_id`, e.target.value)}
-          id="outlined-basic"
-          label="Gender_id"
-          variant="outlined"
-        />
-
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
+    <Container>
+      <h4>User input</h4>
+      <BoxInput>
+        <form
+          encType='multipart/form-data'
+          className={classes.root}
+          onSubmit={(e) => handleSubmit(e)}
+          noValidate
+          autoComplete='off'
         >
-          {isUpdate ? "Update" : "Submit"}
-        </Button>
-        {isUpdate && (
+          <TextField
+            value={userState.fullname}
+            name='fullname'
+            onChange={(e) => formChange(`fullname`, e.target.value)}
+            id='outlined-basic'
+            label='Fullname'
+            variant='outlined'
+          />
+
+          <TextField
+            value={userState.email}
+            name='email'
+            onChange={(e) => formChange(`email`, e.target.value)}
+            id='outlined-basic'
+            label='Email'
+            variant='outlined'
+          />
+          <TextField
+            value={userState.password}
+            name='password'
+            onChange={(e) => formChange(`password`, e.target.value)}
+            id='outlined-basic'
+            label='Password'
+            variant='outlined'
+          />
+          <TextField
+            value={userState.birth_date}
+            name='birth_date'
+            onChange={(e) => formChange(`birth_date`, e.target.value)}
+            id='outlined-basic'
+            label='Birth date'
+            variant='outlined'
+          />
+
+          <TextField
+            value={userState.fk_contact_id}
+            name='fk_contact_id'
+            onChange={(e) => formChange(`fk_contact_id`, e.target.value)}
+            id='outlined-basic'
+            label='Contact_id'
+            variant='outlined'
+          />
+          <TextField
+            value={userState.fk_gender_id}
+            name='fk_gender_id'
+            onChange={(e) => formChange(`fk_gender_id`, e.target.value)}
+            id='outlined-basic'
+            label='Gender_id'
+            variant='outlined'
+          />
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <SpanImage>
+              <h6>Choose Image</h6>
+              <img src={fileImage} alt='' />
+            </SpanImage>
+            <div>
+              <input
+                accept='image/*'
+                className={classes.input}
+                id='contained-button-file'
+                multiple
+                type='file'
+                style={{ display: 'none' }}
+                onChange={(e) => formImage(e)}
+              />
+              <label htmlFor='contained-button-file'>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  component='span'
+                  style={{
+                    backgroundColor: `${colors.green}`,
+                    marginTop: '10px',
+                  }}
+                >
+                  Upload
+                </Button>
+              </label>
+            </div>
+          </div>
+          {/* ----- IMAGE ----- */}
+          {/* <span>Pick User image:</span>
+        <input name="picture" type="file" onChange={(e) => formImage(e)} />
+        <img src={fileImage} alt="" /> */}
+          {/* ----- IMAGE ----- */}
           <Button
             className={classes.button}
-            variant="contained"
-            color="primary"
-            onClick={() => handleCancel()}
+            variant='contained'
+            color='primary'
+            type='submit'
+            style={{ backgroundColor: `${colors.green}`, marginLeft: '25px' }}
           >
-            Cancel
+            {isUpdate ? 'Update' : 'Submit'}
           </Button>
-        )}
-      </form>
+          {isUpdate && (
+            <Button
+              className={classes.button}
+              variant='contained'
+              color='primary'
+              onClick={() => handleCancel()}
+            >
+              Cancel
+            </Button>
+          )}
+        </form>
+      </BoxInput>
+      <br />
+      <h4>User Data</h4>
       <div>
-        <br />
-        <h3>Result: </h3>
         {dataUser.map(
           (data, index) => (
             console.log(`data article map: `, dataUser),
             (
-              <ul className="map" key={index}>
+              <ul className='map' key={index}>
                 <li>
                   USER ID: <span>{data.pk_user_id}</span>
                 </li>
@@ -363,7 +397,7 @@ const Plant = () => {
           )
         )}
       </div>
-    </div>
+    </Container>
   );
 };
 

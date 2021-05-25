@@ -1,27 +1,24 @@
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  makeStyles,
-  TextField,
-} from "@material-ui/core";
-import { useContext } from "react";
-import { ContextStore } from "../../../context/store/ContextStore";
-import { cmsAction } from "../../../context/actions/CmsAction";
-import axios from "axios";
-import "../CMS.css";
+import React, { useEffect, useState } from 'react';
+import { Button, makeStyles, TextField } from '@material-ui/core';
+import { useContext } from 'react';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { cmsAction } from '../../../context/actions/CmsAction';
+import axios from 'axios';
+import { colors } from '../../../master/constant/style/index';
+import { Container, BoxInput, SpanImage, ButtonContainer } from '../style/Form';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& > *": {
+    '& > *': {
       margin: theme.spacing(1),
-      width: "25ch",
-      display: "flex",
+      width: '25ch',
+      display: 'flex',
     },
     button: {
-      width: "80%",
-      margin: "5px 0",
-      backgroundColor: "rgb(187, 203, 194)",
-      color: "primary",
+      width: '80%',
+      margin: '5px 0',
+      backgroundColor: 'rgb(187, 203, 194)',
+      color: 'primary',
     },
   },
 }));
@@ -37,7 +34,7 @@ const Contact = () => {
   // USE STATE
   const [dataWeight, setDataWeight] = useState([
     {
-        weight: ''
+      weight: '',
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -49,8 +46,8 @@ const Contact = () => {
     console.log(`dataWeight: `, dataWeight);
   }, []);
 
-  const url = "http://localhost:5000/input/";
-  const endPoint = 'weight'
+  const url = 'http://localhost:5000/input/';
+  const endPoint = 'weight';
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -60,7 +57,7 @@ const Contact = () => {
           console.log(`GET RES DATA DATA: `, res.data.data);
           setDataWeight(res.data.data);
         } else {
-          console.log("Error");
+          console.log('Error');
         }
       })
       .catch((err) => {
@@ -73,7 +70,7 @@ const Contact = () => {
     axios
       .post(url + `${endPoint}_input`, data, {
         headers: {
-          "content-type": "multipart/form-data",
+          'content-type': 'multipart/form-data',
         },
       })
       .then((res) => {
@@ -105,7 +102,7 @@ const Contact = () => {
     axios
       .put(url + `${endPoint}_update`, data, {
         headers: {
-          "content-type": "multipart/form-data",
+          'content-type': 'multipart/form-data',
         },
       })
       .then((res) => {
@@ -130,11 +127,11 @@ const Contact = () => {
     } else {
       postAPI(weightState);
     }
-  
+
     setDataWeight([
       {
         ...dataWeight,
-        type: weightState.type
+        type: weightState.type,
       },
     ]);
 
@@ -166,7 +163,6 @@ const Contact = () => {
   // CLEAR FORM
   const clearFormData = () => {
     weightDispatch(cmsAction(`type`, ''));
-  
   };
 
   // FORM CHANGE
@@ -175,53 +171,60 @@ const Contact = () => {
   };
 
   return (
-    <div className="cmsForm">
-      <h3>Weight input</h3>
-      <form
-        encType="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          value={weightState.type}
-          name="type"
-          onChange={(e) => formChange(`type`, e.target.value)}
-          id="outlined-basic"
-          label="Weight Type"
-          variant="outlined"
-        />
-       
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
+    <Container>
+      <h4>Weight input</h4>
+      <BoxInput>
+        <form
+          encType='multipart/form-data'
+          className={classes.root}
+          onSubmit={(e) => handleSubmit(e)}
+          noValidate
+          autoComplete='off'
         >
-          {isUpdate ? "Update" : "Submit"}
-        </Button>
-        {isUpdate && (
+          <TextField
+            value={weightState.type}
+            name='type'
+            onChange={(e) => formChange(`type`, e.target.value)}
+            id='outlined-basic'
+            label='Weight Type'
+            variant='outlined'
+          />
+
           <Button
             className={classes.button}
-            variant="contained"
-            color="primary"
-            onClick={() => handleCancel()}
+            variant='contained'
+            color='primary'
+            type='submit'
+            style={{ backgroundColor: `${colors.green}`, marginLeft: '25px' }}
           >
-            Cancel
+            {isUpdate ? 'Update' : 'Submit'}
           </Button>
-        )}
-      </form>
+          {isUpdate && (
+            <Button
+              className={classes.button}
+              variant='contained'
+              color='primary'
+              onClick={() => handleCancel()}
+            >
+              Cancel
+            </Button>
+          )}
+        </form>
+      </BoxInput>
+      <br />
+      <h4>Weight Data</h4>
       <div>
-        <br />
-        <h3>Result: </h3>
         {dataWeight.map(
           (data, index) => (
             console.log(`data weight map: `, dataWeight),
             (
               <ul className='map' key={index}>
-                <li>WEIGHT ID: <span>{data.pk_weight_id}</span></li>
-                <li>WEIGHT: <span>{data.weight}</span></li>
+                <li>
+                  WEIGHT ID: <span>{data.pk_weight_id}</span>
+                </li>
+                <li>
+                  WEIGHT: <span>{data.weight}</span>
+                </li>
                 {
                   <div>
                     <button
@@ -235,13 +238,13 @@ const Contact = () => {
                     <br />
                   </div>
                 }
-                <br/>
+                <br />
               </ul>
             )
           )
         )}
       </div>
-    </div>
+    </Container>
   );
 };
 
