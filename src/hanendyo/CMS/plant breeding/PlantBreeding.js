@@ -123,29 +123,9 @@ const PlantBreeding = () => {
   };
 
   // UPDATE
-  const updateAPI = async (form) => {
-    console.log(`DATA UPDATE: `, form);
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("seed", form.seed);
-    data.append("tuber", form.tuber);
-    data.append("young", form.young);
-    data.append("mature", form.mature);
-    data.append("seed_image", form.seed_image);
-    data.append("seed_image_upload", imageUpload[0]);
-    data.append("tuber_image", form.tuber_image);
-    data.append("tuber_image_upload", imageUpload[1]);
-    data.append("young_image", form.young_image);
-    data.append("young_image_upload", imageUpload[2]);
-    data.append("mature_image", form.mature_image);
-    data.append("mature_image_upload", imageUpload[3]);
-
+  const updateAPI = async (data) => {
     axios
-      .put(url + `${endPoint}_update`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`Plant breeding successfuly updated!`);

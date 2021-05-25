@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  makeStyles,
-  TextField,
-} from "@material-ui/core";
+import { Button, makeStyles, TextField } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
-import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
+import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
 import "../CMS.css";
 
@@ -26,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Plant = () => {
+const Article = () => {
   // USE STYLES
   const classes = useStyles();
 
@@ -52,7 +48,7 @@ const Plant = () => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
   const [reviewImage, setReviewImage] = useState(null);
-  const [imageUpload, setImageUpload] = useState(null)
+  const [imageUpload, setImageUpload] = useState(null);
 
   // USE EFFECT
   useEffect(() => {
@@ -62,10 +58,11 @@ const Plant = () => {
 
   const url = "http://localhost:5000/input/";
   const endPoint = "plant";
+
   // GET
   const getAllDatasAPI = async () => {
     await axios
-      .get(url + `${endPoint}_get_all_datas`)
+      .get(url + endPoint + "_get_all_datas")
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
@@ -85,16 +82,18 @@ const Plant = () => {
     console.log(`formdata:`, form);
     data.append("plant_name", form.plant_name);
     data.append("plant_image", form.plant_image);
-    data.append("plant_image_upload", imageUpload);
     data.append("plant_origin", form.plant_origin);
+    data.append("plant_qualities", form.plant_qualities);
     data.append("plant_use", form.plant_use);
     data.append("days_to_sprout", form.days_to_sprout);
+    data.append("matures_in", form.matures_in);
     data.append("growth_type", form.growth_type);
     data.append("fk_category_id", form.fk_category_id);
     data.append("fk_review_id", form.fk_review_id);
+    data.append("plant_image_upload", imageUpload);
 
     axios
-      .post(url + `${endPoint}_input`, data, {
+      .post(url + endPoint + `_input`, data, {
         headers: {
           "content-type": "multipart/form-data",
         },
@@ -115,7 +114,7 @@ const Plant = () => {
   // DELETE
   const deleteAPI = async (id, index) => {
     await axios
-      .delete(url + `${endPoint}_delete/` + id)
+      .delete(url + endPoint + "_delete/" + id)
       .then((deleted) => {
         console.log(`DELETED: `, deleted);
         getAllDatasAPI();
@@ -124,28 +123,12 @@ const Plant = () => {
   };
 
   // UPDATE
-  const updateAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("plant_name", form.plant_name);
-    data.append("plant_image", form.tuber);
-    data.append("plant_image_upload", imageUpload);
-    data.append("plant_origin", form.plant_origin);
-    data.append("plant_use", form.plant_use);
-    data.append("days_to_sprout", form.days_to_sprout);
-    data.append("growth_type", form.growth_type);
-    data.append("fk_category_id", form.fk_category_id);
-    data.append("fk_review_id", form.fk_review_id);
-
+  const updateAPI = async (data) => {
     axios
-      .put(url + `${endPoint}_update`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .put(url + endPoint + `_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Plant successfuly created!`);
+        console.log(`Article successfuly updated!`);
         console.log(res);
         return res;
       })
@@ -184,7 +167,7 @@ const Plant = () => {
 
     clearFormData();
 
-    console.log(`PLANT STATE SUBMIT: `, plantState);
+    console.log(`ARTICLE STATE SUBMIT: `, plantState);
   };
 
   // HANDLE DELETE
@@ -196,6 +179,7 @@ const Plant = () => {
   const handleUpdate = (data, index) => {
     setIsUpdate(true);
     setIndexUpdate(index);
+    plantDispatch(cmsAction(`pk_plant_id`, data.pk_plant_id));
     plantDispatch(cmsAction(`plant_name`, data.plant_name));
     plantDispatch(cmsAction(`plant_image`, data.plant_image));
     plantDispatch(cmsAction(`plant_origin`, data.plant_origin));
@@ -206,7 +190,6 @@ const Plant = () => {
     plantDispatch(cmsAction(`growth_type`, data.growth_type));
     plantDispatch(cmsAction(`fk_category_id`, data.fk_category_id));
     plantDispatch(cmsAction(`fk_review_id`, data.fk_review_id));
-
     console.log(`update from plantState: `, plantState);
   };
 
@@ -219,7 +202,7 @@ const Plant = () => {
   // CLEAR FORM
   const clearFormData = () => {
     plantDispatch(cmsAction(`plant_name`, ""));
-    plantDispatch(cmsAction(`plant_image`, ""));
+    plantDispatch(cmsAction(`plant_image`, ''));
     plantDispatch(cmsAction(`plant_origin`, ""));
     plantDispatch(cmsAction(`plant_qualities`, ""));
     plantDispatch(cmsAction(`plant_use`, ""));
@@ -237,14 +220,15 @@ const Plant = () => {
 
   const formImage = (e) => {
     const img = e.target.files[0];
-    const imgName = e.target.files[0].name
+    const imgName = e.target.files[0].name;
+    console.log(`IMEJ: `, img);
     plantDispatch(cmsAction("plant_image", imgName));
     setReviewImage(URL.createObjectURL(img));
-    setImageUpload(img)
+    setImageUpload(img);
   };
 
   return (
-    <div className="cmsForm">
+    <div className="article cmsForm">
       <h3>Plant input</h3>
       <form
         encType="multipart/form-data"
@@ -261,77 +245,88 @@ const Plant = () => {
           label="Plant name"
           variant="outlined"
         />
-
+   
         {/* ----- IMAGE ----- */}
-        <span>Pick plant image:</span>
-        <input name="plant_image" type="file" onChange={(e) => formImage(e)} />
+        <span>Pick image:</span>
+        <input
+          name="plant_image_upload"
+          type="file"
+          onChange={(e) => formImage(e)}
+        />
         <img src={reviewImage} alt="" />
         {/* ----- IMAGE ----- */}
 
+
         <TextField
           value={plantState.plant_origin}
+          onChange={(e) => formChange("plant_origin", e.target.value)}
           name="plant_origin"
-          onChange={(e) => formChange(`plant_origin`, e.target.value)}
           id="outlined-basic"
           label="Plant origin"
           variant="outlined"
         />
+
         <TextField
           value={plantState.plant_qualities}
+          onChange={(e) => formChange("plant_qualities", e.target.value)}
           name="plant_qualities"
-          onChange={(e) => formChange(`plant_qualities`, e.target.value)}
           id="outlined-basic"
-          label="Plant qualities"
+          label="Plant Qualities"
           variant="outlined"
         />
+
         <TextField
           value={plantState.plant_use}
+          onChange={(e) => formChange("plant_use", e.target.value)}
           name="plant_use"
-          onChange={(e) => formChange(`plant_use`, e.target.value)}
-          id="outlined-basic"
+          id="outlined-static"
           label="Plant use"
           variant="outlined"
         />
         <TextField
           value={plantState.days_to_sprout}
+          onChange={(e) => formChange("days_to_sprout", e.target.value)}
           name="days_to_sprout"
-          onChange={(e) => formChange(`days_to_sprout`, e.target.value)}
-          id="outlined-basic"
+          id="outlined-static"
           label="Days to sprout"
+          variant="outlined"
+        />
+        
+        <TextField
+          value={plantState.growth_type}
+          onChange={(e) => formChange("growth_type", e.target.value)}
+          name="growth_type"
+          id="outlined-static"
+          label="Growth type"
           variant="outlined"
         />
         <TextField
           value={plantState.matures_in}
+          onChange={(e) => formChange("matures_in", e.target.value)}
           name="matures_in"
-          onChange={(e) => formChange(`matures_in`, e.target.value)}
-          id="outlined-basic"
+          id="outlined-static"
           label="Matures in"
           variant="outlined"
         />
-        <TextField
-          value={plantState.growth_type}
-          name="growth_type"
-          onChange={(e) => formChange(`growth_type`, e.target.value)}
-          id="outlined-basic"
-          label="Growth in"
-          variant="outlined"
-        />
+        
         <TextField
           value={plantState.fk_category_id}
+          onChange={(e) => formChange("fk_category_id", e.target.value)}
           name="fk_category_id"
-          onChange={(e) => formChange(`fk_category_id`, e.target.value)}
-          id="outlined-basic"
-          label="Category_id"
+          id="outlined-static"
+          label="Category_ID"
           variant="outlined"
         />
+        
         <TextField
           value={plantState.fk_review_id}
+          onChange={(e) => formChange("fk_review_id", e.target.value)}
           name="fk_review_id"
-          onChange={(e) => formChange(`fk_review_id`, e.target.value)}
-          id="outlined-basic"
-          label="Review_id"
+          id="outlined-static"
+          label="Review_ID"
           variant="outlined"
         />
+
         <Button
           className={classes.button}
           variant="contained"
@@ -354,65 +349,61 @@ const Plant = () => {
       <div>
         <br />
         <h3>Result: </h3>
-        {dataPlant.map(
-          (data, index) => (
-            console.log(`data article map: `, dataPlant),
-            (
-              <ul className="map" key={index}>
-                <li>
-                  PLANT ID: <span>{data.pk_plant_id}</span>
-                </li>
-                <li>
-                  PLANT NAME: <span>{data.plant_name}</span>
-                </li>
-                <li>
-                  PLANT ORIGIN: <span>{data.plant_origin}</span>
-                </li>
-                <li>
-                  PLANT IMAGE: <span>{data.plant_image}</span>
-                </li>
-                <li>
-                  PLANT QUALITIES: <span>{data.plant_qualities}</span>
-                </li>
-                <li>
-                  PLANT USE: <span>{data.plant_use}</span>
-                </li>
-                <li>
-                  DAYS TO SPROUT: <span>{data.days_to_sprout}</span>
-                </li>
-                <li>
-                  MATURES IN: <span>{data.matures_in}</span>
-                </li>
-                <li>
-                  GROWTH IN: <span>{data.growth_type}</span>
-                </li>
-                <li>
-                  CATEGORY_ID: <span>{data.fk_category_id}</span>
-                </li>
-                <li>
-                  REVIEW_ID: <span>{data.fk_review_id}</span>
-                </li>
-                {
-                  <div>
-                    <button
-                      onClick={() => handleDelete(data.pk_plant_id, index)}
-                    >
-                      delete
-                    </button>
-                    <button onClick={() => handleUpdate(data, index)}>
-                      Update
-                    </button>
-                    <br />
-                  </div>
-                }
+        {dataPlant.map((data, index) => (
+          // console.log(`data article map: `, dataPlant),
+          <ul className="map" key={index}>
+            <li>
+              NO: <span>{index + 1}</span>
+            </li>
+            <li>
+              PLANT ID: <span>{data.pk_plant_id}</span>
+            </li>
+            <li>
+              PLANT NAME: <span>{data.plant_name}</span>
+            </li>
+            <li>
+              PLANT IMAGE: <span>{data.plant_image}</span>
+            </li>
+            <li>
+              PLANT ORIGIN: <span>{data.plant_origin}</span>
+            </li>
+            <li>
+              QUALITIES: <span>{data.plant_qualities}</span>
+            </li>
+            <li>
+              PLANT USE: <span>{data.plant_use}</span>
+            </li>
+            <li>
+              DAYS TO SPROUT: <span>{data.days_to_sprout}</span>
+            </li>
+            <li>
+              MATURES IN: <span>{data.matures_in}</span>
+            </li>
+            <li>
+             GROWTH TYPE: <span>{data.growth_type}</span>
+            </li>
+            <li>
+              CATEGORY_ID: <span>{data.fk_category_id}</span>
+            </li>
+            <li>
+              REVIEW_ID: <span>{data.fk_review_id}</span>
+            </li>
+            {
+              <div>
+                <button onClick={() => handleDelete(data.pk_plant_id, index)}>
+                  delete
+                </button>
+                <button onClick={() => handleUpdate(data, index)}>
+                  Update
+                </button>
                 <br />
-              </ul>
-            )
-          )
-        )}
+              </div>
+            }
+          </ul>
+        ))}
       </div>
     </div>
   );
 };
 
-export default Plant;
+export default Article;
