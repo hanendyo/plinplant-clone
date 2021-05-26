@@ -3,7 +3,7 @@ const pool = require("../database/Database");
 module.exports = {
   articleInputTable: (body, callback) => {
     console.log(`bdy: `, body);
-
+  
     const sql = `insert into table_article (article_image, author, title, content, created_at) values(?, ?, ?, ?, ?)`;
     const column = [
       body.article_image,
@@ -12,7 +12,7 @@ module.exports = {
       body.content,
       body.created_at,
     ];
-
+    
     console.log(`BODY ARTICLE IMAGE: `, body.article_image);
     console.log(`BODY AUTHOR: `, body.author);
 
@@ -55,21 +55,21 @@ module.exports = {
         data.title,
         data.content,
         data.created_at,
-        data.pk_article_id,
+        data.pk_article_id
       ],
-      (error, result, fields) => {
+      (error, result, fields)=>{
         if (error) {
-          console.log(`ERROR ARTICLE UPDATE: `, error);
-          return callback(error);
+            console.log(`ERROR ARTICLE UPDATE: `, error);
+            return callback(error)
         }
         console.log(`SUCCESS ARTICLE RESULT: `, result);
-        return callback(null, result);
+        return callback(null, result)
       }
     );
   },
   categoryInputTable: (data, callback) => {
     const sql = `insert into table_category (pk_category_id,category_name)values(?,?)`;
-    const column = [data.pk_category_id, data.category_name];
+    const column = [ data.pk_category_id, data.category_name];
     pool.query(sql, column, (err, result, fields) => {
       if (err) {
         return callback(err);
@@ -102,14 +102,17 @@ module.exports = {
   categoryUpdate: (data, callback) => {
     pool.query(
       `update table_category set category_name=? where pk_category_id=?`,
-      [data.category_name, data.pk_category_id],
-      (error, result, fields) => {
+      [
+        data.category_name,
+        data.pk_category_id
+      ],
+      (error, result, fields)=>{
         if (error) {
-          console.log(`ERROR: `, error);
-          return callback(error);
+            console.log(`ERROR: `, error);
+            return callback(error)
         }
         console.log(`RESULT: `, result);
-        return callback(null, result);
+        return callback(null, result)
       }
     );
   },
@@ -148,14 +151,17 @@ module.exports = {
   cityUpdate: (data, callback) => {
     pool.query(
       `update table_city set city_name=? where pk_city_id=?`,
-      [data.city_name, data.pk_city_id],
-      (error, result, fields) => {
+      [
+        data.city_name,
+        data.pk_city_id
+      ],
+      (error, result, fields)=>{
         if (error) {
-          console.log(`ERROR: `, error);
-          return callback(error);
+            console.log(`ERROR: `, error);
+            return callback(error)
         }
         console.log(`RESULT: `, result);
-        return callback(null, result);
+        return callback(null, result)
       }
     );
   },
@@ -204,15 +210,15 @@ module.exports = {
         data.address,
         data.phone_number,
         data.fk_city_id,
-        data.pk_contact_id,
+        data.pk_contact_id
       ],
-      (error, result, fields) => {
+      (error, result, fields)=>{
         if (error) {
-          console.log(`ERROR: `, error);
-          return callback(error);
+            console.log(`ERROR: `, error);
+            return callback(error)
         }
         console.log(`RESULT: `, result);
-        return callback(null, result);
+        return callback(null, result)
       }
     );
   },
@@ -254,14 +260,17 @@ module.exports = {
     console.log(`gender data upadteL: `, data);
     pool.query(
       `update table_gender set type=? where pk_gender_id=?`,
-      [data.type, data.pk_gender_id],
-      (error, result, fields) => {
+      [
+        data.type,
+        data.pk_gender_id
+      ],
+      (error, result, fields)=>{
         if (error) {
-          console.log(`ERROR: `, error);
-          return callback(error);
+            console.log(`ERROR: `, error);
+            return callback(error)
         }
         console.log(`RESULT: `, result);
-        return callback(null, result);
+        return callback(null, result)
       }
     );
   },
@@ -300,14 +309,16 @@ module.exports = {
   orderUpdate: (data, callback) => {
     pool.query(
       `update table_order set status=?, created_at=?, fk_user_id=? where pk_order_id=?`,
-      [data.status, data.created_at, data.fk_user_id, data.pk_order_id],
-      (error, result, fields) => {
+      [
+        data.status, data.created_at, data.fk_user_id, data.pk_order_id
+      ],
+      (error, result, fields)=>{
         if (error) {
-          console.log(`ERROR: `, error);
-          return callback(error);
+            console.log(`ERROR: `, error);
+            return callback(error)
         }
         console.log(`RESULT: `, result);
-        return callback(null, result);
+        return callback(null, result)
       }
     );
   },
@@ -322,16 +333,12 @@ module.exports = {
     });
   },
   orderItemGetAllDatas: (callback) => {
-    pool.query(
-      `Select * from table_order_item`,
-      [],
-      (error, results, fields) => {
-        if (error) {
-          return callback(error);
-        }
-        return callback(null, results);
+    pool.query(`Select * from table_order_item`, [], (error, results, fields) => {
+      if (error) {
+        return callback(error);
       }
-    );
+      return callback(null, results);
+    });
   },
   orderItemDelete: (id, callback) => {
     pool.query(
@@ -350,14 +357,16 @@ module.exports = {
   orderItemUpdate: (data, callback) => {
     pool.query(
       `update table_order_item set quantity=?, fk_price_list_id=? where pk_order_item_id=?`,
-      [data.quantity, data.fk_price_list_id, data.pk_order_item_id],
-      (error, result, fields) => {
+      [
+        data.quantity, data.fk_price_list_id, data.pk_order_item_id
+      ],
+      (error, result, fields)=>{
         if (error) {
-          console.log(`ERROR: `, error);
-          return callback(error);
+            console.log(`ERROR: `, error);
+            return callback(error)
         }
         console.log(`RESULT: `, result);
-        return callback(null, result);
+        return callback(null, result)
       }
     );
   },
@@ -419,15 +428,15 @@ module.exports = {
         data.growth_type,
         data.fk_category_id,
         data.fk_review_id,
-        data.pk_plant_id,
+        data.pk_plant_id
       ],
-      (error, result, fields) => {
+      (error, result, fields)=>{
         if (error) {
-          console.log(`ERROR: `, error);
-          return callback(error);
+            console.log(`ERROR: `, error);
+            return callback(error)
         }
         console.log(`RESULT: `, result);
-        return callback(null, result);
+        return callback(null, result)
       }
     );
   },
@@ -453,16 +462,12 @@ module.exports = {
     });
   },
   plantBreedingGetAllDatas: (callback) => {
-    pool.query(
-      `Select * from table_plant_breeding`,
-      [],
-      (error, results, fields) => {
-        if (error) {
-          return callback(error);
-        }
-        return callback(null, results);
+    pool.query(`Select * from table_plant_breeding`, [], (error, results, fields) => {
+      if (error) {
+        return callback(error);
       }
-    );
+      return callback(null, results);
+    });
   },
   plantBreedingDelete: (id, callback) => {
     pool.query(
@@ -480,7 +485,7 @@ module.exports = {
   },
   plantBreedingUpdate: (data, callback) => {
     pool.query(
-      `update table_plant_breeding set seed=?, tuber=?, young=?, mature=?, seed_image=?, tuber_image=?, young_image=?, mature_image=?, fk_plant_id=? where pk_plant_breeding_id=?`,
+      `update table_plant_breeding set seed=?, tuber=?, young=?, mature=?, seed_image=?, tuber_image=?, young_image=?, matur_image=?, fk_plant_id=? where pk_plant_breeding_id=?`,
       [
         data.seed,
         data.tuber,
@@ -491,49 +496,42 @@ module.exports = {
         data.young_image,
         data.mature_image,
         data.fk_plant_id,
-        data.pk_plant_breeding_id,
+        data.pk_plant_breeding_id
       ],
-      (error, result, fields) => {
+      (error, result, fields)=>{
         if (error) {
-          console.log(`ERROR: `, error);
-          return callback(error);
+            console.log(`ERROR: `, error);
+            return callback(error)
         }
         console.log(`RESULT: `, result);
-        return callback(null, result);
+        return callback(null, result)
       }
     );
   },
   priceListInputTable: (data, callback) => {
-    console.log(`DATA PRICELIST SERVICE: `, data);
-    pool.query(
-      `insert into table_price_list (seed_price, tuber_price, young_price, mature_price, fk_plant_breeding_id, fk_stock_id) values(?, ?, ?, ?, ?, ?)`,
-      [
-        data.seed_price,
-        data.tuber_price,
-        data.young_price,
-        data.mature_price,
-        data.fk_plant_breeding_id,
-        data.fk_stock_id,
-      ],
-      (err, result, fields) => {
-        if (err) {
-          return callback(err);
-        }
-        return callback(null, result);
+    const sql = `insert into table_plant_breeding (seed_price, tuber_price, young_price, mature_price, fk_plant_breeding_id, fk_stock_id) values(?, ?, ?, ?, ?, ?)`;
+    const column = [
+      data.seed_price,
+      data.tuber_price,
+      data.young_price,
+      data.mature_price,
+      fk_plant_breeding_id,
+      fk_stock_id,
+    ];
+    pool.query(sql, column, (err, result, fields) => {
+      if (err) {
+        return callback(err);
       }
-    );
+      return callback(null, result);
+    });
   },
   priceListGetAllDatas: (callback) => {
-    pool.query(
-      `Select * from table_price_list`,
-      [],
-      (error, results, fields) => {
-        if (error) {
-          return callback(error);
-        }
-        return callback(null, results);
+    pool.query(`Select * from table_price_list`, [], (error, results, fields) => {
+      if (error) {
+        return callback(error);
       }
-    );
+      return callback(null, results);
+    });
   },
   priceListDelete: (id, callback) => {
     pool.query(
@@ -557,17 +555,16 @@ module.exports = {
         data.tuber_price,
         data.young_price,
         data.mature_price,
-        data.fk_plant_breeding_id,
-        data.fk_stock_id,
-        data.pk_price_list_id
+        fk_plant_breeding_id,
+        fk_stock_id,
       ],
-      (error, result, fields) => {
+      (error, result, fields)=>{
         if (error) {
-          console.log(`ERROR: `, error);
-          return callback(error);
+            console.log(`ERROR: `, error);
+            return callback(error)
         }
         console.log(`RESULT: `, result);
-        return callback(null, result);
+        return callback(null, result)
       }
     );
   },
@@ -605,17 +602,22 @@ module.exports = {
   },
   reviewUpdate: (data, callback) => {
     pool.query(
-      `update table_review set comment=?, rating=? where pk_review_id=?`,
+      `update table_review set seed_price=?, tuber_price=?, young_price=?, mature_price=?, fk_plant_breeding_id=?, fk_stock_id=? where pk_review_id=?`,
       [
-        data.comment, data.rating, data.pk_review_id
+        data.seed_price,
+        data.tuber_price,
+        data.young_price,
+        data.mature_price,
+        fk_plant_breeding_id,
+        fk_stock_id,
       ],
-      (error, result, fields) => {
+      (error, result, fields)=>{
         if (error) {
-          console.log(`ERROR: `, error);
-          return callback(error);
+            console.log(`ERROR: `, error);
+            return callback(error)
         }
         console.log(`RESULT: `, result);
-        return callback(null, result);
+        return callback(null, result)
       }
     );
   },
@@ -630,16 +632,12 @@ module.exports = {
     });
   },
   shippingChargesGetAllDatas: (callback) => {
-    pool.query(
-      `Select * from table_shipping_charges`,
-      [],
-      (error, results, fields) => {
-        if (error) {
-          return callback(error);
-        }
-        return callback(null, results);
+    pool.query(`Select * from table_shipping_charges`, [], (error, results, fields) => {
+      if (error) {
+        return callback(error);
       }
-    );
+      return callback(null, results);
+    });
   },
   shippingChargesDelete: (id, callback) => {
     pool.query(
@@ -657,22 +655,27 @@ module.exports = {
   },
   shippingChargesUpdate: (data, callback) => {
     pool.query(
-      `update table_shipping_charges set shipping_price=?, fk_city_id=? where pk_shipping_charges_id=?`,
+      `update table_shipping_charges set seed_price=?, tuber_price=?, young_price=?, mature_price=?, fk_plant_breeding_id=?, fk_stock_id=? where pk_shipping_charges_id=?`,
       [
-        data.shipping_price, data.fk_city_id, data.pk_shipping_charges_id
+        data.seed_price,
+        data.tuber_price,
+        data.young_price,
+        data.mature_price,
+        fk_plant_breeding_id,
+        fk_stock_id,
       ],
-      (error, result, fields) => {
+      (error, result, fields)=>{
         if (error) {
-          console.log(`ERROR: `, error);
-          return callback(error);
+            console.log(`ERROR: `, error);
+            return callback(error)
         }
         console.log(`RESULT: `, result);
-        return callback(null, result);
+        return callback(null, result)
       }
     );
   },
   stockInputTable: (data, callback) => {
-    const sql = `insert into table_stock (seed_stock, tuber_stock, young_stock, mature_stock) values(?, ?, ?, ?)`;
+    const sql = `insert into table_plant_breeding (seed_stock, tuber_stock, young_stock, mature_stock) values(?, ?, ?, ?)`;
     const column = [
       data.seed_stock,
       data.tuber_stock,
@@ -711,17 +714,22 @@ module.exports = {
   stockUpdate: (data, callback) => {
     pool.query(
       `update table_stock set seed_stock=?, tuber_stock=?, young_stock=?, mature_stock=? where pk_stock_id=?`,
-      [data.seed_stock, data.tuber_stock, data.young_stock, data.mature_stock, data.pk_stock_id],
-      (error, result, fields) => {
+      [
+        data.seed_stock,
+        data.tuber_stock,
+        data.young_stock,
+        data.mature_stock,
+      ],
+      (error, result, fields)=>{
         if (error) {
-          console.log(`ERROR: `, error);
-          return callback(error);
+            console.log(`ERROR: `, error);
+            return callback(error)
         }
         console.log(`RESULT: `, result);
-        return callback(null, result);
+        return callback(null, result)
       }
     );
-  },
+  },  
   userInputTable: (data, callback) => {
     const sql = `insert into table_user (fullname, email, password, birth_date, picture, fk_contact_id, fk_gender_id) values(?, ?, ?, ?, ?, ?, ?)`;
     const column = [
@@ -764,7 +772,7 @@ module.exports = {
   },
   userUpdate: (data, callback) => {
     pool.query(
-      `update table_user set fullname=?, email=?, password=?, birth_date=?, picture=?, fk_contact_id=?, fk_gender_id=? where pk_user_id=?`,
+      `update table_user set fullname=? email=?, password=?, birth_date=?, picture=?, fk_contact_id=?, fk_gender_id=? where pk_user_id=?`,
       [
         data.fullname,
         data.email,
@@ -773,15 +781,14 @@ module.exports = {
         data.picture,
         data.fk_contact_id,
         data.fk_gender_id,
-        data.pk_user_id
       ],
-      (error, result, fields) => {
+      (error, result, fields)=>{
         if (error) {
-          console.log(`ERROR: `, error);
-          return callback(error);
+            console.log(`ERROR: `, error);
+            return callback(error)
         }
         console.log(`RESULT: `, result);
-        return callback(null, result);
+        return callback(null, result)
       }
     );
   },
@@ -820,14 +827,16 @@ module.exports = {
   weightUpdate: (data, callback) => {
     pool.query(
       `update table_weight set weight=? where pk_weight_id=?`,
-      [data.weight, data.pk_weight_id],
-      (error, result, fields) => {
+      [
+        data.weight
+      ],
+      (error, result, fields)=>{
         if (error) {
-          console.log(`ERROR: `, error);
-          return callback(error);
+            console.log(`ERROR: `, error);
+            return callback(error)
         }
         console.log(`RESULT: `, result);
-        return callback(null, result);
+        return callback(null, result)
       }
     );
   },
