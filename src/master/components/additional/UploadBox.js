@@ -17,7 +17,7 @@ const UploadBox = ({ invoice, modal, profile }) => {
   };
 
   return (
-    <div>
+    <>
       {profile && (
         <ModalBox profile={profile}>
           <img src={avatar} alt='' />
@@ -78,7 +78,7 @@ const UploadBox = ({ invoice, modal, profile }) => {
           </ModalBox>
         </ModalOverlay>
       )}
-    </div>
+    </>
   );
 };
 

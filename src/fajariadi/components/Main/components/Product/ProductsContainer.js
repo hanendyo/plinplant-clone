@@ -76,7 +76,7 @@ const ProductsContainer = ({
   );
 
   return (
-    <div>
+    <>
       {slider && (
         <CardContainer>
           <h4>{categoryName(category)}</h4>
@@ -310,7 +310,7 @@ const ProductsContainer = ({
           ))}
         </ModalAddressContainer>
       )}
-    </div>
+    </>
   );
 };
 

@@ -22,7 +22,7 @@ const RatingInput = () => {
   // ::: COMPONENT RADIO BUTTON :::
   const Radio = ({ value, checked, onChange }) => {
     return (
-      <div>
+      <>
         <input
           type='radio'
           value={value}
@@ -34,7 +34,7 @@ const RatingInput = () => {
         <label htmlFor={value}>
           <FaStar size={24} />
         </label>
-      </div>
+      </>
     );
   };
 

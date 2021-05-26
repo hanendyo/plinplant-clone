@@ -43,7 +43,7 @@ const NavbarLandingPage = () => {
           </li>
           <li>
             {login ? (
-              <div>
+              <>
                 <button onClick={() => setProfile(!profile)}>
                   <img src={pic} alt='' />
                   <p>Halo, Fajar</p>
@@ -70,9 +70,9 @@ const NavbarLandingPage = () => {
                     <li>Keluar</li>
                   </ul>
                 </div>
-              </div>
+              </>
             ) : (
-              <div>
+              <>
                 <Button
                   text='Masuk'
                   bgColor={colors.white}
@@ -84,7 +84,7 @@ const NavbarLandingPage = () => {
                   bgColor={colors.lightGreenTransparent}
                   onClick={() => console.log('Daftar')}
                 />
-              </div>
+              </>
             )}
           </li>
         </LinksContainer>

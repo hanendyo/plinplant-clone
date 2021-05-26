@@ -192,13 +192,10 @@ export const Home = styled.a`
     margin-right: 10px;
     font-size: 12px;
   }
-<<<<<<< HEAD
-=======
 
   @media (max-width: 760px) {
     & > p {
       display: none;
     }
   }
->>>>>>> 77d28ea2cdcd0bc48b8a3107f12af0495f78c773
 `;
