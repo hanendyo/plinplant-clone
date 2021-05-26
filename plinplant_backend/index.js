@@ -15,17 +15,16 @@ const fileStorage = multer.diskStorage({
     if (fieldName === 'article_image_upload') {
       cb(null, '../public/images/article_image');
     }
-    if (fieldName === 'plant_image_upload') {
-      cb(null, '../public/images/plant_image');
-    }
     if (
+      fieldName === 'plant_image_upload' ||
       fieldName === 'seed_image_upload' ||
       fieldName === 'tuber_image_upload' ||
       fieldName === 'young_image_upload' ||
       fieldName === 'mature_image_upload'
     ) {
-      cb(null, '../public/images/plant_breeding_image');
+      cb(null, '../public/images/plant_image');
     }
+
     if (fieldName === 'picture_upload') {
       cb(null, '../public/images/user_image');
     }
