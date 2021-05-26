@@ -105,6 +105,7 @@ module.exports = {
             })
         })
     },
+    
     article_get_all_datas: (req, res) => {
         articleGetAllDatas((err, results) => {
             if (err) {
@@ -117,6 +118,7 @@ module.exports = {
             })
         })
     },
+    
     article_delete: (req, res) => {
         const id = req.params.id
         console.log(`ID: `, id);
@@ -133,6 +135,7 @@ module.exports = {
             })
         })
     },
+    
     article_update: (req, res) => {
         const id = req.params.id
         const body = req.body
@@ -151,6 +154,7 @@ module.exports = {
 
         })
     },
+    
     category_input: (req, res) => {
         const body = req.body;
         console.log(`BODY CATEGORY: `, body);
@@ -168,6 +172,7 @@ module.exports = {
             })
         })
     },
+    
     category_get_all_datas: (req, res) => {
         categoryGetAllDatas((err, results) => {
             if (err) {
@@ -180,6 +185,7 @@ module.exports = {
             })
         })
     },
+    
     category_delete: (req, res) => {
         const id = req.params.id
         console.log(`ID: `, id);
@@ -196,6 +202,7 @@ module.exports = {
             })
         })
     },
+    
     category_update: (req, res) => {
         const id = req.params.id
         const body = req.body
@@ -214,6 +221,7 @@ module.exports = {
 
         })
     },
+    
     city_input: (req, res) => {
         const body = req.body;
         cityInputTable(body, (err, result) => {
@@ -230,6 +238,7 @@ module.exports = {
             })
         })
     },
+    
     city_get_all_datas: (req, res) => {
         cityGetAllDatas((err, results) => {
             if (err) {
@@ -242,6 +251,7 @@ module.exports = {
             })
         })
     },
+    
     city_delete: (req, res) => {
         const id = req.params.id
         console.log(`ID: `, id);
@@ -258,6 +268,7 @@ module.exports = {
             })
         })
     },
+    
     city_update: (req, res) => {
         const id = req.params.id
         const body = req.body
@@ -277,6 +288,7 @@ module.exports = {
 
         })
     },
+    
     contact_input: (req, res) => {
         const body = req.body;
         contactInputTable(body, (err, result) => {
@@ -293,6 +305,7 @@ module.exports = {
             })
         })
     },
+    
     contact_get_all_datas: (req, res) => {
         contactGetAllDatas((err, results) => {
             if (err) {
@@ -305,6 +318,7 @@ module.exports = {
             })
         })
     },
+    
     contact_delete: (req, res) => {
         const id = req.params.id
         console.log(`ID: `, id);
@@ -321,6 +335,7 @@ module.exports = {
             })
         })
     },
+    
     contact_update: (req, res) => {
         const id = req.params.id
         const body = req.body
@@ -339,6 +354,7 @@ module.exports = {
 
         })
     },
+    
     gender_input: (req, res) => {
         const body = req.body;
         console.log(`BE BODY: `, body);
@@ -357,6 +373,7 @@ module.exports = {
             })
         })
     },
+    
     gender_get_all_datas: (req, res) => {
         genderGetAllDatas((err, results) => {
             if (err) {
@@ -369,6 +386,7 @@ module.exports = {
             })
         })
     },
+    
     gender_delete: (req, res) => {
         const id = req.params.id
         console.log(`ID: `, id);
@@ -385,6 +403,7 @@ module.exports = {
             })
         })
     },
+    
     gender_update: (req, res) => {
         const id = req.params.id
         const body = req.body
@@ -403,6 +422,7 @@ module.exports = {
 
         })
     },
+    
     order_input: (req, res) => {
         const body = req.body;
         orderInputTable(body, (err, result) => {
@@ -419,6 +439,7 @@ module.exports = {
             })
         })
     },
+    
     order_get_all_datas: (req, res) => {
         orderGetAllDatas((err, results) => {
             if (err) {
@@ -431,6 +452,7 @@ module.exports = {
             })
         })
     },
+    
     order_delete: (req, res) => {
         const id = req.params.id
         console.log(`ID: `, id);
@@ -447,6 +469,7 @@ module.exports = {
             })
         })
     },
+    
     order_update: (req, res) => {
         const id = req.params.id
         const body = req.body
@@ -465,6 +488,7 @@ module.exports = {
 
         })
     },
+    
     order_item_input: (req, res) => {
         const body = req.body;
         orderItemInputTable(body, (err, result) => {
@@ -481,6 +505,7 @@ module.exports = {
             })
         })
     },
+    
     order_item_get_all_datas: (req, res) => {
         orderItemGetAllDatas((err, results) => {
             if (err) {
@@ -493,6 +518,7 @@ module.exports = {
             })
         })
     },
+    
     order_item_delete: (req, res) => {
         const id = req.params.id
         console.log(`ID: `, id);
@@ -509,6 +535,7 @@ module.exports = {
             })
         })
     },
+    
     order_item_update: (req, res) => {
         const id = req.params.id
         const body = req.body
@@ -527,6 +554,7 @@ module.exports = {
 
         })
     },
+    
     plant_input: (req, res) => {
         const body = req.body;
         const image = req.file
@@ -545,6 +573,7 @@ module.exports = {
             })
         })
     },
+    
     plant_get_all_datas: (req, res) => {
         plantGetAllDatas((err, results) => {
             if (err) {
@@ -557,6 +586,7 @@ module.exports = {
             })
         })
     },
+    
     plant_delete: (req, res) => {
         const id = req.params.id
         console.log(`ID: `, id);
@@ -573,6 +603,7 @@ module.exports = {
             })
         })
     },
+    
     plant_update: (req, res) => {
         const id = req.params.id
         const body = req.body
@@ -591,6 +622,7 @@ module.exports = {
 
         })
     },
+    
     plant_breeding_input: (req, res) => {
         const body = req.body;
         plantBreedingInputTable(body, (err, result) => {
@@ -607,6 +639,7 @@ module.exports = {
             })
         })
     },
+    
     plant_breeding_get_all_datas: (req, res) => {
         plantBreedingGetAllDatas((err, results) => {
             if (err) {
@@ -619,6 +652,7 @@ module.exports = {
             })
         })
     },
+    
     plant_breeding_delete: (req, res) => {
         const id = req.params.id
         console.log(`ID: `, id);
@@ -635,6 +669,7 @@ module.exports = {
             })
         })
     },
+    
     plant_breeding_update: (req, res) => {
         const id = req.params.id
         const body = req.body
@@ -653,6 +688,7 @@ module.exports = {
 
         })
     },
+    
     price_list_input: (req, res) => {
         const body = req.body;
         priceListInputTable(body, (err, result) => {
@@ -669,6 +705,7 @@ module.exports = {
             })
         })
     },
+    
     price_list_get_all_datas: (req, res) => {
         priceListGetAllDatas((err, results) => {
             if (err) {
@@ -681,6 +718,7 @@ module.exports = {
             })
         })
     },
+    
     price_list_delete: (req, res) => {
         const id = req.params.id
         console.log(`ID: `, id);
@@ -697,6 +735,7 @@ module.exports = {
             })
         })
     },
+    
     price_list_update: (req, res) => {
         const id = req.params.id
         const body = req.body
@@ -715,6 +754,7 @@ module.exports = {
 
         })
     },
+    
     review_input: (req, res) => {
         const body = req.body;
         reviewInputTable(body, (err, result) => {
@@ -731,6 +771,7 @@ module.exports = {
             })
         })
     },
+    
     review_get_all_datas: (req, res) => {
         reviewGetAllDatas((err, results) => {
             if (err) {
@@ -743,6 +784,7 @@ module.exports = {
             })
         })
     },
+    
     review_delete: (req, res) => {
         const id = req.params.id
         console.log(`ID: `, id);
@@ -759,6 +801,7 @@ module.exports = {
             })
         })
     },
+    
     review_update: (req, res) => {
         const id = req.params.id
         const body = req.body
@@ -777,6 +820,7 @@ module.exports = {
 
         })
     },
+    
     shipping_charges_input: (req, res) => {
         const body = req.body;
         shippingChargesInputTable(body, (err, result) => {
@@ -793,6 +837,7 @@ module.exports = {
             })
         })
     },
+    
     shipping_charges_get_all_datas: (req, res) => {
         shippingChargesGetAllDatas((err, results) => {
             if (err) {
@@ -805,6 +850,7 @@ module.exports = {
             })
         })
     },
+    
     shipping_charges_delete: (req, res) => {
         const id = req.params.id
         console.log(`ID: `, id);
@@ -821,6 +867,7 @@ module.exports = {
             })
         })
     },
+    
     shipping_charges_update: (req, res) => {
         const id = req.params.id
         const body = req.body
@@ -839,6 +886,7 @@ module.exports = {
 
         })
     },
+    
     stock_input: (req, res) => {
         const body = req.body;
         stockInputTable(body, (err, result) => {
@@ -855,6 +903,7 @@ module.exports = {
             })
         })
     },
+    
     stock_get_all_datas: (req, res) => {
         stockGetAllDatas((err, results) => {
             if (err) {
@@ -867,6 +916,7 @@ module.exports = {
             })
         })
     },
+    
     stock_delete: (req, res) => {
         const id = req.params.id
         console.log(`ID: `, id);
@@ -883,6 +933,7 @@ module.exports = {
             })
         })
     },
+    
     stock_update: (req, res) => {
         const id = req.params.id
         const body = req.body
@@ -901,6 +952,7 @@ module.exports = {
 
         })
     },
+    
     user_input: (req, res) => {
         const body = req.body;
         userInputTable(body, (err, result) => {
@@ -917,6 +969,7 @@ module.exports = {
             })
         })
     },
+    
     user_get_all_datas: (req, res) => {
         userGetAllDatas((err, results) => {
             if (err) {
@@ -929,6 +982,7 @@ module.exports = {
             })
         })
     },
+    
     user_delete: (req, res) => {
         const id = req.params.id
         console.log(`ID: `, id);
@@ -945,6 +999,7 @@ module.exports = {
             })
         })
     },
+    
     user_update: (req, res) => {
         const id = req.params.id
         const body = req.body
@@ -963,6 +1018,7 @@ module.exports = {
 
         })
     },
+    
     weight_input: (req, res) => {
         const body = req.body;
         weightInputTable(body, (err, result) => {
@@ -979,6 +1035,7 @@ module.exports = {
             })
         })
     },
+    
     weight_get_all_datas: (req, res) => {
         weightGetAllDatas((err, results) => {
             if (err) {
@@ -991,6 +1048,7 @@ module.exports = {
             })
         })
     },
+    
     weight_delete: (req, res) => {
         const id = req.params.id
         console.log(`ID: `, id);
@@ -1007,6 +1065,7 @@ module.exports = {
             })
         })
     },
+    
     weight_update: (req, res) => {
         const id = req.params.id
         const body = req.body
@@ -1025,4 +1084,5 @@ module.exports = {
 
         })
     },
+    
 }
