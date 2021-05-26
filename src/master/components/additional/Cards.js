@@ -75,7 +75,7 @@ const Cards = ({
             {/* END OF BUTTON CONTAINER */}
           </div>
 
-          <img src={process.env.PUBLIC_URL + `/images/${img}`} alt='' />
+          <img src={process.env.PUBLIC_URL + `/images/Plant/${img}`} alt='' />
         </CardProductLandingPage>
       )}
 
@@ -103,7 +103,7 @@ const Cards = ({
             {/* END OF BUTTON CONTAINER */}
           </div>
 
-          <img src={process.env.PUBLIC_URL + `/images/${img}`} alt='' />
+          <img src={process.env.PUBLIC_URL + `/images/Plant/${img}`} alt='' />
         </CardProductSearched>
       )}
 
@@ -402,6 +402,8 @@ const CardProductLandingPage = styled.div`
   & > img {
     border-radius: 10px;
     width: 500px;
+    height: 200px;
+    object-fit: cover;
   }
 
   &:hover {
@@ -422,8 +424,8 @@ const CardProductSearched = styled(CardProductLandingPage)`
   margin: 5px;
 
   & > img {
-    width: 100%;
-    max-width: 300px;
+    width: 300px;
+    /* max-width: 500px; */
   }
 `;
 
