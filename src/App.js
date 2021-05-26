@@ -18,19 +18,19 @@ import { ContextStore } from './context/store/ContextStore';
 import { getPlants } from './context/actions';
 
 const App = () => {
-  const { tablePlantDispatch } = useContext(ContextStore);
+  // const { tablePlantDispatch } = useContext(ContextStore);
 
-  useEffect(() => {
-    const getTablePlant = async () => {
-      const res = await axios.get(
-        'http://localhost:5000/input/plant_get_all_datas'
-      );
+  // useEffect(() => {
+  //   const getTablePlant = async () => {
+  //     const res = await axios.get(
+  //       'http://localhost:5000/input/plant_get_all_datas'
+  //     );
 
-      tablePlantDispatch(getPlants(res.data.data));
-    };
+  //     tablePlantDispatch(getPlants(res.data.data));
+  //   };
 
-    getTablePlant();
-  }, []);
+  //   getTablePlant();
+  // }, []);
 
   return (
     <Router>

@@ -6,12 +6,12 @@ import Footer from '../../master/components/Footer/Footer';
 
 const LandingPage = () => {
   return (
-    <>
+    <div>
       <NavbarLandingPage />
       <Header />
       <Main />
       <Footer />
-    </>
+    </div>
   );
 };
 

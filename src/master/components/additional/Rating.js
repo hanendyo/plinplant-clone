@@ -5,7 +5,7 @@ import { colors } from '../../constant/style';
 
 const Rating = ({ rate, reviewed }) => {
   return (
-    <>
+    <div>
       {rate === 5 && (
         <Star reviewed={reviewed}>
           <FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar />
@@ -53,7 +53,7 @@ const Rating = ({ rate, reviewed }) => {
           <FaStar color={colors.lightGreenTransparent} />
         </Star>
       )}
-    </>
+    </div>
   );
 };
 

@@ -5,11 +5,11 @@ import Transaction from '../components/Transaction/Transaction';
 
 const TransactionPage = () => {
   return (
-    <>
+    <div>
       <Navbar />
       <Transaction />
       <Footer colored />
-    </>
+    </div>
   );
 };
 

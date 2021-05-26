@@ -6,7 +6,7 @@ import ValueProportion from './components/ValueProportion/ValueProportion';
 const Main = () => {
   return (
     <main>
-      <Product />
+      {/* <Product /> */}
       <ValueProportion />
       <CallToAction />
     </main>
