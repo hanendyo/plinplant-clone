@@ -69,7 +69,7 @@ const upload = require("../..");
 router.post("/article_input", upload.single('article_image_upload'), article_input);
 router.post("/plant_input",upload.single('plant_image_upload'), plant_input);
 router.post("/category_input",upload.none(), category_input);
-router.post("/review_input", review_input);
+router.post("/review_input", upload.none(),review_input);
 router.post("/plant_breeding_input",
 upload.fields(
   [{
@@ -83,18 +83,18 @@ upload.fields(
   },
   {
     name: 'mature_image_upload', maxCount: 1
-  },]
+  }]
 ),plant_breeding_input);
-router.post("/price_list_input", price_list_input);
-router.post("/stock_input", stock_input);
+router.post("/price_list_input", upload.none(), price_list_input);
+router.post("/stock_input", upload.none(),stock_input);
 router.post("/order_item_input", upload.none(),order_item_input);
 router.post("/order_input",upload.none(), order_input);
 router.post("/user_input", upload.single('picture_upload'),user_input);
-router.post("/contact_input", contact_input);
+router.post("/contact_input",upload.none(), contact_input);
 router.post("/gender_input", upload.none(),gender_input);
 router.post("/city_input",upload.none(), city_input);
-router.post("/shipping_charges_input", shipping_charges_input);
-router.post("/weight_input", weight_input);
+router.post("/shipping_charges_input",upload.none(), shipping_charges_input);
+router.post("/weight_input", upload.none(),weight_input);
 
 // GET
 router.get("/article_get_all_datas", article_get_all_datas);

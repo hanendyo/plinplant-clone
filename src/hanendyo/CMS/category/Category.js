@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { Button, makeStyles, TextField } from '@material-ui/core';
-import { useContext } from 'react';
-// import { ContextStore } from '../../../context/store/ContextStore';
-// import { postAPI, cmsAction } from '../../../context/actions/CmsAction';
-import { ContextStore } from '../../../context/store/ContextStore';
-import { categoryPost, cmsAction } from '../../../context/actions/CmsAction';
-import axios from 'axios';
-import { Container, BoxInput, SpanImage, ButtonContainer } from '../style/Form';
-import { DataGrid } from '@material-ui/data-grid';
-import { colors } from '../../../master/constant/style/index';
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  makeStyles,
+  TextField,
+} from "@material-ui/core";
+import { useContext } from "react";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
+import axios from "axios";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
-      width: '25ch',
-      display: 'flex',
+      width: "25ch",
+      display: "flex",
     },
     button: {
-      width: '80%',
-      margin: '5px 0',
-      backgroundColor: 'rgb(187, 203, 194)',
-      color: 'primary',
+      width: "80%",
+      margin: "5px 0",
+      backgroundColor: "rgb(187, 203, 194)",
+      color: "primary",
     },
   },
 }));
@@ -37,8 +37,8 @@ const Category = () => {
   // USE STATE
   const [dataCategory, setDataCategory] = useState([
     {
-      pk_category_id: '',
-      category_name: '',
+        pk_category_id: '',
+        category_name: '',
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -50,13 +50,13 @@ const Category = () => {
     console.log(`dataCategory: `, dataCategory);
   }, []);
 
-  const url = 'http://localhost:5000/input/';
-  const endPoint = 'category';
+  const url = "http://localhost:5000/input/";
+  const endPoint = 'category'
 
   // GET
   const getAllDatasAPI = async () => {
     await axios
-      .get(url + endPoint + '_get_all_datas')
+      .get(url + endPoint + "_get_all_datas")
       .then((res) => {
         console.log(`GET RES DATA DATA: `, res.data.data);
         setDataCategory(res.data.data);
@@ -74,13 +74,13 @@ const Category = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append('pk_category_id', form.pk_category_id);
-    data.append('category_name', form.category_name);
+    data.append("pk_category_id", form.pk_category_id);
+    data.append("category_name", form.category_name);
 
     axios
       .post(url + `${endPoint}_input`, data, {
         headers: {
-          'content-type': 'multipart/form-data',
+          "content-type": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -107,7 +107,7 @@ const Category = () => {
   // DELETE
   const deleteAPI = async (id, index) => {
     await axios
-      .delete(url + endPoint + '_delete/' + id)
+      .delete(url + endPoint + "_delete/" + id)
       .then((deleted) => {
         console.log(`DELETED: `, deleted);
         getAllDatasAPI();
@@ -141,12 +141,12 @@ const Category = () => {
     } else {
       postAPI(categoryState);
     }
-
+  
     setDataCategory([
       {
         ...dataCategory,
         pk_category_id: categoryState.pk_category_id,
-        category_name: categoryState.category_name,
+        category_name: categoryState.category_name
       },
     ]);
 
@@ -166,9 +166,6 @@ const Category = () => {
     setIndexUpdate(index);
     categoryDispatch(cmsAction(`category_name`, data.category_name));
     categoryDispatch(cmsAction(`pk_category_id`, data.pk_category_id));
-
-    // console.log(`update from dataCategory: `, dataCategory[index]);
-    // console.log(`update from dataCategory: `, dataCategory[index]);
     console.log(`update from categoryState: `, categoryState);
   };
 
@@ -180,8 +177,9 @@ const Category = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    categoryDispatch(cmsAction(`category_name`, ''));
-    categoryDispatch(cmsAction(`pk_category_id`, ''));
+    categoryDispatch(cmsAction(`category_name`, ""));
+    categoryDispatch(cmsAction(`pk_category_id`, ""));
+  
   };
 
   // FORM CHANGE
@@ -190,88 +188,80 @@ const Category = () => {
   };
 
   return (
-    <div>
-      <Container>
-        <h4>Category input</h4>
-        <BoxInput>
-          <form
-            encType='multipart/form-data'
-            className={classes.root}
-            onSubmit={(e) => handleSubmit(e)}
-            noValidate
-            autoComplete='off'
+    <div className="cmsForm">
+      <h3>Category input</h3>
+      <form
+        encType="multipart/form-data"
+        className={classes.root}
+        onSubmit={(e) => handleSubmit(e)}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          value={categoryState.category_name}
+          name="category_name"
+          onChange={(e) => formChange(`category_name`, e.target.value)}
+          id="outlined-basic"
+          label="Category name"
+          variant="outlined"
+        />
+        <TextField
+          value={categoryState.pk_category_id}
+          name="pk_category_id"
+          onChange={(e) => formChange(`pk_category_id`, e.target.value)}
+          id="outlined-basic"
+          label="Category ID (input 1-4)"
+          variant="outlined"
+          />
+          <p style={{fontSize:'15px'}}>note: ID tidak bisa diedit, edit NAME saja!</p>
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          type="submit"
+        >
+          {isUpdate ? "Update" : "Submit"}
+        </Button>
+        {isUpdate && (
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            onClick={() => handleCancel()}
           >
-            <TextField
-              value={categoryState.category_name}
-              name='category_name'
-              onChange={(e) => formChange(`category_name`, e.target.value)}
-              id='outlined-basic'
-              label='Category name'
-              variant='outlined'
-            />
-            <TextField
-              value={categoryState.pk_category_id}
-              name='pk_category_id'
-              onChange={(e) => formChange(`pk_category_id`, e.target.value)}
-              id='outlined-basic'
-              label='ID (input 1-4)'
-              variant='outlined'
-            />
-            <Button
-              className={classes.button}
-              variant='contained'
-              color='primary'
-              type='submit'
-              style={{ backgroundColor: `${colors.green}`, marginLeft: '25px' }}
-            >
-              {isUpdate ? 'Update' : 'Submit'}
-            </Button>
-            {isUpdate && (
-              <Button
-                className={classes.button}
-                variant='contained'
-                color='primary'
-                onClick={() => handleCancel()}
-              >
-                Cancel
-              </Button>
-            )}
-          </form>
-        </BoxInput>
+            Cancel
+          </Button>
+        )}
+      </form>
+      <div>
         <br />
-        <h4>Data </h4>
-        <div>
-          {dataCategory.map(
-            (data, index) => (
-              console.log(`data article map: `, dataCategory),
-              (
-                <ul className='map' key={index}>
-                  <li>
-                    CATEGORY NAME: <span>{data.category_name}</span>
-                  </li>
-                  <li>
-                    ID: <span>{data.pk_category_id}</span>
-                  </li>
-                  {
-                    <div>
-                      <button
-                        onClick={() => handleDelete(data.pk_category_id, index)}
-                      >
-                        delete
-                      </button>
-                      <button onClick={() => handleUpdate(data, index)}>
-                        Update
-                      </button>
-                      <br />
-                    </div>
-                  }
-                  <br />
-                </ul>
-              )
+        <h3>Result: </h3>
+        {dataCategory.map(
+          (data, index) => (
+            console.log(`data article map: `, dataCategory),
+            (
+              <ul className='map' key={index}>
+                <li>CATEGORY NAME: <span>{data.category_name}</span></li>
+                <li>CATEGORY ID: <span>{data.pk_category_id}</span></li>
+                {
+                  <div>
+                    <button
+                      onClick={() => handleDelete(data.pk_category_id, index)}
+                    >
+                      delete
+                    </button>
+                    <button onClick={() => handleUpdate(data, index)}>
+                      Update
+                    </button>
+                    <br />
+                  </div>
+                }
+                <br/>
+              </ul>
             )
-          )}
-        </div>
-      </Container>
+          )
+        )}
+      </div>
     </div>
   );
 };

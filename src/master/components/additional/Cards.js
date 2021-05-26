@@ -50,7 +50,7 @@ const Cards = ({
   const isMini = useMediaQuery({ maxWidth: 370 });
 
   return (
-    <>
+    <div>
       {slider && (
         <CardProductLandingPage>
           <span>{name}</span>
@@ -223,7 +223,7 @@ const Cards = ({
           {/* Button Container */}
           <div>
             {status === 'Transaksi Selesai' ? (
-              <>
+              <div>
                 <a href='/invoice'>
                   <Button
                     primary
@@ -241,7 +241,7 @@ const Cards = ({
                     bgColor={colors.yellow}
                   />
                 </a>
-              </>
+              </div>
             ) : (
               <a href='/invoice'>
                 <Button
@@ -271,7 +271,7 @@ const Cards = ({
           </div>
 
           {status === 'selesai' && (
-            <>
+            <div>
               {reviewed ? (
                 <Rating reviewed rate={4} />
               ) : (
@@ -286,7 +286,7 @@ const Cards = ({
                   />
                 </div>
               )}
-            </>
+            </div>
           )}
         </CardInvoice>
       )}
@@ -356,7 +356,7 @@ const Cards = ({
           )}
         </CardModalAddress>
       )}
-    </>
+    </div>
   );
 };
 

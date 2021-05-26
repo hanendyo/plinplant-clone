@@ -42,10 +42,10 @@ const Shop = () => {
           {isIpad ? (
             <ProductsContainer related category='hias' />
           ) : (
-            <>
+            <div>
               <h5>Tanaman Terkait</h5>
               <ProductsContainer scroll category='hias' />
-            </>
+            </div>
           )}
 
           <ScrollSign center />

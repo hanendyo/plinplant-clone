@@ -5,11 +5,11 @@ import Invoice from '../components/Invoice/Invoice';
 
 const InvoicePage = () => {
   return (
-    <>
+    <div>
       <Navbar />
       <Invoice />
       <Footer colored />
-    </>
+    </div>
   );
 };
 

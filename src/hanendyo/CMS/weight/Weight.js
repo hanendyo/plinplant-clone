@@ -1,29 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { Button, makeStyles, TextField } from '@material-ui/core';
-import { useContext } from 'react';
-import { ContextStore } from '../../../context/store/ContextStore';
-import { cmsAction } from '../../../context/actions/CmsAction';
-import axios from 'axios';
-import { colors } from '../../../master/constant/style/index';
-import { Container, BoxInput, SpanImage, ButtonContainer } from '../style/Form';
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  makeStyles,
+  TextField,
+} from "@material-ui/core";
+import { useContext } from "react";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { cmsAction } from "../../../context/actions/CmsAction";
+import axios from "axios";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
-      width: '25ch',
-      display: 'flex',
+      width: "25ch",
+      display: "flex",
     },
     button: {
-      width: '80%',
-      margin: '5px 0',
-      backgroundColor: 'rgb(187, 203, 194)',
-      color: 'primary',
+      width: "80%",
+      margin: "5px 0",
+      backgroundColor: "rgb(187, 203, 194)",
+      color: "primary",
     },
   },
 }));
 
-const Contact = () => {
+const Weight = () => {
   // USE STYLES
   const classes = useStyles();
 
@@ -34,7 +37,7 @@ const Contact = () => {
   // USE STATE
   const [dataWeight, setDataWeight] = useState([
     {
-      weight: '',
+        weight: ''
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -46,8 +49,8 @@ const Contact = () => {
     console.log(`dataWeight: `, dataWeight);
   }, []);
 
-  const url = 'http://localhost:5000/input/';
-  const endPoint = 'weight';
+  const url = "http://localhost:5000/input/";
+  const endPoint = 'weight'
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -57,7 +60,7 @@ const Contact = () => {
           console.log(`GET RES DATA DATA: `, res.data.data);
           setDataWeight(res.data.data);
         } else {
-          console.log('Error');
+          console.log("Error");
         }
       })
       .catch((err) => {
@@ -66,11 +69,13 @@ const Contact = () => {
   };
 
   // POST
-  const postAPI = async (data) => {
+  const postAPI = async (form) => {
+    const data = new FormData()
+    data.append(`weight`, form.weight)
     axios
       .post(url + `${endPoint}_input`, data, {
         headers: {
-          'content-type': 'multipart/form-data',
+          "content-weight": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -100,14 +105,10 @@ const Contact = () => {
   // UPDATE
   const updateAPI = async (data) => {
     axios
-      .put(url + `${endPoint}_update`, data, {
-        headers: {
-          'content-type': 'multipart/form-data',
-        },
-      })
+      .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Article successfuly created!`);
+        console.log(`Weight successfuly created!`);
         console.log(res);
         return res;
       })
@@ -127,11 +128,11 @@ const Contact = () => {
     } else {
       postAPI(weightState);
     }
-
+  
     setDataWeight([
       {
         ...dataWeight,
-        type: weightState.type,
+        weight: weightState.weight
       },
     ]);
 
@@ -149,7 +150,8 @@ const Contact = () => {
   const handleUpdate = (data, index) => {
     setIsUpdate(true);
     setIndexUpdate(index);
-    weightDispatch(cmsAction(`type`, data.type));
+    weightDispatch(cmsAction(`weight`, data.weight));
+    weightDispatch(cmsAction(`pk_weight_id`, data.pk_weight_id));
 
     console.log(`update from weightState: `, weightState);
   };
@@ -162,7 +164,8 @@ const Contact = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    weightDispatch(cmsAction(`type`, ''));
+    weightDispatch(cmsAction(`weight`, ''));
+  
   };
 
   // FORM CHANGE
@@ -171,60 +174,53 @@ const Contact = () => {
   };
 
   return (
-    <Container>
-      <h4>Weight input</h4>
-      <BoxInput>
-        <form
-          encType='multipart/form-data'
-          className={classes.root}
-          onSubmit={(e) => handleSubmit(e)}
-          noValidate
-          autoComplete='off'
+    <div className="cmsForm">
+      <h3>Weight input</h3>
+      <form
+        encweight="multipart/form-data"
+        className={classes.root}
+        onSubmit={(e) => handleSubmit(e)}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          value={weightState.weight}
+          name="weight"
+          onChange={(e) => formChange(`weight`, e.target.value)}
+          id="outlined-basic"
+          label="Weight"
+          variant="outlined"
+        />
+       
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          weight="submit"
         >
-          <TextField
-            value={weightState.type}
-            name='type'
-            onChange={(e) => formChange(`type`, e.target.value)}
-            id='outlined-basic'
-            label='Weight Type'
-            variant='outlined'
-          />
-
+          {isUpdate ? "Update" : "Submit"}
+        </Button>
+        {isUpdate && (
           <Button
             className={classes.button}
-            variant='contained'
-            color='primary'
-            type='submit'
-            style={{ backgroundColor: `${colors.green}`, marginLeft: '25px' }}
+            variant="contained"
+            color="primary"
+            onClick={() => handleCancel()}
           >
-            {isUpdate ? 'Update' : 'Submit'}
+            Cancel
           </Button>
-          {isUpdate && (
-            <Button
-              className={classes.button}
-              variant='contained'
-              color='primary'
-              onClick={() => handleCancel()}
-            >
-              Cancel
-            </Button>
-          )}
-        </form>
-      </BoxInput>
-      <br />
-      <h4>Weight Data</h4>
+        )}
+      </form>
       <div>
+        <br />
+        <h3>Result: </h3>
         {dataWeight.map(
           (data, index) => (
             console.log(`data weight map: `, dataWeight),
             (
               <ul className='map' key={index}>
-                <li>
-                  WEIGHT ID: <span>{data.pk_weight_id}</span>
-                </li>
-                <li>
-                  WEIGHT: <span>{data.weight}</span>
-                </li>
+                <li>WEIGHT ID: <span>{data.pk_weight_id}</span></li>
+                <li>WEIGHT: <span>{data.weight}</span></li>
                 {
                   <div>
                     <button
@@ -238,14 +234,14 @@ const Contact = () => {
                     <br />
                   </div>
                 }
-                <br />
+                <br/>
               </ul>
             )
           )
         )}
       </div>
-    </Container>
+    </div>
   );
 };
 
-export default Contact;
+export default Weight;
