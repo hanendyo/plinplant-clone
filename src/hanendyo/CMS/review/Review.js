@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Article = () => {
+const Review = () => {
     // USE STYLES
     const classes = useStyles();
 
@@ -37,8 +37,8 @@ const Article = () => {
     // USE STATE
     const [dataReview, setDataReview] = useState([
         {
-            quantity: "",
-            fk_price_list_id: "",
+            comment: "",
+            rating: "",
         },
     ]);
     const [isUpdate, setIsUpdate] = useState(false);
@@ -71,12 +71,16 @@ const Article = () => {
     };
 
     // POST
-    const postAPI = async (data) => {
+    const postAPI = async (form) => {
+        const data = new FormData();
+        data.append('comment', form.comment)
+        data.append('rating', form.rating)
+
         axios
             .post(url + endPoint + `_input`, data)
             .then((res) => {
                 getAllDataAPI();
-                console.log(`Article successfuly created!`);
+                console.log(`Review successfuly created!`);
                 console.log(res);
                 return res;
             })
@@ -129,8 +133,8 @@ const Article = () => {
         setDataReview([
             {
                 ...dataReview,
-                quantity: reviewState.quantity,
-                fk_price_list_id: reviewState.fk_price_list_id,
+                comment: reviewState.comment,
+                rating: reviewState.rating,
             },
         ]);
 
@@ -148,8 +152,9 @@ const Article = () => {
     const handleUpdate = (data, index) => {
         setIsUpdate(true);
         setIndexUpdate(index);
-        reviewDispatch(cmsAction(`quantity`, data.quantity));
-        reviewDispatch(cmsAction(`fk_price_list_id`, data.fk_price_list_id));
+        reviewDispatch(cmsAction(`comment`, data.comment));
+        reviewDispatch(cmsAction(`rating`, data.rating));
+        reviewDispatch(cmsAction(`pk_review_id`, data.pk_review_id));
         console.log(`update from reviewState: `, reviewState);
     };
 
@@ -161,8 +166,8 @@ const Article = () => {
 
     // CLEAR FORM
     const clearFormData = () => {
-        reviewDispatch(cmsAction(`quantity`, ""));
-        reviewDispatch(cmsAction(`fk_price_list_id`, ""));
+        reviewDispatch(cmsAction(`comment`, ""));
+        reviewDispatch(cmsAction(`rating`, ""));
     };
 
     // FORM CHANGE
@@ -182,21 +187,22 @@ const Article = () => {
                 autoComplete="off"
             >
                 <TextField
-                    value={reviewState.quantity}
-                    name="quantity"
-                    onChange={(e) => formChange(`quantity`, e.target.value)}
+                    value={reviewState.rating}
+                    onChange={(e) => formChange("rating", e.target.value)}
+                    name="rating"
                     id="outlined-basic"
-                    label="quantity"
+                    label="Rating (input 1-5)"
                     variant="outlined"
                 />
                 <TextField
-                    value={reviewState.fk_price_list_id}
-                    onChange={(e) => formChange("fk_price_list_id", e.target.value)}
-                    name="fk_price_list_id"
+                    value={reviewState.comment}
+                    name="comment"
+                    onChange={(e) => formChange(`comment`, e.target.value)}
                     id="outlined-basic"
-                    label="fk_price_list_id"
+                    label="Comment"
                     variant="outlined"
                 />
+
 
                 <Button
                     className={classes.button}
@@ -229,15 +235,15 @@ const Article = () => {
                                     NO: <span>{index + 1}</span>
                                 </li>
                                 <li>
-                                    quantity: <span>{data.quantity}</span>
+                                    comment: <span>{data.comment}</span>
                                 </li>
                                 <li>
-                                    PRICE_LIST_ID: <span>{data.fk_price_list_id}</span>
+                                    PRICE_LIST_ID: <span>{data.rating}</span>
                                 </li>
                                 {
                                     <div>
                                         <button
-                                            onClick={() => handleDelete(data.pk_article_id, index)}
+                                            onClick={() => handleDelete(data.pk_review_id, index)}
                                         >
                                             delete
                                         </button>
@@ -256,4 +262,4 @@ const Article = () => {
     );
 };
 
-export default Article;
+export default Review;

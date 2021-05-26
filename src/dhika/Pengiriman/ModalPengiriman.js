@@ -8,7 +8,7 @@ import { colors } from '../../master/constant/style/index';
 const ModalPengiriman = () => {
   const [popupPengiriman, SetPopupPengiriman] = useState(false);
   return (
-    <>
+    <div>
       <MainPengiriman>
         {/* <ModalAlamat /> */}
         <Button
@@ -23,7 +23,7 @@ const ModalPengiriman = () => {
           setTrigger={SetPopupPengiriman}
         />
       </MainPengiriman>
-    </>
+    </div>
   );
 };
 

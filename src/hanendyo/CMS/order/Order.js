@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { Button, makeStyles, TextField } from '@material-ui/core';
-import { useContext } from 'react';
-import { ContextStore } from '../../../context/store/ContextStore';
-import { postAPI, cmsAction } from '../../../context/actions/CmsAction';
-import axios from 'axios';
-import { colors } from '../../../master/constant/style/index';
-import { Container, BoxInput, SpanImage, ButtonContainer } from '../style/Form';
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  makeStyles,
+  TextField,
+} from "@material-ui/core";
+import { useContext } from "react";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
+import axios from "axios";
+import "../CMS.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
-      width: '25ch',
-      display: 'flex',
+      width: "25ch",
+      display: "flex",
     },
     button: {
-      width: '80%',
-      margin: '5px 0',
-      backgroundColor: 'rgb(187, 203, 194)',
-      color: 'primary',
+      width: "80%",
+      margin: "5px 0",
+      backgroundColor: "rgb(187, 203, 194)",
+      color: "primary",
     },
   },
 }));
@@ -49,8 +52,8 @@ const Contact = () => {
     console.log(`dataOrder: `, dataOrder);
   }, []);
 
-  const url = 'http://localhost:5000/input/';
-  const endPoint = 'order';
+  const url = "http://localhost:5000/input/";
+  const endPoint = 'order'
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -60,7 +63,7 @@ const Contact = () => {
           console.log(`GET RES DATA DATA: `, res.data.data);
           setDataOrder(res.data.data);
         } else {
-          console.log('Error');
+          console.log("Error");
         }
       })
       .catch((err) => {
@@ -72,15 +75,15 @@ const Contact = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append('status', form.status);
-    data.append('created_at', form.created_at);
-    data.append('fk_user_id', form.fk_user_id);
+    data.append("status", form.status);
+    data.append("created_at", form.created_at);
+    data.append("fk_user_id", form.fk_user_id);
     // data.append("pk_city_id", form.pk_city_id);
 
     axios
       .post(url + `${endPoint}_input`, data, {
         headers: {
-          'content-type': 'multipart/form-data',
+          "content-type": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -177,10 +180,11 @@ const Contact = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    orderDispatch(cmsAction(`status`, ''));
+    orderDispatch(cmsAction(`status`, ""));
     orderDispatch(cmsAction(`created_at`, ''));
     orderDispatch(cmsAction(`fk_user_id`, ''));
     // orderDispatch(cmsAction(`fk_city_id`, ''));
+
   };
 
   // FORM CHANGE
@@ -189,82 +193,71 @@ const Contact = () => {
   };
 
   return (
-    <Container>
-      <h4>Order input</h4>
-      <BoxInput>
-        <form
-          encType='multipart/form-data'
-          className={classes.root}
-          onSubmit={(e) => handleSubmit(e)}
-          noValidate
-          autoComplete='off'
+    <div className="cmsForm">
+      <h3>Order input</h3>
+      <form
+        encType="multipart/form-data"
+        className={classes.root}
+        onSubmit={(e) => handleSubmit(e)}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          value={orderState.status}
+          name="status"
+          onChange={(e) => formChange(`status`, e.target.value)}
+          id="outlined-basic"
+          label="Order status"
+          variant="outlined"
+        />
+        <TextField
+          value={orderState.created_at}
+          name="created_at"
+          onChange={(e) => formChange(`created_at`, e.target.value)}
+          id="outlined-basic"
+          label="Created at"
+          variant="outlined"
+        />
+        <TextField
+          value={orderState.fk_user_id}
+          name="fk_user_id"
+          onChange={(e) => formChange(`fk_user_id`, e.target.value)}
+          id="outlined-basic"
+          label="User_ID"
+          variant="outlined"
+        />
+       
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          type="submit"
         >
-          <TextField
-            value={orderState.status}
-            name='status'
-            onChange={(e) => formChange(`status`, e.target.value)}
-            id='outlined-basic'
-            label='Order status'
-            variant='outlined'
-          />
-          <TextField
-            value={orderState.created_at}
-            name='created_at'
-            onChange={(e) => formChange(`created_at`, e.target.value)}
-            id='outlined-basic'
-            label='Created at'
-            variant='outlined'
-          />
-          <TextField
-            value={orderState.fk_user_id}
-            name='fk_user_id'
-            onChange={(e) => formChange(`fk_user_id`, e.target.value)}
-            id='outlined-basic'
-            label='User_ID'
-            variant='outlined'
-          />
-
+          {isUpdate ? "Update" : "Submit"}
+        </Button>
+        {isUpdate && (
           <Button
             className={classes.button}
-            variant='contained'
-            color='primary'
-            type='submit'
-            style={{ backgroundColor: `${colors.green}`, marginLeft: '25px' }}
+            variant="contained"
+            color="primary"
+            onClick={() => handleCancel()}
           >
-            {isUpdate ? 'Update' : 'Submit'}
+            Cancel
           </Button>
-          {isUpdate && (
-            <Button
-              className={classes.button}
-              variant='contained'
-              color='primary'
-              onClick={() => handleCancel()}
-            >
-              Cancel
-            </Button>
-          )}
-        </form>
-      </BoxInput>
-      <br />
-      <h4>Data Order Status</h4>
+        )}
+      </form>
       <div>
+        <br />
+        <h3>Result: </h3>
         {dataOrder.map(
           (data, index) => (
             console.log(`data contact map: `, dataOrder),
             (
               <ul className='map' key={index}>
-                <li>
-                  ORDER ID: <span>{data.pk_order_id}</span>
-                </li>
-                <li>
-                  ORDER STATUS: <span>{data.status}</span>
-                </li>
-                <li>
-                  CREATED AT: <span>{data.created_at}</span>
-                </li>
-                <li>
-                  USER_ID: <span>{data.fk_user_id}</span>
-                </li>
+                <li>ORDER ID: <span>{data.pk_order_id}</span></li>
+                <li>ORDER STATUS: <span>{data.status}</span></li>
+                <li>CREATED AT: <span>{data.created_at}</span></li>
+                <li>USER_ID: <span>{data.fk_user_id}</span></li>
                 {
                   <div>
                     <button
@@ -284,7 +277,7 @@ const Contact = () => {
           )
         )}
       </div>
-    </Container>
+    </div>
   );
 };
 

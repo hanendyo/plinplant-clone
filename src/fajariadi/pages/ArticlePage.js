@@ -5,11 +5,11 @@ import ArtikelHeader from '../../dhika/Artikel/header/ArtikelHeader';
 
 const ArticlePage = () => {
   return (
-    <>
+    <div>
       <Navbar />
       <ArtikelHeader />
       <Footer colored />
-    </>
+    </div>
   );
 };
 

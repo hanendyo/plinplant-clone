@@ -5,7 +5,7 @@ import { colors } from "../../../master/constant/style/index";
 
 const Footer = () => {
   return (
-    <>
+    <div>
       <FooterContainer>
         <Container>
           <TextContainer>
@@ -25,7 +25,7 @@ const Footer = () => {
           ></Button>
         </Container>
       </FooterContainer>
-    </>
+    </div>
   );
 };
 

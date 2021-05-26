@@ -5,11 +5,11 @@ import Shop from '../components/Shop/Shop';
 
 const ShoppingPage = () => {
   return (
-    <>
+    <div>
       <Navbar />
       <Shop />
       <Footer colored />
-    </>
+    </div>
   );
 };
 

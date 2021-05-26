@@ -5,11 +5,11 @@ import Navbar from '../../master/components/Navbar/Navbar';
 
 const ProfilePage = () => {
   return (
-    <>
+    <div>
       <Navbar />
       <Profile />
       <Footer colored />
-    </>
+    </div>
   );
 };
 
