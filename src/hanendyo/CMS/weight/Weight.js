@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Contact = () => {
+const Weight = () => {
   // USE STYLES
   const classes = useStyles();
 
@@ -69,11 +69,13 @@ const Contact = () => {
   };
 
   // POST
-  const postAPI = async (data) => {
+  const postAPI = async (form) => {
+    const data = new FormData()
+    data.append(`weight`, form.weight)
     axios
       .post(url + `${endPoint}_input`, data, {
         headers: {
-          "content-type": "multipart/form-data",
+          "content-weight": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -103,14 +105,10 @@ const Contact = () => {
   // UPDATE
   const updateAPI = async (data) => {
     axios
-      .put(url + `${endPoint}_update`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Article successfuly created!`);
+        console.log(`Weight successfuly created!`);
         console.log(res);
         return res;
       })
@@ -134,7 +132,7 @@ const Contact = () => {
     setDataWeight([
       {
         ...dataWeight,
-        type: weightState.type
+        weight: weightState.weight
       },
     ]);
 
@@ -152,7 +150,8 @@ const Contact = () => {
   const handleUpdate = (data, index) => {
     setIsUpdate(true);
     setIndexUpdate(index);
-    weightDispatch(cmsAction(`type`, data.type));
+    weightDispatch(cmsAction(`weight`, data.weight));
+    weightDispatch(cmsAction(`pk_weight_id`, data.pk_weight_id));
 
     console.log(`update from weightState: `, weightState);
   };
@@ -165,7 +164,7 @@ const Contact = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    weightDispatch(cmsAction(`type`, ''));
+    weightDispatch(cmsAction(`weight`, ''));
   
   };
 
@@ -178,18 +177,18 @@ const Contact = () => {
     <div className="cmsForm">
       <h3>Weight input</h3>
       <form
-        encType="multipart/form-data"
+        encweight="multipart/form-data"
         className={classes.root}
         onSubmit={(e) => handleSubmit(e)}
         noValidate
         autoComplete="off"
       >
         <TextField
-          value={weightState.type}
-          name="type"
-          onChange={(e) => formChange(`type`, e.target.value)}
+          value={weightState.weight}
+          name="weight"
+          onChange={(e) => formChange(`weight`, e.target.value)}
           id="outlined-basic"
-          label="Weight Type"
+          label="Weight"
           variant="outlined"
         />
        
@@ -197,7 +196,7 @@ const Contact = () => {
           className={classes.button}
           variant="contained"
           color="primary"
-          type="submit"
+          weight="submit"
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -245,4 +244,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default Weight;

@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const PriceList = () => {
+const Stock = () => {
     // USE STYLES
     const classes = useStyles();
 
@@ -53,7 +53,7 @@ const PriceList = () => {
     }, []);
 
     const url = "http://localhost:5000/input/";
-    const endPoint = "article";
+    const endPoint = "stock";
 
     // GET
     const getAllDataAPI = async () => {
@@ -73,7 +73,12 @@ const PriceList = () => {
     };
 
     // POST
-    const postAPI = async (data) => {
+    const postAPI = async (form) => {
+        const data = new FormData();
+        data.append('seed_stock', form.seed_stock)
+        data.append('tuber_stock', form.tuber_stock)
+        data.append('young_stock', form.young_stock)
+        data.append('mature_stock', form.mature_stock)
         axios
             .post(url + endPoint + `_input`, data, {
                 headers: {
@@ -107,11 +112,7 @@ const PriceList = () => {
     // UPDATE
     const updateAPI = async (data) => {
         axios
-            .put(url + endPoint + `_update`, data, {
-                headers: {
-                    "fk_plant_breeding_id-type": "multipart/form-data",
-                },
-            })
+            .put(url + endPoint + `_update`, data)
             .then((res) => {
                 getAllDataAPI();
                 console.log(`Stock successfuly updated!`);
@@ -139,10 +140,9 @@ const PriceList = () => {
             {
                 ...dataStock,
                 seed_stock: stockState.seed_stock,
-                image: stockState.image,
+                tuber_stock: stockState.tuber_stock,
                 young_stock: stockState.young_stock,
                 mature_stock: stockState.mature_stock,
-                fk_plant_breeding_id: stockState.fk_plant_breeding_id,
             },
         ]);
 
@@ -162,10 +162,9 @@ const PriceList = () => {
         setIndexUpdate(index);
         stockDispatch(cmsAction(`seed_stock`, data.seed_stock));
         stockDispatch(cmsAction(`mature_stock`, data.mature_stock));
-        stockDispatch(cmsAction(`fk_plant_breeding_id`, data.fk_plant_breeding_id));
         stockDispatch(cmsAction(`young_stock`, data.young_stock));
         stockDispatch(cmsAction(`tuber_stock`, data.tuber_stock));
-        stockDispatch(cmsAction(`pk_article_id`, data.pk_article_id));
+        stockDispatch(cmsAction(`pk_stock_id`, data.pk_stock_id));
         console.log(`update from stockState: `, stockState);
     };
 
@@ -179,9 +178,8 @@ const PriceList = () => {
     const clearFormData = () => {
         stockDispatch(cmsAction(`seed_stock`, ""));
         stockDispatch(cmsAction(`mature_stock`, ""));
-        stockDispatch(cmsAction(`fk_plant_breeding_id`, ""));
         stockDispatch(cmsAction(`young_stock`, ""));
-        stockDispatch(cmsAction(`tuber_stock`, null));
+        stockDispatch(cmsAction(`tuber_stock`, ''));
     };
 
     // FORM CHANGE
@@ -260,14 +258,14 @@ const PriceList = () => {
                 <h3>Result: </h3>
                 {dataStock.map(
                     (data, index) => (
-                        console.log(`data article map: `, dataStock),
+                        console.log(`data stock map: `, dataStock),
                         (
                             <ul className="map" key={index}>
                                 <li>
                                     NO: <span>{index + 1}</span>
                                 </li>
                                 <li>
-                                    STOCK ID: <span>{data.pk_article_id}</span>
+                                    STOCK ID: <span>{data.pk_stock_id}</span>
                                 </li>
                                 <li>
                                     SEED STOCK: <span>{data.seed_stock}</span>
@@ -278,13 +276,11 @@ const PriceList = () => {
                                 <li>
                                     MATURE STOCK: <span>{data.mature_stock}</span>
                                 </li>
-                                <li>
-                                    PLANT_BREEDING_ID: <span>{data.fk_plant_breeding_id}</span>
-                                </li>
+                              
                                 {
                                     <div>
                                         <button
-                                            onClick={() => handleDelete(data.pk_article_id, index)}
+                                            onClick={() => handleDelete(data.pk_stock_id, index)}
                                         >
                                             delete
                                         </button>
@@ -303,4 +299,4 @@ const PriceList = () => {
     );
 };
 
-export default PriceList;
+export default Stock;

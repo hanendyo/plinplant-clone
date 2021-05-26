@@ -55,7 +55,7 @@ const PriceList = () => {
     }, []);
 
     const url = "http://localhost:5000/input/";
-    const endPoint = "article";
+    const endPoint = "price_list";
 
     // GET
     const getAllDataAPI = async () => {
@@ -75,7 +75,15 @@ const PriceList = () => {
     };
 
     // POST
-    const postAPI = async (data) => {
+    const postAPI = async (form) => {
+        const data = new FormData();
+        console.log(`formdata:`, form);
+        data.append("seed_price", form.seed_price);
+        data.append("tuber_price", form.tuber_price);
+        data.append("young_price", form.young_price);
+        data.append("mature_price", form.mature_price);
+        data.append("fk_plant_breeding_id", form.fk_plant_breeding_id);
+        data.append("fk_stock_id", form.fk_stock_id);
         axios
             .post(url + endPoint + `_input`, data)
             .then((res) => {
@@ -134,10 +142,11 @@ const PriceList = () => {
             {
                 ...priceList,
                 seed_price: priceListState.seed_price,
-                image: priceListState.image,
+                tuber_price: priceListState.tuber_price,
                 young_price: priceListState.young_price,
                 mature_price: priceListState.mature_price,
                 fk_plant_breeding_id: priceListState.fk_plant_breeding_id,
+                fk_stock_id: priceListState.fk_stock_id,
             },
         ]);
 
@@ -157,10 +166,11 @@ const PriceList = () => {
         setIndexUpdate(index);
         priceListDispatch(cmsAction(`seed_price`, data.seed_price));
         priceListDispatch(cmsAction(`mature_price`, data.mature_price));
-        priceListDispatch(cmsAction(`fk_plant_breeding_id`, data.fk_plant_breeding_id));
         priceListDispatch(cmsAction(`young_price`, data.young_price));
         priceListDispatch(cmsAction(`tuber_price`, data.tuber_price));
-        priceListDispatch(cmsAction(`pk_article_id`, data.pk_article_id));
+        priceListDispatch(cmsAction(`fk_plant_breeding_id`, data.fk_plant_breeding_id));
+        priceListDispatch(cmsAction(`fk_stock_id`, data.fk_stock_id));
+        priceListDispatch(cmsAction(`pk_price_list_id`, data.pk_price_list_id));
         console.log(`update from priceListState: `, priceListState);
     };
 
@@ -173,7 +183,7 @@ const PriceList = () => {
     // CLEAR FORM
     const clearFormData = () => {
         priceListDispatch(cmsAction(`seed_price`, ""));
-        priceListDispatch(cmsAction(`tuber_price`, null));
+        priceListDispatch(cmsAction(`tuber_price`, ''));
         priceListDispatch(cmsAction(`mature_price`, ""));
         priceListDispatch(cmsAction(`young_price`, ""));
         priceListDispatch(cmsAction(`fk_plant_breeding_id`, ""));
@@ -281,7 +291,7 @@ const PriceList = () => {
                                     NO: <span>{index + 1}</span>
                                 </li>
                                 <li>
-                                    ARTICLE ID: <span>{data.pk_article_id}</span>
+                                    ARTICLE ID: <span>{data.pk_price_list_id}</span>
                                 </li>
                                 <li>
                                     SEED PRICE: <span>{data.seed_price}</span>
@@ -299,12 +309,12 @@ const PriceList = () => {
                                     PLANT_BREEDING_ID: <span>{data.fk_plant_breeding_id}</span>
                                 </li>
                                 <li>
-                                   STOCK_ID: <span>{data.fk_stock_id}</span>
+                                    STOCK_ID: <span>{data.fk_stock_id}</span>
                                 </li>
                                 {
                                     <div>
                                         <button
-                                            onClick={() => handleDelete(data.pk_article_id, index)}
+                                            onClick={() => handleDelete(data.pk_price_list_id, index)}
                                         >
                                             delete
                     </button>

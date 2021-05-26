@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  makeStyles,
-  TextField,
-} from "@material-ui/core";
+import { Button, makeStyles, TextField } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { cmsAction } from "../../../context/actions/CmsAction";
@@ -26,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Plant = () => {
+const Article = () => {
   // USE STYLES
   const classes = useStyles();
 
@@ -42,14 +38,14 @@ const Plant = () => {
       email: "",
       password: "",
       birth_date: "",
-      fk_contact_id: "",
-      fk_gender_id: "",
+      fk_contact_id:'',
+      fk_gender_id: ''
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
-  const [fileImage, setFileImage] = useState(null);
-  const [imageUpload, setImageUpload] = useState(null)
+  const [reviewImage, setReviewImage] = useState(null);
+  const [imageUpload, setImageUpload] = useState(null);
 
   // USE EFFECT
   useEffect(() => {
@@ -59,10 +55,11 @@ const Plant = () => {
 
   const url = "http://localhost:5000/input/";
   const endPoint = "user";
+
   // GET
   const getAllDatasAPI = async () => {
     await axios
-      .get(url + `${endPoint}_get_all_datas`)
+      .get(url + endPoint + "_get_all_datas")
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
@@ -81,17 +78,18 @@ const Plant = () => {
     const data = new FormData();
     console.log(`formdata:`, form);
     data.append("fullname", form.fullname);
-    data.append("picture", form.tuber);
-    data.append("picture_upload", imageUpload);
-    data.append("email", form.email);
+    data.append("password", form.password);
     data.append("birth_date", form.birth_date);
+    data.append("email", form.email);
+    data.append("fk_contact_id", form.fk_contact_id);
     data.append("fk_gender_id", form.fk_gender_id);
-
+    data.append("picture", form.picture);
+    data.append("picture_upload", imageUpload);
 
     axios
-      .post(url + `${endPoint}_input`, data, {
+      .post(url + endPoint + `_input`, data, {
         headers: {
-          "content-type": "multipart/form-data",
+          "birth_date-type": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -110,7 +108,7 @@ const Plant = () => {
   // DELETE
   const deleteAPI = async (id, index) => {
     await axios
-      .delete(url + `${endPoint}_delete/` + id)
+      .delete(url + endPoint + "_delete/" + id)
       .then((deleted) => {
         console.log(`DELETED: `, deleted);
         getAllDatasAPI();
@@ -119,25 +117,12 @@ const Plant = () => {
   };
 
   // UPDATE
-  const updateAPI = async (form) => {
-    const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("fullname", form.fullname);
-    data.append("picture", form.tuber);
-    data.append("picture_upload", imageUpload);
-    data.append("email", form.email);
-    data.append("birth_date", form.birth_date);
-    data.append("fk_gender_id", form.fk_gender_id);
-
+  const updateAPI = async (data) => {
     axios
-      .put(url + `${endPoint}_update`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .put(url + endPoint + `_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`User successfuly created!`);
+        console.log(`User successfuly updated!`);
         console.log(res);
         return res;
       })
@@ -173,7 +158,7 @@ const Plant = () => {
 
     clearFormData();
 
-    console.log(`USER STATE SUBMIT: `, userState);
+    console.log(`ARTICLE STATE SUBMIT: `, userState);
   };
 
   // HANDLE DELETE
@@ -186,13 +171,13 @@ const Plant = () => {
     setIsUpdate(true);
     setIndexUpdate(index);
     userDispatch(cmsAction(`fullname`, data.fullname));
-    userDispatch(cmsAction(`picture`, data.picture));
-    userDispatch(cmsAction(`email`, data.email));
     userDispatch(cmsAction(`password`, data.password));
     userDispatch(cmsAction(`birth_date`, data.birth_date));
+    userDispatch(cmsAction(`email`, data.email));
+    userDispatch(cmsAction(`picture`, data.picture));
     userDispatch(cmsAction(`fk_contact_id`, data.fk_contact_id));
     userDispatch(cmsAction(`fk_gender_id`, data.fk_gender_id));
-
+    userDispatch(cmsAction(`pk_user_id`, data.pk_user_id));
     console.log(`update from userState: `, userState);
   };
 
@@ -205,12 +190,12 @@ const Plant = () => {
   // CLEAR FORM
   const clearFormData = () => {
     userDispatch(cmsAction(`fullname`, ""));
-    userDispatch(cmsAction(`picture`, ""));
-    userDispatch(cmsAction(`email`, ""));
     userDispatch(cmsAction(`password`, ""));
     userDispatch(cmsAction(`birth_date`, ""));
-    userDispatch(cmsAction(`fk_contact_id`, ""));
-    userDispatch(cmsAction(`fk_gender_id`, ""));
+    userDispatch(cmsAction(`email`, ""));
+    userDispatch(cmsAction(`picture`, ''));
+    userDispatch(cmsAction(`fk_contact_id`, ''));
+    userDispatch(cmsAction(`fk_gender_id`, ''));
   };
 
   // FORM CHANGE
@@ -220,15 +205,16 @@ const Plant = () => {
 
   const formImage = (e) => {
     const img = e.target.files[0];
-    const imgName = e.target.files[0].name
-    userDispatch(cmsAction("image", imgName));
-    setFileImage(URL.createObjectURL(img));
-    setImageUpload(img)
+    const imgName = e.target.files[0].name;
+    console.log(`IMEJ: `, img);
+    userDispatch(cmsAction("picture", imgName));
+    setReviewImage(URL.createObjectURL(img));
+    setImageUpload(img);
   };
 
   return (
-    <div className="cmsForm">
-      <h3>User input</h3>
+    <div className="article cmsForm">
+      <h3>Article input</h3>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -241,55 +227,58 @@ const Plant = () => {
           name="fullname"
           onChange={(e) => formChange(`fullname`, e.target.value)}
           id="outlined-basic"
-          label="Fullname"
-          variant="outlined"
-        />
-
-        <TextField
-          value={userState.email}
-          name="email"
-          onChange={(e) => formChange(`email`, e.target.value)}
-          id="outlined-basic"
-          label="Email"
+          label="fullname"
           variant="outlined"
         />
         <TextField
           value={userState.password}
+          onChange={(e) => formChange("password", e.target.value)}
           name="password"
-          onChange={(e) => formChange(`password`, e.target.value)}
           id="outlined-basic"
-          label="Password"
+          label="password"
           variant="outlined"
         />
         <TextField
           value={userState.birth_date}
+          onChange={(e) => formChange("birth_date", e.target.value)}
           name="birth_date"
-          onChange={(e) => formChange(`birth_date`, e.target.value)}
-          id="outlined-basic"
-          label="Birth date"
+          id="outlined-static"
+          label="birth_date"
           variant="outlined"
         />
 
         {/* ----- IMAGE ----- */}
-        <span>Pick User image:</span>
-        <input name="picture" type="file" onChange={(e) => formImage(e)} />
-        <img src={fileImage} alt="" />
+        <span>Pick image:</span>
+        <input
+          name="picture_upload"
+          type="file"
+          onChange={(e) => formImage(e)}
+        />
+        <img src={reviewImage} alt="" />
         {/* ----- IMAGE ----- */}
 
         <TextField
-          value={userState.fk_contact_id}
-          name="fk_contact_id"
-          onChange={(e) => formChange(`fk_contact_id`, e.target.value)}
+          value={userState.email}
+          onChange={(e) => formChange("email", e.target.value)}
+          name="email"
           id="outlined-basic"
-          label="Contact_id"
+          label="Created at"
+          variant="outlined"
+        />
+        <TextField
+          value={userState.fk_contact_id}
+          onChange={(e) => formChange("fk_contact_id", e.target.value)}
+          name="fk_contact_id"
+          id="outlined-basic"
+          label="Contact_ID"
           variant="outlined"
         />
         <TextField
           value={userState.fk_gender_id}
+          onChange={(e) => formChange("fk_gender_id", e.target.value)}
           name="fk_gender_id"
-          onChange={(e) => formChange(`fk_gender_id`, e.target.value)}
           id="outlined-basic"
-          label="Gender_id"
+          label="Gender_ID"
           variant="outlined"
         />
 
@@ -315,56 +304,52 @@ const Plant = () => {
       <div>
         <br />
         <h3>Result: </h3>
-        {dataUser.map(
-          (data, index) => (
-            console.log(`data article map: `, dataUser),
-            (
-              <ul className="map" key={index}>
-                <li>
-                  USER ID: <span>{data.pk_user_id}</span>
-                </li>
-                <li>
-                  FULLNAME: <span>{data.fullname}</span>
-                </li>
-                <li>
-                  EMAIL: <span>{data.email}</span>
-                </li>
-                <li>
-                  PICTURE: <span>{data.picture}</span>
-                </li>
-                <li>
-                  PASSWORD: <span>{data.password}</span>
-                </li>
-                <li>
-                  BIRTH DATE: <span>{data.birth_date}</span>
-                </li>
-                <li>
-                  CONTACT_ID: <span>{data.fk_contact_id}</span>
-                </li>
-                <li>
-                  GENDER_ID: <span>{data.fk_gender_id}</span>
-                </li>
-                {
-                  <div>
-                    <button
-                      onClick={() => handleDelete(data.pk_user_id, index)}
-                    >
-                      delete
-                    </button>
-                    <button onClick={() => handleUpdate(data, index)}>
-                      Update
-                    </button>
-                    <br />
-                  </div>
-                }
+        {dataUser.map((data, index) => (
+          // console.log(`data article map: `, dataUser),
+          <ul className="map" key={index}>
+            <li>
+              NO: <span>{index + 1}</span>
+            </li>
+            <li>
+              USER ID: <span>{data.pk_user_id}</span>
+            </li>
+            <li>
+              PICTURE: <span>{data.picture}</span>
+            </li>
+            <li>
+              FULLNAME: <span>{data.fullname}</span>
+            </li>
+            <li>
+              EMAIL: <span>{data.email}</span>
+            </li>
+            <li>
+              PASSWORD: <span>{data.password}</span>
+            </li>
+            <li>
+              BIRTH DATE: <span>{data.birth_date}</span>
+            </li>
+            <li>
+              CONTACT_ID: <span>{data.fk_contact_id}</span>
+            </li>
+            <li>
+              GENDER_ID: <span>{data.fk_gender_id}</span>
+            </li>
+            {
+              <div>
+                <button onClick={() => handleDelete(data.pk_user_id, index)}>
+                  delete
+                </button>
+                <button onClick={() => handleUpdate(data, index)}>
+                  Update
+                </button>
                 <br />
-              </ul>
-            )
-          )
-        )}
+              </div>
+            }
+          </ul>
+        ))}
       </div>
     </div>
   );
 };
 
-export default Plant;
+export default Article;

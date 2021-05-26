@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Article = () => {
+const ShippingCharges = () => {
   // USE STYLES
   const classes = useStyles();
 
@@ -71,7 +71,10 @@ const Article = () => {
   };
 
   // POST
-  const postAPI = async (data) => {
+  const postAPI = async (form) => {
+    const data = new FormData()
+    data.append('shipping_price', form.shipping_price)
+    data.append('fk_city_id', form.fk_city_id)
     axios
       .post(url + endPoint + `_input`, data, {
         headers: {
@@ -106,11 +109,7 @@ const Article = () => {
   const updateAPI = async (data) => {
     console.log(`DATA UPDATE: `, data);
     axios
-      .put(url + endPoint + `_update`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .put(url + endPoint + `_update`, data)
       .then((res) => {
         getAllDataAPI();
         console.log(`Shipping charges successfuly updated!`);
@@ -158,6 +157,7 @@ const Article = () => {
     setIndexUpdate(index);
     shippingChargesDispatch(cmsAction(`shipping_price`, data.shipping_price));
     shippingChargesDispatch(cmsAction(`fk_city_id`, data.fk_city_id));
+    shippingChargesDispatch(cmsAction(`pk_shipping_charges_id`, data.pk_shipping_charges_id));
     console.log(`update from shippingChargesState: `, shippingChargesState);
   };
 
@@ -230,17 +230,17 @@ const Article = () => {
         <h3>Result: </h3>
         {dataShippingCharges.map(
           (data, index) => (
-            console.log(`data article map: `, dataShippingCharges),
+            console.log(`data ShippingCharges map: `, dataShippingCharges),
             (
               <ul className="map" key={index}>
-                <li>
-                  NO: <span>{index + 1}</span>
-                </li>
                 <li>
                  SHIPPING PRICE ID: <span>{data.pk_shipping_charges_id}</span>
                 </li>
                 <li>
                   SHIPPING PRICE: <span>{data.shipping_price}</span>
+                </li>
+                <li>
+                  CITY_ID: <span>{data.fk_city_id}</span>
                 </li>
                 {
                   <div>
@@ -264,4 +264,4 @@ const Article = () => {
   );
 };
 
-export default Article;
+export default ShippingCharges;

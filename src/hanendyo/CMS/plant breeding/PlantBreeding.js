@@ -187,6 +187,8 @@ const PlantBreeding = () => {
     plantBreedingDispatch(cmsAction(`young_image`, data.young_image));
     plantBreedingDispatch(cmsAction(`mature_image`, data.mature_image));
     plantBreedingDispatch(cmsAction(`fk_plant_id`, data.fk_plant_id));
+    plantBreedingDispatch(cmsAction(`pk_plant_breeding_id`, data.pk_plant_breeding_id));
+    
     console.log(`update from plantBreedingState: `, plantBreedingState);
   };
 
@@ -291,7 +293,7 @@ const PlantBreeding = () => {
           name="fk_plant_id"
           onChange={(e) => formChange(`fk_plant_id`, e.target.value)}
           id="outlined-basic"
-          label="Category_id"
+          label="Plant_id"
           variant="outlined"
         />
         <Button
@@ -340,13 +342,16 @@ const PlantBreeding = () => {
                   SEED IMAGE: <span>{data.seed_image}</span>
                 </li>
                 <li>
-                  TUBER: <span>{data.tuber_image}</span>
+                  TUBER IMAGE: <span>{data.tuber_image}</span>
                 </li>
                 <li>
-                  YOUNG: <span>{data.young_image}</span>
+                  YOUNG IMAGE: <span>{data.young_image}</span>
                 </li>
                 <li>
-                  MATURE: <span>{data.mature_image}</span>
+                  MATURE IMAGE: <span>{data.mature_image}</span>
+                </li>
+                <li>
+                  PLANT_ID: <span>{data.fk_plant_id}</span>
                 </li>
                 <li></li>
                 {
