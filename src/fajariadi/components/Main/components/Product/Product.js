@@ -62,7 +62,7 @@ const Product = () => {
 
         <ProductSlider>
           {search ? (
-            <div>
+            <>
               {searched.includes(true) ? (
                 <ProductsContainer search={search} searching={searching} />
               ) : (
@@ -70,13 +70,13 @@ const Product = () => {
                   Mohon maaf, tanaman yang Anda cari belum tersedia.
                 </p>
               )}
-            </div>
+            </>
           ) : (
-            <div>
+            <>
               {productsCategory.map((category, index) => (
                 <ProductsContainer slider category={category} key={index} />
               ))}
-            </div>
+            </>
           )}
         </ProductSlider>
       </Container>
