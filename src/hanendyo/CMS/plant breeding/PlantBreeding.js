@@ -336,6 +336,18 @@ const PlantBreeding = () => {
                 <li>
                   MATURE: <span>{data.mature}</span>
                 </li>
+                <li>
+                  SEED IMAGE: <span>{data.seed_image}</span>
+                </li>
+                <li>
+                  TUBER: <span>{data.tuber_image}</span>
+                </li>
+                <li>
+                  YOUNG: <span>{data.young_image}</span>
+                </li>
+                <li>
+                  MATURE: <span>{data.mature_image}</span>
+                </li>
                 <li></li>
                 {
                   <div>

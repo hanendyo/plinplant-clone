@@ -92,7 +92,7 @@ export default CMS;
 //   };
 
 //   return (
-//     <>
+//     <div>
 //       <Nav>
 //         <NavIcon to="#">
 //           <FaIcons.FaBars onClick={showSidebar} />
@@ -109,9 +109,8 @@ export default CMS;
 //           </SidebarWrap>
 //         </SidebarNav>
 //       </Nav>
-//     </>
+//     </div>
 //   );
 // };
 
 // export default SidebarCMS;
-
