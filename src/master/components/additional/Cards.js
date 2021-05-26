@@ -46,7 +46,7 @@ const Cards = ({
   search,
   selectAddress,
 }) => {
-  const { modalReviewDispatch } = useContext(ContextStore);
+  // const { modalReviewDispatch } = useContext(ContextStore);
   const isMini = useMediaQuery({ maxWidth: 370 });
 
   return (
@@ -282,7 +282,7 @@ const Cards = ({
                     address
                     text='Beri Ulasan'
                     bgColor={colors.lightGreenTransparent}
-                    onClick={() => modalReviewDispatch(openModalReview())}
+                    // onClick={() => modalReviewDispatch(openModalReview())}
                   />
                 </div>
               )}
