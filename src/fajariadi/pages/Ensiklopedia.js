@@ -8,14 +8,14 @@ import Footer from "../../master/components/Footer/Footer";
 
 const Ensiklopedia = () => {
   return (
-    <>
+    <div>
       <Navbar />
       <Header />
       <Body />
       <CTAEnsiklopedia />
       <RelatedProduct />
       <Footer colored />
-    </>
+    </div>
   );
 };
 

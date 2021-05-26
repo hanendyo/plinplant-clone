@@ -47,7 +47,7 @@ const ShoppingSummary = ({ checkout }) => {
           <Button primary summary text='Proses' bgColor={colors.yellow} />
         </a>
       ) : (
-        <>
+        <div>
           {addresses.length === 0 ? (
             <Button
               primary
@@ -61,7 +61,7 @@ const ShoppingSummary = ({ checkout }) => {
               <Button primary summary text='Beli' bgColor={colors.yellow} />
             </a>
           )}
-        </>
+        </div>
       )}
     </SummarySection>
   );

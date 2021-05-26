@@ -5,11 +5,11 @@ import Checkout from '../components/Checkout/Checkout';
 
 const CheckoutPage = () => {
   return (
-    <>
+    <div>
       <Navbar />
       <Checkout />
       <Footer colored />
-    </>
+    </div>
   );
 };
 
