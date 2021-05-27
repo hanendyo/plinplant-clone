@@ -36,6 +36,7 @@ const {
   order_item_delete,
   order_item_update,
   plant_get_all_datas,
+  plantGetById,
   plant_delete,
   plant_update,
   plant_breeding_get_all_datas,
@@ -121,6 +122,9 @@ router.get('/shipping_charges_get_all_datas', shipping_charges_get_all_datas);
 router.get('/stock_get_all_datas', stock_get_all_datas);
 router.get('/user_get_all_datas', user_get_all_datas);
 router.get('/weight_get_all_datas', weight_get_all_datas);
+
+// GET BY ID
+router.get('/plant_get_by_id/:id', plantGetById);
 
 // DELETE
 router.delete('/article_delete/:id', article_delete);

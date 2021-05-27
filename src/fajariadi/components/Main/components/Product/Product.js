@@ -37,7 +37,7 @@ const Product = () => {
   const searched = searchedProduct.map((item) => item.includes(searching));
 
   const productsCategory = tablePlantState
-    .map((item) => item.fk_category_id)
+    .map((item) => item.category_name)
     .filter((item, index, arr) => arr.indexOf(item) === index);
 
   return (

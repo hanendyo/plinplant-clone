@@ -36,8 +36,8 @@ const App = () => {
     <Router>
       <Switch>
         <Route exact path='/' component={LandingPage} />
-        <Route path='/ensiklopedia' component={Ensiklopedia} />
-        <Route path='/shop' component={ShoppingPage} />
+        <Route path='/ensiklopedia/:id/:name' component={Ensiklopedia} />
+        <Route path='/shop/:id/:name' component={ShoppingPage} />
         <Route path='/cart' component={CartPage} />
         <Route path='/checkout' component={CheckoutPage} />
         <Route path='/invoice' component={InvoicePage} />

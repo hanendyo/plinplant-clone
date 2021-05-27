@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaCartPlus, FaInfoCircle, FaStar } from 'react-icons/fa';
 import { colors } from '../../../master/constant/style';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
@@ -17,9 +17,13 @@ import { plant, reviews } from '../../../master/constant/data/dummy-data';
 import Quantity from '../../../master/components/additional/Quantity';
 import ScrollSign from '../../../master/components/additional/ScrollSign';
 import { useMediaQuery } from 'react-responsive';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { Link } from 'react-router-dom';
 
 const Shop = () => {
   const [scroll, setScroll] = useState(true);
+
+  const { plantIdState, plantIdDispatch } = useContext(ContextStore);
 
   useEffect(() => {
     if (reviews.length < 4) setScroll(false);
@@ -40,11 +44,11 @@ const Shop = () => {
       <Container>
         <RelatedProduct isIpad={isIpad}>
           {isIpad ? (
-            <ProductsContainer related category='hias' />
+            <ProductsContainer related category={plantIdState.category_name} />
           ) : (
             <>
               <h5>Tanaman Terkait</h5>
-              <ProductsContainer scroll category='hias' />
+              <ProductsContainer scroll category={plantIdState.category_name} />
             </>
           )}
 
@@ -54,9 +58,11 @@ const Shop = () => {
         <Product>
           <div>
             <Info>
-              <a href='/ensiklopedia'>
+              <Link
+                to={`/ensiklopedia/${plantIdState.pk_plant_id}/${plantIdState.plant_name}`}
+              >
                 <ButtonInfo>Ensiklopedia</ButtonInfo>
-              </a>
+              </Link>
 
               <FaInfoCircle size={20} className='info-icon' />
             </Info>
