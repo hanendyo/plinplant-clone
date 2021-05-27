@@ -7,12 +7,11 @@ import {
   BoxGroup,
   StyledHeader,
 } from './Header.component';
-import image1 from '../../images/basil.jpg';
 import { FaSeedling, FaClock, FaPagelines } from 'react-icons/fa';
 import { ContextStore } from '../../../context/store/ContextStore';
 
 const Header = () => {
-  const { plantIdState, plantIdDispatch } = useContext(ContextStore);
+  const { plantIdState } = useContext(ContextStore);
   const {
     plant_name,
     plant_image,

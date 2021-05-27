@@ -137,8 +137,8 @@ export const ImageCointainer = styled.div`
   overflow: hidden;
 
   & > img {
-    width: 100%;
-    max-width: 400px;
+    width: 400px;
+    /* max-width: 400px; */
     height: 100%;
     max-height: 400px;
     object-fit: cover;
