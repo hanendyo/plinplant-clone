@@ -32,7 +32,7 @@ const Ensiklopedia = ({ match }) => {
       <Header />
       <Body />
       <CTAEnsiklopedia />
-      <RelatedProduct />
+      <RelatedProduct category={plantIdState.category_name} />
       <Footer colored />
     </div>
   );

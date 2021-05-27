@@ -35,7 +35,7 @@ const ProductsContainer = ({
   selectAddress,
   related,
 }) => {
-  const { tablePlantState } = useContext(ContextStore);
+  const { tablePlantState, plantIdState } = useContext(ContextStore);
 
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
@@ -57,13 +57,6 @@ const ProductsContainer = ({
     if (isIpadPro) return 4;
     if (isIpad) return 3;
     if (isPhone) return 1;
-  };
-
-  const categoryName = (num) => {
-    if (num === 1) return 'Tanaman Hias';
-    if (num === 2) return 'Sayuran Hijau';
-    if (num === 3) return 'Buah';
-    if (num === 4) return 'Rempah';
   };
 
   const productSearched = tablePlantState.filter((item) =>
@@ -109,7 +102,7 @@ const ProductsContainer = ({
 
       {related && (
         <CardContainer>
-          <h4>{categoryName(category)}</h4>
+          <h4 style={{ textAlign: 'center' }}>Tanaman Terkait</h4>
 
           <ItemsCarousel
             requestToChangeActive={setActiveItemIndex}
@@ -122,10 +115,16 @@ const ProductsContainer = ({
             chevronWidth={chevronWidth}
             // infiniteLoop
           >
-            {products
-              .filter((item) => category === item.category)
-              .map(({ name, img }, index) => (
-                <Cards slider name={name} img={img} key={index} />
+            {tablePlantState
+              .filter((item) => category === item.category_name)
+              .map(({ plant_name, plant_image, pk_plant_id }) => (
+                <Cards
+                  slider
+                  name={plant_name}
+                  img={plant_image}
+                  key={pk_plant_id}
+                  id={pk_plant_id}
+                />
               ))}
           </ItemsCarousel>
         </CardContainer>
