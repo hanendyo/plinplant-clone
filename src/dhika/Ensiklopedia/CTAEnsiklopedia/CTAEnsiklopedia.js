@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, SectionCTAE } from './CTAEnsiklopedia.component';
 import Button from '../../../master/components/additional/Button';
 import { colors } from '../../../master/constant/style/index';
 import { Link } from 'react-router-dom';
+import { slug } from '../../../master/components/additional/Cards';
 
-const CTAEnsiklopedia = () => {
+const CTAEnsiklopedia = ({ id, name }) => {
+  // const [slug, setSlug] = useState('');
+
+  // useEffect(() => {
+  //   const slug = (title) => title.toLowerCase().split(' ').join('-');
+
+  //   setSlug(name);
+  // }, []);
+
+  // console.log('SLUGGG', slug);
+
   return (
     <SectionCTAE>
       <Container>
         <div>
-          <h2>Lorem Ipsum Dolor Sit</h2>
+          <h2>Lorem Ipsum Dolor</h2>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sunt
             illum neque soluta voluptate aperiam hic explicabo quibusdam
@@ -17,9 +28,9 @@ const CTAEnsiklopedia = () => {
           </p>
         </div>
 
-        <a href='/shop'>
+        <Link to={`/shop/${id}/${name}`}>
           <Button primary cta text='Beli Sekarang!' bgColor={colors.yellow} />
-        </a>
+        </Link>
       </Container>
     </SectionCTAE>
   );

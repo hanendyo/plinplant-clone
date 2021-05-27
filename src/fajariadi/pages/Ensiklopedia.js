@@ -31,7 +31,10 @@ const Ensiklopedia = ({ match }) => {
       <Navbar />
       <Header />
       <Body />
-      <CTAEnsiklopedia />
+      <CTAEnsiklopedia
+        id={plantIdState.pk_plant_id}
+        name={plantIdState.plant_name}
+      />
       <RelatedProduct category={plantIdState.category_name} />
       <Footer colored />
     </div>
