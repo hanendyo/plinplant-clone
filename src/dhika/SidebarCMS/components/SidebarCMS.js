@@ -11,25 +11,28 @@ const Container = styled.div`
   background: #fff;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: sticky;
   top: 0;
+  z-index: 100;
 `;
 
 const Nav = styled.div`
   background: ${colors.green};
   height: 80px;
   width: 100%;
+  min-width: 375px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 99;
+  
 `;
 
 const NavIcon = styled.div`
   margin-left: 2rem;
-  font-size: 2rem;
+  font-size: 24px;
   height: 80px;
   width: 100%;
   display: flex;
@@ -119,8 +122,11 @@ const SidebarCMS = () => {
               onClick={showSidebar}
               style={{ cursor: "pointer" }}
             />
-            <Logo className="logo-center">PlinPlant CMS</Logo>
-            <h5>Hello, Admin</h5>
+            <div style={{display:"flex"}}>
+            <Logo className="logo-center">PlinPlant</Logo>
+            <h3 style={{color:"#fff", padding: "2px", marginLeft:"10px"}}>CMS</h3>
+            </div>
+            <h5 style={{marginRight: "15px"}}>Hello, Admin</h5>
           </NavIcon>
           <SidebarNav sidebar={sidebar}>
             <SidebarWrap>
