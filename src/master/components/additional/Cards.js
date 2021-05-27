@@ -63,9 +63,9 @@ const Cards = ({
 
             {/* BUTTON CONTAINER */}
             <div>
-              <a href='/shop'>
+              <Link to={`/shop/${id}/${slug(name)}`}>
                 <Button card text='Beli' bgColor={colors.green} />
-              </a>
+              </Link>
 
               <Link to={`/ensiklopedia/${id}/${slug(name)}`}>
                 <Button
@@ -112,23 +112,23 @@ const Cards = ({
 
       {scroll && (
         <CardProductShop>
-          <img src={img} alt='' />
+          <img src={process.env.PUBLIC_URL + `/images/Plant/${img}`} alt='' />
 
           <div>
             <h5>{name}</h5>
 
-            <a href='/shop'>
+            <Link to={`/shop/${id}/${slug(name)}`}>
               <Button primary shop text='Beli' bgColor={colors.green} />
-            </a>
+            </Link>
 
-            <a href='/ensiklopedia'>
+            <Link to={`/ensiklopedia/${id}/${slug(name)}`}>
               <Button
                 primary
                 shop
                 text='Ensiklopedia'
                 bgColor={colors.lightGreenTransparent}
               />
-            </a>
+            </Link>
           </div>
         </CardProductShop>
       )}

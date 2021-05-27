@@ -37,7 +37,7 @@ const App = () => {
       <Switch>
         <Route exact path='/' component={LandingPage} />
         <Route path='/ensiklopedia/:id/:name' component={Ensiklopedia} />
-        <Route path='/shop' component={ShoppingPage} />
+        <Route path='/shop/:id/:name' component={ShoppingPage} />
         <Route path='/cart' component={CartPage} />
         <Route path='/checkout' component={CheckoutPage} />
         <Route path='/invoice' component={InvoicePage} />

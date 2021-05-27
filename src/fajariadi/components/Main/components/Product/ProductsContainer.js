@@ -149,10 +149,16 @@ const ProductsContainer = ({
 
       {scroll && (
         <ShopRelated>
-          {products
-            .filter((item) => category === item.category)
-            .map(({ name, img }, index) => (
-              <Cards scroll name={name} img={img} key={index} />
+          {tablePlantState
+            .filter((item) => category === item.category_name)
+            .map(({ plant_name, plant_image, pk_plant_id }) => (
+              <Cards
+                scroll
+                name={plant_name}
+                img={plant_image}
+                key={pk_plant_id}
+                id={pk_plant_id}
+              />
             ))}
         </ShopRelated>
       )}
