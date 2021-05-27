@@ -21,16 +21,19 @@ export const Left = styled.div`
   margin-right: 50px;
 
   & > img {
-    width: 750px;
+    width: 700px;
     min-width: 400px;
+    height: 400px;
     border-radius: 10px;
     position: sticky;
     top: 100px;
+    object-fit: cover;
   }
 
   @media (max-width: 900px) {
     & > img {
       min-width: 300px;
+      height: 250px;
     }
   }
 

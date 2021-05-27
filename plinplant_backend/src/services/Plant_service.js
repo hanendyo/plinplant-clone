@@ -421,6 +421,18 @@ module.exports = {
     });
   },
 
+  plantGetId: (id, callBack) => {
+    pool.query(
+      `select * from plant_data where pk_plant_id = ?`,
+      [id],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results); // result[0]
+      }
+    );
+  },
+
   plantDelete: (id, callback) => {
     pool.query(
       `delete from table_plant where pk_plant_id = ?`,
