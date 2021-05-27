@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Container,
   Left,
@@ -7,40 +7,42 @@ import {
   BoxGroup,
   StyledHeader,
 } from './Header.component';
-import image1 from '../../images/basil.jpg';
 import { FaSeedling, FaClock, FaPagelines } from 'react-icons/fa';
+import { ContextStore } from '../../../context/store/ContextStore';
 
 const Header = () => {
+  const { plantIdState } = useContext(ContextStore);
+  const {
+    plant_name,
+    plant_image,
+    plant_origin,
+    plant_qualities,
+    plant_use,
+    days_to_sprout,
+    matures_in,
+    growth_type,
+  } = plantIdState;
+
   return (
     <StyledHeader>
       <Container>
         <Left>
-          <img src={image1} alt='basil' />
+          <img
+            src={process.env.PUBLIC_URL + `/images/Plant/${plant_image}`}
+            alt={plant_name}
+          />
         </Left>
 
         <Right>
-          <h1>Basil</h1>
+          <h1>{plant_name}</h1>
           <h5>Asal Tanaman</h5>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
-            purus sit amet luctus venenatis, lectus magna fringilla urna,
-            porttitor
-          </p>
+          <p>{plant_origin}</p>
 
           <h5>Kualitas</h5>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
-            purus sit amet luctus venenatis, lectus magna fringilla urna,
-            porttitor rhoncus dolor purus non enim praesent elementum facilisis
-            leo, vel
-          </p>
+          <p>{plant_qualities}</p>
 
           <h5>Kegunaan</h5>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
-            purus sit amet luctus venenatis, lectus magna fringilla urna,
-            porttitor rhoncus dolor purus non enim
-          </p>
+          <p>{plant_use}</p>
         </Right>
 
         <BoxGroup>
@@ -49,7 +51,7 @@ const Header = () => {
               <FaSeedling className='icon' />
             </div>
             <p>WAKTU TUMBUH</p>
-            <h4>5-21 HARI</h4>
+            <h4>{days_to_sprout} HARI</h4>
           </Box>
 
           <Box>
@@ -57,7 +59,7 @@ const Header = () => {
               <FaClock className='icon' />
             </div>
             <p>DEWASA DALAM</p>
-            <h4>68 HARI</h4>
+            <h4>{matures_in} HARI</h4>
           </Box>
 
           <Box>
@@ -65,7 +67,7 @@ const Header = () => {
               <FaPagelines className='icon' />
             </div>
             <p>TIPE PERTUMBUHAN</p>
-            <h4>MERAMBAT</h4>
+            <h4>{growth_type}</h4>
           </Box>
         </BoxGroup>
       </Container>

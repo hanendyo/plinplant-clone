@@ -2,9 +2,13 @@ import React, { createContext, useReducer } from 'react';
 import CmsInitial from '../initialState/CmsInitial';
 import SignInInitial from '../initialState/SignInInitial';
 import SignUpInitial from '../initialState/SignUpInitial';
-import { modalUploadReducer, modalReviewReducer } from '../reducer';
+import {
+  modalUploadReducer,
+  modalReviewReducer,
+  tablePlantReducer,
+  plantIdReducer,
+} from '../reducer';
 import { CmsReducer } from '../reducer/CmsReducer';
-import { tablePlantReducer } from '../reducer/fetchingReducer';
 import {
   modalPilihAlamatReducer,
   modalTambahAlamatReducer,
@@ -133,6 +137,8 @@ export const ContextProvider = ({ children }) => {
     []
   );
 
+  const [plantIdState, plantIdDispatch] = useReducer(plantIdReducer, {});
+
   return (
     <ContextStore.Provider
       value={{
@@ -221,6 +227,10 @@ export const ContextProvider = ({ children }) => {
         // ::: FETCH TABLE PLANT :::
         tablePlantState,
         tablePlantDispatch,
+
+        // ::: FETCH PLANT ID :::
+        plantIdState,
+        plantIdDispatch,
       }}
     >
       {children}
