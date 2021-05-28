@@ -3,12 +3,16 @@ import {
   Button,
   makeStyles,
   TextField,
+  InputLabel,
+  Select,
+  MenuItem
 } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "../CMS.css";
+import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -188,81 +192,116 @@ const Category = () => {
   };
 
   return (
-    <div className="cmsForm">
-      <h3>Category input</h3>
-      <form
-        encType="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          value={categoryState.category_name}
-          name="category_name"
-          onChange={(e) => formChange(`category_name`, e.target.value)}
-          id="outlined-basic"
-          label="Category name"
-          variant="outlined"
-        />
-        <TextField
-          value={categoryState.pk_category_id}
-          name="pk_category_id"
-          onChange={(e) => formChange(`pk_category_id`, e.target.value)}
-          id="outlined-basic"
-          label="Category ID (input 1-4)"
-          variant="outlined"
-          />
-          <p style={{fontSize:'15px'}}>note: ID tidak bisa diedit, edit NAME saja!</p>
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
+    <Container>
+      <h4>CATEGORY INPUT</h4>
+      <BoxForm>
+        <form
+          encType="multipart/form-data"
+          className={classes.root}
+          onSubmit={(e) => handleSubmit(e)}
+          noValidate
+          autoComplete="off"
         >
-          {isUpdate ? "Update" : "Submit"}
-        </Button>
-        {isUpdate && (
+          <TextField
+            value={categoryState.category_name}
+            name="category_name"
+            onChange={(e) => formChange(`category_name`, e.target.value)}
+            id="outlined-basic"
+            label="Category name"
+            variant="outlined"
+          />
+          {/* <TextField
+            value={categoryState.pk_category_id}
+            name="pk_category_id"
+            onChange={(e) => formChange(`pk_category_id`, e.target.value)}
+            id="outlined-basic"
+            label="Category ID (input 1-4)"
+            variant="outlined"
+          />
+           */}
+
+          <Select
+            value={categoryState.pk_category_id}
+            onChange={(e) => formChange(`pk_category_id`, e.target.value)}
+            label="category_id"
+            name="pk_category_id"
+            variant="outlined"
+          >
+            <MenuItem value={1}>1</MenuItem>
+            <MenuItem value={2}>2</MenuItem>
+            <MenuItem value={3}>3</MenuItem>
+            <MenuItem value={4}>4</MenuItem>
+          </Select>
+          <p style={{fontSize:'15px', color:'black'}}>note: ID tidak bisa diedit, edit NAME saja!</p>
+          <ButtonContainer>
           <Button
             className={classes.button}
             variant="contained"
             color="primary"
-            onClick={() => handleCancel()}
+            type="submit"
+            style = {{backgroundColor:`${colors.green}`}}
           >
-            Cancel
+            {isUpdate ? "Update" : "Submit"}
           </Button>
-        )}
-      </form>
-      <div>
-        <br />
-        <h3>Result: </h3>
+          {isUpdate && (
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={() => handleCancel()}
+              style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
+            >
+              Cancel
+            </Button>
+          )}
+          </ButtonContainer>
+  
+        </form>
+      </BoxForm>
+      <br />
+        <h4>CATEGORY DATA</h4>
+      <BoxTable>
+        <List>
+          <li>CATEGORY ID</li>
+          <li>NAME</li>
+          <li>ACTION</li>
+        </List>
         {dataCategory.map(
           (data, index) => (
-            console.log(`data article map: `, dataCategory),
-            (
-              <ul className='map' key={index}>
-                <li>CATEGORY NAME: <span>{data.category_name}</span></li>
-                <li>CATEGORY ID: <span>{data.pk_category_id}</span></li>
-                {
-                  <div>
-                    <button
-                      onClick={() => handleDelete(data.pk_category_id, index)}
-                    >
-                      delete
-                    </button>
-                    <button onClick={() => handleUpdate(data, index)}>
-                      Update
-                    </button>
-                    <br />
-                  </div>
-                }
-                <br/>
-              </ul>
-            )
+            <ListData key={index}>
+              <li>{data.pk_category_id}</li>
+              <li>{data.category_name}</li>
+              {
+              <ButtonList>
+                <Button 
+                  onClick={() => handleUpdate(data, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="update"
+                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
+                  >
+                  Update
+                </Button>
+                <Button 
+                  onClick={() => handleDelete(data.pk_category_id, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="delete"
+                  style={{backgroundColor:`${colors.green}`}}
+                  >
+                  
+                  delete
+                </Button>
+                
+              </ButtonList>
+              }
+            </ListData>
           )
         )}
-      </div>
-    </div>
+      </BoxTable>
+    </Container>
   );
 };
 

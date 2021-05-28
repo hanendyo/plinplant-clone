@@ -4,7 +4,9 @@ import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "../CMS.css";
+import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import { colors } from "../../../master/constant/style";
+import {FaCamera} from "react-icons/fa"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -227,8 +229,9 @@ const PlantBreeding = () => {
   };
 
   return (
-    <div className="cmsForm">
-      <h3>Plant breeding input</h3>
+    <Container>
+      <h4>PLANT BREEDING INPUT</h4>
+      <BoxForm>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -265,28 +268,128 @@ const PlantBreeding = () => {
           name="mature"
           onChange={(e) => formChange(`mature`, e.target.value)}
           id="outlined-basic"
-          label="Plant qualities"
+          label="Mature"
           variant="outlined"
         />
-        {/* ----- IMAGE ----- */}
-        <span>Pick seed image:</span>
-        <input name="seed_image" type="file" onChange={(e) => formImage(e)} />
-        <img src={fileImage[0]} alt="" />
-        {/* ----- IMAGE ----- */}
-        {/* ----- IMAGE ----- */}
-        <span>Pick tuber image:</span>
-        <input name="tuber_image" type="file" onChange={(e) => formImage(e)} />
-        <img src={fileImage[1]} alt="" />
-        {/* ----- IMAGE ----- */}
-        {/* ----- IMAGE ----- */}
-        <span>Pick young image:</span>
-        <input name="young_image" type="file" onChange={(e) => formImage(e)} />
-        <img src={fileImage[2]} alt="" />
-        {/* ----- IMAGE ----- */}
-        {/* ----- IMAGE ----- */}
-        <span>Pick mature image:</span>
-        <input name="mature_image" type="file" onChange={(e) => formImage(e)} />
-        <img src={fileImage[3]} alt="" />
+        {/* ----- IMAGE SEED----- */}
+        <ImageBox>
+          <SpanImage > 
+            <h6>Upload Image</h6>
+            <img src={fileImage[0]} alt=""/>
+          </SpanImage>
+        
+          <input
+            accept="image/*"
+            name="seed_image"
+            className={classes.input}
+            id="seed-file"
+            multiple
+            type="file"
+            onChange={(e) => formImage(e)}
+            style={{display:"none"}}
+          />
+          <label htmlFor="seed-file">
+            <Button 
+            variant="contained" 
+            color="primary" 
+            component="span" 
+            startIcon={<FaCamera />}
+            style={{backgroundColor:`${colors.green}`}}
+            >
+              UPLOAD SEED
+            </Button>
+          </label>
+        </ImageBox>
+        {/* ----- IMAGE SEED----- */}
+        {/* ----- IMAGE TUBER----- */}
+        <ImageBox>
+          <SpanImage > 
+            <h6>Upload Image</h6>
+            <img src={fileImage[1]} alt=""/>
+          </SpanImage>
+        
+          <input
+            accept="image/*"
+            name="tuber_image"
+            className={classes.input}
+            id="tuber-file"
+            multiple
+            type="file"
+            onChange={(e) => formImage(e)}
+            style={{display:"none"}}
+          />
+          <label htmlFor="tuber-file">
+            <Button 
+            variant="contained" 
+            color="primary" 
+            component="span" 
+            startIcon={<FaCamera />}
+            style={{backgroundColor:`${colors.green}`}}
+            >
+              UPLOAD TUBER
+            </Button>
+          </label>
+        </ImageBox>
+        {/* ----- IMAGE TUBER----- */}
+        {/* ----- IMAGE JUVENIL----- */}
+        <ImageBox>
+          <SpanImage > 
+            <h6>Upload Image</h6>
+            <img src={fileImage[2]} alt=""/>
+          </SpanImage>
+        
+          <input
+            accept="image/*"
+            name="young"
+            className={classes.input}
+            id="juvenil-file"
+            multiple
+            type="file"
+            onChange={(e) => formImage(e)}
+            style={{display:"none"}}
+          />
+          <label htmlFor="juvenil-file">
+            <Button 
+            variant="contained" 
+            color="primary" 
+            component="span" 
+            startIcon={<FaCamera />}
+            style={{backgroundColor:`${colors.green}`}}
+            >
+              UPLOAD YOUNG
+            </Button>
+          </label>
+        </ImageBox>
+        {/* ----- IMAGE JUVENIL----- */}
+        {/* ----- IMAGE MATURE----- */}
+        <ImageBox>
+          <SpanImage > 
+            <h6>Upload Image</h6>
+            <img src={fileImage[3]} alt=""/>
+          </SpanImage>
+        
+          <input
+            accept="image/*"
+            name="mature_image"
+            className={classes.input}
+            id="mature-file"
+            multiple
+            type="file"
+            onChange={(e) => formImage(e)}
+            style={{display:"none"}}
+          />
+          <label htmlFor="mature-file">
+            <Button 
+            variant="contained" 
+            color="primary" 
+            component="span" 
+            startIcon={<FaCamera />}
+            style={{backgroundColor:`${colors.green}`}}
+            >
+              UPLOAD MATURE
+            </Button>
+          </label>
+        </ImageBox>
         {/* ----- IMAGE ----- */}
         <TextField
           value={plantBreedingState.fk_plant_id}
@@ -296,11 +399,13 @@ const PlantBreeding = () => {
           label="Plant_id"
           variant="outlined"
         />
+        <ButtonContainer>
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
           type="submit"
+          style={{backgroundColor:`${colors.green}`}}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -310,72 +415,75 @@ const PlantBreeding = () => {
             variant="contained"
             color="primary"
             onClick={() => handleCancel()}
+            style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
           >
             Cancel
           </Button>
         )}
+        </ButtonContainer>
       </form>
-      <div>
-        <br />
-        <h3>Result: </h3>
+      </BoxForm>
+      <br />
+        <h4>PLANT BREEDING DATA</h4>
+      <BoxTable>
+        <List>
+          <li>PLANT BREEDING ID</li>
+          <li>SEED</li>
+          <li>TUBER</li>
+          <li>YOUNG</li>
+          <li>MATURE</li>
+          <li>SEED IMAGE</li>
+          <li>TUBER IMAGE</li>
+          <li>YOUNG IMAGE</li>
+          <li>MATURE IMAGE</li>
+          <li>PLANT ID</li>
+          <li>ACTION</li>
+        </List>
+
         {dataPlantBreeding.map(
           (data, index) => (
-            console.log(`data article map: `, dataPlantBreeding),
-            (
-              <ul className="map" key={index}>
-                <li>
-                  PLANT ID: <span>{data.pk_plant_breeding_id}</span>
-                </li>
-                <li>
-                  SEED: <span>{data.seed}</span>
-                </li>
-                <li>
-                  TUBER: <span>{data.tuber}</span>
-                </li>
-                <li>
-                  YOUNG: <span>{data.young}</span>
-                </li>
-                <li>
-                  MATURE: <span>{data.mature}</span>
-                </li>
-                <li>
-                  SEED IMAGE: <span>{data.seed_image}</span>
-                </li>
-                <li>
-                  TUBER IMAGE: <span>{data.tuber_image}</span>
-                </li>
-                <li>
-                  YOUNG IMAGE: <span>{data.young_image}</span>
-                </li>
-                <li>
-                  MATURE IMAGE: <span>{data.mature_image}</span>
-                </li>
-                <li>
-                  PLANT_ID: <span>{data.fk_plant_id}</span>
-                </li>
-                <li></li>
-                {
-                  <div>
-                    <button
-                      onClick={() =>
-                        handleDelete(data.pk_plant_breeding_id, index)
-                      }
-                    >
-                      delete
-                    </button>
-                    <button onClick={() => handleUpdate(data, index)}>
-                      Update
-                    </button>
-                    <br />
-                  </div>
-                }
-                <br />
-              </ul>
-            )
+            <ListData key={index}>
+              <li>{data.pk_plant_breeding_id}</li>
+              <li>{data.seed}</li>
+              <li>{data.tuber}</li>
+              <li>{data.young}</li>
+              <li>{data.mature}</li>
+              <li>{data.seed_image}</li>
+              <li>{data.tuber_image}</li>
+              <li>{data.young_image}</li>
+              <li>{data.mature_image}</li>
+              <li>{data.fk_plant_id}</li>
+              {
+              <ButtonList>
+                <Button 
+                  onClick={() => handleUpdate(data, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="update"
+                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
+                  >
+                  Update
+                </Button>
+                <Button 
+                  onClick={() => handleDelete(data.pk_plant_breeding_id, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="delete"
+                  style={{backgroundColor:`${colors.green}`}}
+                  >
+                  
+                  delete
+                </Button>
+                
+              </ButtonList>
+            }
+            </ListData>
           )
         )}
-      </div>
-    </div>
+      </BoxTable>
+    </Container>
   );
 };
 

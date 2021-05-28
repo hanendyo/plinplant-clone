@@ -8,7 +8,8 @@ import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "../CMS.css";
+import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -177,8 +178,9 @@ const Review = () => {
 
 
     return (
-        <div className="article cmsForm">
-            <h3>Review input</h3>
+        <Container>
+            <h4>Review input</h4>
+            <BoxForm>
             <form
                 encType="multipart/form-data"
                 className={classes.root}
@@ -202,63 +204,100 @@ const Review = () => {
                     label="Comment"
                     variant="outlined"
                 />
-
-
+                <ButtonContainer>
+                <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{backgroundColor:`${colors.green}`}}
+                >
+                {isUpdate ? "Update" : "Submit"}
+                </Button>
+                {isUpdate && (
                 <Button
                     className={classes.button}
                     variant="contained"
                     color="primary"
-                    type="submit"
+                    onClick={() => handleCancel()}
+                    style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
                 >
-                    {isUpdate ? "Update" : "Submit"}
+                    Cancel
                 </Button>
-                {isUpdate && (
-                    <Button
-                        className={classes.button}
-                        variant="contained"
-                        color="primary"
-                        onClick={() => handleCancel()}
-                    >
-                        Cancel
-                    </Button>
                 )}
+        </ButtonContainer>
             </form>
-            <div>
-                <br />
-                <h3>Result: </h3>
+            </BoxForm>
+            <br />
+                <h3>REVIEW DATA</h3>
+            <BoxTable>
+                <List>
+                    <li>REVIEW ID</li>
+                    <li>COMMENT</li>
+                    <li>RATING</li>
+                    <li>ACTION</li>
+                </List>
                 {dataReview.map(
                     (data, index) => (
-                        console.log(`data article map: `, dataReview),
-                        (
-                            <ul className="map" key={index}>
-                                <li>
-                                    NO: <span>{index + 1}</span>
-                                </li>
-                                <li>
-                                    comment: <span>{data.comment}</span>
-                                </li>
-                                <li>
-                                    PRICE_LIST_ID: <span>{data.rating}</span>
-                                </li>
-                                {
-                                    <div>
-                                        <button
-                                            onClick={() => handleDelete(data.pk_review_id, index)}
-                                        >
-                                            delete
-                                        </button>
-                                        <button onClick={() => handleUpdate(data, index)}>
-                                            Update
-                                        </button>
-                                        <br />
-                                    </div>
-                                }
-                            </ul>
-                        )
+                        <ListData key={index}>
+                            <li>{data.comment}</li>
+                            <li>{data.rating}</li>
+                            {
+                            <ButtonList>
+                                <Button 
+                                onClick={() => handleUpdate(data, index)}
+                                className={classes.button}
+                                variant="contained"
+                                color="primary"
+                                type="update"
+                                style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
+                                >
+                                Update
+                                </Button>
+                                <Button 
+                                onClick={() => handleDelete(data.pk_review_id, index)}
+                                className={classes.button}
+                                variant="contained"
+                                color="primary"
+                                type="delete"
+                                style={{backgroundColor:`${colors.green}`}}
+                                >
+                                
+                                delete
+                                </Button>
+                                <br />
+                            </ButtonList>
+                            }
+                        </ListData>
+                            // <ul className="map" key={index}>
+                            //     <li>
+                            //         NO: <span>{index + 1}</span>
+                            //     </li>
+                            //     <li>
+                            //         comment: <span>{data.comment}</span>
+                            //     </li>
+                            //     <li>
+                            //         PRICE_LIST_ID: <span>{data.rating}</span>
+                            //     </li>
+                            //     {
+                            //         <div>
+                            //             <button
+                            //                 onClick={() => handleDelete(data.pk_review_id, index)}
+                            //             >
+                            //                 delete
+                            //             </button>
+                            //             <button onClick={() => handleUpdate(data, index)}>
+                            //                 Update
+                            //             </button>
+                            //             <br />
+                            //         </div>
+                            //     }
+                            // </ul>
+                        
                     )
                 )}
-            </div>
-        </div>
+            </BoxTable>
+        </Container>
     );
 };
 

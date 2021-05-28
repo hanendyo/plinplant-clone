@@ -8,7 +8,8 @@ import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "../CMS.css";
+import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -174,8 +175,9 @@ const Category = () => {
   };
 
   return (
-    <div className="cmsForm">
-      <h3>City input</h3>
+    <Container>
+      <h4>CITY INPUT</h4>
+      <BoxForm>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -190,13 +192,14 @@ const Category = () => {
           id="outlined-basic"
           label="City name"
           variant="outlined"
-        />
-       
-        <Button
+      />
+      <ButtonContainer>
+      <Button
           className={classes.button}
           variant="contained"
           color="primary"
           type="submit"
+          style={{backgroundColor:`${colors.green}`}}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -206,41 +209,80 @@ const Category = () => {
             variant="contained"
             color="primary"
             onClick={() => handleCancel()}
+            style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
           >
             Cancel
           </Button>
         )}
+      </ButtonContainer>
+        
       </form>
-      <div>
-        <br />
-        <h3>Result: </h3>
+      </BoxForm>
+      <br />
+        <h4>CITY DATA</h4>
+      <BoxTable>
+        <List>
+          <li>CITY ID</li>
+          <li>NAME</li>
+          <li>ACTION</li>
+        </List>
         {dataCity.map(
           (data, index) => (
-            console.log(`data article map: `, dataCity),
-            (
-              <ul className='map' key={index}>
-                <li>CATEGORY NAME: <span>{data.city_name}</span></li>
-                <li>CATEGORY ID: <span>{data.pk_city_id}</span></li>
-                {
-                  <div>
-                    <button
-                      onClick={() => handleDelete(data.pk_city_id, index)}
-                    >
-                      delete
-                    </button>
-                    <button onClick={() => handleUpdate(data, index)}>
-                      Update
-                    </button>
-                    <br />
-                  </div>
-                }
-                <br/>
-              </ul>
-            )
+            
+            <ListData key={index}>
+              <li>{data.pk_city_id}</li>
+              <li>{data.city_name}</li>
+              {
+              <ButtonList>
+                <Button 
+                  onClick={() => handleUpdate(data, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="update"
+                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
+                  >
+                  Update
+                </Button>
+                <Button 
+                  onClick={() => handleDelete(data.pk_city_id, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="delete"
+                  style={{backgroundColor:`${colors.green}`}}
+                  >
+                  
+                  delete
+                </Button>
+                
+              </ButtonList>
+              }
+            </ListData>
+            
+              // <ul className='map' key={index}>
+              //   <li>CATEGORY NAME: <span>{data.city_name}</span></li>
+              //   <li>CATEGORY ID: <span>{data.pk_city_id}</span></li>
+              //   {
+              //     <div>
+              //       <button
+              //         onClick={() => handleDelete(data.pk_city_id, index)}
+              //       >
+              //         delete
+              //       </button>
+              //       <button onClick={() => handleUpdate(data, index)}>
+              //         Update
+              //       </button>
+              //       <br />
+              //     </div>
+              //   }
+              //   <br/>
+              // </ul>
+            
           )
         )}
-      </div>
-    </div>
+      </BoxTable>
+    </Container>
   );
 };
 

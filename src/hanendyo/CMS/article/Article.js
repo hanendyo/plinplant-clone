@@ -212,7 +212,7 @@ const Article = () => {
 
   return (
     <Container>
-      <h4>Article input</h4>
+      <h4>ARTICLE INPUT</h4>
       <BoxForm>
       <form
         encType="multipart/form-data"
@@ -322,7 +322,7 @@ const Article = () => {
       </BoxForm>
           
       <br />
-        <h4>Article Data</h4>
+        <h4>ARTICLE DATA</h4>
       <BoxTable>
         <List>
             <li>NO</li>
@@ -336,7 +336,7 @@ const Article = () => {
         </List>
         
         {dataArticle.map((data, index) => (
-          <ListData className="map" key={index}>
+          <ListData key={index}>
             <li>{index+1}</li>
             <li>{data.pk_article_id}</li>
             <li>{data.title}</li>
@@ -373,12 +373,11 @@ const Article = () => {
           </ListData>
         ))}
       </BoxTable>
-      <BoxTablePhone>
+      {/* <BoxTablePhone>
         
       {dataArticle.map((data, index) => (
         <TableListPhone>
           <List key={index}>
-            <li>No</li>
             <li>Article ID</li>
             <li>Author</li>
             <li>Created at</li>
@@ -388,7 +387,6 @@ const Article = () => {
           </List>
 
           <List key={index} style={{width:"1000px"}}>
-            <li><span>{index+1}</span></li>
             <li><span>{data.pk_article_id}</span></li>
             <li><span>{data.author}</span></li>
             <li><span>{data.created_at}</span></li>
@@ -396,7 +394,7 @@ const Article = () => {
             <li><span>{data.title}</span></li>
             <li><ContentBox>{data.content}</ContentBox></li>
           </List>
-          <List>
+          <ButtonList>
                 <Button 
                   onClick={() => handleUpdate(data, index)}
                   className={classes.button}
@@ -417,13 +415,12 @@ const Article = () => {
                   >
                   delete
                 </Button>
-                
-            </List>
+            </ButtonList>
         </TableListPhone>
           
         ))}
         
-      </BoxTablePhone>
+      </BoxTablePhone> */}
     </Container>
   );
 };

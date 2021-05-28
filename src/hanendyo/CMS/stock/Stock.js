@@ -8,7 +8,8 @@ import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "../CMS.css";
+import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -188,8 +189,9 @@ const Stock = () => {
     };
 
     return (
-        <div className="cmsForm">
-            <h3>Stock input</h3>
+        <Container>
+            <h4>STOCK INPUT</h4>
+            <BoxForm>
             <form
                 encType="multipart/form-data"
                 className={classes.root}
@@ -232,70 +234,113 @@ const Stock = () => {
                     label="Mature stock"
                     variant="outlined"
                 />
-
-                <Button
+                <ButtonContainer>
+                    <Button
                     className={classes.button}
                     variant="contained"
                     color="primary"
                     type="submit"
-                >
+                    style={{backgroundColor:`${colors.green}`}}
+                    >
                     {isUpdate ? "Update" : "Submit"}
-                </Button>
-
-                {isUpdate && (
+                    </Button>
+                    {isUpdate && (
                     <Button
                         className={classes.button}
                         variant="contained"
                         color="primary"
                         onClick={() => handleCancel()}
+                        style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
                     >
                         Cancel
                     </Button>
-                )}
+                    )}
+                </ButtonContainer>
             </form>
-            <div>
-                <br />
-                <h3>Result: </h3>
+            </BoxForm>
+            <br />
+                <h4>STOCK DATA</h4>
+                <BoxTable>
+                <List>
+                    <li>STOCK ID</li>
+                    <li>SEED</li>
+                    <li>TUBER</li>
+                    <li>YOUNG</li>
+                    <li>MATURE</li>
+                    <li>ACTION</li>
+                </List>
                 {dataStock.map(
                     (data, index) => (
-                        console.log(`data stock map: `, dataStock),
-                        (
-                            <ul className="map" key={index}>
-                                <li>
-                                    NO: <span>{index + 1}</span>
-                                </li>
-                                <li>
-                                    STOCK ID: <span>{data.pk_stock_id}</span>
-                                </li>
-                                <li>
-                                    SEED STOCK: <span>{data.seed_stock}</span>
-                                </li>
-                                <li>
-                                    YOUNG STOCK: <span>{data.young_stock}</span>
-                                </li>
-                                <li>
-                                    MATURE STOCK: <span>{data.mature_stock}</span>
-                                </li>
+                        <ListData key={index}>
+                            <li>{data.pk_stock_id}</li>
+                            <li>{data.seed_stock}</li>
+                            <li>{data.tuber_stock}</li>
+                            <li>{data.young_stock}</li>
+                            <li>{data.mature_stock}</li>
+                            {
+                            <ButtonList>
+                                <Button 
+                                onClick={() => handleUpdate(data, index)}
+                                className={classes.button}
+                                variant="contained"
+                                color="primary"
+                                type="update"
+                                style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
+                                >
+                                Update
+                                </Button>
+                                <Button 
+                                onClick={() => handleDelete(data.pk_stock_id, index)}
+                                className={classes.button}
+                                variant="contained"
+                                color="primary"
+                                type="delete"
+                                style={{backgroundColor:`${colors.green}`}}
+                                >
+                                
+                                delete
+                                </Button>
+                                <br />
+                            </ButtonList>
+                            }
+                        </ListData>
+                        // (
+                        //     <ul className="map" key={index}>
+                        //         <li>
+                        //             NO: <span>{index + 1}</span>
+                        //         </li>
+                        //         <li>
+                        //             STOCK ID: <span>{data.pk_stock_id}</span>
+                        //         </li>
+                        //         <li>
+                        //             SEED STOCK: <span>{data.seed_stock}</span>
+                        //         </li>
+                        //         <li>
+                        //             YOUNG STOCK: <span>{data.young_stock}</span>
+                        //         </li>
+                        //         <li>
+                        //             MATURE STOCK: <span>{data.mature_stock}</span>
+                        //         </li>
                               
-                                {
-                                    <div>
-                                        <button
-                                            onClick={() => handleDelete(data.pk_stock_id, index)}
-                                        >
-                                            delete
-                                        </button>
-                                        <button onClick={() => handleUpdate(data, index)}>
-                                            Update
-                                        </button>
-                                        <br />
-                                    </div>
-                                }
-                            </ul>
-                        )
+                        //         {
+                        //             <div>
+                        //                 <button
+                        //                     onClick={() => handleDelete(data.pk_stock_id, index)}
+                        //                 >
+                        //                     delete
+                        //                 </button>
+                        //                 <button onClick={() => handleUpdate(data, index)}>
+                        //                     Update
+                        //                 </button>
+                        //                 <br />
+                        //             </div>
+                        //         }
+                        //     </ul>
+                        // )
                     )
                 )}
-            </div>
-        </div>
+            </BoxTable>
+        </Container>
     );
 };
 
