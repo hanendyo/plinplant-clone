@@ -21,6 +21,10 @@ const Ensiklopedia = ({ match }) => {
       plantIdDispatch(getPlantById(res.data.data[0]));
     };
 
+    window.scrollTo({
+      top: 0,
+    });
+
     getPlantId();
   }, [match.params.id]);
 
