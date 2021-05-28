@@ -7,11 +7,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
-import bgImage from "../image/signup_bg.png";
+import bgImage from "../../image/signup_bg.png";
 import { FaGoogle } from "react-icons/fa";
 import "./SignUp.css";
-import { ContextStore } from "../../context/store/ContextStore";
-import { signUpAction, signUpAPI } from "../../context/actions/ActionsList";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { signUpAction, signUpAPI } from "../../../context/actions/SignUpAction";
 
 function Copyright() {
   return (

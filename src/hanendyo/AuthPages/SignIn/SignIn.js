@@ -1,6 +1,6 @@
 import { Box, Button, Link, makeStyles, TextField, Typography } from '@material-ui/core'
 import React, { useState } from 'react'
-import bgImage from '../image/signin_bg.png'
+import bgImage from '../../image/signin_bg.png'
 import {FaGoogle} from 'react-icons/fa'
 import './SignIn.css'
 

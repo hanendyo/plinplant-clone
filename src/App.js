@@ -16,6 +16,7 @@ import CMS from './hanendyo/CMS/CMS';
 import axios from 'axios';
 import { ContextStore } from './context/store/ContextStore';
 import { getPlants } from './context/actions';
+import { SignIn, SignUp } from './hanendyo/AuthPages/AuthPages';
 
 const App = () => {
   const { tablePlantDispatch } = useContext(ContextStore);
@@ -36,6 +37,8 @@ const App = () => {
     <Router>
       <Switch>
         <Route exact path='/' component={LandingPage} />
+        <Route exact path='/register' component={SignUp} />
+        <Route exact path='/login' component={SignIn} />
         <Route path='/ensiklopedia' component={Ensiklopedia} />
         <Route path='/shop' component={ShoppingPage} />
         <Route path='/cart' component={CartPage} />

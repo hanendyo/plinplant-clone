@@ -4,12 +4,11 @@ module.exports = {
   register: (data, callback) => {
     console.log(`CALLBACK NYA: `, callback);
     console.log(`DATA NYA: `, data);
-    const sql = `insert into table_register (fullname, email, password, password_verify)values(?,?,?,?)`;
+    const sql = `insert into table_user (fullname, email, password)values(?,?,?)`;
     const database = [
       data.fullname,
       data.email,
       data.password,
-      data.password_verify,
     ];
     pool.query(sql, database, (err, result, fields) => {
       if (err) {
