@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
 import Button from '../../../master/components/additional/Button';
@@ -9,9 +9,10 @@ import StatusOrder from './StatusOrder';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { openModalReview } from '../../../context/actions';
 import { useMediaQuery } from 'react-responsive';
-import p from '../../../fajariadi/assets/images/dummy.jpg';
+import { Link } from 'react-router-dom';
 
 const Cards = ({
+  id,
   name,
   img,
   created,
@@ -49,6 +50,8 @@ const Cards = ({
   const { modalReviewDispatch } = useContext(ContextStore);
   const isMini = useMediaQuery({ maxWidth: 370 });
 
+  const slug = (title) => title.toLowerCase().split(' ').join('-');
+
   return (
     <>
       {slider && (
@@ -60,17 +63,17 @@ const Cards = ({
 
             {/* BUTTON CONTAINER */}
             <div>
-              <a href='/shop'>
+              <Link to={`/shop/${id}/${slug(name)}`}>
                 <Button card text='Beli' bgColor={colors.green} />
-              </a>
+              </Link>
 
-              <a href='/ensiklopedia'>
+              <Link to={`/ensiklopedia/${id}/${slug(name)}`}>
                 <Button
                   card
                   text='Ensiklopedia'
                   bgColor={colors.lightGreenTransparent}
                 />
-              </a>
+              </Link>
             </div>
             {/* END OF BUTTON CONTAINER */}
           </div>
@@ -88,17 +91,17 @@ const Cards = ({
 
             {/* BUTTON CONTAINER */}
             <div>
-              <a href='/shop'>
+              <Link to={`/shop/${id}/${slug(name)}`}>
                 <Button card text='Beli' bgColor={colors.green} />
-              </a>
+              </Link>
 
-              <a href='/ensiklopedia'>
+              <Link to={`/ensiklopedia/${id}/${slug(name)}`}>
                 <Button
                   card
                   text='Ensiklopedia'
                   bgColor={colors.lightGreenTransparent}
                 />
-              </a>
+              </Link>
             </div>
             {/* END OF BUTTON CONTAINER */}
           </div>
@@ -109,23 +112,23 @@ const Cards = ({
 
       {scroll && (
         <CardProductShop>
-          <img src={img} alt='' />
+          <img src={process.env.PUBLIC_URL + `/images/Plant/${img}`} alt='' />
 
           <div>
             <h5>{name}</h5>
 
-            <a href='/shop'>
+            <Link to={`/shop/${id}/${slug(name)}`}>
               <Button primary shop text='Beli' bgColor={colors.green} />
-            </a>
+            </Link>
 
-            <a href='/ensiklopedia'>
+            <Link to={`/ensiklopedia/${id}/${slug(name)}`}>
               <Button
                 primary
                 shop
                 text='Ensiklopedia'
                 bgColor={colors.lightGreenTransparent}
               />
-            </a>
+            </Link>
           </div>
         </CardProductShop>
       )}

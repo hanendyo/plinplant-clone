@@ -4,7 +4,9 @@ import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "../CMS.css";
+import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import { colors } from "../../../master/constant/style";
+import {FaCamera} from "react-icons/fa"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -213,8 +215,9 @@ const Article = () => {
   };
 
   return (
-    <div className="article cmsForm">
-      <h3>Article input</h3>
+    <Container>
+      <h4>USER DATA</h4>
+      <BoxForm>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -231,6 +234,14 @@ const Article = () => {
           variant="outlined"
         />
         <TextField
+          value={userState.email}
+          name="email"
+          onChange={(e) => formChange(`email`, e.target.value)}
+          id="outlined-basic"
+          label="email"
+          variant="outlined"
+        />
+        <TextField
           value={userState.password}
           onChange={(e) => formChange("password", e.target.value)}
           name="password"
@@ -244,25 +255,6 @@ const Article = () => {
           name="birth_date"
           id="outlined-static"
           label="birth_date"
-          variant="outlined"
-        />
-
-        {/* ----- IMAGE ----- */}
-        <span>Pick image:</span>
-        <input
-          name="picture_upload"
-          type="file"
-          onChange={(e) => formImage(e)}
-        />
-        <img src={reviewImage} alt="" />
-        {/* ----- IMAGE ----- */}
-
-        <TextField
-          value={userState.email}
-          onChange={(e) => formChange("email", e.target.value)}
-          name="email"
-          id="outlined-basic"
-          label="Created at"
           variant="outlined"
         />
         <TextField
@@ -282,11 +274,51 @@ const Article = () => {
           variant="outlined"
         />
 
+        {/* ----- IMAGE ----- */}
+        {/* <span>Pick image:</span>
+        <input
+          name="picture_upload"
+          type="file"
+          onChange={(e) => formImage(e)}
+        />
+        <img src={reviewImage} alt="" /> */}
+
+        <ImageBox>
+        <SpanImage > 
+          <h6>Upload Image</h6>
+          <img src={reviewImage} alt=""/>
+        </SpanImage>
+        
+        <input
+        accept="image/*"
+        name="Profile Picture Upload"
+        className={classes.input}
+        id="contained-button-file"
+        multiple
+        type="file"
+        onChange={(e) => formImage(e)}
+        style={{display:"none"}}
+        />
+        <label htmlFor="contained-button-file">
+          <Button 
+          variant="contained" 
+          color="primary" 
+          component="span" 
+          startIcon={<FaCamera />}
+          style={{backgroundColor:`${colors.green}`}}
+          >
+            Upload
+          </Button>
+        </label>
+        </ImageBox>
+        {/* ----- IMAGE ----- */}
+        <ButtonContainer>
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
           type="submit"
+          style={{backgroundColor:`${colors.green}`}}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -296,59 +328,109 @@ const Article = () => {
             variant="contained"
             color="primary"
             onClick={() => handleCancel()}
+            style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
           >
             Cancel
           </Button>
         )}
+        </ButtonContainer>
+        )
       </form>
-      <div>
-        <br />
-        <h3>Result: </h3>
+      </BoxForm>
+      <br />
+        <h4>USER DATA</h4>
+      <BoxTable>
+        <List>
+          <li>USER ID</li>
+          <li>FULLNAME</li>
+          <li>EMAIL</li>
+          <li>PASSWORD</li>
+          <li>BIRTH DATE</li>
+          <li>PICTURE</li>
+          <li>CONTACT ID</li>
+          <li>GENDER ID</li>
+          <li>ACTION</li>
+        </List>
         {dataUser.map((data, index) => (
-          // console.log(`data article map: `, dataUser),
-          <ul className="map" key={index}>
-            <li>
-              NO: <span>{index + 1}</span>
-            </li>
-            <li>
-              USER ID: <span>{data.pk_user_id}</span>
-            </li>
-            <li>
-              PICTURE: <span>{data.picture}</span>
-            </li>
-            <li>
-              FULLNAME: <span>{data.fullname}</span>
-            </li>
-            <li>
-              EMAIL: <span>{data.email}</span>
-            </li>
-            <li>
-              PASSWORD: <span>{data.password}</span>
-            </li>
-            <li>
-              BIRTH DATE: <span>{data.birth_date}</span>
-            </li>
-            <li>
-              CONTACT_ID: <span>{data.fk_contact_id}</span>
-            </li>
-            <li>
-              GENDER_ID: <span>{data.fk_gender_id}</span>
-            </li>
+          <ListData key={index}> 
+            <li>{data.pk_user_id}</li>
+            <li>{data.fullname}</li>
+            <li>{data.email}</li>
+            <li>{data.password}</li>
+            <li>{data.birth_date}</li>
+            <li>{data.fk_contact_id}</li>
+            <li>{data.fk_gender_id}</li>
             {
-              <div>
-                <button onClick={() => handleDelete(data.pk_user_id, index)}>
-                  delete
-                </button>
-                <button onClick={() => handleUpdate(data, index)}>
+              <ButtonList>
+                <Button 
+                  onClick={() => handleUpdate(data, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="update"
+                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
+                  >
                   Update
-                </button>
+                </Button>
+                <Button 
+                  onClick={() => handleDelete(data.pk_user_id, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="delete"
+                  style={{backgroundColor:`${colors.green}`}}
+                  >
+                  
+                  delete
+                </Button>
                 <br />
-              </div>
+              </ButtonList>
             }
-          </ul>
+
+          </ListData>
+          // <ul key={index}>
+          //   <li>
+          //     NO: <span>{index + 1}</span>
+          //   </li>
+          //   <li>
+          //     USER ID: <span>{data.pk_user_id}</span>
+          //   </li>
+          //   <li>
+          //     PICTURE: <span>{data.picture}</span>
+          //   </li>
+          //   <li>
+          //     FULLNAME: <span>{data.fullname}</span>
+          //   </li>
+          //   <li>
+          //     EMAIL: <span>{data.email}</span>
+          //   </li>
+          //   <li>
+          //     PASSWORD: <span>{data.password}</span>
+          //   </li>
+          //   <li>
+          //     BIRTH DATE: <span>{data.birth_date}</span>
+          //   </li>
+          //   <li>
+          //     CONTACT_ID: <span>{data.fk_contact_id}</span>
+          //   </li>
+          //   <li>
+          //     GENDER_ID: <span>{data.fk_gender_id}</span>
+          //   </li>
+          //   {
+          //     <div>
+          //       <button onClick={() => handleDelete(data.pk_user_id, index)}>
+          //         delete
+          //       </button>
+          //       <button onClick={() => handleUpdate(data, index)}>
+          //         Update
+          //       </button>
+          //       <br />
+          //     </div>
+          //   }
+          // </ul>
         ))}
-      </div>
-    </div>
+      </BoxTable>
+    </Container>
   );
 };
 

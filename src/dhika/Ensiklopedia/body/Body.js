@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Textbox,
   Breeding,
@@ -13,8 +13,21 @@ import seed from '../../images/basil-seed.png';
 import tuber from '../../images/basil-tuber.jpg';
 import juvenil from '../../images/basil-juvenil.jpg';
 import mature from '../../images/basil-mature.jpg';
+import { ContextStore } from '../../../context/store/ContextStore';
 
 const Body = () => {
+  const { plantIdState } = useContext(ContextStore);
+  const {
+    seed,
+    tuber,
+    young,
+    mature,
+    seed_image,
+    tuber_image,
+    young_image,
+    mature_image,
+  } = plantIdState;
+
   return (
     <section>
       <Container>
@@ -28,12 +41,8 @@ const Body = () => {
         <Breeding>
           <BoxContainer>
             <Textbox>
-              <h5>Lorem ipsum dolor sit.</h5>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe
-                deleniti assumenda molestias temporibus veritatis amet fugiat
-                alias magni obcaecati iure.
-              </p>
+              <h5>Proses Penanaman Benih</h5>
+              <p>{seed}</p>
             </Textbox>
             <SquareLeft />
           </BoxContainer>
@@ -41,7 +50,10 @@ const Body = () => {
           <FaCircle className='circle' />
 
           <ImageCointainer>
-            <img src={seed} alt='seed' />
+            <img
+              src={process.env.PUBLIC_URL + `/images/Plant/${seed_image}`}
+              alt='seed'
+            />
             <div>
               <h5>Proses Penanaman Benih</h5>
             </div>
@@ -50,7 +62,10 @@ const Body = () => {
 
         <Breeding>
           <ImageCointainer>
-            <img src={tuber} alt='tuber' />
+            <img
+              src={process.env.PUBLIC_URL + `/images/Plant/${tuber_image}`}
+              alt='tuber'
+            />
             <div>
               <h5>Masa Pertumbuhan Bonggol</h5>
             </div>
@@ -61,12 +76,8 @@ const Body = () => {
           <BoxContainer>
             <SquareRight />
             <Textbox>
-              <h5>Lorem ipsum dolor sit.</h5>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe
-                deleniti assumenda molestias temporibus veritatis amet fugiat
-                alias magni obcaecati iure.
-              </p>
+              <h5>Masa Pertumbuhan Bonggol</h5>
+              <p>{tuber}</p>
             </Textbox>
           </BoxContainer>
         </Breeding>
@@ -74,12 +85,8 @@ const Body = () => {
         <Breeding>
           <BoxContainer>
             <Textbox>
-              <h5>Lorem ipsum dolor sit.</h5>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe
-                deleniti assumenda molestias temporibus veritatis amet fugiat
-                alias magni obcaecati iure.
-              </p>
+              <h5>Masa Tanaman Muda</h5>
+              <p>{young}</p>
             </Textbox>
             <SquareLeft />
           </BoxContainer>
@@ -87,7 +94,10 @@ const Body = () => {
           <FaCircle className='circle' />
 
           <ImageCointainer>
-            <img src={juvenil} alt='juvenil' />
+            <img
+              src={process.env.PUBLIC_URL + `/images/Plant/${young_image}`}
+              alt='juvenil'
+            />
             <div>
               <h5>Masa Tanaman Muda</h5>
             </div>
@@ -96,7 +106,10 @@ const Body = () => {
 
         <Breeding>
           <ImageCointainer>
-            <img src={mature} alt='mature' />
+            <img
+              src={process.env.PUBLIC_URL + `/images/Plant/${mature_image}`}
+              alt='mature'
+            />
             <div>
               <h5>Masa Tanaman Dewasa</h5>
             </div>
@@ -107,12 +120,8 @@ const Body = () => {
           <BoxContainer>
             <SquareRight />
             <Textbox>
-              <h5>Lorem ipsum dolor sit.</h5>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe
-                deleniti assumenda molestias temporibus veritatis amet fugiat
-                alias magni obcaecati iure.
-              </p>
+              <h5>Masa Tanaman Dewasa</h5>
+              <p>{mature}</p>
             </Textbox>
           </BoxContainer>
         </Breeding>

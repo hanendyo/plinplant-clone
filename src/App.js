@@ -39,8 +39,8 @@ const App = () => {
         <Route exact path='/' component={LandingPage} />
         <Route exact path='/register' component={SignUp} />
         <Route exact path='/login' component={SignIn} />
-        <Route path='/ensiklopedia' component={Ensiklopedia} />
-        <Route path='/shop' component={ShoppingPage} />
+        <Route path='/ensiklopedia/:id/:name' component={Ensiklopedia} />
+        <Route path='/shop/:id/:name' component={ShoppingPage} />
         <Route path='/cart' component={CartPage} />
         <Route path='/checkout' component={CheckoutPage} />
         <Route path='/invoice' component={InvoicePage} />

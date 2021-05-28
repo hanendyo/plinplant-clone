@@ -4,13 +4,14 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { Article, Category, City, Contact, Gender, Order, OrderItem, Plant, PlantBreeding, PriceList, Review, ShippingCharges, Stock, User, Weight } from "./cmsPages";
 import './CMS.css'
 import Navigation from "./navigation/Navigation";
+import SidebarCMS from "../../dhika/SidebarCMS/components/SidebarCMS";
 
 const CMS = () => {
   return (
     <div className='cmsBody'>    
       <ContextProvider>
         <Router>
-            <Navigation/>
+            <SidebarCMS/>
             <Switch>
                 <Route exact path='/cms/article_input' component={Article}></Route>
                 <Route exact path='/cms/category_input' component={Category}></Route>

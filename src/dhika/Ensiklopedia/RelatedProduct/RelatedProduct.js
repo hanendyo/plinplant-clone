@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import ProductsContainer from '../../../fajariadi/components/Main/components/Product/ProductsContainer';
 import { colors, StyledContainer } from '../../../master/constant/style';
 
-const RelatedProduct = () => {
+const RelatedProduct = ({ category }) => {
   return (
     <SectionRP>
       <Container>
-        <ProductsContainer related category='hias' />
+        <ProductsContainer related category={category} />
       </Container>
     </SectionRP>
   );

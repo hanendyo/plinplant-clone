@@ -4,7 +4,9 @@ import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "../CMS.css";
+import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import { colors } from "../../../master/constant/style";
+import {FaCamera} from "react-icons/fa"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -228,8 +230,9 @@ const Article = () => {
   };
 
   return (
-    <div className="article cmsForm">
-      <h3>Plant input</h3>
+    <Container>
+      <h4>PLANT INPUT</h4>
+      <BoxForm>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -245,18 +248,6 @@ const Article = () => {
           label="Plant name"
           variant="outlined"
         />
-   
-        {/* ----- IMAGE ----- */}
-        <span>Pick image:</span>
-        <input
-          name="plant_image_upload"
-          type="file"
-          onChange={(e) => formImage(e)}
-        />
-        <img src={reviewImage} alt="" />
-        {/* ----- IMAGE ----- */}
-
-
         <TextField
           value={plantState.plant_origin}
           onChange={(e) => formChange("plant_origin", e.target.value)}
@@ -326,12 +317,49 @@ const Article = () => {
           label="Review_ID"
           variant="outlined"
         />
-
+        {/* ----- IMAGE ----- */}
+        {/* <span>Pick image:</span>
+        <input
+          name="plant_image_upload"
+          type="file"
+          onChange={(e) => formImage(e)}
+        />
+        <img src={reviewImage} alt="" /> */}
+        <ImageBox>
+        <SpanImage > 
+          <h6>Upload Image</h6>
+          <img src={reviewImage} alt=""/>
+        </SpanImage>
+        
+        <input
+        accept="image/*"
+        name="article_image_upload"
+        className={classes.input}
+        id="contained-button-file"
+        multiple
+        type="file"
+        onChange={(e) => formImage(e)}
+        style={{display:"none"}}
+        />
+        <label htmlFor="contained-button-file">
+          <Button 
+          variant="contained" 
+          color="primary" 
+          component="span" 
+          startIcon={<FaCamera />}
+          style={{backgroundColor:`${colors.green}`}}
+          >
+            Upload
+          </Button>
+        </label>
+        </ImageBox>
+        {/* ----- IMAGE ----- */}
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
           type="submit"
+          style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -341,68 +369,69 @@ const Article = () => {
             variant="contained"
             color="primary"
             onClick={() => handleCancel()}
+            style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
           >
             Cancel
           </Button>
         )}
       </form>
-      <div>
-        <br />
-        <h3>Result: </h3>
+      </BoxForm>
+      <br />
+        <h4>PLANT DATA</h4>
+      <BoxTable>
+        <List>
+          <li>PLANT ID</li>
+          <li>NAME</li>
+          <li>IMAGE</li>
+          <li>ORIGIN</li>
+          <li>QUALITIES ID</li>
+          <li>PLANT TO USE</li>
+          <li>DAYS TO SPROUT</li>
+          <li>MATURES IN</li>
+          <li>GROWTH TYPE</li>
+          <li>CATEGORY ID</li>
+          <li>REVIEW ID</li>
+          <li>ACTION ID</li>
+        </List>
         {dataPlant.map((data, index) => (
-          // console.log(`data article map: `, dataPlant),
-          <ul className="map" key={index}>
-            <li>
-              NO: <span>{index + 1}</span>
-            </li>
-            <li>
-              PLANT ID: <span>{data.pk_plant_id}</span>
-            </li>
-            <li>
-              PLANT NAME: <span>{data.plant_name}</span>
-            </li>
-            <li>
-              PLANT IMAGE: <span>{data.plant_image}</span>
-            </li>
-            <li>
-              PLANT ORIGIN: <span>{data.plant_origin}</span>
-            </li>
-            <li>
-              QUALITIES: <span>{data.plant_qualities}</span>
-            </li>
-            <li>
-              PLANT USE: <span>{data.plant_use}</span>
-            </li>
-            <li>
-              DAYS TO SPROUT: <span>{data.days_to_sprout}</span>
-            </li>
-            <li>
-              MATURES IN: <span>{data.matures_in}</span>
-            </li>
-            <li>
-             GROWTH TYPE: <span>{data.growth_type}</span>
-            </li>
-            <li>
-              CATEGORY_ID: <span>{data.fk_category_id}</span>
-            </li>
-            <li>
-              REVIEW_ID: <span>{data.fk_review_id}</span>
-            </li>
-            {
-              <div>
-                <button onClick={() => handleDelete(data.pk_plant_id, index)}>
-                  delete
-                </button>
-                <button onClick={() => handleUpdate(data, index)}>
+          <ListData key={index}> 
+            <li>{data.pk_plant_id}</li>
+            <li>{data.name}</li>
+            <li>{data.plant_image}</li>
+            <li>{data.plant_origin}</li>
+            <li>{data.plant_qualities}</li>
+            <li>{data.plant_use}</li>
+            <li>{data.days_to_sprout}</li>
+            <li>{data.matures_in}</li>
+            <li>{data.growth_type}</li>
+            <li>{data.fk_category_id}</li>
+            <li>{data.fk_review_id}</li>
+            <ButtonList>
+                <Button 
+                  onClick={() => handleUpdate(data, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="update"
+                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
+                  >
                   Update
-                </button>
-                <br />
-              </div>
-            }
-          </ul>
+                </Button>
+                <Button 
+                  onClick={() => handleDelete(data.pk_plant_id, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="delete"
+                  style={{backgroundColor:`${colors.green}`}}
+                  >
+                  delete
+                </Button>
+            </ButtonList>
+          </ListData>
         ))}
-      </div>
-    </div>
+      </BoxTable>
+    </Container>
   );
 };
 

@@ -1,4 +1,4 @@
-const pool = require("../database/Database");
+const pool = require('../database/Database');
 
 module.exports = {
   articleInputTable: (body, callback) => {
@@ -23,6 +23,7 @@ module.exports = {
       return callback(null, result);
     });
   },
+
   articleGetAllDatas: (callback) => {
     pool.query(`Select * from table_article`, [], (error, results, fields) => {
       if (error) {
@@ -31,6 +32,7 @@ module.exports = {
       return callback(null, results);
     });
   },
+
   articleDelete: (id, callback) => {
     pool.query(
       `delete from table_article where pk_article_id = ?`,
@@ -45,6 +47,7 @@ module.exports = {
       }
     );
   },
+
   articleUpdate: (data, callback) => {
     console.log(`DATA ARTICLE UPDATE: `, data);
     pool.query(
@@ -67,6 +70,7 @@ module.exports = {
       }
     );
   },
+
   categoryInputTable: (data, callback) => {
     const sql = `insert into table_category (pk_category_id,category_name)values(?,?)`;
     const column = [data.pk_category_id, data.category_name];
@@ -77,6 +81,7 @@ module.exports = {
       return callback(null, result);
     });
   },
+
   categoryGetAllDatas: (callback) => {
     pool.query(`Select * from table_category`, [], (error, results, fields) => {
       if (error) {
@@ -85,6 +90,7 @@ module.exports = {
       return callback(null, results);
     });
   },
+
   categoryDelete: (id, callback) => {
     pool.query(
       `delete from table_category where pk_category_id = ?`,
@@ -99,6 +105,7 @@ module.exports = {
       }
     );
   },
+
   categoryUpdate: (data, callback) => {
     pool.query(
       `update table_category set category_name=? where pk_category_id=?`,
@@ -113,6 +120,7 @@ module.exports = {
       }
     );
   },
+
   cityInputTable: (data, callback) => {
     const sql = `insert into table_city (city_name) values(?)`;
     const column = [data.city_name];
@@ -123,6 +131,7 @@ module.exports = {
       return callback(null, result);
     });
   },
+
   cityGetAllDatas: (callback) => {
     pool.query(`Select * from table_city`, [], (error, results, fields) => {
       if (error) {
@@ -131,6 +140,7 @@ module.exports = {
       return callback(null, results);
     });
   },
+
   cityDelete: (id, callback) => {
     pool.query(
       `delete from table_city where pk_city_id = ?`,
@@ -145,6 +155,7 @@ module.exports = {
       }
     );
   },
+
   cityUpdate: (data, callback) => {
     pool.query(
       `update table_city set city_name=? where pk_city_id=?`,
@@ -159,6 +170,7 @@ module.exports = {
       }
     );
   },
+
   contactInputTable: (data, callback) => {
     const sql = `insert into table_contact (recipient_name, address, phone_number, fk_city_id) values(?, ?, ?, ?)`;
     const column = [
@@ -174,6 +186,7 @@ module.exports = {
       return callback(null, result);
     });
   },
+
   contactGetAllDatas: (callback) => {
     pool.query(`Select * from table_contact`, [], (error, results, fields) => {
       if (error) {
@@ -182,6 +195,7 @@ module.exports = {
       return callback(null, results);
     });
   },
+
   contactDelete: (id, callback) => {
     pool.query(
       `delete from table_contact where pk_contact_id = ?`,
@@ -196,6 +210,7 @@ module.exports = {
       }
     );
   },
+
   contactUpdate: (data, callback) => {
     pool.query(
       `update table_contact set recipient_name=?, address=?, phone_number=?, fk_city_id=? where pk_contact_id=?`,
@@ -216,6 +231,7 @@ module.exports = {
       }
     );
   },
+
   genderInputTable: (data, callback) => {
     const sql = `insert into table_gender (type) values(?)`;
     const column = [data.type];
@@ -227,6 +243,7 @@ module.exports = {
       return callback(null, result);
     });
   },
+
   genderGetAllDatas: (callback) => {
     pool.query(`Select * from table_gender`, [], (error, results, fields) => {
       if (error) {
@@ -236,6 +253,7 @@ module.exports = {
       return callback(null, results);
     });
   },
+
   genderDelete: (id, callback) => {
     pool.query(
       `delete from table_gender where pk_gender_id = ?`,
@@ -250,6 +268,7 @@ module.exports = {
       }
     );
   },
+
   genderUpdate: (data, callback) => {
     console.log(`gender data upadteL: `, data);
     pool.query(
@@ -265,6 +284,7 @@ module.exports = {
       }
     );
   },
+
   orderInputTable: (data, callback) => {
     const sql = `insert into table_order (status, created_at, fk_user_id) values(?, ?, ?)`;
     const column = [data.status, data.created_at, data.fk_user_id];
@@ -275,6 +295,7 @@ module.exports = {
       return callback(null, result);
     });
   },
+
   orderGetAllDatas: (callback) => {
     pool.query(`Select * from table_order`, [], (error, results, fields) => {
       if (error) {
@@ -283,6 +304,7 @@ module.exports = {
       return callback(null, results);
     });
   },
+
   orderDelete: (id, callback) => {
     pool.query(
       `delete from table_order where pk_order_id = ?`,
@@ -297,6 +319,7 @@ module.exports = {
       }
     );
   },
+
   orderUpdate: (data, callback) => {
     pool.query(
       `update table_order set status=?, created_at=?, fk_user_id=? where pk_order_id=?`,
@@ -311,6 +334,7 @@ module.exports = {
       }
     );
   },
+
   orderItemInputTable: (data, callback) => {
     const sql = `insert into table_order_item (quantity, fk_price_list_id) values(?,?)`;
     const column = [data.quantity, data.fk_price_list_id];
@@ -321,6 +345,7 @@ module.exports = {
       return callback(null, result);
     });
   },
+
   orderItemGetAllDatas: (callback) => {
     pool.query(
       `Select * from table_order_item`,
@@ -333,6 +358,7 @@ module.exports = {
       }
     );
   },
+
   orderItemDelete: (id, callback) => {
     pool.query(
       `delete from table_order_item where pk_order_item_id = ?`,
@@ -347,6 +373,7 @@ module.exports = {
       }
     );
   },
+
   orderItemUpdate: (data, callback) => {
     pool.query(
       `update table_order_item set quantity=?, fk_price_list_id=? where pk_order_item_id=?`,
@@ -361,6 +388,7 @@ module.exports = {
       }
     );
   },
+
   plantInputTable: (data, callback) => {
     console.log(`SERVICE DATA: `, data);
     const sql = `insert into table_plant (plant_name, plant_image, plant_origin, plant_qualities, plant_use, days_to_sprout, matures_in, growth_type, fk_category_id, fk_review_id)values(?,?,?,?,?,?,?,?,?,?)`;
@@ -383,14 +411,28 @@ module.exports = {
       return callback(null, result);
     });
   },
+
   plantGetAllDatas: (callback) => {
-    pool.query(`Select * from table_plant`, [], (error, results, fields) => {
+    pool.query(`Select * from plant_data`, [], (error, results, fields) => {
       if (error) {
         return callback(error);
       }
       return callback(null, results);
     });
   },
+
+  plantGetId: (id, callBack) => {
+    pool.query(
+      `select * from plant_data where pk_plant_id = ?`,
+      [id],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results); // result[0]
+      }
+    );
+  },
+
   plantDelete: (id, callback) => {
     pool.query(
       `delete from table_plant where pk_plant_id = ?`,
@@ -405,6 +447,7 @@ module.exports = {
       }
     );
   },
+
   plantUpdate: (data, callback) => {
     pool.query(
       `update table_plant set plant_name=?, plant_image=?, plant_origin=?, plant_qualities=?, plant_use=?, days_to_sprout=?, matures_in=?, growth_type=?, fk_category_id=?, fk_review_id=? where pk_plant_id=?`,
@@ -431,6 +474,7 @@ module.exports = {
       }
     );
   },
+
   plantBreedingInputTable: (data, callback) => {
     const sql = `insert into table_plant_breeding (seed, tuber, young, mature, seed_image, tuber_image, young_image, mature_image, fk_plant_id) values(?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     const column = [
@@ -452,6 +496,7 @@ module.exports = {
       return callback(null, result);
     });
   },
+
   plantBreedingGetAllDatas: (callback) => {
     pool.query(
       `Select * from table_plant_breeding`,
@@ -464,6 +509,7 @@ module.exports = {
       }
     );
   },
+
   plantBreedingDelete: (id, callback) => {
     pool.query(
       `delete from table_plant_breeding where pk_plant_breeding_id = ?`,
@@ -478,6 +524,7 @@ module.exports = {
       }
     );
   },
+
   plantBreedingUpdate: (data, callback) => {
     pool.query(
       `update table_plant_breeding set seed=?, tuber=?, young=?, mature=?, seed_image=?, tuber_image=?, young_image=?, mature_image=?, fk_plant_id=? where pk_plant_breeding_id=?`,
@@ -503,6 +550,7 @@ module.exports = {
       }
     );
   },
+
   priceListInputTable: (data, callback) => {
     console.log(`DATA PRICELIST SERVICE: `, data);
     pool.query(
@@ -523,6 +571,7 @@ module.exports = {
       }
     );
   },
+
   priceListGetAllDatas: (callback) => {
     pool.query(
       `Select * from table_price_list`,
@@ -535,6 +584,7 @@ module.exports = {
       }
     );
   },
+
   priceListDelete: (id, callback) => {
     pool.query(
       `delete from table_price_list where pk_price_list_id = ?`,
@@ -549,6 +599,7 @@ module.exports = {
       }
     );
   },
+
   priceListUpdate: (data, callback) => {
     pool.query(
       `update table_price_list set seed_price=?, tuber_price=?, young_price=?, mature_price=?, fk_plant_breeding_id=?, fk_stock_id=? where pk_price_list_id=?`,
@@ -559,7 +610,7 @@ module.exports = {
         data.mature_price,
         data.fk_plant_breeding_id,
         data.fk_stock_id,
-        data.pk_price_list_id
+        data.pk_price_list_id,
       ],
       (error, result, fields) => {
         if (error) {
@@ -571,6 +622,7 @@ module.exports = {
       }
     );
   },
+
   reviewInputTable: (data, callback) => {
     const sql = `insert into table_review (comment, rating) values(?,?)`;
     const column = [data.comment, data.rating];
@@ -581,6 +633,7 @@ module.exports = {
       return callback(null, result);
     });
   },
+
   reviewGetAllDatas: (callback) => {
     pool.query(`Select * from table_review`, [], (error, results, fields) => {
       if (error) {
@@ -589,6 +642,7 @@ module.exports = {
       return callback(null, results);
     });
   },
+
   reviewDelete: (id, callback) => {
     pool.query(
       `delete from table_review where pk_review_id = ?`,
@@ -603,12 +657,11 @@ module.exports = {
       }
     );
   },
+
   reviewUpdate: (data, callback) => {
     pool.query(
       `update table_review set comment=?, rating=? where pk_review_id=?`,
-      [
-        data.comment, data.rating, data.pk_review_id
-      ],
+      [data.comment, data.rating, data.pk_review_id],
       (error, result, fields) => {
         if (error) {
           console.log(`ERROR: `, error);
@@ -619,6 +672,7 @@ module.exports = {
       }
     );
   },
+
   shippingChargesInputTable: (data, callback) => {
     const sql = `insert into table_shipping_charges (shipping_price, fk_city_id) values(?, ?)`;
     const column = [data.shipping_price, data.fk_city_id];
@@ -629,6 +683,7 @@ module.exports = {
       return callback(null, result);
     });
   },
+
   shippingChargesGetAllDatas: (callback) => {
     pool.query(
       `Select * from table_shipping_charges`,
@@ -641,6 +696,7 @@ module.exports = {
       }
     );
   },
+
   shippingChargesDelete: (id, callback) => {
     pool.query(
       `delete from table_shipping_charges where pk_shipping_charges_id = ?`,
@@ -655,12 +711,11 @@ module.exports = {
       }
     );
   },
+
   shippingChargesUpdate: (data, callback) => {
     pool.query(
       `update table_shipping_charges set shipping_price=?, fk_city_id=? where pk_shipping_charges_id=?`,
-      [
-        data.shipping_price, data.fk_city_id, data.pk_shipping_charges_id
-      ],
+      [data.shipping_price, data.fk_city_id, data.pk_shipping_charges_id],
       (error, result, fields) => {
         if (error) {
           console.log(`ERROR: `, error);
@@ -671,6 +726,7 @@ module.exports = {
       }
     );
   },
+
   stockInputTable: (data, callback) => {
     const sql = `insert into table_stock (seed_stock, tuber_stock, young_stock, mature_stock) values(?, ?, ?, ?)`;
     const column = [
@@ -686,6 +742,7 @@ module.exports = {
       return callback(null, result);
     });
   },
+
   stockGetAllDatas: (callback) => {
     pool.query(`Select * from table_stock`, [], (error, results, fields) => {
       if (error) {
@@ -694,6 +751,7 @@ module.exports = {
       return callback(null, results);
     });
   },
+
   stockDelete: (id, callback) => {
     pool.query(
       `delete from table_stock where pk_stock_id = ?`,
@@ -708,10 +766,17 @@ module.exports = {
       }
     );
   },
+
   stockUpdate: (data, callback) => {
     pool.query(
       `update table_stock set seed_stock=?, tuber_stock=?, young_stock=?, mature_stock=? where pk_stock_id=?`,
-      [data.seed_stock, data.tuber_stock, data.young_stock, data.mature_stock, data.pk_stock_id],
+      [
+        data.seed_stock,
+        data.tuber_stock,
+        data.young_stock,
+        data.mature_stock,
+        data.pk_stock_id,
+      ],
       (error, result, fields) => {
         if (error) {
           console.log(`ERROR: `, error);
@@ -722,6 +787,7 @@ module.exports = {
       }
     );
   },
+
   userInputTable: (data, callback) => {
     const sql = `insert into table_user (fullname, email, password, birth_date, picture, fk_contact_id, fk_gender_id) values(?, ?, ?, ?, ?, ?, ?)`;
     const column = [
@@ -740,6 +806,7 @@ module.exports = {
       return callback(null, result);
     });
   },
+
   userGetAllDatas: (callback) => {
     pool.query(`Select * from table_user`, [], (error, results, fields) => {
       if (error) {
@@ -748,6 +815,7 @@ module.exports = {
       return callback(null, results);
     });
   },
+
   userDelete: (id, callback) => {
     pool.query(
       `delete from table_user where pk_user_id = ?`,
@@ -762,6 +830,7 @@ module.exports = {
       }
     );
   },
+
   userUpdate: (data, callback) => {
     pool.query(
       `update table_user set fullname=?, email=?, password=?, birth_date=?, picture=?, fk_contact_id=?, fk_gender_id=? where pk_user_id=?`,
@@ -773,7 +842,7 @@ module.exports = {
         data.picture,
         data.fk_contact_id,
         data.fk_gender_id,
-        data.pk_user_id
+        data.pk_user_id,
       ],
       (error, result, fields) => {
         if (error) {
@@ -785,6 +854,7 @@ module.exports = {
       }
     );
   },
+
   weightInputTable: (data, callback) => {
     const sql = `insert into table_weight (weight) values(?)`;
     const column = [data.weight];
@@ -795,6 +865,7 @@ module.exports = {
       return callback(null, result);
     });
   },
+
   weightGetAllDatas: (callback) => {
     pool.query(`Select * from table_weight`, [], (error, results, fields) => {
       if (error) {
@@ -803,6 +874,7 @@ module.exports = {
       return callback(null, results);
     });
   },
+
   weightDelete: (id, callback) => {
     pool.query(
       `delete from table_weight where pk_weight_id = ?`,
@@ -817,6 +889,7 @@ module.exports = {
       }
     );
   },
+
   weightUpdate: (data, callback) => {
     pool.query(
       `update table_weight set weight=? where pk_weight_id=?`,
