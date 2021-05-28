@@ -8,7 +8,8 @@ import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "../CMS.css";
+import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     button: {
       width: "80%",
       margin: "5px 0",
-      backgroundColor: "rgb(187, 203, 194)",
+      backgroundColor: `"rgb(187, 203, 194)"`,
       color: "primary",
     },
   },
@@ -193,8 +194,9 @@ const Contact = () => {
   };
 
   return (
-    <div className="cmsForm">
-      <h3>Order input</h3>
+    <Container>
+      <h4>ORDER INPUT</h4>
+      <BoxForm>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -232,6 +234,7 @@ const Contact = () => {
           variant="contained"
           color="primary"
           type="submit"
+          style = {{backgroundColor:`${colors.green}`}}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -241,43 +244,62 @@ const Contact = () => {
             variant="contained"
             color="primary"
             onClick={() => handleCancel()}
+            style={{marginTop:'20px',backgroundColor:`${colors.green}`}}
           >
             Cancel
           </Button>
         )}
       </form>
-      <div>
-        <br />
-        <h3>Result: </h3>
+      </BoxForm>
+      <br />
+        <h4>ORDER STATUS DATA</h4>
+      <BoxTable>
+        <List>
+          <li>ORDER ID</li>
+          <li>STATUS</li>
+          <li>CREATED AT</li>
+          <li>USER ID</li>
+          <li>ACTION</li>
+        </List>
+        
         {dataOrder.map(
           (data, index) => (
-            console.log(`data contact map: `, dataOrder),
-            (
-              <ul className='map' key={index}>
-                <li>ORDER ID: <span>{data.pk_order_id}</span></li>
-                <li>ORDER STATUS: <span>{data.status}</span></li>
-                <li>CREATED AT: <span>{data.created_at}</span></li>
-                <li>USER_ID: <span>{data.fk_user_id}</span></li>
-                {
-                  <div>
-                    <button
-                      onClick={() => handleDelete(data.pk_order_id, index)}
-                    >
-                      delete
-                    </button>
-                    <button onClick={() => handleUpdate(data, index)}>
-                      Update
-                    </button>
-                    <br />
-                  </div>
-                }
-                <br />
-              </ul>
-            )
+            <ListData key={index}>
+              <li>{data.pk_order_id}</li>
+              <li>{data.status}</li>
+              <li>{data.created_at}</li>
+              <li>{data.fk_user_id}</li>
+              {
+              <ButtonList>
+                <Button 
+                  onClick={() => handleUpdate(data, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="update"
+                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
+                  >
+                  Update
+                </Button>
+                <Button 
+                  onClick={() => handleDelete(data.pk_order_id, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="delete"
+                  style={{backgroundColor:`${colors.green}`}}
+                  >
+                  
+                  delete
+                </Button>
+                
+              </ButtonList>
+              }
+            </ListData>
           )
         )}
-      </div>
-    </div>
+      </BoxTable>
+    </Container>
   );
 };
 

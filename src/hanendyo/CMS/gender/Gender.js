@@ -8,7 +8,8 @@ import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "../CMS.css";
+import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -188,8 +189,9 @@ const Category = () => {
   };
 
   return (
-    <div className="cmsForm">
-      <h3>Gender input</h3>
+    <Container>
+      <h4>GENDER INPUT</h4>
+      <BoxForm>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -202,15 +204,16 @@ const Category = () => {
           name="type"
           onChange={(e) => formChange(`type`, e.target.value)}
           id="outlined-basic"
-          label="Gender type"
+          label="Gender name"
           variant="outlined"
         />
-
+        
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
           type="submit"
+          style = {{backgroundColor:`${colors.green}`}}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -220,41 +223,55 @@ const Category = () => {
             variant="contained"
             color="primary"
             onClick={() => handleCancel()}
+            style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
           >
             Cancel
           </Button>
         )}
       </form>
-      <div>
-        <br />
-        <h3>Result: </h3>
+      </BoxForm>
+      <br />
+        <h4>GENDER DATA</h4>
+      <BoxTable>
+      <List>
+          <li>GENDER ID</li>
+          <li>GENDER NAME</li>
+          <li>ACTION</li>
+        </List>
         {dataGender.map(
           (data, index) => (
-            console.log(`data article map: `, dataGender),
-            (
-              <ul className='map' key={index}>
-                <li>GENDER TYPE: <span>{data.type}</span></li>
-                <li>GENDER ID: <span>{data.pk_gender_id}</span></li>
-                {
-                  <div>
-                    <button
-                      onClick={() => handleDelete(data.pk_gender_id, index)}
-                    >
-                      delete
-                    </button>
-                    <button onClick={() => handleUpdate(data, index)}>
-                      Update
-                    </button>
-                    <br />
-                  </div>
-                }
-                <br/>
-              </ul>
-            )
+            <ListData key={index}>
+              <li>{data.pk_gender_id}</li>
+              <li>{data.type}</li>
+              <ButtonList>
+                <Button 
+                  onClick={() => handleUpdate(data, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="update"
+                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
+                  >
+                  Update
+                </Button>
+                <Button 
+                  onClick={() => handleDelete(data.pk_gender_id, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="delete"
+                  style={{backgroundColor:`${colors.green}`}}
+                  >
+                  
+                  delete
+                </Button>
+                
+              </ButtonList>
+            </ListData>
           )
         )}
-      </div>
-    </div>
+      </BoxTable>
+    </Container>
   );
 };
 

@@ -8,7 +8,9 @@ import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "../CMS.css";
+import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import {FaCamera} from "react-icons/fa"
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -197,8 +199,9 @@ const PriceList = () => {
 
 
     return (
-        <div className="article cmsForm">
-            <h3>Price list input</h3>
+        <Container>
+            <h4>PRICE LIST INPUT</h4>
+            <BoxForm>
             <form
                 encType="multipart/form-data"
                 className={classes.root}
@@ -259,77 +262,80 @@ const PriceList = () => {
                     label="Stock_id"
                     variant="outlined"
                 />
-
+            <ButtonContainer>
                 <Button
                     className={classes.button}
                     variant="contained"
                     color="primary"
                     type="submit"
-                >
+                    style={{backgroundColor:`${colors.green}`}}
+                    >
                     {isUpdate ? "Update" : "Submit"}
                 </Button>
-                {isUpdate && (
-                    <Button
-                        className={classes.button}
-                        variant="contained"
-                        color="primary"
-                        onClick={() => handleCancel()}
-                    >
-                        Cancel
-                    </Button>
-                )}
+            {isUpdate && (
+                <Button
+                    className={classes.button}
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleCancel()}
+                    style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
+                >
+                    Cancel
+                </Button>
+            )}
+            </ButtonContainer>
             </form>
-            <div>
-                <br />
-                <h3>Result: </h3>
+            </BoxForm>
+            <br />
+                <h4>PRICE LIST DATA</h4>
+            <BoxTable>
+                <List>
+                    <li>PRICE LIST ID</li>
+                    <li>SEED PRICE</li>
+                    <li>TUBER PRICE</li>
+                    <li>YOUNG PRICE</li>
+                    <li>MATURE PRICE</li>
+                    <li>PLANT BREEDING ID</li>
+                    <li>STOCK</li>
+                    <li>ACTION</li>
+                </List>
                 {priceList.map(
                     (data, index) => (
-                        console.log(`data article map: `, priceList),
-                        (
-                            <ul className="map" key={index}>
-                                <li>
-                                    NO: <span>{index + 1}</span>
-                                </li>
-                                <li>
-                                    ARTICLE ID: <span>{data.pk_price_list_id}</span>
-                                </li>
-                                <li>
-                                    SEED PRICE: <span>{data.seed_price}</span>
-                                </li>
-                                <li>
-                                    TUBER PRICE: <span>{data.tuber_price}</span>
-                                </li>
-                                <li>
-                                    YOUNG PLANT PRICE: <span>{data.young_price}</span>
-                                </li>
-                                <li>
-                                    MATURE PLANT PRICE: <span>{data.mature_price}</span>
-                                </li>
-                                <li>
-                                    PLANT_BREEDING_ID: <span>{data.fk_plant_breeding_id}</span>
-                                </li>
-                                <li>
-                                    STOCK_ID: <span>{data.fk_stock_id}</span>
-                                </li>
-                                {
-                                    <div>
-                                        <button
-                                            onClick={() => handleDelete(data.pk_price_list_id, index)}
-                                        >
-                                            delete
-                    </button>
-                                        <button onClick={() => handleUpdate(data, index)}>
-                                            Update
-                    </button>
-                                        <br />
-                                    </div>
-                                }
-                            </ul>
-                        )
+                        <ListData key={index}>
+                            <li>{data.pk_price_list_id}</li>
+                            <li>{data.seed_price}</li>
+                            <li>{data.tuber_price}</li>
+                            <li>{data.young_price}</li>
+                            <li>{data.mature}</li>
+                            <li>{data.fk_plant_breeding_id}</li>
+                            <li>{data.fk_stock_id}</li>
+                            <ButtonList>
+                                <Button 
+                                onClick={() => handleUpdate(data, index)}
+                                className={classes.button}
+                                variant="contained"
+                                color="primary"
+                                type="update"
+                                style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
+                                >
+                                Update
+                                </Button>
+                                <Button 
+                                onClick={() => handleDelete(data.pk_price_list_id, index)}
+                                className={classes.button}
+                                variant="contained"
+                                color="primary"
+                                type="delete"
+                                style={{backgroundColor:`${colors.green}`}}
+                                >
+                                delete
+                                </Button>
+                            </ButtonList>
+                        </ListData>                        
                     )
                 )}
-            </div>
-        </div>
+            </BoxTable>
+        </Container>
     );
 };
 

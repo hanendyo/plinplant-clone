@@ -8,7 +8,8 @@ import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "../CMS.css";
+import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -174,8 +175,9 @@ const Weight = () => {
   };
 
   return (
-    <div className="cmsForm">
-      <h3>Weight input</h3>
+    <Container>
+      <h4>WEIGHT DATA</h4>
+      <BoxForm>
       <form
         encweight="multipart/form-data"
         className={classes.root}
@@ -191,12 +193,13 @@ const Weight = () => {
           label="Weight"
           variant="outlined"
         />
-       
+       <ButtonContainer>
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
-          weight="submit"
+          type="submit"
+          style={{backgroundColor:`${colors.green}`}}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -206,41 +209,73 @@ const Weight = () => {
             variant="contained"
             color="primary"
             onClick={() => handleCancel()}
+            style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
           >
             Cancel
           </Button>
         )}
+        </ButtonContainer>
       </form>
-      <div>
-        <br />
-        <h3>Result: </h3>
+      </BoxForm>
+      <br />
+        <h3>WEIGHT DATA</h3>
+      <BoxTable>
+        <List>
+          <li>WEIGHT ID</li>
+          <li>NAME</li>
+          <li>ACTION</li>
+        </List>
         {dataWeight.map(
           (data, index) => (
-            console.log(`data weight map: `, dataWeight),
-            (
-              <ul className='map' key={index}>
-                <li>WEIGHT ID: <span>{data.pk_weight_id}</span></li>
-                <li>WEIGHT: <span>{data.weight}</span></li>
-                {
-                  <div>
-                    <button
-                      onClick={() => handleDelete(data.pk_weight_id, index)}
-                    >
-                      delete
-                    </button>
-                    <button onClick={() => handleUpdate(data, index)}>
-                      Update
-                    </button>
-                    <br />
-                  </div>
-                }
-                <br/>
-              </ul>
-            )
+            <ListData key={index}>
+              <li>{data.pk_weight_id}</li>
+              <li>{data.weight}</li>
+              <ButtonList>
+                <Button 
+                  onClick={() => handleUpdate(data, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="update"
+                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
+                  >
+                  Update
+                </Button>
+                <Button 
+                  onClick={() => handleDelete(data.pk_article_id, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="delete"
+                  style={{backgroundColor:`${colors.green}`}}
+                  >
+                  delete
+                </Button>
+            </ButtonList>
+            </ListData>
+              // <ul className='map' key={index}>
+              //   <li>WEIGHT ID: <span>{data.pk_weight_id}</span></li>
+              //   <li>WEIGHT: <span>{data.weight}</span></li>
+              //   {
+              //     <div>
+              //       <button
+              //         onClick={() => handleDelete(data.pk_weight_id, index)}
+              //       >
+              //         delete
+              //       </button>
+              //       <button onClick={() => handleUpdate(data, index)}>
+              //         Update
+              //       </button>
+              //       <br />
+              //     </div>
+              //   }
+              //   <br/>
+              // </ul>
+            
           )
         )}
-      </div>
-    </div>
+      </BoxTable>
+    </Container>
   );
 };
 

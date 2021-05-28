@@ -32,17 +32,15 @@ export const BoxForm = styled.div`
 `;
 
 export const BoxTable = styled.div`
-  width: 90%;
-  margin-top: 20px;
-  /* padding: 10px; */
+  width: auto;
+  margin: 20px 0;
   border-radius: 5px;
   background: #fff;
   box-shadow: 10px 10px 40px #bebebe;
-  padding:0 5px;
 
-  @media (max-width: 900px) {
+  /* @media (max-width: 900px) {
     display: none;
-  }
+  } */
 `;
 
 export const BoxTablePhone = styled.div`
@@ -105,19 +103,22 @@ export const ButtonContainer = styled.div`
 export const List = styled.ul`
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: inherit;
+  text-align: center;
   padding: 10px 0;
-  border-bottom: 1px solid black;
   position: sticky;
   top: 80px;
-  background: white;
+  background: ${colors.lightGreen};
   z-index:2;
+  border-top-right-radius: 5px ;
+  border-top-left-radius: 5px ;
 
   & > li {
     color:black;
     width: 100px;
     display:flex;
     justify-content: center;
+    margin-right: 5px;
     
   }
   & > .content {
@@ -127,7 +128,7 @@ export const List = styled.ul`
         width: 100px;
       }
   }
-  @media screen and (max-width: 900px){
+  /* @media screen and (max-width: 900px){
     position: relative;
     top: 0px;
     display: flex;
@@ -136,13 +137,15 @@ export const List = styled.ul`
     justify-content: flex-start;
     color: black;
     padding: 10px;
+    background: ${colors.white};
+    border-bottom: 1px solid black;
 
     & > li {
       justify-content: space-between;
       width: 100%;
       color:black;
-    }
-  }
+    } */
+  /* } */
 `
 export const ListData = styled.ul`
   display: flex;
@@ -151,7 +154,7 @@ export const ListData = styled.ul`
   border-bottom: 1px solid black;
   padding:10px 0;
   border-radius: 2px;
-  transition: all 0.1s ease-in;
+  transition: all 0.2s ease-in;
   
   &:hover{
     background: ${colors.lightGreenTransparent};
@@ -193,5 +196,5 @@ export const ButtonList = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100px;
-  margin-top: 10px;
+  margin-top: 5px;
 `

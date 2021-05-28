@@ -8,7 +8,8 @@ import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "../CMS.css";
+import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -180,8 +181,9 @@ const ShippingCharges = () => {
 
 
   return (
-    <div className="cmsForm">
-      <h3>Shipping charges input</h3>
+    <Container>
+      <h4>Shipping charges input</h4>
+      <BoxForm>
       <form
         encType="multipart/form-data"
         className={classes.root}
@@ -205,12 +207,13 @@ const ShippingCharges = () => {
           label="City_ID"
           variant="outlined"
         />
-
+        <ButtonContainer>
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
           type="submit"
+          style={{backgroundColor:`${colors.green}`}}
         >
           {isUpdate ? "Update" : "Submit"}
         </Button>
@@ -220,47 +223,86 @@ const ShippingCharges = () => {
             variant="contained"
             color="primary"
             onClick={() => handleCancel()}
+            style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
           >
             Cancel
           </Button>
         )}
+        </ButtonContainer>
       </form>
-      <div>
-        <br />
-        <h3>Result: </h3>
+      </BoxForm>
+      <br />
+        <h4>SHIPPING CHARGE DATA</h4>
+      <BoxTable>
+        <List>
+          <li>SHIPPING PRICE ID</li>
+          <li>PRICE</li>
+          <li>CITY</li>
+          <li>ACTION</li>
+        </List>
         {dataShippingCharges.map(
           (data, index) => (
-            console.log(`data ShippingCharges map: `, dataShippingCharges),
-            (
-              <ul className="map" key={index}>
-                <li>
-                 SHIPPING PRICE ID: <span>{data.pk_shipping_charges_id}</span>
-                </li>
-                <li>
-                  SHIPPING PRICE: <span>{data.shipping_price}</span>
-                </li>
-                <li>
-                  CITY_ID: <span>{data.fk_city_id}</span>
-                </li>
-                {
-                  <div>
-                    <button
-                      onClick={() => handleDelete(data.pk_shipping_charges_id, index)}
-                    >
-                      delete
-                    </button>
-                    <button onClick={() => handleUpdate(data, index)}>
-                      Update
-                    </button>
-                    <br />
-                  </div>
-                }
-              </ul>
-            )
+            <ListData key={index}>
+              <li>{data.pk_shipping_charges_id}</li>
+              <li>{data.shipping_price}</li>
+              <li>{data.fk_city_id}</li>
+              {
+              <ButtonList>
+                <Button 
+                  onClick={() => handleUpdate(data, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="update"
+                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
+                  >
+                  Update
+                </Button>
+                <Button 
+                  onClick={() => handleDelete(data.pk_shipping_charges_id, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="delete"
+                  style={{backgroundColor:`${colors.green}`}}
+                  >
+                  
+                  delete
+                </Button>
+                <br />
+              </ButtonList>
+            }
+            </ListData>
+            // (
+            //   <ul className="map" key={index}>
+            //     <li>
+            //      SHIPPING PRICE ID: <span>{data.pk_shipping_charges_id}</span>
+            //     </li>
+            //     <li>
+            //       SHIPPING PRICE: <span>{data.shipping_price}</span>
+            //     </li>
+            //     <li>
+            //       CITY_ID: <span>{data.fk_city_id}</span>
+            //     </li>
+            //     {
+            //       <div>
+            //         <button
+            //           onClick={() => handleDelete(data.pk_shipping_charges_id, index)}
+            //         >
+            //           delete
+            //         </button>
+            //         <button onClick={() => handleUpdate(data, index)}>
+            //           Update
+            //         </button>
+            //         <br />
+            //       </div>
+            //     }
+            //   </ul>
+            // )
           )
         )}
-      </div>
-    </div>
+      </BoxTable>
+    </Container>
   );
 };
 

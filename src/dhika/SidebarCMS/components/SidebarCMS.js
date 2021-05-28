@@ -32,7 +32,7 @@ const Nav = styled.div`
 
 const NavIcon = styled.div`
   margin-left: 2rem;
-  font-size: 24px;
+  font-size: 2rem;
   height: 80px;
   width: 100%;
   display: flex;
