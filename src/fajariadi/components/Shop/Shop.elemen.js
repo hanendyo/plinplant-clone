@@ -120,10 +120,11 @@ export const Image = styled.img`
   transition: all 0.3s ease;
   cursor: pointer;
 
-  box-shadow: ${({ active }) =>
-    active ? '0px 7px 0px rgba(0, 0, 0, 0.2)' : 'unset'};
+  box-shadow: ${({ active, highlight }) =>
+    active === highlight ? '0px 7px 0px rgba(0, 0, 0, 0.2)' : 'unset'};
 
-  transform: ${({ active }) => (active ? 'translateY(-7px)' : 'unset')};
+  transform: ${({ active, highlight }) =>
+    active === highlight ? 'translateY(-7px)' : 'unset'};
 
   &:hover {
     box-shadow: 0px 7px 0px rgba(0, 0, 0, 0.2);
