@@ -3,18 +3,9 @@ import { Container, SectionCTAE } from './CTAEnsiklopedia.component';
 import Button from '../../../master/components/additional/Button';
 import { colors } from '../../../master/constant/style/index';
 import { Link } from 'react-router-dom';
-import { slug } from '../../../master/components/additional/Cards';
 
 const CTAEnsiklopedia = ({ id, name }) => {
-  // const [slug, setSlug] = useState('');
-
-  // useEffect(() => {
-  //   const slug = (title) => title.toLowerCase().split(' ').join('-');
-
-  //   setSlug(name);
-  // }, []);
-
-  // console.log('SLUGGG', slug);
+  const slug = (title) => title?.toLowerCase().split(' ').join('-');
 
   return (
     <SectionCTAE>
@@ -28,7 +19,7 @@ const CTAEnsiklopedia = ({ id, name }) => {
           </p>
         </div>
 
-        <Link to={`/shop/${id}/${name}`}>
+        <Link to={`/shop/${id}/${slug(name)}`}>
           <Button primary cta text='Beli Sekarang!' bgColor={colors.yellow} />
         </Link>
       </Container>

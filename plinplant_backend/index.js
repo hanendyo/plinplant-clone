@@ -22,7 +22,7 @@ const fileStorage = multer.diskStorage({
       fieldName === 'young_image_upload' ||
       fieldName === 'mature_image_upload'
     ) {
-      cb(null, '../public/images/plant_image');
+      cb(null, '../public/images/Plant');
     }
 
     if (fieldName === 'picture_upload') {
