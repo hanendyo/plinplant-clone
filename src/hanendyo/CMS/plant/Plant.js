@@ -179,6 +179,10 @@ const Article = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     setIsUpdate(true);
     setIndexUpdate(index);
     plantDispatch(cmsAction(`pk_plant_id`, data.pk_plant_id));

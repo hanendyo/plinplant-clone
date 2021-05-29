@@ -109,6 +109,10 @@ const Contact = () => {
 
   // UPDATE
   const updateAPI = async (data) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     axios
       .put(url + `${endPoint}_update`, data)
       .then((res) => {

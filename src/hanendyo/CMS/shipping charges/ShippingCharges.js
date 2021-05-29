@@ -154,6 +154,10 @@ const ShippingCharges = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     setIsUpdate(true);
     setIndexUpdate(index);
     shippingChargesDispatch(cmsAction(`shipping_price`, data.shipping_price));

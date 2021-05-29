@@ -178,6 +178,10 @@ const PlantBreeding = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     setIsUpdate(true);
     setIndexUpdate(index);
     plantBreedingDispatch(cmsAction(`seed`, data.seed));

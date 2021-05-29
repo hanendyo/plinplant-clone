@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import {TableListPhone ,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
 import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
@@ -160,6 +160,10 @@ const Contact = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     // console.log(`index update: `, index);
     console.log(`data id update: `, data.pk_order_id);
     setIsUpdate(true);

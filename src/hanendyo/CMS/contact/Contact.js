@@ -160,6 +160,10 @@ const Contact = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     // console.log(`index update: `, index);
     console.log(`data id update: `, data.pk_contact_id);
     setIsUpdate(true);

@@ -149,6 +149,10 @@ const Weight = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     setIsUpdate(true);
     setIndexUpdate(index);
     weightDispatch(cmsAction(`weight`, data.weight));

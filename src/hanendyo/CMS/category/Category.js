@@ -166,6 +166,10 @@ const Category = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     setIsUpdate(true);
     setIndexUpdate(index);
     categoryDispatch(cmsAction(`category_name`, data.category_name));

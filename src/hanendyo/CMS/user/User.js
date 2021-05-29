@@ -170,6 +170,10 @@ const Article = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     setIsUpdate(true);
     setIndexUpdate(index);
     userDispatch(cmsAction(`fullname`, data.fullname));

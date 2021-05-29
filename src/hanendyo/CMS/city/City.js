@@ -149,6 +149,10 @@ const Category = () => {
   };
 
   // HANDLE UPDATE
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
   const handleUpdate = (data, index) => {
     setIsUpdate(true);
     setIndexUpdate(index);

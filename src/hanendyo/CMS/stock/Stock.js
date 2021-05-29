@@ -159,6 +159,10 @@ const Stock = () => {
 
     // HANDLE UPDATE
     const handleUpdate = (data, index) => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
         setIsUpdate(true);
         setIndexUpdate(index);
         stockDispatch(cmsAction(`seed_stock`, data.seed_stock));

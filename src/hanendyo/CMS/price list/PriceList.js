@@ -164,6 +164,10 @@ const PriceList = () => {
 
     // HANDLE UPDATE
     const handleUpdate = (data, index) => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
         setIsUpdate(true);
         setIndexUpdate(index);
         priceListDispatch(cmsAction(`seed_price`, data.seed_price));
