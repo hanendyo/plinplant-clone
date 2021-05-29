@@ -24,4 +24,18 @@ module.exports = {
       return callback(null, result);
     });
   },
+  login: (data, callback) => {
+    pool.query(
+      `select * from table_user where fullname=? and password=?`,
+      [data.fullname, data.password],
+      (err, result) => {
+        if (err) {
+          console.log(`SERVICE ERROR:`, err.Error);
+          return callback(null, err);
+        }
+        console.log(`SERVICE SUCCESS: `, result);
+        return callback(null, result);
+      }
+    )
+  }
 };

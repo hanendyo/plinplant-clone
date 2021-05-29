@@ -1,5 +1,6 @@
 const { register } = require("../services/Auth_service");
-const pool = require("../database/Database");
+const {genSaltSync, hashSync, compareSync} = require('bcrypt')
+const {sign} = require ('jsonwebtoken')
 
 module.exports = {
   REGISTER: (req, res) => {
@@ -8,6 +9,11 @@ module.exports = {
     console.log(`-----CONTROLLER!-----`);
     console.log(`BODY NYA: `, body);
 
+    // bycrypt
+    const salt = genSaltSync(10)
+    console.log(`SALT: `, salt);
+    body.password = hashSync(body.password, salt)
+    console.log(`BODY PASS HASHED: `, body.password);
     register(body, (err, result) => {
       console.log(`-----SERVICE!-----`);
       console.log(`CODERES NYA: `, result);
@@ -64,4 +70,7 @@ module.exports = {
       });
     });
   },
+  LOGIN: ()=>{
+    
+  }
 };

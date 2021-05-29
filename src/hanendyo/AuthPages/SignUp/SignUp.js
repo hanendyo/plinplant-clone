@@ -47,15 +47,6 @@ const SignUp = () => {
   const context = useContext(ContextStore);
   const { signUpState, signUpDispatch } = context;
 
-  const [inputForm, setInputForm] = useState({
-    firstname: '',
-    email: '',
-    password: '',
-    term: false,
-    gender: 0,
-  });
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // POST TO API
