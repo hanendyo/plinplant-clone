@@ -21,6 +21,10 @@ const Ensiklopedia = ({ match }) => {
       plantIdDispatch(getPlantById(res.data.data[0]));
     };
 
+    window.scrollTo({
+      top: 0,
+    });
+
     getPlantId();
   }, [match.params.id]);
 
@@ -31,7 +35,10 @@ const Ensiklopedia = ({ match }) => {
       <Navbar />
       <Header />
       <Body />
-      <CTAEnsiklopedia />
+      <CTAEnsiklopedia
+        id={plantIdState.pk_plant_id}
+        name={plantIdState.plant_name}
+      />
       <RelatedProduct category={plantIdState.category_name} />
       <Footer colored />
     </div>

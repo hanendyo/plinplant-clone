@@ -11,8 +11,6 @@ import { openModalReview } from '../../../context/actions';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 
-export const slug = (title) => title.toLowerCase().split(' ').join('-');
-
 const Cards = ({
   id,
   name,
@@ -51,6 +49,8 @@ const Cards = ({
 }) => {
   const { modalReviewDispatch } = useContext(ContextStore);
   const isMini = useMediaQuery({ maxWidth: 370 });
+
+  const slug = (title) => title.toLowerCase().split(' ').join('-');
 
   return (
     <>
@@ -91,17 +91,17 @@ const Cards = ({
 
             {/* BUTTON CONTAINER */}
             <div>
-              <a href='/shop'>
+              <Link to={`/shop/${id}/${slug(name)}`}>
                 <Button card text='Beli' bgColor={colors.green} />
-              </a>
+              </Link>
 
-              <a href='/ensiklopedia'>
+              <Link to={`/ensiklopedia/${id}/${slug(name)}`}>
                 <Button
                   card
                   text='Ensiklopedia'
                   bgColor={colors.lightGreenTransparent}
                 />
-              </a>
+              </Link>
             </div>
             {/* END OF BUTTON CONTAINER */}
           </div>

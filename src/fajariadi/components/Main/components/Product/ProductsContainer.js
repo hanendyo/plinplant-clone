@@ -141,6 +141,7 @@ const ProductsContainer = ({
                 name={plant_name}
                 img={plant_image}
                 key={pk_plant_id}
+                id={pk_plant_id}
               />
             ))}
           </div>
