@@ -620,8 +620,13 @@ module.exports = {
   },
 
   reviewInputTable: (data, callback) => {
-    const sql = `insert into table_review (comment, rating) values(?,?)`;
-    const column = [data.comment, data.rating];
+    const sql = `insert into table_review (comment, rating, fk_user_id , fk_plant_id) values(?,?,?,?)`;
+    const column = [
+      data.comment,
+      data.rating,
+      data.fk_user_id,
+      data.fk_plant_id,
+    ];
     pool.query(sql, column, (err, result, fields) => {
       if (err) {
         return callback(err);
@@ -656,14 +661,13 @@ module.exports = {
 
   reviewUpdate: (data, callback) => {
     pool.query(
-      `update table_review set seed_price=?, tuber_price=?, young_price=?, mature_price=?, fk_plant_breeding_id=?, fk_stock_id=? where pk_review_id=?`,
+      `update table_review set comment=?, rating=?, fk_user_id=?, fk_plant_id=? where pk_review_id=?`,
       [
-        data.seed_price,
-        data.tuber_price,
-        data.young_price,
-        data.mature_price,
-        fk_plant_breeding_id,
-        fk_stock_id,
+        data.comment,
+        data.rating,
+        data.fk_user_id,
+        data.fk_plant_id,
+        data.pk_review_id,
       ],
       (error, result, fields) => {
         if (error) {
