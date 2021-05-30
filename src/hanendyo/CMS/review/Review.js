@@ -85,6 +85,7 @@ const Review = () => {
   // POST
   const postAPI = async (form) => {
     const data = new FormData();
+    console.log('POST API', data);
     data.append('comment', form.comment);
     data.append('rating', form.rating);
     data.append('fk_user_id', form.fk_user_id);

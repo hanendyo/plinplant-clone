@@ -72,7 +72,7 @@ router.post(
 );
 router.post('/plant_input', upload.single('plant_image_upload'), plant_input);
 router.post('/category_input', upload.none(), category_input);
-router.post('/review_input', review_input);
+router.post('/review_input', upload.none(), review_input);
 router.post(
   '/plant_breeding_input',
   upload.fields([
@@ -95,6 +95,7 @@ router.post(
   ]),
   plant_breeding_input
 );
+
 router.post('/price_list_input', price_list_input);
 router.post('/stock_input', stock_input);
 router.post('/order_item_input', upload.none(), order_item_input);
