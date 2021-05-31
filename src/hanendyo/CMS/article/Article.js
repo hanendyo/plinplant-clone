@@ -4,8 +4,21 @@ import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
-import {FaCamera} from "react-icons/fa"
+import {
+  TableListPhone,
+  ContentBox,
+  ButtonList,
+  Container,
+  BoxForm,
+  BoxTable,
+  BoxTablePhone,
+  SpanImage,
+  ButtonContainer,
+  ImageBox,
+  List,
+  ListData,
+} from "../style/Form";
+import { FaCamera } from "react-icons/fa";
 import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
@@ -166,7 +179,7 @@ const Article = () => {
   const handleUpdate = (data, index) => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
     setIsUpdate(true);
     setIndexUpdate(index);
@@ -208,163 +221,168 @@ const Article = () => {
     setImageUpload(img);
   };
 
-  
-
   return (
     <Container>
       <h4>ARTICLE INPUT</h4>
       <BoxForm>
-      <form
-        encType="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          value={articleState.author}
-          name="author"
-          onChange={(e) => formChange(`author`, e.target.value)}
-          id="outlined-basic"
-          label="Author"
-          variant="outlined"
-        />
-        <TextField
-          value={articleState.title}
-          onChange={(e) => formChange("title", e.target.value)}
-          name="title"
-          id="outlined-basic"
-          label="Title"
-          variant="outlined"
-        />
-        <TextField
-          value={articleState.created_at}
-          onChange={(e) => formChange("created_at", e.target.value)}
-          name="created_at"
-          id="outlined-basic"
-          label="Created at"
-          variant="outlined"
-        />
-        <TextField
-          value={articleState.content}
-          onChange={(e) => formChange("content", e.target.value)}
-          name="content"
-          id="outlined-multiline-static"
-          label="Content"
-          multiline
-          rows={12}
-          variant="outlined"
-          style={{marginTop:'20px'}}
-        />
-        
-        {/* ----- IMAGE ----- */}
-        {/* <span>Pick image:</span>
+        <form
+          encType="multipart/form-data"
+          className={classes.root}
+          onSubmit={(e) => handleSubmit(e)}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            value={articleState.author}
+            name="author"
+            onChange={(e) => formChange(`author`, e.target.value)}
+            id="outlined-basic"
+            label="Author"
+            variant="outlined"
+          />
+          <TextField
+            value={articleState.title}
+            onChange={(e) => formChange("title", e.target.value)}
+            name="title"
+            id="outlined-basic"
+            label="Title"
+            variant="outlined"
+          />
+          <TextField
+            value={articleState.created_at}
+            onChange={(e) => formChange("created_at", e.target.value)}
+            name="created_at"
+            id="outlined-basic"
+            // label="Created at"
+            type="date"
+            variant="outlined"
+          />
+          <TextField
+            value={articleState.content}
+            onChange={(e) => formChange("content", e.target.value)}
+            name="content"
+            id="outlined-multiline-static"
+            label="Content"
+            multiline
+            rows={12}
+            variant="outlined"
+            style={{ marginTop: "20px" }}
+          />
+
+          {/* ----- IMAGE ----- */}
+          {/* <span>Pick image:</span>
         <input
           name="article_image_upload"
           type="file"
           onChange={(e) => formImage(e)}
         />
         <img src={reviewImage} alt="" /> */}
-        <ImageBox>
-        <SpanImage > 
-          <h6>Upload Image</h6>
-          <img src={reviewImage} alt=""/>
-        </SpanImage>
-        
-        <input
-        accept="image/*"
-        name="article_image_upload"
-        className={classes.input}
-        id="contained-button-file"
-        multiple
-        type="file"
-        onChange={(e) => formImage(e)}
-        style={{display:"none"}}
-        />
-        <label htmlFor="contained-button-file">
-          <Button 
-          variant="contained" 
-          color="primary" 
-          component="span" 
-          startIcon={<FaCamera />}
-          style={{backgroundColor:`${colors.green}`}}
-          >
-            Upload
-          </Button>
-        </label>
-        </ImageBox>
-        
-        {/* ----- IMAGE ----- */}
-        <ButtonContainer>
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{backgroundColor:`${colors.green}`}}
-        >
-          {isUpdate ? "Update" : "Submit"}
-        </Button>
-        {isUpdate && (
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-            onClick={() => handleCancel()}
-            style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
-          >
-            Cancel
-          </Button>
-        )}
-        </ButtonContainer>
-        
-      </form>
+          <ImageBox>
+            <SpanImage>
+              <h6>Upload Image</h6>
+              <img src={reviewImage} alt="" />
+            </SpanImage>
+
+            <input
+              accept="image/*"
+              name="article_image_upload"
+              className={classes.input}
+              id="contained-button-file"
+              multiple
+              type="file"
+              onChange={(e) => formImage(e)}
+              style={{ display: "none" }}
+            />
+            <label htmlFor="contained-button-file">
+              <Button
+                variant="contained"
+                color="primary"
+                component="span"
+                startIcon={<FaCamera />}
+                style={{ backgroundColor: `${colors.green}` }}
+              >
+                Upload
+              </Button>
+            </label>
+          </ImageBox>
+
+          {/* ----- IMAGE ----- */}
+          <ButtonContainer>
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              type="submit"
+              style={{ backgroundColor: `${colors.green}` }}
+            >
+              {isUpdate ? "Update" : "Submit"}
+            </Button>
+            {isUpdate && (
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                onClick={() => handleCancel()}
+                style={{
+                  marginTop: "20px",
+                  backgroundColor: `${colors.green}`,
+                }}
+              >
+                Cancel
+              </Button>
+            )}
+          </ButtonContainer>
+        </form>
       </BoxForm>
-          
+
       <br />
-        <h4>ARTICLE DATA</h4>
+      <h4>ARTICLE DATA</h4>
       <BoxTable>
         <List>
-            <li>NO</li>
-            <li>ARTICLE ID</li>
-            <li>TITLE</li>
-            <li>AUTHOR</li>
-            <li>CREATED AT</li>
-            <li>IMAGE NAME</li>
-            <li className="content">CONTENT</li>
-            <li>ACTION</li>
+          <li>NO</li>
+          <li>ARTICLE ID</li>
+          <li>TITLE</li>
+          <li>AUTHOR</li>
+          <li>CREATED AT</li>
+          <li>IMAGE NAME</li>
+          <li className="content">CONTENT</li>
+          <li>ACTION</li>
         </List>
-        
+
         {dataArticle.map((data, index) => (
           <ListData key={index}>
-            <li>{index+1}</li>
+            <li>{index + 1}</li>
             <li>{data.pk_article_id}</li>
             <li>{data.title}</li>
             <li>{data.author}</li>
             <li>{data.created_at}</li>
             <li>{data.article_image}</li>
-            <li className="content"><ContentBox>{data.content}</ContentBox></li>
+            <li className="content">
+              <ContentBox>{data.content}</ContentBox>
+            </li>
             {
               <ButtonList>
-                <Button 
+                <Button
                   onClick={() => handleUpdate(data, index)}
                   className={classes.button}
                   variant="contained"
                   color="primary"
                   type="update"
-                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
-                  >
+                  style={{
+                    marginBottom: "10px",
+                    backgroundColor: `${colors.green}`,
+                  }}
+                >
                   Update
                 </Button>
-                <Button 
+                <Button
                   onClick={() => handleDelete(data.pk_article_id, index)}
                   className={classes.button}
                   variant="contained"
                   color="primary"
                   type="delete"
-                  style={{backgroundColor:`${colors.green}`}}
-                  >
-                  
+                  style={{ backgroundColor: `${colors.green}` }}
+                >
                   delete
                 </Button>
                 <br />

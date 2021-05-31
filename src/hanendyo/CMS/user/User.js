@@ -1,12 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Button, makeStyles, TextField } from "@material-ui/core";
+import {
+  Button,
+  makeStyles,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import {
+  TableListPhone,
+  ContentBox,
+  ButtonList,
+  Container,
+  BoxForm,
+  BoxTable,
+  BoxTablePhone,
+  SpanImage,
+  ButtonContainer,
+  ImageBox,
+  List,
+  ListData,
+} from "../style/Form";
 import { colors } from "../../../master/constant/style";
-import {FaCamera} from "react-icons/fa"
+import { FaCamera } from "react-icons/fa";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,10 +61,19 @@ const Article = () => {
       email: "",
       password: "",
       birth_date: "",
-      fk_contact_id:'',
-      fk_gender_id: ''
+      fk_contact_id: "",
+      fk_gender_id: "",
     },
   ]);
+
+  // USE STATE GENDER DROPDOWN
+  const [dataGender, setDataGender] = useState([
+    {
+      pk_gender_id: "",
+      type: "",
+    },
+  ]);
+
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
   const [reviewImage, setReviewImage] = useState(null);
@@ -52,11 +82,14 @@ const Article = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
+    getGenderData();
     console.log(`dataUser: `, dataUser);
   }, []);
 
   const url = "http://localhost:5000/input/";
   const endPoint = "user";
+  // GENDER DROPDOWN
+  const genderDropdown = "gender";
 
   // GET
   const getAllDatasAPI = async () => {
@@ -66,6 +99,23 @@ const Article = () => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
           setDataUser(res.data.data);
+        } else {
+          console.log("Error");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // GENDER FOR DROPDOWN
+  const getGenderData = async () => {
+    await axios
+      .get(url + genderDropdown + "_get_all_datas")
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(`GET RES DATA DATA: `, res.data.data);
+          setDataGender(res.data.data);
         } else {
           console.log("Error");
         }
@@ -170,6 +220,10 @@ const Article = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     setIsUpdate(true);
     setIndexUpdate(index);
     userDispatch(cmsAction(`fullname`, data.fullname));
@@ -195,9 +249,9 @@ const Article = () => {
     userDispatch(cmsAction(`password`, ""));
     userDispatch(cmsAction(`birth_date`, ""));
     userDispatch(cmsAction(`email`, ""));
-    userDispatch(cmsAction(`picture`, ''));
-    userDispatch(cmsAction(`fk_contact_id`, ''));
-    userDispatch(cmsAction(`fk_gender_id`, ''));
+    userDispatch(cmsAction(`picture`, ""));
+    userDispatch(cmsAction(`fk_contact_id`, ""));
+    userDispatch(cmsAction(`fk_gender_id`, ""));
   };
 
   // FORM CHANGE
@@ -218,127 +272,145 @@ const Article = () => {
     <Container>
       <h4>USER DATA</h4>
       <BoxForm>
-      <form
-        encType="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          value={userState.fullname}
-          name="fullname"
-          onChange={(e) => formChange(`fullname`, e.target.value)}
-          id="outlined-basic"
-          label="fullname"
-          variant="outlined"
-        />
-        <TextField
-          value={userState.email}
-          name="email"
-          onChange={(e) => formChange(`email`, e.target.value)}
-          id="outlined-basic"
-          label="email"
-          variant="outlined"
-        />
-        <TextField
-          value={userState.password}
-          onChange={(e) => formChange("password", e.target.value)}
-          name="password"
-          id="outlined-basic"
-          label="password"
-          variant="outlined"
-        />
-        <TextField
-          value={userState.birth_date}
-          onChange={(e) => formChange("birth_date", e.target.value)}
-          name="birth_date"
-          id="outlined-static"
-          label="birth_date"
-          variant="outlined"
-        />
-        <TextField
-          value={userState.fk_contact_id}
-          onChange={(e) => formChange("fk_contact_id", e.target.value)}
-          name="fk_contact_id"
-          id="outlined-basic"
-          label="Contact_ID"
-          variant="outlined"
-        />
-        <TextField
-          value={userState.fk_gender_id}
-          onChange={(e) => formChange("fk_gender_id", e.target.value)}
-          name="fk_gender_id"
-          id="outlined-basic"
-          label="Gender_ID"
-          variant="outlined"
-        />
-
-        {/* ----- IMAGE ----- */}
-        {/* <span>Pick image:</span>
+        <form
+          encType="multipart/form-data"
+          className={classes.root}
+          onSubmit={(e) => handleSubmit(e)}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            value={userState.fullname}
+            name="fullname"
+            onChange={(e) => formChange(`fullname`, e.target.value)}
+            id="outlined-basic"
+            label="fullname"
+            variant="outlined"
+          />
+          <TextField
+            value={userState.email}
+            name="email"
+            onChange={(e) => formChange(`email`, e.target.value)}
+            id="outlined-basic"
+            label="email"
+            variant="outlined"
+          />
+          <TextField
+            value={userState.password}
+            onChange={(e) => formChange("password", e.target.value)}
+            name="password"
+            id="outlined-basic"
+            label="password"
+            variant="outlined"
+          />
+          <TextField
+            value={userState.birth_date}
+            onChange={(e) => formChange("birth_date", e.target.value)}
+            name="birth_date"
+            id="outlined-static"
+            label="birth_date"
+            variant="outlined"
+          />
+          <TextField
+            value={userState.fk_contact_id}
+            onChange={(e) => formChange("fk_contact_id", e.target.value)}
+            name="fk_contact_id"
+            id="outlined-basic"
+            label="Contact_ID"
+            variant="outlined"
+          />
+          <FormControl className={classes.formControl}>
+            <InputLabel id="gender"> Gender ID</InputLabel>
+            <Select
+              value={userState.fk_gender_id}
+              onChange={(e) => formChange("fk_gender_id", e.target.value)}
+              name="fk_gender_id"
+              labelId="fk_gender_id"
+              id="outlined-basic"
+              variant="outlined"
+            >
+              {dataGender.map((data, index) => (
+                <MenuItem value={data.pk_gender_id} key={index}>
+                  {data.type}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          {/* <TextField
+            value={userState.fk_gender_id}
+            onChange={(e) => formChange("fk_gender_id", e.target.value)}
+            name="fk_gender_id"
+            id="outlined-basic"
+            label="Gender_ID"
+            variant="outlined"
+          /> */}
+          {/* ----- IMAGE ----- */}
+          {/* <span>Pick image:</span>
         <input
           name="picture_upload"
           type="file"
           onChange={(e) => formImage(e)}
         />
         <img src={reviewImage} alt="" /> */}
+          <ImageBox>
+            <SpanImage>
+              <h6>Upload Image</h6>
+              <img src={reviewImage} alt="" />
+            </SpanImage>
 
-        <ImageBox>
-        <SpanImage > 
-          <h6>Upload Image</h6>
-          <img src={reviewImage} alt=""/>
-        </SpanImage>
-        
-        <input
-        accept="image/*"
-        name="Profile Picture Upload"
-        className={classes.input}
-        id="contained-button-file"
-        multiple
-        type="file"
-        onChange={(e) => formImage(e)}
-        style={{display:"none"}}
-        />
-        <label htmlFor="contained-button-file">
-          <Button 
-          variant="contained" 
-          color="primary" 
-          component="span" 
-          startIcon={<FaCamera />}
-          style={{backgroundColor:`${colors.green}`}}
-          >
-            Upload
-          </Button>
-        </label>
-        </ImageBox>
-        {/* ----- IMAGE ----- */}
-        <ButtonContainer>
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{backgroundColor:`${colors.green}`}}
-        >
-          {isUpdate ? "Update" : "Submit"}
-        </Button>
-        {isUpdate && (
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-            onClick={() => handleCancel()}
-            style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
-          >
-            Cancel
-          </Button>
-        )}
-        </ButtonContainer>
-        )
-      </form>
+            <input
+              accept="image/*"
+              name="Profile Picture Upload"
+              className={classes.input}
+              id="contained-button-file"
+              multiple
+              type="file"
+              onChange={(e) => formImage(e)}
+              style={{ display: "none" }}
+            />
+            <label htmlFor="contained-button-file">
+              <Button
+                variant="contained"
+                color="primary"
+                component="span"
+                startIcon={<FaCamera />}
+                style={{ backgroundColor: `${colors.green}` }}
+              >
+                Upload
+              </Button>
+            </label>
+          </ImageBox>
+          {/* ----- IMAGE ----- */}
+          <ButtonContainer>
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              type="submit"
+              style={{ backgroundColor: `${colors.green}` }}
+            >
+              {isUpdate ? "Update" : "Submit"}
+            </Button>
+            {isUpdate && (
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                onClick={() => handleCancel()}
+                style={{
+                  marginTop: "20px",
+                  backgroundColor: `${colors.green}`,
+                }}
+              >
+                Cancel
+              </Button>
+            )}
+          </ButtonContainer>
+          )
+        </form>
       </BoxForm>
       <br />
-        <h4>USER DATA</h4>
+      <h4>USER DATA</h4>
       <BoxTable>
         <List>
           <li>USER ID</li>
@@ -352,7 +424,7 @@ const Article = () => {
           <li>ACTION</li>
         </List>
         {dataUser.map((data, index) => (
-          <ListData key={index}> 
+          <ListData key={index}>
             <li>{data.pk_user_id}</li>
             <li>{data.fullname}</li>
             <li>{data.email}</li>
@@ -362,31 +434,32 @@ const Article = () => {
             <li>{data.fk_gender_id}</li>
             {
               <ButtonList>
-                <Button 
+                <Button
                   onClick={() => handleUpdate(data, index)}
                   className={classes.button}
                   variant="contained"
                   color="primary"
                   type="update"
-                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
-                  >
+                  style={{
+                    marginBottom: "10px",
+                    backgroundColor: `${colors.green}`,
+                  }}
+                >
                   Update
                 </Button>
-                <Button 
+                <Button
                   onClick={() => handleDelete(data.pk_user_id, index)}
                   className={classes.button}
                   variant="contained"
                   color="primary"
                   type="delete"
-                  style={{backgroundColor:`${colors.green}`}}
-                  >
-                  
+                  style={{ backgroundColor: `${colors.green}` }}
+                >
                   delete
                 </Button>
                 <br />
               </ButtonList>
             }
-
           </ListData>
           // <ul key={index}>
           //   <li>

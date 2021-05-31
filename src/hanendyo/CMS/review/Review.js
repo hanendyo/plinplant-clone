@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Button, makeStyles, TextField } from '@material-ui/core';
+import {
+  Button,
+  makeStyles,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from '@material-ui/core';
 import { useContext } from 'react';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { cmsAction } from '../../../context/actions/CmsAction';
@@ -85,7 +93,6 @@ const Review = () => {
   // POST
   const postAPI = async (form) => {
     const data = new FormData();
-    console.log('POST API', data);
     data.append('comment', form.comment);
     data.append('rating', form.rating);
     data.append('fk_user_id', form.fk_user_id);
@@ -167,6 +174,10 @@ const Review = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
     setIsUpdate(true);
     setIndexUpdate(index);
     reviewDispatch(cmsAction(`comment`, data.comment));
@@ -205,14 +216,32 @@ const Review = () => {
           noValidate
           autoComplete='off'
         >
-          <TextField
+          {/* <TextField
             value={reviewState.rating}
-            onChange={(e) => formChange('rating', e.target.value)}
-            name='rating'
-            id='outlined-basic'
-            label='Rating (input 1-5)'
-            variant='outlined'
-          />
+            onChange={(e) => formChange("rating", e.target.value)}
+            name="rating"
+            id="outlined-basic"
+            label="Rating (input 1-5)"
+            variant="outlined"
+          /> */}
+          <FormControl className={classes.formControl}>
+            <InputLabel id='rating'> Rating (input 1 - 5)</InputLabel>
+            <Select
+              value={reviewState.rating}
+              onChange={(e) => formChange('rating', e.target.value)}
+              name='rating'
+              labelId='rating'
+              id='outlined-basic'
+              variant='outlined'
+            >
+              <MenuItem value={1}>1</MenuItem>
+              <MenuItem value={2}>2</MenuItem>
+              <MenuItem value={3}>3</MenuItem>
+              <MenuItem value={4}>4</MenuItem>
+              <MenuItem value={5}>5</MenuItem>
+            </Select>
+          </FormControl>
+
           <TextField
             value={reviewState.comment}
             name='comment'

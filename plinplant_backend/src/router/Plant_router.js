@@ -103,9 +103,10 @@ router.post('/order_input', upload.none(), order_input);
 router.post('/user_input', upload.single('picture_upload'), user_input);
 router.post('/contact_input', contact_input);
 router.post('/gender_input', upload.none(), gender_input);
+router.post('/review_input', upload.none(), review_input);
 router.post('/city_input', upload.none(), city_input);
-router.post('/shipping_charges_input', shipping_charges_input);
-router.post('/weight_input', weight_input);
+router.post('/shipping_charges_input', upload.none(), shipping_charges_input);
+router.post('/weight_input', upload.none(), weight_input);
 
 // GET
 router.get('/article_get_all_datas', article_get_all_datas);

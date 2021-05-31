@@ -1,12 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Button, makeStyles, TextField } from "@material-ui/core";
+import {
+  Button,
+  makeStyles,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import {
+  TableListPhone,
+  ContentBox,
+  ButtonList,
+  Container,
+  BoxForm,
+  BoxTable,
+  BoxTablePhone,
+  SpanImage,
+  ButtonContainer,
+  ImageBox,
+  List,
+  ListData,
+} from "../style/Form";
 import { colors } from "../../../master/constant/style";
-import {FaCamera} from "react-icons/fa"
+import { FaCamera } from "react-icons/fa";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +68,14 @@ const Article = () => {
       fk_review_id: "",
     },
   ]);
+  // USE STATE FOR DROPDOWN CATEGORY
+  const [dataCategory, setDataCategory] = useState([
+    {
+      pk_category_id: "",
+      category_name: "",
+    },
+  ]);
+
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
   const [reviewImage, setReviewImage] = useState(null);
@@ -55,11 +84,14 @@ const Article = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
+    getCategoryData();
     console.log(`dataPlant: `, dataPlant);
   }, []);
 
   const url = "http://localhost:5000/input/";
   const endPoint = "plant";
+  // CATEGORY DROPDOWN
+  const categoryDropdown = "category";
 
   // GET
   const getAllDatasAPI = async () => {
@@ -69,6 +101,23 @@ const Article = () => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
           setDataPlant(res.data.data);
+        } else {
+          console.log("Error");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // CATEGORY FOR DROPDOWN
+  const getCategoryData = async () => {
+    await axios
+      .get(url + categoryDropdown + "_get_all_datas")
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(`GET RES DATA DATA: `, res.data.data);
+          setDataCategory(res.data.data);
         } else {
           console.log("Error");
         }
@@ -179,6 +228,10 @@ const Article = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     setIsUpdate(true);
     setIndexUpdate(index);
     plantDispatch(cmsAction(`pk_plant_id`, data.pk_plant_id));
@@ -204,7 +257,7 @@ const Article = () => {
   // CLEAR FORM
   const clearFormData = () => {
     plantDispatch(cmsAction(`plant_name`, ""));
-    plantDispatch(cmsAction(`plant_image`, ''));
+    plantDispatch(cmsAction(`plant_image`, ""));
     plantDispatch(cmsAction(`plant_origin`, ""));
     plantDispatch(cmsAction(`plant_qualities`, ""));
     plantDispatch(cmsAction(`plant_use`, ""));
@@ -233,151 +286,167 @@ const Article = () => {
     <Container>
       <h4>PLANT INPUT</h4>
       <BoxForm>
-      <form
-        encType="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          value={plantState.plant_name}
-          name="plant_name"
-          onChange={(e) => formChange(`plant_name`, e.target.value)}
-          id="outlined-basic"
-          label="Plant name"
-          variant="outlined"
-        />
-        <TextField
-          value={plantState.plant_origin}
-          onChange={(e) => formChange("plant_origin", e.target.value)}
-          name="plant_origin"
-          id="outlined-basic"
-          label="Plant origin"
-          variant="outlined"
-        />
+        <form
+          encType="multipart/form-data"
+          className={classes.root}
+          onSubmit={(e) => handleSubmit(e)}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            value={plantState.plant_name}
+            name="plant_name"
+            onChange={(e) => formChange(`plant_name`, e.target.value)}
+            id="outlined-basic"
+            label="Plant name"
+            variant="outlined"
+          />
+          <TextField
+            value={plantState.plant_origin}
+            onChange={(e) => formChange("plant_origin", e.target.value)}
+            name="plant_origin"
+            id="outlined-basic"
+            label="Plant origin"
+            variant="outlined"
+          />
 
-        <TextField
-          value={plantState.plant_qualities}
-          onChange={(e) => formChange("plant_qualities", e.target.value)}
-          name="plant_qualities"
-          id="outlined-basic"
-          label="Plant Qualities"
-          variant="outlined"
-        />
+          <TextField
+            value={plantState.plant_qualities}
+            onChange={(e) => formChange("plant_qualities", e.target.value)}
+            name="plant_qualities"
+            id="outlined-basic"
+            label="Plant Qualities"
+            variant="outlined"
+          />
 
-        <TextField
-          value={plantState.plant_use}
-          onChange={(e) => formChange("plant_use", e.target.value)}
-          name="plant_use"
-          id="outlined-static"
-          label="Plant use"
-          variant="outlined"
-        />
-        <TextField
-          value={plantState.days_to_sprout}
-          onChange={(e) => formChange("days_to_sprout", e.target.value)}
-          name="days_to_sprout"
-          id="outlined-static"
-          label="Days to sprout"
-          variant="outlined"
-        />
-        
-        <TextField
-          value={plantState.growth_type}
-          onChange={(e) => formChange("growth_type", e.target.value)}
-          name="growth_type"
-          id="outlined-static"
-          label="Growth type"
-          variant="outlined"
-        />
-        <TextField
-          value={plantState.matures_in}
-          onChange={(e) => formChange("matures_in", e.target.value)}
-          name="matures_in"
-          id="outlined-static"
-          label="Matures in"
-          variant="outlined"
-        />
-        
-        <TextField
-          value={plantState.fk_category_id}
-          onChange={(e) => formChange("fk_category_id", e.target.value)}
-          name="fk_category_id"
-          id="outlined-static"
-          label="Category_ID"
-          variant="outlined"
-        />
-        
-        <TextField
-          value={plantState.fk_review_id}
-          onChange={(e) => formChange("fk_review_id", e.target.value)}
-          name="fk_review_id"
-          id="outlined-static"
-          label="Review_ID"
-          variant="outlined"
-        />
-        {/* ----- IMAGE ----- */}
-        {/* <span>Pick image:</span>
+          <TextField
+            value={plantState.plant_use}
+            onChange={(e) => formChange("plant_use", e.target.value)}
+            name="plant_use"
+            id="outlined-static"
+            label="Plant use"
+            variant="outlined"
+          />
+          <TextField
+            value={plantState.days_to_sprout}
+            onChange={(e) => formChange("days_to_sprout", e.target.value)}
+            name="days_to_sprout"
+            id="outlined-static"
+            label="Days to sprout"
+            variant="outlined"
+          />
+
+          <TextField
+            value={plantState.growth_type}
+            onChange={(e) => formChange("growth_type", e.target.value)}
+            name="growth_type"
+            id="outlined-static"
+            label="Growth type"
+            variant="outlined"
+          />
+          <TextField
+            value={plantState.matures_in}
+            onChange={(e) => formChange("matures_in", e.target.value)}
+            name="matures_in"
+            id="outlined-static"
+            label="Matures in"
+            variant="outlined"
+          />
+          <FormControl className={classes.formControl}>
+            <InputLabel id="Category_ID"> Category</InputLabel>
+            <Select
+              value={plantState.fk_category_id}
+              onChange={(e) => formChange("fk_category_id", e.target.value)}
+              name="fk_category_id"
+              labelId="Category_ID"
+              id="outlined-basic"
+              variant="outlined"
+            >
+              {dataCategory.map((data, index) => (
+                <MenuItem value={data.pk_category_id} key={index}>
+                  {data.category_name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          {/* <TextField
+            value={plantState.fk_category_id}
+            onChange={(e) => formChange("fk_category_id", e.target.value)}
+            name="fk_category_id"
+            id="outlined-static"
+            label="Category_ID"
+            variant="outlined"
+          /> */}
+
+          <TextField
+            value={plantState.fk_review_id}
+            onChange={(e) => formChange("fk_review_id", e.target.value)}
+            name="fk_review_id"
+            id="outlined-static"
+            label="Review_ID"
+            variant="outlined"
+          />
+          {/* ----- IMAGE ----- */}
+          {/* <span>Pick image:</span>
         <input
           name="plant_image_upload"
           type="file"
           onChange={(e) => formImage(e)}
         />
         <img src={reviewImage} alt="" /> */}
-        <ImageBox>
-        <SpanImage > 
-          <h6>Upload Image</h6>
-          <img src={reviewImage} alt=""/>
-        </SpanImage>
-        
-        <input
-        accept="image/*"
-        name="article_image_upload"
-        className={classes.input}
-        id="contained-button-file"
-        multiple
-        type="file"
-        onChange={(e) => formImage(e)}
-        style={{display:"none"}}
-        />
-        <label htmlFor="contained-button-file">
-          <Button 
-          variant="contained" 
-          color="primary" 
-          component="span" 
-          startIcon={<FaCamera />}
-          style={{backgroundColor:`${colors.green}`}}
-          >
-            Upload
-          </Button>
-        </label>
-        </ImageBox>
-        {/* ----- IMAGE ----- */}
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
-          style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
-        >
-          {isUpdate ? "Update" : "Submit"}
-        </Button>
-        {isUpdate && (
+          <ImageBox>
+            <SpanImage>
+              <h6>Upload Image</h6>
+              <img src={reviewImage} alt="" />
+            </SpanImage>
+
+            <input
+              accept="image/*"
+              name="article_image_upload"
+              className={classes.input}
+              id="contained-button-file"
+              multiple
+              type="file"
+              onChange={(e) => formImage(e)}
+              style={{ display: "none" }}
+            />
+            <label htmlFor="contained-button-file">
+              <Button
+                variant="contained"
+                color="primary"
+                component="span"
+                startIcon={<FaCamera />}
+                style={{ backgroundColor: `${colors.green}` }}
+              >
+                Upload
+              </Button>
+            </label>
+          </ImageBox>
+          {/* ----- IMAGE ----- */}
           <Button
             className={classes.button}
             variant="contained"
             color="primary"
-            onClick={() => handleCancel()}
-            style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
+            type="submit"
+            style={{ marginTop: "20px", backgroundColor: `${colors.green}` }}
           >
-            Cancel
+            {isUpdate ? "Update" : "Submit"}
           </Button>
-        )}
-      </form>
+          {isUpdate && (
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={() => handleCancel()}
+              style={{ marginTop: "20px", backgroundColor: `${colors.green}` }}
+            >
+              Cancel
+            </Button>
+          )}
+        </form>
       </BoxForm>
       <br />
-        <h4>PLANT DATA</h4>
+      <h4>PLANT DATA</h4>
       <BoxTable>
         <List>
           <li>PLANT ID</li>
@@ -394,7 +463,7 @@ const Article = () => {
           <li>ACTION ID</li>
         </List>
         {dataPlant.map((data, index) => (
-          <ListData key={index}> 
+          <ListData key={index}>
             <li>{data.pk_plant_id}</li>
             <li>{data.name}</li>
             <li>{data.plant_image}</li>
@@ -407,26 +476,29 @@ const Article = () => {
             <li>{data.fk_category_id}</li>
             <li>{data.fk_review_id}</li>
             <ButtonList>
-                <Button 
-                  onClick={() => handleUpdate(data, index)}
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="update"
-                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
-                  >
-                  Update
-                </Button>
-                <Button 
-                  onClick={() => handleDelete(data.pk_plant_id, index)}
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="delete"
-                  style={{backgroundColor:`${colors.green}`}}
-                  >
-                  delete
-                </Button>
+              <Button
+                onClick={() => handleUpdate(data, index)}
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                type="update"
+                style={{
+                  marginBottom: "10px",
+                  backgroundColor: `${colors.green}`,
+                }}
+              >
+                Update
+              </Button>
+              <Button
+                onClick={() => handleDelete(data.pk_plant_id, index)}
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                type="delete"
+                style={{ backgroundColor: `${colors.green}` }}
+              >
+                delete
+              </Button>
             </ButtonList>
           </ListData>
         ))}

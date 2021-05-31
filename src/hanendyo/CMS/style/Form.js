@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import { colors } from "../../../master/constant/style";
 
 export const Container = styled.div`
@@ -45,8 +45,8 @@ export const BoxTable = styled.div`
 
 export const BoxTablePhone = styled.div`
   display: none;
-  @media screen and (max-width: 900px){
-    display:block;
+  @media screen and (max-width: 900px) {
+    display: block;
     width: 100%;
     margin-top: 20px;
     padding: 10px;
@@ -61,14 +61,14 @@ export const TableListPhone = styled.div`
   width: 100%;
   background: brown;
   display: flex;
-`
+`;
 
 export const ImageBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 
 export const SpanImage = styled.span`
   border: 2px dashed gray;
@@ -109,24 +109,23 @@ export const List = styled.ul`
   position: sticky;
   top: 80px;
   background: ${colors.lightGreen};
-  z-index:2;
-  border-top-right-radius: 5px ;
-  border-top-left-radius: 5px ;
+  z-index: 2;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
 
   & > li {
-    color:black;
+    color: black;
     width: 100px;
-    display:flex;
+    display: flex;
     justify-content: center;
     margin-right: 5px;
-    
   }
   & > .content {
-      width: 200px;
+    width: 200px;
 
-      @media screen and (max-width: 900px){
-        width: 100px;
-      }
+    @media screen and (max-width: 900px) {
+      width: 100px;
+    }
   }
   /* @media screen and (max-width: 900px){
     position: relative;
@@ -146,50 +145,43 @@ export const List = styled.ul`
       color:black;
     } */
   /* } */
-`
+`;
 export const ListData = styled.ul`
   display: flex;
   justify-content: space-between;
   width: 100%;
   border-bottom: 1px solid black;
-  padding:10px 0;
+  padding: 10px 0;
   border-radius: 2px;
   transition: all 0.2s ease-in;
-  
-  &:hover{
+
+  &:hover {
     background: ${colors.lightGreenTransparent};
   }
 
   & > li {
-    color:black;
+    color: black;
     width: 100px;
     text-align: center;
+    word-wrap: break-word;
   }
 
   & > .content {
-      width: 200px;
-      text-align: left;
+    width: 200px;
+    text-align: left;
   }
 
   & > .ActionButton {
-    background: ${colors.green}
+    background: ${colors.green};
   }
-  
-  
-`
+`;
 export const ContentBox = styled.div`
   width: 200px;
   height: 110px;
   overflow-y: scroll;
   padding-left: 5px;
   margin-bottom: 5px;
-  
-  @media (max-width: 900px) {
-    padding: 0;
-    width: 100%;
-    height: 100px;
-  }
-`
+`;
 
 export const ButtonList = styled.div`
   display: flex;
@@ -197,4 +189,4 @@ export const ButtonList = styled.div`
   align-items: center;
   width: 100px;
   margin-top: 5px;
-`
+`;

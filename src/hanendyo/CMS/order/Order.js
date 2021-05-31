@@ -3,12 +3,29 @@ import {
   Button,
   makeStyles,
   TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
 } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import {
+  TableListPhone,
+  ContentBox,
+  ButtonList,
+  Container,
+  BoxForm,
+  BoxTable,
+  BoxTablePhone,
+  SpanImage,
+  ButtonContainer,
+  ImageBox,
+  List,
+  ListData,
+} from "../style/Form";
 import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,9 +55,9 @@ const Contact = () => {
   // USE STATE
   const [dataOrder, setDataOrder] = useState([
     {
-      status: '',
-      created_at: '',
-      fk_user_id: '',
+      status: "",
+      created_at: "",
+      fk_user_id: "",
       // fk_city_id: ''
     },
   ]);
@@ -54,7 +71,7 @@ const Contact = () => {
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = 'order'
+  const endPoint = "order";
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -160,6 +177,10 @@ const Contact = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     // console.log(`index update: `, index);
     console.log(`data id update: `, data.pk_order_id);
     setIsUpdate(true);
@@ -182,10 +203,9 @@ const Contact = () => {
   // CLEAR FORM
   const clearFormData = () => {
     orderDispatch(cmsAction(`status`, ""));
-    orderDispatch(cmsAction(`created_at`, ''));
-    orderDispatch(cmsAction(`fk_user_id`, ''));
+    orderDispatch(cmsAction(`created_at`, ""));
+    orderDispatch(cmsAction(`fk_user_id`, ""));
     // orderDispatch(cmsAction(`fk_city_id`, ''));
-
   };
 
   // FORM CHANGE
@@ -197,62 +217,77 @@ const Contact = () => {
     <Container>
       <h4>ORDER INPUT</h4>
       <BoxForm>
-      <form
-        encType="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          value={orderState.status}
-          name="status"
-          onChange={(e) => formChange(`status`, e.target.value)}
-          id="outlined-basic"
-          label="Order status"
-          variant="outlined"
-        />
-        <TextField
-          value={orderState.created_at}
-          name="created_at"
-          onChange={(e) => formChange(`created_at`, e.target.value)}
-          id="outlined-basic"
-          label="Created at"
-          variant="outlined"
-        />
-        <TextField
-          value={orderState.fk_user_id}
-          name="fk_user_id"
-          onChange={(e) => formChange(`fk_user_id`, e.target.value)}
-          id="outlined-basic"
-          label="User_ID"
-          variant="outlined"
-        />
-       
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
-          style = {{backgroundColor:`${colors.green}`}}
+        <form
+          encType="multipart/form-data"
+          className={classes.root}
+          onSubmit={(e) => handleSubmit(e)}
+          noValidate
+          autoComplete="off"
         >
-          {isUpdate ? "Update" : "Submit"}
-        </Button>
-        {isUpdate && (
+          <FormControl className={classes.formControl}>
+            <InputLabel id="status"> Order Status</InputLabel>
+            <Select
+              value={orderState.status}
+              onChange={(e) => formChange("status", e.target.value)}
+              name="status"
+              labelId="status"
+              id="outlined-basic"
+              variant="outlined"
+            >
+              <MenuItem value={1}>{"Verifikasi Pembayaran"}</MenuItem>
+              <MenuItem value={2}>{"Sedang Dikirim"}</MenuItem>
+              <MenuItem value={3}>{"Transaksi Selesai"}</MenuItem>
+            </Select>
+          </FormControl>
+          {/* <TextField
+            value={orderState.status}
+            name="status"
+            onChange={(e) => formChange(`status`, e.target.value)}
+            id="outlined-basic"
+            label="Order status"
+            variant="outlined"
+          /> */}
+          <TextField
+            value={orderState.created_at}
+            name="created_at"
+            onChange={(e) => formChange(`created_at`, e.target.value)}
+            id="outlined-basic"
+            label="Created at"
+            variant="outlined"
+          />
+          <TextField
+            value={orderState.fk_user_id}
+            name="fk_user_id"
+            onChange={(e) => formChange(`fk_user_id`, e.target.value)}
+            id="outlined-basic"
+            label="User_ID"
+            variant="outlined"
+          />
+
           <Button
             className={classes.button}
             variant="contained"
             color="primary"
-            onClick={() => handleCancel()}
-            style={{marginTop:'20px',backgroundColor:`${colors.green}`}}
+            type="submit"
+            style={{ backgroundColor: `${colors.green}` }}
           >
-            Cancel
+            {isUpdate ? "Update" : "Submit"}
           </Button>
-        )}
-      </form>
+          {isUpdate && (
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={() => handleCancel()}
+              style={{ marginTop: "20px", backgroundColor: `${colors.green}` }}
+            >
+              Cancel
+            </Button>
+          )}
+        </form>
       </BoxForm>
       <br />
-        <h4>ORDER STATUS DATA</h4>
+      <h4>ORDER STATUS DATA</h4>
       <BoxTable>
         <List>
           <li>ORDER ID</li>
@@ -261,43 +296,42 @@ const Contact = () => {
           <li>USER ID</li>
           <li>ACTION</li>
         </List>
-        
-        {dataOrder.map(
-          (data, index) => (
-            <ListData key={index}>
-              <li>{data.pk_order_id}</li>
-              <li>{data.status}</li>
-              <li>{data.created_at}</li>
-              <li>{data.fk_user_id}</li>
-              {
+
+        {dataOrder.map((data, index) => (
+          <ListData key={index}>
+            <li>{data.pk_order_id}</li>
+            <li>{data.status}</li>
+            <li>{data.created_at}</li>
+            <li>{data.fk_user_id}</li>
+            {
               <ButtonList>
-                <Button 
+                <Button
                   onClick={() => handleUpdate(data, index)}
                   className={classes.button}
                   variant="contained"
                   color="primary"
                   type="update"
-                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
-                  >
+                  style={{
+                    marginBottom: "10px",
+                    backgroundColor: `${colors.green}`,
+                  }}
+                >
                   Update
                 </Button>
-                <Button 
+                <Button
                   onClick={() => handleDelete(data.pk_order_id, index)}
                   className={classes.button}
                   variant="contained"
                   color="primary"
                   type="delete"
-                  style={{backgroundColor:`${colors.green}`}}
-                  >
-                  
+                  style={{ backgroundColor: `${colors.green}` }}
+                >
                   delete
                 </Button>
-                
               </ButtonList>
-              }
-            </ListData>
-          )
-        )}
+            }
+          </ListData>
+        ))}
       </BoxTable>
     </Container>
   );
