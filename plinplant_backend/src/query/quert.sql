@@ -468,7 +468,20 @@ values
 
 
 
-
+-- ::: ARTIKEL :::
+CREATE TABLE table_article(
+	pk_articles_id int [pk, increment]
+	article_image varchar(255)
+	title varchar(255)
+	author varchar(255)
+	created_at varchar(255)
+	duration varchar(255)
+	source varchar(255)
+	url varchar(255)
+	content  text
+	
+);
+SELECT * FROM table_article;
 
 
 

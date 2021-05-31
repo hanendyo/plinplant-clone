@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, LinksContainer, Logo, Nav } from './Navbar.elemen';
 import { FaShoppingCart } from 'react-icons/fa';
 import Button from '../additional/Button';
 import { colors } from '../../constant/style';
 import pic from '../../../fajariadi/assets/images/ig.jpg';
 import { Link } from 'react-router-dom';
+import { ContextStore } from '../../../context/store/ContextStore';
 
 const NavbarLandingPage = () => {
   const login = true;
   const [profile, setProfile] = useState(false);
+  const [article, setArticle] = useState([]);
+
+  const { tableArticleState } = useContext(ContextStore);
+
+  console.log('ARTICLE NAVVVV', article);
 
   // ::: NAVBAR INTERACTION :::
   const [shadow, setShadow] = useState(false);
@@ -20,6 +26,8 @@ const NavbarLandingPage = () => {
     };
 
     window.addEventListener('scroll', scrollNav);
+
+    setArticle(tableArticleState);
 
     return () => {
       window.removeEventListener('scroll', scrollNav);
@@ -39,7 +47,7 @@ const NavbarLandingPage = () => {
             </a>
           </li>
           <li>
-            <a href='/article'>Artikel</a>
+            <Link to={`/article`}>Artikel</Link>
           </li>
           <li>
             {login ? (

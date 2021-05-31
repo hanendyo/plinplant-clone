@@ -13,6 +13,7 @@ const {
   weight_input,
   article_input,
   article_get_all_datas,
+  articleGetById,
   article_delete,
   article_update,
   category_input,
@@ -127,6 +128,7 @@ router.get('/weight_get_all_datas', weight_get_all_datas);
 
 // GET BY ID
 router.get('/plant_get_by_id/:id', plantGetById);
+router.get('/article_get_by_id/:id', articleGetById);
 
 // DELETE
 router.delete('/article_delete/:id', article_delete);

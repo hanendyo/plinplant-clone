@@ -10,6 +10,10 @@ import {
 } from '../reducer';
 import { CmsReducer } from '../reducer/CmsReducer';
 import {
+  articleIdReducer,
+  tableArticleReducer,
+} from '../reducer/fetchingReducer';
+import {
   modalPilihAlamatReducer,
   modalTambahAlamatReducer,
 } from '../reducer/modalReducers';
@@ -137,7 +141,17 @@ export const ContextProvider = ({ children }) => {
     []
   );
 
+  // ::: FETCH TABLE PLANT BY ID :::
   const [plantIdState, plantIdDispatch] = useReducer(plantIdReducer, {});
+
+  // ::: FETCH TABLE ARTICLE :::
+  const [tableArticleState, tableArticleDispatch] = useReducer(
+    tableArticleReducer,
+    []
+  );
+
+  // ::: FETCH TABLE ARTICLE BY ID :::
+  const [articleIdState, articleIdDispatch] = useReducer(articleIdReducer, {});
 
   return (
     <ContextStore.Provider
@@ -231,6 +245,14 @@ export const ContextProvider = ({ children }) => {
         // ::: FETCH PLANT ID :::
         plantIdState,
         plantIdDispatch,
+
+        // ::: FETCH ARTICLE :::
+        tableArticleState,
+        tableArticleDispatch,
+
+        // ::: FETCH ARTICLE ID :::
+        articleIdState,
+        articleIdDispatch,
       }}
     >
       {children}

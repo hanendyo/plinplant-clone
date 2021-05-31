@@ -22,8 +22,8 @@ const Cards = ({
   reviewed,
   cart,
   article,
-  release_date,
-  reading_time,
+  created_at,
+  duration,
   title,
   author,
   checkout,
@@ -296,7 +296,10 @@ const Cards = ({
 
       {article && (
         <CardArticle>
-          <img src={img} alt='' />
+          <img
+            src={process.env.PUBLIC_URL + `/images/article_image/${img}`}
+            alt={title}
+          />
 
           <div>
             <h6>{title}</h6>
@@ -305,11 +308,11 @@ const Cards = ({
             </span>
 
             {isMini ? (
-              <p>{release_date}</p>
+              <p>{created_at}</p>
             ) : (
               <p>
-                {release_date} <FaCircle size={5} className='circle' />{' '}
-                {reading_time} menit baca
+                {created_at} <FaCircle size={5} className='circle' /> {duration}{' '}
+                baca
               </p>
             )}
           </div>
@@ -859,14 +862,14 @@ const CardArticle = styled.div`
   }
 
   & > img {
-    width: 130px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
     margin-right: 10px;
   }
 
   & > div {
-    padding: 10px 0;
+    padding: 10px 10px 10px 0;
 
     & > h6 {
       color: ${colors.white};

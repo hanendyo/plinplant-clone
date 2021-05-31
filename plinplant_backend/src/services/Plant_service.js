@@ -4,13 +4,16 @@ module.exports = {
   articleInputTable: (body, callback) => {
     console.log(`bdy: `, body);
 
-    const sql = `insert into table_article (article_image, author, title, content, created_at) values(?, ?, ?, ?, ?)`;
+    const sql = `insert into table_article (article_image, title, author, created_at, duration, source, url, content) values(?, ?, ?, ?, ?, ?, ?, ?)`;
     const column = [
       body.article_image,
-      body.author,
       body.title,
-      body.content,
+      body.author,
       body.created_at,
+      body.duration,
+      body.source,
+      body.url,
+      body.content,
     ];
 
     console.log(`BODY ARTICLE IMAGE: `, body.article_image);
@@ -33,6 +36,18 @@ module.exports = {
     });
   },
 
+  articleGetId: (id, callback) => {
+    pool.query(
+      `Select * from table_article where pk_article_id = ?`,
+      [id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+
   articleDelete: (id, callback) => {
     pool.query(
       `delete from table_article where pk_article_id = ?`,
@@ -51,13 +66,16 @@ module.exports = {
   articleUpdate: (data, callback) => {
     console.log(`DATA ARTICLE UPDATE: `, data);
     pool.query(
-      `update table_article set article_image=?, author=?, title=?, content=?, created_at=? where pk_article_id=?`,
+      `update table_article set article_image=?, title=?, author=?, created_at=?, duration=?, source=?, url=?, content=? where pk_article_id=?`,
       [
         data.article_image,
-        data.author,
         data.title,
-        data.content,
+        data.author,
         data.created_at,
+        data.duration,
+        data.source,
+        data.url,
+        data.content,
         data.pk_article_id,
       ],
       (error, result, fields) => {

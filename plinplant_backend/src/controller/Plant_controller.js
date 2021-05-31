@@ -2,6 +2,7 @@ const {
   // ARTICLE
   articleInputTable,
   articleGetAllDatas,
+  articleGetId,
   articleDelete,
   articleUpdate,
   // CATEGORY
@@ -103,6 +104,31 @@ module.exports = {
         status: 1,
         message: 'Input Article Data Success',
         data: result,
+      });
+    });
+  },
+
+  articleGetById: (req, res) => {
+    const id = req.params.id;
+
+    articleGetId(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+      if (results.length === 0) {
+        return res.json({
+          success: 0,
+          message: 'Record not found',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        data: results,
       });
     });
   },

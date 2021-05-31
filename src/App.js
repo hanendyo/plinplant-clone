@@ -42,7 +42,7 @@ const App = () => {
         <Route path='/checkout' component={CheckoutPage} />
         <Route path='/invoice' component={InvoicePage} />
         <Route path='/transaction' component={TransactionPage} />
-        <Route path='/article' component={ArticlePage} />
+        <Route path='/article/:id/:title' component={ArticlePage} />
         <Route path='/profile' component={ProfilePage} />
         <Route path='/cms' component={CMS} />
       </Switch>

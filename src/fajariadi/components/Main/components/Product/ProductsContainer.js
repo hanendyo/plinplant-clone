@@ -35,7 +35,7 @@ const ProductsContainer = ({
   selectAddress,
   related,
 }) => {
-  const { tablePlantState, plantIdState } = useContext(ContextStore);
+  const { tablePlantState, tableArticleState } = useContext(ContextStore);
 
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
@@ -268,16 +268,30 @@ const ProductsContainer = ({
 
       {article && (
         <ArticlesContainer>
-          {articles.map(
-            ({ img, title, author, release_date, reading_time }, index) => (
+          {tableArticleState.map(
+            ({
+              pk_article_id,
+              article_image,
+              title,
+              author,
+              created_at,
+              duration,
+              source,
+              url,
+              content,
+            }) => (
               <Cards
                 article
-                key={index}
-                img={img}
+                key={pk_article_id}
+                id={pk_article_id}
+                img={article_image}
                 title={title}
                 author={author}
-                release_date={release_date}
-                reading_time={reading_time}
+                created_at={created_at}
+                duration={duration}
+                source={source}
+                url={url}
+                content={content}
               />
             )
           )}

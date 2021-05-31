@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Home, Logo, Nav, LinksContainer, Container } from './Navbar.elemen';
 import { FaChevronLeft, FaShoppingCart } from 'react-icons/fa';
 import Button from '../additional/Button';
 import { colors } from '../../constant/style';
 import pic from '../../../fajariadi/assets/images/ig.jpg';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const login = true;
   const [profile, setProfile] = useState(false);
+
+  const { tableArticleState } = useContext(ContextStore);
+  const { pk_article_id, title } = tableArticleState[0];
 
   // ::: NAVBAR INTERACTION :::
   const [shadow, setShadow] = useState(false);
@@ -43,7 +48,7 @@ const Navbar = () => {
             </a>
           </li>
           <li>
-            <a href='/article'>Artikel</a>
+            <Link to={`/article/${pk_article_id}/${title}`}>Artikel</Link>
           </li>
           <li>
             {login ? (
