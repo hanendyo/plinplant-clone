@@ -5,13 +5,26 @@ import {
   TextField,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
 } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import {
+  TableListPhone,
+  ContentBox,
+  ButtonList,
+  Container,
+  BoxForm,
+  BoxTable,
+  BoxTablePhone,
+  SpanImage,
+  ButtonContainer,
+  ImageBox,
+  List,
+  ListData,
+} from "../style/Form";
 import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,8 +54,8 @@ const Category = () => {
   // USE STATE
   const [dataCategory, setDataCategory] = useState([
     {
-        pk_category_id: '',
-        category_name: '',
+      pk_category_id: "",
+      category_name: "",
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -55,7 +68,7 @@ const Category = () => {
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = 'category'
+  const endPoint = "category";
 
   // GET
   const getAllDatasAPI = async () => {
@@ -145,12 +158,12 @@ const Category = () => {
     } else {
       postAPI(categoryState);
     }
-  
+
     setDataCategory([
       {
         ...dataCategory,
         pk_category_id: categoryState.pk_category_id,
-        category_name: categoryState.category_name
+        category_name: categoryState.category_name,
       },
     ]);
 
@@ -168,7 +181,7 @@ const Category = () => {
   const handleUpdate = (data, index) => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
     setIsUpdate(true);
     setIndexUpdate(index);
@@ -187,7 +200,6 @@ const Category = () => {
   const clearFormData = () => {
     categoryDispatch(cmsAction(`category_name`, ""));
     categoryDispatch(cmsAction(`pk_category_id`, ""));
-  
   };
 
   // FORM CHANGE
@@ -224,10 +236,10 @@ const Category = () => {
           />
            */}
 
-          <Select
+          {/* <Select
             value={categoryState.pk_category_id}
             onChange={(e) => formChange(`pk_category_id`, e.target.value)}
-            label="category_id"
+            label="pk_category_id"
             name="pk_category_id"
             variant="outlined"
           >
@@ -235,75 +247,78 @@ const Category = () => {
             <MenuItem value={2}>2</MenuItem>
             <MenuItem value={3}>3</MenuItem>
             <MenuItem value={4}>4</MenuItem>
-          </Select>
-          <p style={{fontSize:'15px', color:'black'}}>note: ID tidak bisa diedit, edit NAME saja!</p>
+          </Select> */}
+          {/* <p style={{ fontSize: "15px", color: "black" }}>
+            note: ID tidak bisa diedit, edit NAME saja!
+          </p> */}
           <ButtonContainer>
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-            type="submit"
-            style = {{backgroundColor:`${colors.green}`}}
-          >
-            {isUpdate ? "Update" : "Submit"}
-          </Button>
-          {isUpdate && (
             <Button
               className={classes.button}
               variant="contained"
               color="primary"
-              onClick={() => handleCancel()}
-              style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
+              type="submit"
+              style={{ backgroundColor: `${colors.green}` }}
             >
-              Cancel
+              {isUpdate ? "Update" : "Submit"}
             </Button>
-          )}
+            {isUpdate && (
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                onClick={() => handleCancel()}
+                style={{
+                  marginTop: "20px",
+                  backgroundColor: `${colors.green}`,
+                }}
+              >
+                Cancel
+              </Button>
+            )}
           </ButtonContainer>
-  
         </form>
       </BoxForm>
       <br />
-        <h4>CATEGORY DATA</h4>
+      <h4>CATEGORY DATA</h4>
       <BoxTable>
         <List>
           <li>CATEGORY ID</li>
           <li>NAME</li>
           <li>ACTION</li>
         </List>
-        {dataCategory.map(
-          (data, index) => (
-            <ListData key={index}>
-              <li>{data.pk_category_id}</li>
-              <li>{data.category_name}</li>
-              {
+        {dataCategory.map((data, index) => (
+          <ListData key={index}>
+            <li>{data.pk_category_id}</li>
+            <li>{data.category_name}</li>
+            {
               <ButtonList>
-                <Button 
+                <Button
                   onClick={() => handleUpdate(data, index)}
                   className={classes.button}
                   variant="contained"
                   color="primary"
                   type="update"
-                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
-                  >
+                  style={{
+                    marginBottom: "10px",
+                    backgroundColor: `${colors.green}`,
+                  }}
+                >
                   Update
                 </Button>
-                <Button 
+                <Button
                   onClick={() => handleDelete(data.pk_category_id, index)}
                   className={classes.button}
                   variant="contained"
                   color="primary"
                   type="delete"
-                  style={{backgroundColor:`${colors.green}`}}
-                  >
-                  
+                  style={{ backgroundColor: `${colors.green}` }}
+                >
                   delete
                 </Button>
-                
               </ButtonList>
-              }
-            </ListData>
-          )
-        )}
+            }
+          </ListData>
+        ))}
       </BoxTable>
     </Container>
   );

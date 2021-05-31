@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  makeStyles,
-  TextField,
-} from "@material-ui/core";
+import { Button, makeStyles, TextField } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import {
+  TableListPhone,
+  ContentBox,
+  ButtonList,
+  Container,
+  BoxForm,
+  BoxTable,
+  BoxTablePhone,
+  SpanImage,
+  ButtonContainer,
+  ImageBox,
+  List,
+  ListData,
+} from "../style/Form";
 import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,8 +47,8 @@ const Category = () => {
   // USE STATE
   const [dataGender, setDataGender] = useState([
     {
-        pk_gender_id: '',
-        type: '',
+      pk_gender_id: "",
+      type: "",
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -52,7 +61,7 @@ const Category = () => {
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = 'gender'
+  const endPoint = "gender";
 
   // GET
   const getAllDatasAPI = async () => {
@@ -142,12 +151,12 @@ const Category = () => {
     } else {
       postAPI(genderState);
     }
-  
+
     setDataGender([
       {
         ...dataGender,
         pk_gender_id: genderState.pk_gender_id,
-        type: genderState.type
+        type: genderState.type,
       },
     ]);
 
@@ -165,7 +174,7 @@ const Category = () => {
   const handleUpdate = (data, index) => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
     setIsUpdate(true);
     setIndexUpdate(index);
@@ -184,7 +193,6 @@ const Category = () => {
   const clearFormData = () => {
     genderDispatch(cmsAction(`type`, ""));
     genderDispatch(cmsAction(`pk_gender_id`, ""));
-  
   };
 
   // FORM CHANGE
@@ -196,84 +204,83 @@ const Category = () => {
     <Container>
       <h4>GENDER INPUT</h4>
       <BoxForm>
-      <form
-        encType="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          value={genderState.type}
-          name="type"
-          onChange={(e) => formChange(`type`, e.target.value)}
-          id="outlined-basic"
-          label="Gender name"
-          variant="outlined"
-        />
-        
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
-          style = {{backgroundColor:`${colors.green}`}}
+        <form
+          encType="multipart/form-data"
+          className={classes.root}
+          onSubmit={(e) => handleSubmit(e)}
+          noValidate
+          autoComplete="off"
         >
-          {isUpdate ? "Update" : "Submit"}
-        </Button>
-        {isUpdate && (
+          <TextField
+            value={genderState.type}
+            name="type"
+            onChange={(e) => formChange(`type`, e.target.value)}
+            id="outlined-basic"
+            label="Gender name"
+            variant="outlined"
+          />
+
           <Button
             className={classes.button}
             variant="contained"
             color="primary"
-            onClick={() => handleCancel()}
-            style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
+            type="submit"
+            style={{ backgroundColor: `${colors.green}` }}
           >
-            Cancel
+            {isUpdate ? "Update" : "Submit"}
           </Button>
-        )}
-      </form>
+          {isUpdate && (
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={() => handleCancel()}
+              style={{ marginTop: "20px", backgroundColor: `${colors.green}` }}
+            >
+              Cancel
+            </Button>
+          )}
+        </form>
       </BoxForm>
       <br />
-        <h4>GENDER DATA</h4>
+      <h4>GENDER DATA</h4>
       <BoxTable>
-      <List>
+        <List>
           <li>GENDER ID</li>
-          <li>GENDER NAME</li>
+          <li>GENDER TYPE</li>
           <li>ACTION</li>
         </List>
-        {dataGender.map(
-          (data, index) => (
-            <ListData key={index}>
-              <li>{data.pk_gender_id}</li>
-              <li>{data.type}</li>
-              <ButtonList>
-                <Button 
-                  onClick={() => handleUpdate(data, index)}
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="update"
-                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
-                  >
-                  Update
-                </Button>
-                <Button 
-                  onClick={() => handleDelete(data.pk_gender_id, index)}
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="delete"
-                  style={{backgroundColor:`${colors.green}`}}
-                  >
-                  
-                  delete
-                </Button>
-                
-              </ButtonList>
-            </ListData>
-          )
-        )}
+        {dataGender.map((data, index) => (
+          <ListData key={index}>
+            <li>{data.pk_gender_id}</li>
+            <li>{data.type}</li>
+            <ButtonList>
+              <Button
+                onClick={() => handleUpdate(data, index)}
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                type="update"
+                style={{
+                  marginBottom: "10px",
+                  backgroundColor: `${colors.green}`,
+                }}
+              >
+                Update
+              </Button>
+              <Button
+                onClick={() => handleDelete(data.pk_gender_id, index)}
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                type="delete"
+                style={{ backgroundColor: `${colors.green}` }}
+              >
+                delete
+              </Button>
+            </ButtonList>
+          </ListData>
+        ))}
       </BoxTable>
     </Container>
   );

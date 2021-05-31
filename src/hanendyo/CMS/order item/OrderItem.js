@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  makeStyles,
-  TextField,
-} from "@material-ui/core";
+import { Button, makeStyles, TextField } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import {TableListPhone,ContentBox, ButtonList, Container, BoxForm, BoxTable,BoxTablePhone, SpanImage, ButtonContainer, ImageBox, List, ListData} from "../style/Form"
+import {
+  TableListPhone,
+  ContentBox,
+  ButtonList,
+  Container,
+  BoxForm,
+  BoxTable,
+  BoxTablePhone,
+  SpanImage,
+  ButtonContainer,
+  ImageBox,
+  List,
+  ListData,
+} from "../style/Form";
 import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,8 +47,8 @@ const Contact = () => {
   // USE STATE
   const [dataOrderItem, setDataOrderItem] = useState([
     {
-      quantity: '',
-      fk_price_list_id: '',
+      quantity: "",
+      fk_price_list_id: "",
       // fk_user_id: '',
       // fk_city_id: ''
     },
@@ -54,7 +63,7 @@ const Contact = () => {
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = 'order_item'
+  const endPoint = "order_item";
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -111,7 +120,7 @@ const Contact = () => {
   const updateAPI = async (data) => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
     axios
       .put(url + `${endPoint}_update`, data)
@@ -143,7 +152,7 @@ const Contact = () => {
         ...dataOrderItem,
         quantity: orderItemState.quantity,
         fk_price_list_id: orderItemState.fk_price_list_id,
-        pk_order_item_id: orderItemState.pk_order_item_id
+        pk_order_item_id: orderItemState.pk_order_item_id,
         // // fk_user_id: orderItemState.fk_user_id,
         // // fk_city_id: orderItemState.fk_city_id
       },
@@ -183,10 +192,9 @@ const Contact = () => {
   // CLEAR FORM
   const clearFormData = () => {
     orderItemDispatch(cmsAction(`quantity`, ""));
-    orderItemDispatch(cmsAction(`fk_price_list_id`, ''));
+    orderItemDispatch(cmsAction(`fk_price_list_id`, ""));
     // orderItemDispatch(cmsAction(`fk_user_id`, ''));
     // orderItemDispatch(cmsAction(`fk_city_id`, ''));
-
   };
 
   // FORM CHANGE
@@ -198,54 +206,54 @@ const Contact = () => {
     <Container>
       <h4>ORDER ITEM INPUT</h4>
       <BoxForm>
-      <form
-        encType="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          value={orderItemState.quantity}
-          name="quantity"
-          onChange={(e) => formChange(`quantity`, e.target.value)}
-          id="outlined-basic"
-          label="Quantity"
-          variant="outlined"
-        />
-        <TextField
-          value={orderItemState.fk_price_list_id}
-          name="fk_price_list_id"
-          onChange={(e) => formChange(`fk_price_list_id`, e.target.value)}
-          id="outlined-basic"
-          label="Price_list_ID"
-          variant="outlined"
-        />
-       
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
-          style = {{backgroundColor:`${colors.green}`}}
+        <form
+          encType="multipart/form-data"
+          className={classes.root}
+          onSubmit={(e) => handleSubmit(e)}
+          noValidate
+          autoComplete="off"
         >
-          {isUpdate ? "Update" : "Submit"}
-        </Button>
-        {isUpdate && (
+          <TextField
+            value={orderItemState.quantity}
+            name="quantity"
+            onChange={(e) => formChange(`quantity`, e.target.value)}
+            id="outlined-basic"
+            label="Quantity"
+            variant="outlined"
+          />
+          <TextField
+            value={orderItemState.fk_price_list_id}
+            name="fk_price_list_id"
+            onChange={(e) => formChange(`fk_price_list_id`, e.target.value)}
+            id="outlined-basic"
+            label="Price_list_ID"
+            variant="outlined"
+          />
+
           <Button
             className={classes.button}
             variant="contained"
             color="primary"
-            onClick={() => handleCancel()}
-            style = {{marginTop:'20px',backgroundColor:`${colors.green}`}}
+            type="submit"
+            style={{ backgroundColor: `${colors.green}` }}
           >
-            Cancel
+            {isUpdate ? "Update" : "Submit"}
           </Button>
-        )}
-      </form>
+          {isUpdate && (
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={() => handleCancel()}
+              style={{ marginTop: "20px", backgroundColor: `${colors.green}` }}
+            >
+              Cancel
+            </Button>
+          )}
+        </form>
       </BoxForm>
       <br />
-        <h4>ORDER ITEM DATA</h4>
+      <h4>ORDER ITEM DATA</h4>
       <BoxTable>
         <List>
           <li>ORDER ITEM ID</li>
@@ -255,43 +263,42 @@ const Contact = () => {
           {/* {<li>CITY ID</li>} */}
           <li>ACTION</li>
         </List>
-        {dataOrderItem.map(
-          (data, index) => (
-            <ListData key={index}>
-              <li>{data.pk_order_item_id}</li>
-              <li>{data.quantity}</li>
-              <li>{data.fk_price_list_id}</li>
-              {/* <li>{data.fk_user_id}</li> */}
-              {/* <li>{data.fk_city_id}</li> */}
-              {
+        {dataOrderItem.map((data, index) => (
+          <ListData key={index}>
+            <li>{data.pk_order_item_id}</li>
+            <li>{data.quantity}</li>
+            <li>{data.fk_price_list_id}</li>
+            {/* <li>{data.fk_user_id}</li> */}
+            {/* <li>{data.fk_city_id}</li> */}
+            {
               <ButtonList>
-                <Button 
+                <Button
                   onClick={() => handleUpdate(data, index)}
                   className={classes.button}
                   variant="contained"
                   color="primary"
                   type="update"
-                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
-                  >
+                  style={{
+                    marginBottom: "10px",
+                    backgroundColor: `${colors.green}`,
+                  }}
+                >
                   Update
                 </Button>
-                <Button 
+                <Button
                   onClick={() => handleDelete(data.pk_order_item_id, index)}
                   className={classes.button}
                   variant="contained"
                   color="primary"
                   type="delete"
-                  style={{backgroundColor:`${colors.green}`}}
-                  >
-                  
+                  style={{ backgroundColor: `${colors.green}` }}
+                >
                   delete
                 </Button>
-                
               </ButtonList>
-              }
-            </ListData>
-          )
-        )}
+            }
+          </ListData>
+        ))}
       </BoxTable>
     </Container>
   );
