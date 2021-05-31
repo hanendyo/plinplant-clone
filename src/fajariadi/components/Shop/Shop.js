@@ -65,6 +65,42 @@ const Shop = () => {
     minimumFractionDigits: 0,
   });
 
+  const addToCartHandler = () => {
+    if (highlight === 'seed') {
+      console.log('HIGHLIGHT', highlight);
+      console.log('SEED QTY', seedQuantity);
+      console.log('PRICE SEED', seed_price);
+      console.log('IMAGE SEED', seed_image);
+      console.log('PLANT NAME', plant_name);
+    }
+    if (highlight === 'tuber') {
+      console.log('HIGHLIGHT', highlight);
+      console.log('TUBER QTY', tuberQuantity);
+      console.log('PRICE TUBER', tuber_price);
+      console.log('IMAGE TUBER', tuber_image);
+      console.log('PLANT NAME', plant_name);
+    }
+    if (highlight === 'young') {
+      console.log('HIGHLIGHT', highlight);
+      console.log('YOUNG QTY', youngQuantity);
+      console.log('PRICE YOUNG', teen_price);
+      console.log('IMAGE YOUNG', young_image);
+      console.log('PLANT NAME', plant_name);
+    }
+    if (highlight === 'mature') {
+      console.log('HIGHLIGHT', highlight);
+      console.log('MATURE QTY', matureQuantity);
+      console.log('PRICE MATURE', mature_price);
+      console.log('IMAGE MATURE', mature_image);
+      console.log('PLANT NAME', plant_name);
+    }
+
+    setSeedQuantity(1);
+    setTuberQuantity(1);
+    setYoungQuantity(1);
+    setMatureQuantity(1);
+  };
+
   return (
     <main
       style={{
@@ -109,7 +145,11 @@ const Shop = () => {
                         alt={plant_name}
                       />
 
-                      <Quantity shop quantity={seedQuantity} />
+                      <Quantity
+                        shop
+                        quantity={seedQuantity}
+                        setQuantity={setSeedQuantity}
+                      />
                     </>
                   )}
 
@@ -123,7 +163,11 @@ const Shop = () => {
                         alt={plant_name}
                       />
 
-                      <Quantity shop quantity={tuberQuantity} />
+                      <Quantity
+                        shop
+                        quantity={tuberQuantity}
+                        setQuantity={setTuberQuantity}
+                      />
                     </>
                   )}
 
@@ -137,7 +181,11 @@ const Shop = () => {
                         alt={plant_name}
                       />
 
-                      <Quantity shop quantity={youngQuantity} />
+                      <Quantity
+                        shop
+                        quantity={youngQuantity}
+                        setQuantity={setYoungQuantity}
+                      />
                     </>
                   )}
 
@@ -151,7 +199,11 @@ const Shop = () => {
                         alt={plant_name}
                       />
 
-                      <Quantity shop quantity={matureQuantity} />
+                      <Quantity
+                        shop
+                        quantity={matureQuantity}
+                        setQuantity={setMatureQuantity}
+                      />
                     </>
                   )}
                 </>
@@ -189,7 +241,7 @@ const Shop = () => {
                   aliquam.
                 </p>
 
-                <ButtonCart>
+                <ButtonCart onClick={addToCartHandler}>
                   <FaCartPlus className='cart' /> Tambah ke Keranjang
                 </ButtonCart>
               </div>

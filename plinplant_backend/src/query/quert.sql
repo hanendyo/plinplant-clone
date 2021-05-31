@@ -2,51 +2,9 @@ CREATE DATABASE db_plinplant;
 
 USE db_plinplant;
 
--- table login
-CREATE TABLE table_login(
-	pk_login_id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(50) NOT NULL,
-    PASSWORD VARCHAR(50) NOT NULL
-);
-SELECT * FROM table_login;
+-- ::::::: PLANT DATA :::::::
 
--- table sign up
-CREATE TABLE table_register(
-	pk_register_id INT AUTO_INCREMENT PRIMARY KEY,
-    fullname VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL UNIQUE,
-    PASSWORD VARCHAR(50) NOT NULL
-);
-SELECT * FROM table_register;
-TRUNCATE TABLE table_register;
-
-ALTER TABLE table_register
-ADD COLUMN password_verify VARCHAR(50) NOT NULL;
-
--- table category
-CREATE TABLE table_category(
-	pk_category_id INT PRIMARY KEY AUTO_INCREMENT,
-	category_name VARCHAR(50) 
-);
-SELECT * FROM table_category;
-
-INSERT INTO table_category(category_name)
-VALUES('Tanaman Hias'),
-('Sayuran Hijau'),
-('Buah'),
-('Rempah');
-
-
--- table review
-CREATE TABLE table_review(
-	pk_review_id INT AUTO_INCREMENT PRIMARY KEY,
-	COMMENT VARCHAR(50),
-	rating INT
-);
-SELECT * FROM table_review;
-DROP TABLE table_review;
-
--- table plant 
+-- ::: PLANT :::
 CREATE TABLE table_plant(
 	pk_plant_id INT AUTO_INCREMENT PRIMARY KEY,
 	plant_name VARCHAR(50) NOT NULL,
@@ -57,20 +15,12 @@ CREATE TABLE table_plant(
 	days_to_sprout VARCHAR(50),
 	matures_in VARCHAR(50),
 	growth_type VARCHAR(50),
-	fk_category_id INT NOT NULL,
-	fk_review_id INT NOT NULL,
+	fk_category_id INT NOT NULL
 	
-	CONSTRAINT category FOREIGN KEY(fk_category_id)
-	REFERENCES table_category(pk_category_id)
-
 );
 SELECT * FROM table_plant;
-DROP TABLE table_plant;
 
-TRUNCATE TABLE table_plant
-
-
-
+-- ::: PLANT VALUES :::
 INSERT INTO table_plant(plant_name, plant_image, plant_origin, plant_qualities, plant_use, days_to_sprout, matures_in, growth_type, fk_category_id)
 VALUES
 -- Hias
@@ -149,9 +99,24 @@ VALUES
 
 
 
+-- ::: CATEGORY :::
+CREATE TABLE table_category(
+	pk_category_id INT PRIMARY KEY AUTO_INCREMENT,
+	category_name VARCHAR(50) 
+);
+SELECT * FROM table_category;
+
+-- ::: CATEGORY VALUES :::
+INSERT INTO table_category(category_name)
+VALUES
+('Tanaman Hias'),
+('Sayuran Hijau'),
+('Buah'),
+('Rempah');
 
 
--- table plant breeding
+
+-- ::: PLANT BREEDING :::
 CREATE TABLE table_plant_breeding(
 	pk_plant_breeding_id INT AUTO_INCREMENT PRIMARY KEY,
 	seed TEXT,
@@ -163,14 +128,11 @@ CREATE TABLE table_plant_breeding(
 	young_image VARCHAR(255),
 	mature_image VARCHAR(255),
 	fk_plant_id INT NOT NULL,
-	
-	CONSTRAINT plant FOREIGN KEY(fk_plant_id)
-	REFERENCES table_plant(pk_plant_id)
 
 );
 SELECT * FROM table_plant_breeding;
-DROP TABLE table_plant_breeding
 
+-- ::: PLANT BREEDING VALUES :::
 INSERT INTO table_plant_breeding(seed, tuber, young, mature, seed_image, tuber_image, young_image, mature_image, fk_plant_id)
 VALUES
 ('Ambil bibit aglaonema segar yang terdapat di pangkal bunga tanaman dewasa, cuci bijinya dalam air campuran H2O atau dalam air asam, siapkan benih campuran perkecambahan biji atau campuran coco-gambut, sebarkan biji di atasnya dan tutupi sangat rapat. enteng. Letakkan di bawah sinar matahari tidak langsung, suhu yang dianjurkan untuk perkecambahan biji adalah 25 - 35 derajat celcius. Diperlukan waktu hingga 45 -60 hari agar benih berkecambah.', 'Tanaman harus memiliki tanah yang lembab, tetapi Anda tidak ingin membiarkannya dalam keadaan basah. Pastikan Anda membiarkan tanah mengering sepenuhnya di antara sesi penyiraman. Setelah benih berkecambah, dan bibit setinggi tiga hingga empat inci, mereka dapat dipindahkan ke wadah terpisah.', 'Saat tanaman tumbuh, jika mulai terlihat kurus, pangkaslah. Ini akan memungkinkannya tumbuh kembali dan bertambah besar dalam penampilan. Anda juga harus memangkasnya jika Anda melihat dedaunan menguning. Jika Anda melihat ujung coklat pada dedaunan, itu berarti tanaman membutuhkan lebih banyak kelembapan. Anda bisa menyemprotnya dengan botol air secara teratur untuk meningkatkan kelembapan.', 'Untuk tanaman desktop yang lebih kecil, kami sarankan untuk merepoting setiap 12-18 bulan sekali. Pilih wadah pot berdiameter 1 "- 2" lebih besar untuk memungkinkan pertumbuhan. Jangan memilih pot yang jauh lebih besar dari sebelumnya karena dapat menahan kelembapan berlebih dan menenggelamkan akar tanaman jika Anda tidak berpengalaman dengan perawatan tanaman dalam ruangan. Jika Anda lebih suka mempertahankan ukuran tanaman Anda saat ini, pindahkan ke wadah yang sama, sediakan tanah baru dan pangkas beberapa akar dan dedaunan. Musim semi atau musim panas adalah waktu yang ideal untuk merepoting karena tanaman berada pada kondisi terkuatnya selama musim tanam.', 'aglaonema-seed.jpg', 'aglaonema-tuber.jpg', 'aglaonema-juvenil.jpg', 'aglaonema-mature.jpg', 1),
@@ -244,37 +206,22 @@ VALUES
 ('Tabur langsung di tanah rata-rata di bawah sinar matahari penuh setelah semua bahaya embun beku ketika suhu tetap di atas 45 derajat F. Singkirkan gulma dan kerjakan bahan organik di atas 6-8 inci tanah; lalu ratakan dan halus. Taburkan benih secara merata dan tutupi dengan tanah halus. Kencangkan tanah dengan ringan dan jaga agar tetap lembab. Bibit akan tumbuh dalam 10-21 hari. Pisahkan tipis hingga 12 inci saat bibit memiliki tiga set daun.', 'Oregano sebenarnya memiliki rasa paling beraroma jika dibiarkan, dengan sedikit penyiraman dan tanpa pemupukan.', 'Jagalah agar tanaman disiram dengan baik selama musim tanam, terutama selama musim kering. Tanaman membutuhkan sekitar 1 inci hujan per minggu selama musim tanam. Gunakan alat pengukur hujan untuk memeriksa apakah Anda perlu menambahkan air. Cara terbaik adalah menyiram dengan sistem tetesan atau tetesan yang mengalirkan air pada tekanan rendah di permukaan tanah. Jika Anda menyiram dengan alat penyiram di atas kepala, sirami di pagi hari agar dedaunan memiliki waktu untuk mengering sebelum malam, untuk meminimalkan masalah penyakit. Jaga tanah tetap lembab tetapi tidak jenuh.', 'Daun segar dapat dipanen segera setelah tanaman mencapai ketinggian 6 ". Waktu terbaik untuk memanen daun adalah pagi hari setelah embun mengering. Panen seluruh batang dengan memotongnya setidaknya 1" di atas tanah untuk memungkinkan tumbuh baru pertumbuhan. Daun segar akan disimpan di lemari es selama sekitar lima hari, tetapi juga bisa dibekukan atau dikeringkan. Karena panas cenderung merusak rasa oregano, oregano harus ditambahkan ke makanan panas segera sebelum disajikan. Tidak seperti kebanyakan herba, daun oregano kering cenderung memiliki rasa yang lebih kuat daripada yang segar.', 'oregano_seed.jpg', 'oregano_tuber.jpg', 'oregano_young.jpg', 'oregano_mature.jpg', 35)
 
 
--- Join table as a view
-CREATE VIEW plant_data
-AS
-SELECT pk_plant_id, plant_name, category_name, plant_image, plant_origin, plant_qualities, plant_use, days_to_sprout, matures_in, growth_type, seed, tuber, young, mature, seed_image, tuber_image, young_image, mature_image FROM table_plant
-JOIN table_plant_breeding ON fk_plant_id = pk_plant_id
-JOIN table_category ON fk_category_id = pk_category_id
 
-SELECT * FROM plant_data
-
-
-
-
-
-
-
-
-
-
--- table price list
+-- ::: PRICELIST :::
 CREATE TABLE table_price_list(
 	pk_price_list_id INT AUTO_INCREMENT PRIMARY KEY,
-    seed_price INT,
-    tuber_price INT,
-    teen_price INT,
-    mature_price INT,
-    fk_plant_breeding_id INT,
-    fk_stock_id INT
+	seed_price INT,
+	tuber_price INT,
+	teen_price INT,
+	mature_price INT,
+	fk_plant_breeding_id INT,
+	fk_stock_id INT NOT NULL
 );
 SELECT * FROM table_price_list;
+
+-- ::: PRICELIST VALUES :::
 INSERT INTO table_price_list(seed_price, tuber_price, teen_price, mature_price, fk_plant_breeding_id, fk_stock_id)
-values
+VALUES
 (20000, 50000, 150000, 300000, 1, 1),
 (20000, 50000, 150000, 300000, 2, 2),
 (20000, 50000, 150000, 300000, 3, 3),
@@ -313,72 +260,262 @@ values
 
 
 
--- table stock
+-- ::: STOCK :::
 CREATE TABLE table_stock (
 	pk_stock_id INT AUTO_INCREMENT PRIMARY KEY,
-    seed_stock INT,
-    tuber_stock INT,
-    teen_stock INT,
-    mature_stock INT
+	seed_stock INT,
+	tuber_stock INT,
+	teen_stock INT,
+	mature_stock INT
 );
-insert into table_stock(seed_stock, tuber_stock, teen_stock, mature_stock)
+SELECT * FROM table_stock
+
+-- ::: STOCK VALUES :::
+INSERT INTO table_stock(seed_stock, tuber_stock, teen_stock, mature_stock)
+VALUES
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000)
+
+
+
+-- ::: CREATE VIEW -> PLANT DATA :::
+CREATE VIEW plant_data
+AS
+SELECT
+-- table plant (includes CATEGORY NAME)
+pk_plant_id, plant_name, category_name, plant_image, plant_origin, plant_qualities, plant_use, days_to_sprout, matures_in, growth_type,
+-- table plant breeding
+seed, tuber, young, mature, seed_image, tuber_image, young_image, mature_image,
+-- table pricelist
+seed_price, tuber_price, teen_price, mature_price,
+-- table stock
+seed_stock, tuber_stock, teen_stock, mature_stock
+FROM table_plant
+JOIN table_category ON fk_category_id = pk_category_id
+JOIN table_plant_breeding ON fk_plant_id = pk_plant_id
+JOIN table_price_list ON pk_plant_breeding_id = fk_plant_breeding_id
+JOIN table_stock ON fk_stock_id = pk_stock_id
+
+SELECT * FROM plant_data
+
+
+
+
+
+-- ::: USER :::
+CREATE TABLE table_user(
+	pk_user_id INT AUTO_INCREMENT PRIMARY KEY,
+	fullname VARCHAR(50),
+	picture VARCHAR(255),
+	email VARCHAR(50),
+	`password` VARCHAR(50),
+	birth_date VARCHAR(50),
+	fk_gender_id INT
+);
+SELECT * FROM table_user;
+DROP TABLE table_user
+truncate table table_user
+
+-- ::: USER INITIAL VALUE :::
+INSERT INTO table_user(fullname, picture, email, `password`, birth_date, fk_gender_id)
+VALUES
+('Fajar Riadi', 'ig.jpg', 'fajariadi.id@gmail.com', 'passwordPlinplant', '4 April 1997', 1),
+('Riadi Fajar', 'twt.jpg', 'riadifajar.id@gmail.com', 'passwordTwt', '22 Mei 1997', 1),
+('Hanendyo Indira', 'default.png', 'hanendyo.id@gmail.com', 'passwordDyo', '27 Juni 1997', 1)
+
+
+
+
+-- ::: GENDER :::
+CREATE TABLE table_gender(
+	pk_gender_id INT AUTO_INCREMENT PRIMARY KEY,
+	type VARCHAR(50)
+);
+SELECT * FROM table_gender;
+drop table table_gender
+
+-- ::: GENDER VALUES :::
+insert into table_gender(type)
+values('Pria'),('Wanita')
+
+
+
+
+-- ::: CONTACT :::
+CREATE TABLE table_contact(
+	pk_contact_id INT AUTO_INCREMENT PRIMARY KEY,
+	recipient_name VARCHAR(50),
+	phone_number VARCHAR(50),
+	address VARCHAR(50),
+	zipcode int,	
+	fk_city_id INT not null,
+	fk_user_id int not null
+);
+SELECT * FROM table_contact;
+truncate table table_contact
+
+-- ::: CONTACT INITIAL VALUES :::
+insert into table_contact(recipient_name, phone_number, address, zipcode, fk_city_id, fk_user_id)
 values
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000),
+('Fajar Riadi', '085156493801', 'Bakso Zahra Salembaran', 15213, 4, 1),
+('Dhika Adhiwijna', '085156493802', 'GBK Bung Karni', 15222, 1, 1),
+('Hanendyo', '085156493803', 'Puncak Gunung Warpat', 15212, 2, 1)
+
+
+
+
+
+-- ::: CITY :::
+CREATE TABLE table_city(
+	pk_city_id INT AUTO_INCREMENT PRIMARY KEY,
+	city_name VARCHAR(50),
+	city_code varchar(50)
+);
+SELECT * FROM table_city;
+drop table table_city
+
+-- ::: CITY VALUES :::
+insert into table_city(city_name, city_code)
+values
+('Jakarta', 'JKT'),
+('Bogor', 'BGR'),
+('Depok', 'DPK'),
+('Tangerang', 'TNG'),
+('Bekasi', 'BKS')
+
+
+-- ::: SHIPPING CHARGE :::
+CREATE TABLE table_shipping_charges(
+	pk_shipping_charges_id INT AUTO_INCREMENT PRIMARY KEY,
+	shipping_price INT,
+	fk_city_id INT
+);
+	
+
+-- ::: SHIPPING CHARGE VALUES :::
+insert into table_shipping_charges(shipping_price, fk_city_id)
+values 
+(0, 1),
+(10000, 2),
+(12000, 3),
+(16000, 4),
+(18000, 5)
+
+
+
+
+
+
+
+
+
+
+-- ::: REVIEW :::
+CREATE TABLE table_review(
+	pk_review_id INT AUTO_INCREMENT PRIMARY KEY,
+	created_at varchar(255),
+	COMMENT VARCHAR(255),
+	rating INT,
+	fk_user_id INT NOT NULL,
+	fk_plant_id INT NOT NULL
+);
+SELECT * FROM table_review;
+drop table table_review
+
+-- ::: REVIEW INITIAL VALUES :::
+insert into table_review(created_at, comment, rating, fk_user_id, fk_plant_id)
+values
+('2 Mei 2021', 'Saya suka!!!', 4, 1, 13),
+('5 Mei 2021', 'Bonggolnya Sesuai banget!', 5, 2, 13),
+('10 Mei 2021', 'Terima kasih PlinPlant', 4, 3, 13),
+('7 Juni 2021', 'Saya cinta Basil <3', 5, 1, 26),
+('9 Juni 2021', 'Jadi orang italy beneran!!', 4, 1, 31)
+
+
+
+
+
+
+
+
+
+
+
+-- table login
+CREATE TABLE table_login(
+	pk_login_id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(50) NOT NULL,
+    PASSWORD VARCHAR(50) NOT NULL
+);
+SELECT * FROM table_login;
+
+-- table sign up
+CREATE TABLE table_register(
+	pk_register_id INT AUTO_INCREMENT PRIMARY KEY,
+    fullname VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    PASSWORD VARCHAR(50) NOT NULL
+);
+SELECT * FROM table_register;
+TRUNCATE TABLE table_register;
+
+ALTER TABLE table_register
+ADD COLUMN password_verify VARCHAR(50) NOT NULL;
+
+
+
+
+
+
+
 
 -- table artikel
 CREATE TABLE table_article(
 	pk_article_id INT AUTO_INCREMENT PRIMARY KEY,
-    article_image VARCHAR(255),
-    author VARCHAR(50),
-    title VARCHAR(50),
-    content LONGTEXT,
-    created_at VARCHAR(50)
+	article_image VARCHAR(255),
+	author VARCHAR(50),
+	title VARCHAR(50),
+	content LONGTEXT,
+	created_at VARCHAR(50)
 );
 SELECT * FROM table_article;
 TRUNCATE TABLE table_article;
 DROP TABLE table_article;
 
--- table order item
-CREATE TABLE table_order_item (
-	pk_order_item_id INT AUTO_INCREMENT PRIMARY KEY,
-    quantity INT,
-    fk_price_list_id INT
-);
-SELECT * FROM table_order_item;
+
 
 -- table order
 CREATE TABLE table_order(
@@ -389,59 +526,58 @@ CREATE TABLE table_order(
 );
 SELECT * FROM table_order;
 
--- table user
-CREATE TABLE table_user(
-	pk_user_id INT AUTO_INCREMENT PRIMARY KEY,
-    fullname VARCHAR(50),
-    email VARCHAR(50),
-    PASSWORD VARCHAR(50),
-    birth_date VARCHAR(50),
-    picture LONGBLOB,
-    fk_login_id INT,
-    fk_contact_id INT,
-    fk_gender_id INT
-);
-SELECT * FROM table_user;
-
--- table contact
-CREATE TABLE table_contact(
-	pk_contact_id INT AUTO_INCREMENT PRIMARY KEY,
-    recipient_name VARCHAR(50),
-    address VARCHAR(50),
-    phone_number VARCHAR(50),
-    fk_city_id INT
-);
-SELECT * FROM table_contact;
 
 
--- table gender
-CREATE TABLE table_gender(
-	pk_gender_id INT AUTO_INCREMENT PRIMARY KEY,
-    TYPE VARCHAR(50)
-);
-SELECT * FROM table_gender;
 
--- table city
-CREATE TABLE table_city(
-	pk_city_id INT AUTO_INCREMENT PRIMARY KEY,
-    city_name VARCHAR(50)
+-- table cart
+CREATE TABLE table_cart(
+	pk_cart_id INT AUTO_INCREMENT PRIMARY KEY,
+	phase_image varchar(255),
+	plant_name varchar(50),
+	plant_phase varchar(50),
+	price INT,	
+	quantity int,
+	fk_user_id int not null
 );
-SELECT * FROM table_city;
-TRUNCATE TABLE table_city;
+SELECT * FROM table_cart;
+drop table table_cart;
 
--- table shipping charges
-CREATE TABLE table_shipping_charges(
-	pk_shipping_charges_id INT AUTO_INCREMENT PRIMARY KEY,
-    shipping_price INT,
-    fk_city_id INT
-);
+INSERT INTO table_cart(phase_image, plant_name, plant_phase, price, quantity, fk_user_id)
+VALUES
+('buah.jpg', 'Lavender', 'Biji', 20000, 2, 1),
+('sayur.jpg', 'Blood Bull', 'Dewasa', 300000, 3, 1),
+('hias.jpg', 'Lavender', 'Bonggol', 150000, 1, 1),
+
+
+select phase_image, plant_name, plant_phase, price, quantity
+from table_user
+join table_cart on fk_user_id = pk_user_id
+
+
+FROM table_plant
+JOIN table_category ON fk_category_id = pk_category_id
+JOIN table_plant_breeding ON fk_plant_id = pk_plant_id
+JOIN table_price_list ON pk_plant_breeding_id = fk_plant_breeding_id
+JOIN table_stock ON fk_stock_id = pk_stock_id
+
+
+
+
+
+
+
+
+
 
 
 
 -- tabel weight
 CREATE TABLE table_weight(
 	pk_weight_id INT AUTO_INCREMENT PRIMARY KEY,
-	weight INT
+	seed_weight int,
+	tuber_weight int,
+	young_weight int,
+	mature_weight int,
 );
 
 DROP DATABASE db_plinplant;

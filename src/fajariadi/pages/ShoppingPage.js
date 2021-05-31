@@ -21,6 +21,7 @@ const ShoppingPage = ({ match }) => {
     window.scrollTo({
       top: 0,
     });
+
     getPlantId();
   }, [match.params.id]);
 
