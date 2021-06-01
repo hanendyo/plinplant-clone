@@ -3,43 +3,27 @@ import Footer from '../../master/components/Footer/Footer';
 import Navbar from '../../master/components/Navbar/Navbar';
 import ArtikelHeader from '../../dhika/Artikel/header/ArtikelHeader';
 import { ContextStore } from '../../context/store/ContextStore';
-import {
-  getArticleById,
-  getArticles,
-} from '../../context/actions/fetchingActions';
+import { getArticleById } from '../../context/actions/fetchingActions';
 import axios from 'axios';
 
 const ArticlePage = ({ match }) => {
-  const {
-    tableArticleState,
-    tableArticleDispatch,
-    articleIdState,
-    articleIdDispatch,
-  } = useContext(ContextStore);
+  const { articleIdState, articleIdDispatch } = useContext(ContextStore);
 
   useEffect(() => {
-    const getTableArticle = async () => {
-      const res = await axios.get(
-        'http://localhost:5000/input/article_get_all_datas'
-      );
-
-      tableArticleDispatch(getArticles(res.data.data));
-    };
-
     const getArticleId = async () => {
       const res = await axios.get(
         `http://localhost:5000/input/article_get_by_id/${match.params.id}`
       );
 
-      articleIdDispatch(getArticleById(res.data.data));
+      articleIdDispatch(getArticleById(res.data.data[0]));
     };
 
-    getTableArticle();
-    getArticleId();
-  }, [match]);
+    window.scrollTo({
+      top: 0,
+    });
 
-  console.log('ARTICLES', tableArticleState);
-  console.log('ARTICLE ID', articleIdState);
+    getArticleId();
+  }, [match.params.id]);
 
   return (
     <div>

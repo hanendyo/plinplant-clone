@@ -9,7 +9,7 @@ import StatusOrder from './StatusOrder';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { openModalReview } from '../../../context/actions';
 import { useMediaQuery } from 'react-responsive';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const Cards = ({
   id,
@@ -47,7 +47,10 @@ const Cards = ({
   search,
   selectAddress,
 }) => {
-  const { modalReviewDispatch } = useContext(ContextStore);
+  const { modalReviewDispatch, articleIdState } = useContext(ContextStore);
+
+  const history = useHistory();
+
   const isMini = useMediaQuery({ maxWidth: 370 });
 
   const slug = (title) => title.toLowerCase().split(' ').join('-');
@@ -295,7 +298,11 @@ const Cards = ({
       )}
 
       {article && (
-        <CardArticle>
+        <CardArticle
+          onClick={() => history.push(`/article/${id}/${slug(title)}`)}
+          active={articleIdState.pk_article_id}
+          id={id}
+        >
           <img
             src={process.env.PUBLIC_URL + `/images/article_image/${img}`}
             alt={title}
@@ -837,18 +844,19 @@ const CardInvoice = styled.div`
 `;
 
 const CardArticle = styled.div`
-  background-color: ${colors.lightGreenTransparent};
   display: flex;
   border-radius: 10px;
   overflow: hidden;
   transition: all 0.3s ease;
   cursor: pointer;
 
+  background-color: ${({ id, active }) =>
+    active === id ? colors.lightGreen : colors.lightGreenTransparent};
+
   &:not(:last-of-type) {
     margin-bottom: 10px;
   }
 
-  &:first-of-type,
   &:hover {
     background-color: ${colors.lightGreen};
 
@@ -878,7 +886,8 @@ const CardArticle = styled.div`
     & > span,
     p {
       font-size: 14px;
-      color: ${colors.lightGreen};
+      color: ${({ id, active }) =>
+        active === id ? '#22222280' : colors.lightGreen};
     }
 
     & > p {

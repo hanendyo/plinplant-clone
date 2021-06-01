@@ -16,11 +16,13 @@ import CMS from './hanendyo/CMS/CMS';
 import axios from 'axios';
 import { ContextStore } from './context/store/ContextStore';
 import { getPlants } from './context/actions';
+import { getArticles } from './context/actions/fetchingActions';
 
 const App = () => {
-  const { tablePlantDispatch } = useContext(ContextStore);
+  const { tablePlantDispatch, tableArticleDispatch } = useContext(ContextStore);
 
   useEffect(() => {
+    // ::: FETCH PLANT DATA :::
     const getTablePlant = async () => {
       const res = await axios.get(
         'http://localhost:5000/input/plant_get_all_datas'
@@ -29,7 +31,17 @@ const App = () => {
       tablePlantDispatch(getPlants(res.data.data));
     };
 
+    // ::: FETCH ARTICLE :::
+    const getTableArticle = async () => {
+      const res = await axios.get(
+        'http://localhost:5000/input/article_get_all_datas'
+      );
+
+      tableArticleDispatch(getArticles(res.data.data));
+    };
+
     getTablePlant();
+    getTableArticle();
   }, []);
 
   return (

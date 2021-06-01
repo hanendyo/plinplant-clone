@@ -12,7 +12,6 @@ const Navbar = () => {
   const [profile, setProfile] = useState(false);
 
   const { tableArticleState } = useContext(ContextStore);
-  const { pk_article_id, title } = tableArticleState[0];
 
   // ::: NAVBAR INTERACTION :::
   const [shadow, setShadow] = useState(false);
@@ -31,6 +30,8 @@ const Navbar = () => {
   }, []);
   // ::: END OF NAVBAR INTERACTION :::
 
+  const slug = (title) => title?.toLowerCase().split(' ').join('-');
+
   return (
     <Nav shadow={shadow}>
       <Container shadow={shadow}>
@@ -48,7 +49,13 @@ const Navbar = () => {
             </a>
           </li>
           <li>
-            <Link to={`/article/${pk_article_id}/${title}`}>Artikel</Link>
+            <Link
+              to={`/article/${tableArticleState[0]?.pk_article_id}/${slug(
+                tableArticleState[0]?.title
+              )}`}
+            >
+              Artikel
+            </Link>
           </li>
           <li>
             {login ? (

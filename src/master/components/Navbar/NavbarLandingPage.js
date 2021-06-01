@@ -10,11 +10,8 @@ import { ContextStore } from '../../../context/store/ContextStore';
 const NavbarLandingPage = () => {
   const login = true;
   const [profile, setProfile] = useState(false);
-  const [article, setArticle] = useState([]);
 
   const { tableArticleState } = useContext(ContextStore);
-
-  console.log('ARTICLE NAVVVV', article);
 
   // ::: NAVBAR INTERACTION :::
   const [shadow, setShadow] = useState(false);
@@ -27,13 +24,13 @@ const NavbarLandingPage = () => {
 
     window.addEventListener('scroll', scrollNav);
 
-    setArticle(tableArticleState);
-
     return () => {
       window.removeEventListener('scroll', scrollNav);
     };
   }, []);
   // ::: END OF NAVBAR INTERACTION :::
+
+  const slug = (title) => title?.toLowerCase().split(' ').join('-');
 
   return (
     <Nav shadow={shadow}>
@@ -47,7 +44,13 @@ const NavbarLandingPage = () => {
             </a>
           </li>
           <li>
-            <Link to={`/article`}>Artikel</Link>
+            <Link
+              to={`/article/${tableArticleState[0]?.pk_article_id}/${slug(
+                tableArticleState[0]?.title
+              )}`}
+            >
+              Artikel
+            </Link>
           </li>
           <li>
             {login ? (

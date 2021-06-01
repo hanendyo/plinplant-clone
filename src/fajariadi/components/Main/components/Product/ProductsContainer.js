@@ -269,21 +269,25 @@ const ProductsContainer = ({
       {article && (
         <ArticlesContainer>
           {tableArticleState.map(
-            ({
-              pk_article_id,
-              article_image,
-              title,
-              author,
-              created_at,
-              duration,
-              source,
-              url,
-              content,
-            }) => (
+            (
+              {
+                pk_article_id,
+                article_image,
+                title,
+                author,
+                created_at,
+                duration,
+                source,
+                url,
+                content,
+              },
+              index
+            ) => (
               <Cards
                 article
                 key={pk_article_id}
                 id={pk_article_id}
+                index={index}
                 img={article_image}
                 title={title}
                 author={author}
