@@ -207,6 +207,60 @@ VALUES
 
 
 
+-- ::: WEIGHT :::
+CREATE TABLE table_weight(
+	pk_weight_id INT AUTO_INCREMENT PRIMARY KEY,
+	seed_weight INT,
+	tuber_weight INT,
+	young_weight INT,
+	mature_weight INT,
+	
+	fk_plant_breeding_id int not null,
+	fk_price_list_id INT NOT NULL
+);
+select * from table_weight;
+
+-- ::: WEIGHT VALUES :::
+insert into table_weight(seed_weight, tuber_weight, young_weight, mature_weight, fk_plant_breeding_id, fk_price_list_id)
+values
+(100, 500, 1500, 2000, 1, 1),
+(100, 500, 1500, 2000, 2, 2),
+(100, 500, 1500, 2000, 3, 3),
+(100, 500, 1500, 2000, 4, 4),
+(100, 500, 1500, 2000, 5, 5),
+(100, 500, 1500, 2000, 6, 6),
+(100, 500, 1500, 2000, 7, 7),
+(100, 500, 1500, 2000, 8, 8),
+(100, 500, 1500, 2000, 9, 9),
+(100, 500, 1500, 2000, 10, 10),
+(100, 500, 1500, 2000, 11, 11),
+(100, 500, 1500, 2000, 12, 12),
+(100, 500, 1500, 2000, 13, 13),
+(100, 500, 1500, 2000, 14, 14),
+(100, 500, 1500, 2000, 15, 15),
+(100, 500, 1500, 2000, 16, 16),
+(100, 500, 1500, 2000, 17, 17),
+(100, 500, 1500, 2000, 18, 18),
+(100, 500, 1500, 2000, 19, 19),
+(100, 500, 1500, 2000, 20, 20),
+(100, 500, 1500, 2000, 21, 21),
+(100, 500, 1500, 2000, 22, 22),
+(100, 500, 1500, 2000, 23, 23),
+(100, 500, 1500, 2000, 24, 24),
+(100, 500, 1500, 2000, 25, 25),
+(100, 500, 1500, 2000, 26, 26),
+(100, 500, 1500, 2000, 27, 27),
+(100, 500, 1500, 2000, 28, 28),
+(100, 500, 1500, 2000, 29, 29),
+(100, 500, 1500, 2000, 30, 30),
+(100, 500, 1500, 2000, 31, 31),
+(100, 500, 1500, 2000, 32, 32),
+(100, 500, 1500, 2000, 33, 33),
+(100, 500, 1500, 2000, 34, 34),
+(100, 500, 1500, 2000, 35, 35)
+
+
+
 -- ::: PRICELIST :::
 CREATE TABLE table_price_list(
 	pk_price_list_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -214,49 +268,49 @@ CREATE TABLE table_price_list(
 	tuber_price INT,
 	teen_price INT,
 	mature_price INT,
-	fk_plant_breeding_id INT,
+
 	fk_stock_id INT NOT NULL
 );
 SELECT * FROM table_price_list;
 
 -- ::: PRICELIST VALUES :::
-INSERT INTO table_price_list(seed_price, tuber_price, teen_price, mature_price, fk_plant_breeding_id, fk_stock_id)
+INSERT INTO table_price_list(seed_price, tuber_price, teen_price, mature_price, fk_stock_id)
 VALUES
-(20000, 50000, 150000, 300000, 1, 1),
-(20000, 50000, 150000, 300000, 2, 2),
-(20000, 50000, 150000, 300000, 3, 3),
-(20000, 50000, 150000, 300000, 4, 4),
-(20000, 50000, 150000, 300000, 5, 5),
-(20000, 50000, 150000, 300000, 6, 6),
-(20000, 50000, 150000, 300000, 7, 7),
-(20000, 50000, 150000, 300000, 8, 8),
-(20000, 50000, 150000, 300000, 9, 9),
-(20000, 50000, 150000, 300000, 10, 10),
-(20000, 50000, 150000, 300000, 11, 11),
-(20000, 50000, 150000, 300000, 12, 12),
-(20000, 50000, 150000, 300000, 13, 13),
-(20000, 50000, 150000, 300000, 14, 14),
-(20000, 50000, 150000, 300000, 15, 15),
-(20000, 50000, 150000, 300000, 16, 16),
-(20000, 50000, 150000, 300000, 17, 17),
-(20000, 50000, 150000, 300000, 18, 18),
-(20000, 50000, 150000, 300000, 19, 19),
-(20000, 50000, 150000, 300000, 20, 20),
-(20000, 50000, 150000, 300000, 21, 21),
-(20000, 50000, 150000, 300000, 22, 22),
-(20000, 50000, 150000, 300000, 23, 23),
-(20000, 50000, 150000, 300000, 24, 24),
-(20000, 50000, 150000, 300000, 25, 25),
-(20000, 50000, 150000, 300000, 26, 26),
-(20000, 50000, 150000, 300000, 27, 27),
-(20000, 50000, 150000, 300000, 28, 28),
-(20000, 50000, 150000, 300000, 29, 29),
-(20000, 50000, 150000, 300000, 30, 30),
-(20000, 50000, 150000, 300000, 31, 31),
-(20000, 50000, 150000, 300000, 32, 32),
-(20000, 50000, 150000, 300000, 33, 33),
-(20000, 50000, 150000, 300000, 34, 34),
-(20000, 50000, 150000, 300000, 35, 35)
+(20000, 50000, 150000, 300000, 1),
+(20000, 50000, 150000, 300000, 2),
+(20000, 50000, 150000, 300000, 3),
+(20000, 50000, 150000, 300000, 4),
+(20000, 50000, 150000, 300000, 5),
+(20000, 50000, 150000, 300000, 6),
+(20000, 50000, 150000, 300000, 7),
+(20000, 50000, 150000, 300000, 8),
+(20000, 50000, 150000, 300000, 9),
+(20000, 50000, 150000, 300000, 10),
+(20000, 50000, 150000, 300000, 11),
+(20000, 50000, 150000, 300000, 12),
+(20000, 50000, 150000, 300000, 13),
+(20000, 50000, 150000, 300000, 14),
+(20000, 50000, 150000, 300000, 15),
+(20000, 50000, 150000, 300000, 16),
+(20000, 50000, 150000, 300000, 17),
+(20000, 50000, 150000, 300000, 18),
+(20000, 50000, 150000, 300000, 19),
+(20000, 50000, 150000, 300000, 20),
+(20000, 50000, 150000, 300000, 21),
+(20000, 50000, 150000, 300000, 22),
+(20000, 50000, 150000, 300000, 23),
+(20000, 50000, 150000, 300000, 24),
+(20000, 50000, 150000, 300000, 25),
+(20000, 50000, 150000, 300000, 26),
+(20000, 50000, 150000, 300000, 27),
+(20000, 50000, 150000, 300000, 28),
+(20000, 50000, 150000, 300000, 29),
+(20000, 50000, 150000, 300000, 30),
+(20000, 50000, 150000, 300000, 31),
+(20000, 50000, 150000, 300000, 32),
+(20000, 50000, 150000, 300000, 33),
+(20000, 50000, 150000, 300000, 34),
+(20000, 50000, 150000, 300000, 35)
 
 
 
@@ -319,6 +373,8 @@ SELECT
 pk_plant_id, plant_name, category_name, plant_image, plant_origin, plant_qualities, plant_use, days_to_sprout, matures_in, growth_type,
 -- table plant breeding
 seed, tuber, young, mature, seed_image, tuber_image, young_image, mature_image,
+-- table weight
+seed_weight, tuber_weight, young_weight, mature_weight,
 -- table pricelist
 seed_price, tuber_price, teen_price, mature_price,
 -- table stock
@@ -326,10 +382,12 @@ seed_stock, tuber_stock, teen_stock, mature_stock
 FROM table_plant
 JOIN table_category ON fk_category_id = pk_category_id
 JOIN table_plant_breeding ON fk_plant_id = pk_plant_id
-JOIN table_price_list ON pk_plant_breeding_id = fk_plant_breeding_id
+join table_weight on fk_plant_breeding_id = pk_plant_breeding_id
+JOIN table_price_list ON fk_price_list_id = pk_price_list_id
 JOIN table_stock ON fk_stock_id = pk_stock_id
 
 SELECT * FROM plant_data
+drop view plant_data
 
 
 
@@ -424,7 +482,6 @@ CREATE TABLE table_shipping_charges(
 	fk_city_id INT
 );
 	
-
 -- ::: SHIPPING CHARGE VALUES :::
 insert into table_shipping_charges(shipping_price, fk_city_id)
 values 
@@ -467,66 +524,42 @@ values
 
 
 
-
 -- ::: ARTIKEL :::
 CREATE TABLE table_article(
-	pk_articles_id int [pk, increment]
-	article_image varchar(255)
-	title varchar(255)
-	author varchar(255)
-	created_at varchar(255)
-	duration varchar(255)
-	source varchar(255)
-	url varchar(255)
+	pk_article_id INT AUTO_INCREMENT PRIMARY KEY,
+	article_image varchar(255),
+	title varchar(255),
+	author varchar(255),
+	created_at varchar(255),
+	duration varchar(255),
+	source varchar(255),
+	url varchar(255),
 	content  text
 	
 );
 SELECT * FROM table_article;
-
-
-
-
-
--- table login
-CREATE TABLE table_login(
-	pk_login_id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(50) NOT NULL,
-    PASSWORD VARCHAR(50) NOT NULL
-);
-SELECT * FROM table_login;
-
--- table sign up
-CREATE TABLE table_register(
-	pk_register_id INT AUTO_INCREMENT PRIMARY KEY,
-    fullname VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL UNIQUE,
-    PASSWORD VARCHAR(50) NOT NULL
-);
-SELECT * FROM table_register;
-TRUNCATE TABLE table_register;
-
-ALTER TABLE table_register
-ADD COLUMN password_verify VARCHAR(50) NOT NULL;
-
-
-
-
-
-
-
-
--- table artikel
-CREATE TABLE table_article(
-	pk_article_id INT AUTO_INCREMENT PRIMARY KEY,
-	article_image VARCHAR(255),
-	author VARCHAR(50),
-	title VARCHAR(50),
-	content LONGTEXT,
-	created_at VARCHAR(50)
-);
-SELECT * FROM table_article;
 TRUNCATE TABLE table_article;
 DROP TABLE table_article;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -584,13 +617,6 @@ JOIN table_stock ON fk_stock_id = pk_stock_id
 
 
 
--- tabel weight
-CREATE TABLE table_weight(
-	pk_weight_id INT AUTO_INCREMENT PRIMARY KEY,
-	seed_weight int,
-	tuber_weight int,
-	young_weight int,
-	mature_weight int,
-);
 
-DROP DATABASE db_plinplant;
+
+
