@@ -27,7 +27,7 @@ export const ContextProvider = ({ children }) => {
   );
 
   // LOGIN
-  const [loginState, loginDispatch] = useReducer(SignInReducer, SignInInitial);
+  const [signInState, signInDispatch] = useReducer(SignInReducer, SignInInitial);
 
   //! CMS
   // ARTICLE
@@ -146,8 +146,8 @@ export const ContextProvider = ({ children }) => {
         signUpState,
         signUpDispatch,
         // login
-        loginState,
-        loginDispatch,
+        signInState,
+        signInDispatch,
         // article
         articleState,
         articleDispatch,

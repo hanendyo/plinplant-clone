@@ -1,22 +1,29 @@
 const jwt = require("jsonwebtoken");
 
 function AuthValidation(req, res, next) {
-  try {
-    const token = req.cookies.token;
+  // try {
+    // const token = req.cookies.token;
+    const token = req.headers['x-access-token'];
 
     if (!token) {
       return res.status(401).json({ errorMessage: `Unauthorized` });
+    } else {
+      jwt.verify(token,"jwtSecret", (err, decoded) => {
+        if (err) {
+          res.json({ auth: false, message: 'Failed to  authenticate' })
+        } else {
+          req.userId = decoded.id
+          next();
+        }
+      });
     }
+    // req.user = verified.user; //create new property of an object (?)
 
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
-
-    req.user = verified.user; //create new property of an object (?)
-
-    next();
-  } catch (err) {
-    console.error(err);
-    res.status(401).json({ errorMessage: "Unauthorized" });
-  }
+  //   next();
+  // } catch (err) {
+  //   console.error(err);
+  //   res.status(401).json({ errorMessage: "Unauthorized" });
+  // }
 }
 
 module.exports = AuthValidation;

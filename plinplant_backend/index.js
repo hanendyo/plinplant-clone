@@ -4,6 +4,9 @@ const multer = require('multer');
 const path = require('path');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const jwt = require('jsonwebtoken');
 
 // config
 const app = express();
@@ -61,15 +64,37 @@ dotenv.config();
 
 const authRoutes = require('./src/router/Auth_router');
 const plantRoutes = require('./src/router/Plant_router');
+const AuthValidation = require('./src/middleware/AuthValidation');
 
 // middleware
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true  
+}));
 app.use(express.json());
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(session({
+  key:'userId',
+  secret: 'secretcode',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    expires: 60 * 60 * 24
+  }
+}))
+
 
 // path
 app.use('/auth', authRoutes);
 app.use('/input', plantRoutes);
+
+// testing path
+app.use('/checkUserAuth', AuthValidation, (req, res)=> {
+  res.send('you are authenticated!')
+})
+
 
 // Setup server
 const APP_PORT = process.env.APP_PORT;

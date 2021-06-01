@@ -101,43 +101,60 @@ const Shop = () => {
               <div>
                 <>
                   {highlight === 'seed' && (
-                    <img
-                      src={
-                        process.env.PUBLIC_URL + `/images/Plant/${seed_image}`
-                      }
-                      alt={plant_name}
-                    />
+                    <>
+                      <img
+                        src={
+                          process.env.PUBLIC_URL + `/images/Plant/${seed_image}`
+                        }
+                        alt={plant_name}
+                      />
+
+                      <Quantity shop quantity={seedQuantity} />
+                    </>
                   )}
 
                   {highlight === 'tuber' && (
-                    <img
-                      src={
-                        process.env.PUBLIC_URL + `/images/Plant/${tuber_image}`
-                      }
-                      alt={plant_name}
-                    />
+                    <>
+                      <img
+                        src={
+                          process.env.PUBLIC_URL +
+                          `/images/Plant/${tuber_image}`
+                        }
+                        alt={plant_name}
+                      />
+
+                      <Quantity shop quantity={tuberQuantity} />
+                    </>
                   )}
 
                   {highlight === 'young' && (
-                    <img
-                      src={
-                        process.env.PUBLIC_URL + `/images/Plant/${young_image}`
-                      }
-                      alt={plant_name}
-                    />
+                    <>
+                      <img
+                        src={
+                          process.env.PUBLIC_URL +
+                          `/images/Plant/${young_image}`
+                        }
+                        alt={plant_name}
+                      />
+
+                      <Quantity shop quantity={youngQuantity} />
+                    </>
                   )}
 
                   {highlight === 'mature' && (
-                    <img
-                      src={
-                        process.env.PUBLIC_URL + `/images/Plant/${mature_image}`
-                      }
-                      alt={plant_name}
-                    />
+                    <>
+                      <img
+                        src={
+                          process.env.PUBLIC_URL +
+                          `/images/Plant/${mature_image}`
+                        }
+                        alt={plant_name}
+                      />
+
+                      <Quantity shop quantity={matureQuantity} />
+                    </>
                   )}
                 </>
-
-                <Quantity shop quantity={1} />
               </div>
 
               <div>

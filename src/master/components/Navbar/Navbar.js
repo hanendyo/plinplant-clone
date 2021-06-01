@@ -6,7 +6,7 @@ import { colors } from '../../constant/style';
 import pic from '../../../fajariadi/assets/images/ig.jpg';
 
 const Navbar = () => {
-  const login = true;
+  const login = false;
   const [profile, setProfile] = useState(false);
 
   // ::: NAVBAR INTERACTION :::
@@ -25,6 +25,8 @@ const Navbar = () => {
     };
   }, []);
   // ::: END OF NAVBAR INTERACTION :::
+
+  
 
   return (
     <Nav shadow={shadow}>

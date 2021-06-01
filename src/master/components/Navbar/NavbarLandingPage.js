@@ -1,14 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, LinksContainer, Logo, Nav } from './Navbar.elemen';
 import { FaShoppingCart } from 'react-icons/fa';
 import Button from '../additional/Button';
 import { colors } from '../../constant/style';
 import pic from '../../../fajariadi/assets/images/ig.jpg';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { ContextStore } from '../../../context/store/ContextStore';
+import axios from 'axios';
+import { signInAction } from '../../../context/actions/SignInAction';
 
 const NavbarLandingPage = () => {
-  const login = true;
+  const history = useHistory();
+  const [login, setLogin] = useState(false);
   const [profile, setProfile] = useState(false);
+
+  const context = useContext(ContextStore);
+  const { signInState, signInDispatch } = context;
 
   // ::: NAVBAR INTERACTION :::
   const [shadow, setShadow] = useState(false);
@@ -24,6 +31,7 @@ const NavbarLandingPage = () => {
     return () => {
       window.removeEventListener('scroll', scrollNav);
     };
+
   }, []);
   // ::: END OF NAVBAR INTERACTION :::
 
@@ -46,7 +54,7 @@ const NavbarLandingPage = () => {
               <>
                 <button onClick={() => setProfile(!profile)}>
                   <img src={pic} alt='' />
-                  <p>Halo, Fajar</p>
+                  <p>Halo, User.</p>
                 </button>
 
                 {/* Profile Hover */}
@@ -76,13 +84,13 @@ const NavbarLandingPage = () => {
                 <Button
                   text='Masuk'
                   bgColor={colors.white}
-                  onClick={() => console.log('Masuk')}
+                  onClick={() => history.push('/login')}
                 />
                 <Button
                   primary
                   text='Daftar'
                   bgColor={colors.lightGreenTransparent}
-                  onClick={() => console.log('Daftar')}
+                  onClick={() => history.push('/register')}
                 />
               </>
             )}

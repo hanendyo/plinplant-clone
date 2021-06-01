@@ -1,7 +1,7 @@
 const pool = require("../database/Database");
 
 module.exports = {
-  register: (data, callback) => {
+  postRegister: (data, callback) => {
     console.log(`CALLBACK NYA: `, callback);
     console.log(`DATA NYA: `, data);
     const sql = `insert into table_user (fullname, email, password)values(?,?,?)`;
@@ -24,18 +24,22 @@ module.exports = {
       return callback(null, result);
     });
   },
-  login: (data, callback) => {
+  postLogin: (data, callback) => {
     pool.query(
-      `select * from table_user where fullname=? and password=?`,
-      [data.fullname, data.password],
+      `select * from table_user where email=?`,
+      [data.email ],
       (err, result) => {
         if (err) {
           console.log(`SERVICE ERROR:`, err.Error);
           return callback(null, err);
         }
-        console.log(`SERVICE SUCCESS: `, result);
+        console.log(`SERVICE SUCCESS`);
         return callback(null, result);
       }
     )
-  }
+  },
+  // getLogin: (data, callback)=>{
+  //   console.log(`DATA GET LOGIN: `, data);
+  // }
+
 };

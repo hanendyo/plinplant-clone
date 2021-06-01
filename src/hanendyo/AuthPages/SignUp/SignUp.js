@@ -12,6 +12,8 @@ import { FaGoogle } from "react-icons/fa";
 import "./SignUp.css";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { signUpAction, signUpAPI } from "../../../context/actions/SignUpAction";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 function Copyright() {
   return (
@@ -43,15 +45,31 @@ const useStyles = makeStyles({
 
 const SignUp = () => {
   const classes = useStyles();
-
+  const history = useHistory();
   const context = useContext(ContextStore);
+
   const { signUpState, signUpDispatch } = context;
+
+  const registerAPI = async (form) => {
+    try {
+        let res = await axios.post(`http://localhost:5000/auth/register`,form);
+        console.log(`register success`);
+        return res;
+    } catch (err) {
+        console.log(`register error`, err);
+        return err;
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // POST TO API
     console.log(`sign up data: `, signUpState);
-    signUpAPI(signUpState);
+    registerAPI(signUpState).then((res) => {
+      if (res.status === 201) {
+        history.push("/login");
+      }
+    });
   };
 
   return (
@@ -63,7 +81,13 @@ const SignUp = () => {
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed,
             officia.
           </p>
-          <form onSubmit={(e) => handleSubmit(e)}>
+          <form
+            encType="multipart/form-data"
+            className={classes.root}
+            onSubmit={(e) => handleSubmit(e)}
+            noValidate
+            autoComplete="off"
+          >
             <Button
               className={classes.button}
               variant="contained"
