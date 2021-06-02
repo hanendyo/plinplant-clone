@@ -14,6 +14,7 @@ import {
   plantReviewReducer,
   tableArticleReducer,
   userInfoReducer,
+  userCartReducer,
 } from '../reducer/fetchingReducer';
 import {
   modalPilihAlamatReducer,
@@ -146,6 +147,9 @@ export const ContextProvider = ({ children }) => {
     []
   );
 
+  // ::: FETCH USER CART :::
+  const [userCartState, userCartDispatch] = useReducer(userCartReducer, []);
+
   // ::: FETCH TABLE PLANT :::
   const [tablePlantState, tablePlantDispatch] = useReducer(
     tablePlantReducer,
@@ -272,6 +276,10 @@ export const ContextProvider = ({ children }) => {
         // ::: FETCH PLANT REVIEW :::
         plantReviewState,
         plantReviewDispatch,
+
+        // ::: FETCH USER CART :::
+        userCartState,
+        userCartDispatch,
       }}
     >
       {children}

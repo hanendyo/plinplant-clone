@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { StyledContainer, colors } from '../../constant/style';
+import { Link } from 'react-router-dom';
 
 export const Nav = styled.nav`
   background-color: #254c50f2;
@@ -184,7 +185,7 @@ export const LinksContainer = styled.ul`
 `;
 
 // Navbar.js style
-export const Home = styled.a`
+export const Home = styled(Link)`
   display: flex;
   align-items: center;
 

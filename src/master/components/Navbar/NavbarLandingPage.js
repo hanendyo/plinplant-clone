@@ -41,9 +41,9 @@ const NavbarLandingPage = () => {
 
         <LinksContainer login={login} profile={profile}>
           <li>
-            <a href='/cart'>
+            <Link to='/cart'>
               <FaShoppingCart className='cart' />
-            </a>
+            </Link>
           </li>
           <li>
             <Link

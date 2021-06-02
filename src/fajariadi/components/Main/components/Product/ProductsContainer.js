@@ -35,8 +35,12 @@ const ProductsContainer = ({
   selectAddress,
   related,
 }) => {
-  const { tablePlantState, tableArticleState, plantReviewState } =
-    useContext(ContextStore);
+  const {
+    tablePlantState,
+    tableArticleState,
+    plantReviewState,
+    userCartState,
+  } = useContext(ContextStore);
 
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
@@ -193,17 +197,27 @@ const ProductsContainer = ({
 
       {cart && (
         <CartContainer>
-          {cartItems.map(({ img, name, phase, price, quantity }, index) => (
-            <Cards
-              cart
-              key={index}
-              img={img}
-              name={name}
-              phase={phase}
-              price={price}
-              quantity={quantity}
-            />
-          ))}
+          {userCartState.map(
+            ({
+              pk_cart_id,
+              phase_image,
+              plant_name,
+              plant_phase,
+              quantity,
+              price,
+            }) => (
+              <Cards
+                cart
+                id={pk_cart_id}
+                key={pk_cart_id}
+                img={phase_image}
+                name={plant_name}
+                phase={plant_phase}
+                price={price}
+                quantity={quantity}
+              />
+            )
+          )}
         </CartContainer>
       )}
 

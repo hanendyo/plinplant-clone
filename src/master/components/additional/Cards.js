@@ -55,6 +55,12 @@ const Cards = ({
 
   const slug = (title) => title.toLowerCase().split(' ').join('-');
 
+  const priceFormat = new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0,
+  });
+
   return (
     <>
       {slider && (
@@ -163,7 +169,10 @@ const Cards = ({
 
       {cart && (
         <CardCart>
-          <img src={img} alt='' />
+          <img
+            src={process.env.PUBLIC_URL + `/images/Plant/${img}`}
+            alt={img}
+          />
 
           <div>
             <div>
@@ -171,7 +180,7 @@ const Cards = ({
               <span>{phase}</span>
             </div>
 
-            <h5>{price}</h5>
+            <h5>{priceFormat.format(price)}</h5>
           </div>
 
           <Quantity quantity={quantity} />

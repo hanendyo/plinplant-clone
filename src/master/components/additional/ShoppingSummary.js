@@ -3,12 +3,17 @@ import { FaLongArrowAltRight } from 'react-icons/fa';
 import styled from 'styled-components';
 import { openModalTambahAlamat } from '../../../context/actions/modalActions';
 import { ContextStore } from '../../../context/store/ContextStore';
+import { priceFormat } from '../../constant/constantVariables';
 import { addresses } from '../../constant/data/dummy-data';
 import { colors } from '../../constant/style';
 import Button from './Button';
 
 const ShoppingSummary = ({ checkout }) => {
-  const { modalTambahAlamatDispatch } = useContext(ContextStore);
+  const { modalTambahAlamatDispatch, userCartState } = useContext(ContextStore);
+  console.log('KENAPA NAN?', userCartState);
+  const totalPrice = userCartState
+    .map((item) => item.price * item.quantity)
+    .reduce((a, b) => a + b, 0);
 
   return (
     <SummarySection>
@@ -20,7 +25,7 @@ const ShoppingSummary = ({ checkout }) => {
           <span>4 barang</span>
         </div>
 
-        <p>Rp 21.950</p>
+        <p>{priceFormat.format(totalPrice)}</p>
       </TotalPrice>
 
       {checkout && (
@@ -39,7 +44,7 @@ const ShoppingSummary = ({ checkout }) => {
 
       <TotalBill>
         <h6>Total Tagihan</h6>
-        <h6>Rp 21.950</h6>
+        <h6>{priceFormat.format(totalPrice)}</h6>
       </TotalBill>
 
       {checkout ? (

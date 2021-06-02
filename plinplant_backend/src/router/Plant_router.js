@@ -1,6 +1,7 @@
 const {
   getUser,
   reviewGetByPlant,
+  cartGetByUser,
   plant_input,
   review_input,
   plant_breeding_input,
@@ -136,6 +137,8 @@ router.get('/plant_get_by_id/:id', plantGetById);
 router.get('/article_get_by_id/:id', articleGetById);
 // REVIEW
 router.get('/review/:id', reviewGetByPlant);
+// CART
+router.get('/cart/:id', cartGetByUser);
 
 // DELETE
 router.delete('/article_delete/:id', article_delete);

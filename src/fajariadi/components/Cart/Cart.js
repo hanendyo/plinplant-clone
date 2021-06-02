@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { FaArrowDown } from 'react-icons/fa';
 import { ContextStore } from '../../../context/store/ContextStore';
 import PopoutComponent from '../../../dhika/ModalAlamat/PopupComponent/Popout';
 import ScrollSign from '../../../master/components/additional/ScrollSign';
 import ShoppingSummary from '../../../master/components/additional/ShoppingSummary';
 import { cartItems } from '../../../master/constant/data/dummy-data';
-import { colors } from '../../../master/constant/style';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
 import { CartSection, Container, ListCart } from './Cart.elemen';
 
