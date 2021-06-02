@@ -287,7 +287,7 @@ export const ReviewContainer = styled.section`
   }
 
   & > p {
-    height: 100%;
+    height: 80%;
     display: flex;
     justify-content: center;
     align-items: center;

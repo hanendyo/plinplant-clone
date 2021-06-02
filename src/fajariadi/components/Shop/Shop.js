@@ -296,7 +296,10 @@ const Shop = () => {
         <ReviewContainer>
           <h5>Ulasan</h5>
           {plantReviewState.length === 0 ? (
-            <p>Ayo, jadi orang pertama yang memberikan ulasan!</p>
+            <p>
+              Ayo, jadi orang pertama yang memberikan ulasan untuk tanaman
+              favoritmu!
+            </p>
           ) : (
             <ProductsContainer review />
           )}
