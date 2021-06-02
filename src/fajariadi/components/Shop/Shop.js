@@ -21,7 +21,7 @@ import { ContextStore } from '../../../context/store/ContextStore';
 import { Link } from 'react-router-dom';
 
 const Shop = () => {
-  const { plantIdState, plantIdDispatch } = useContext(ContextStore);
+  const { plantIdState, plantReviewState } = useContext(ContextStore);
   const {
     pk_plant_id,
     plant_name,
@@ -59,11 +59,49 @@ const Shop = () => {
   const isIpad = useMediaQuery({ maxWidth: 900 });
   const isPhone = useMediaQuery({ maxWidth: 760 });
 
+  const slug = (title) => title.toLowerCase().split(' ').join('-');
+
   const priceFormat = new Intl.NumberFormat('id-ID', {
     style: 'currency',
     currency: 'IDR',
     minimumFractionDigits: 0,
   });
+
+  const addToCartHandler = () => {
+    if (highlight === 'seed') {
+      console.log('HIGHLIGHT', highlight);
+      console.log('SEED QTY', seedQuantity);
+      console.log('PRICE SEED', seed_price);
+      console.log('IMAGE SEED', seed_image);
+      console.log('PLANT NAME', plant_name);
+    }
+    if (highlight === 'tuber') {
+      console.log('HIGHLIGHT', highlight);
+      console.log('TUBER QTY', tuberQuantity);
+      console.log('PRICE TUBER', tuber_price);
+      console.log('IMAGE TUBER', tuber_image);
+      console.log('PLANT NAME', plant_name);
+    }
+    if (highlight === 'young') {
+      console.log('HIGHLIGHT', highlight);
+      console.log('YOUNG QTY', youngQuantity);
+      console.log('PRICE YOUNG', teen_price);
+      console.log('IMAGE YOUNG', young_image);
+      console.log('PLANT NAME', plant_name);
+    }
+    if (highlight === 'mature') {
+      console.log('HIGHLIGHT', highlight);
+      console.log('MATURE QTY', matureQuantity);
+      console.log('PRICE MATURE', mature_price);
+      console.log('IMAGE MATURE', mature_image);
+      console.log('PLANT NAME', plant_name);
+    }
+
+    setSeedQuantity(1);
+    setTuberQuantity(1);
+    setYoungQuantity(1);
+    setMatureQuantity(1);
+  };
 
   return (
     <main
@@ -90,7 +128,7 @@ const Shop = () => {
         <Product>
           <div>
             <Info>
-              <Link to={`/ensiklopedia/${pk_plant_id}/${plant_name}`}>
+              <Link to={`/ensiklopedia/${pk_plant_id}/${slug(plant_name)}`}>
                 <ButtonInfo>Ensiklopedia</ButtonInfo>
               </Link>
 
@@ -109,7 +147,11 @@ const Shop = () => {
                         alt={plant_name}
                       />
 
-                      <Quantity shop quantity={seedQuantity} />
+                      <Quantity
+                        shop
+                        quantity={seedQuantity}
+                        setQuantity={setSeedQuantity}
+                      />
                     </>
                   )}
 
@@ -123,7 +165,11 @@ const Shop = () => {
                         alt={plant_name}
                       />
 
-                      <Quantity shop quantity={tuberQuantity} />
+                      <Quantity
+                        shop
+                        quantity={tuberQuantity}
+                        setQuantity={setTuberQuantity}
+                      />
                     </>
                   )}
 
@@ -137,7 +183,11 @@ const Shop = () => {
                         alt={plant_name}
                       />
 
-                      <Quantity shop quantity={youngQuantity} />
+                      <Quantity
+                        shop
+                        quantity={youngQuantity}
+                        setQuantity={setYoungQuantity}
+                      />
                     </>
                   )}
 
@@ -151,7 +201,11 @@ const Shop = () => {
                         alt={plant_name}
                       />
 
-                      <Quantity shop quantity={matureQuantity} />
+                      <Quantity
+                        shop
+                        quantity={matureQuantity}
+                        setQuantity={setMatureQuantity}
+                      />
                     </>
                   )}
                 </>
@@ -189,7 +243,7 @@ const Shop = () => {
                   aliquam.
                 </p>
 
-                <ButtonCart>
+                <ButtonCart onClick={addToCartHandler}>
                   <FaCartPlus className='cart' /> Tambah ke Keranjang
                 </ButtonCart>
               </div>
@@ -241,7 +295,14 @@ const Shop = () => {
 
         <ReviewContainer>
           <h5>Ulasan</h5>
-          <ProductsContainer review />
+          {plantReviewState.length === 0 ? (
+            <p>
+              Ayo, jadi orang pertama yang memberikan ulasan untuk tanaman
+              favoritmu!
+            </p>
+          ) : (
+            <ProductsContainer review />
+          )}
 
           {scroll && <ScrollSign center />}
         </ReviewContainer>

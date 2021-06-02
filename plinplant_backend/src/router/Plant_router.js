@@ -1,4 +1,6 @@
 const {
+  getUser,
+  reviewGetByPlant,
   plant_input,
   review_input,
   plant_breeding_input,
@@ -13,6 +15,7 @@ const {
   weight_input,
   article_input,
   article_get_all_datas,
+  articleGetById,
   article_delete,
   article_update,
   category_input,
@@ -72,7 +75,7 @@ router.post(
 );
 router.post("/plant_input", upload.single("plant_image_upload"), plant_input);
 router.post("/category_input", upload.none(), category_input);
-router.post("/review_input", review_input);
+router.post("/review_input", upload.none(), review_input);
 router.post(
   "/plant_breeding_input",
   upload.fields([
@@ -95,6 +98,7 @@ router.post(
   ]),
   plant_breeding_input
 );
+
 router.post("/price_list_input", upload.none(), price_list_input);
 router.post("/stock_input", upload.none(), stock_input);
 router.post("/order_item_input", upload.none(), order_item_input);
@@ -124,8 +128,14 @@ router.get("/stock_get_all_datas", stock_get_all_datas);
 router.get("/user_get_all_datas", user_get_all_datas);
 router.get("/weight_get_all_datas", weight_get_all_datas);
 
+// GET USER - DUMMY
+router.get("/user/:id", getUser);
+
 // GET BY ID
 router.get("/plant_get_by_id/:id", plantGetById);
+router.get("/article_get_by_id/:id", articleGetById);
+// REVIEW
+router.get("/review/:id", reviewGetByPlant);
 
 // DELETE
 router.delete("/article_delete/:id", article_delete);

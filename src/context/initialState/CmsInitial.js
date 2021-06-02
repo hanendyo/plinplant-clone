@@ -78,10 +78,14 @@ export default {
   },
   article: {
     article_image: '',
-    author: '',
     title: '',
-    content: '',
+    author: '',
     created_at: '',
+    duration: '',
+    source: '',
+    url: '',
+    content: '',
+    pk_article_id: '',
   },
   shipping_charges: {
     shipping_price: '',

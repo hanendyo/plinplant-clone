@@ -286,6 +286,14 @@ export const ReviewContainer = styled.section`
     margin-bottom: 10px;
   }
 
+  & > p {
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
   @media (max-width: 1200px) {
     order: 3;
     max-width: 100%;

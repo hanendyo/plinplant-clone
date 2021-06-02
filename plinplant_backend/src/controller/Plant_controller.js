@@ -1,7 +1,12 @@
 const {
+  // USER - DUMMY
+  getUserInfo,
+  // REVIEW PLANT
+  reviewGetPlantId,
   // ARTICLE
   articleInputTable,
   articleGetAllDatas,
+  articleGetId,
   articleDelete,
   articleUpdate,
   // CATEGORY
@@ -78,6 +83,48 @@ const {
 } = require('../services/Plant_service');
 
 module.exports = {
+  // ::: QUERY TO GET USER INFO ::: DUMMY :::
+
+  getUser: (req, res) => {
+    const id = req.params.id;
+
+    getUserInfo(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+
+  // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
+
+  reviewGetByPlant: (req, res) => {
+    const id = req.params.id;
+
+    reviewGetPlantId(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+
   article_input: (req, res) => {
     const body = req.body;
     console.log(`ARTICLE INPUT BODY: `, body);
@@ -103,6 +150,31 @@ module.exports = {
         status: 1,
         message: 'Input Article Data Success',
         data: result,
+      });
+    });
+  },
+
+  articleGetById: (req, res) => {
+    const id = req.params.id;
+
+    articleGetId(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+      if (results.length === 0) {
+        return res.json({
+          success: 0,
+          message: 'Record not found',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        data: results,
       });
     });
   },

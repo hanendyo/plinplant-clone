@@ -71,6 +71,10 @@ export const Header = styled.div`
     &:nth-of-type(2) {
       margin-bottom: 20px;
     }
+
+    &:last-of-type {
+      white-space: pre-line;
+    }
   }
 `;
 

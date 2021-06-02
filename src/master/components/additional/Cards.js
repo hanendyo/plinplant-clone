@@ -9,7 +9,7 @@ import StatusOrder from './StatusOrder';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { openModalReview } from '../../../context/actions';
 import { useMediaQuery } from 'react-responsive';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const Cards = ({
   id,
@@ -22,8 +22,8 @@ const Cards = ({
   reviewed,
   cart,
   article,
-  release_date,
-  reading_time,
+  created_at,
+  duration,
   title,
   author,
   checkout,
@@ -47,7 +47,10 @@ const Cards = ({
   search,
   selectAddress,
 }) => {
-  const { modalReviewDispatch } = useContext(ContextStore);
+  const { modalReviewDispatch, articleIdState } = useContext(ContextStore);
+
+  const history = useHistory();
+
   const isMini = useMediaQuery({ maxWidth: 370 });
 
   const slug = (title) => title.toLowerCase().split(' ').join('-');
@@ -149,7 +152,10 @@ const Cards = ({
 
           <p>{text}</p>
 
-          <img src={img} alt='' />
+          <img
+            src={process.env.PUBLIC_URL + `/images/user_image/${img}`}
+            alt={name}
+          />
 
           <Rating rate={rating} />
         </CardReview>
@@ -295,8 +301,15 @@ const Cards = ({
       )}
 
       {article && (
-        <CardArticle>
-          <img src={img} alt='' />
+        <CardArticle
+          onClick={() => history.push(`/article/${id}/${slug(title)}`)}
+          active={articleIdState.pk_article_id}
+          id={id}
+        >
+          <img
+            src={process.env.PUBLIC_URL + `/images/article_image/${img}`}
+            alt={title}
+          />
 
           <div>
             <h6>{title}</h6>
@@ -305,11 +318,11 @@ const Cards = ({
             </span>
 
             {isMini ? (
-              <p>{release_date}</p>
+              <p>{created_at}</p>
             ) : (
               <p>
-                {release_date} <FaCircle size={5} className='circle' />{' '}
-                {reading_time} menit baca
+                {created_at} <FaCircle size={5} className='circle' /> {duration}{' '}
+                baca
               </p>
             )}
           </div>
@@ -834,18 +847,19 @@ const CardInvoice = styled.div`
 `;
 
 const CardArticle = styled.div`
-  background-color: ${colors.lightGreenTransparent};
   display: flex;
   border-radius: 10px;
   overflow: hidden;
   transition: all 0.3s ease;
   cursor: pointer;
 
+  background-color: ${({ id, active }) =>
+    active === id ? colors.lightGreen : colors.lightGreenTransparent};
+
   &:not(:last-of-type) {
     margin-bottom: 10px;
   }
 
-  &:first-of-type,
   &:hover {
     background-color: ${colors.lightGreen};
 
@@ -859,14 +873,14 @@ const CardArticle = styled.div`
   }
 
   & > img {
-    width: 130px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
     margin-right: 10px;
   }
 
   & > div {
-    padding: 10px 0;
+    padding: 10px 10px 10px 0;
 
     & > h6 {
       color: ${colors.white};
@@ -875,7 +889,8 @@ const CardArticle = styled.div`
     & > span,
     p {
       font-size: 14px;
-      color: ${colors.lightGreen};
+      color: ${({ id, active }) =>
+        active === id ? '#22222280' : colors.lightGreen};
     }
 
     & > p {
