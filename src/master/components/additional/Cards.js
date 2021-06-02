@@ -152,7 +152,10 @@ const Cards = ({
 
           <p>{text}</p>
 
-          <img src={img} alt='' />
+          <img
+            src={process.env.PUBLIC_URL + `/images/user_image/${img}`}
+            alt={name}
+          />
 
           <Rating rate={rating} />
         </CardReview>

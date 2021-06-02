@@ -21,7 +21,7 @@ import { ContextStore } from '../../../context/store/ContextStore';
 import { Link } from 'react-router-dom';
 
 const Shop = () => {
-  const { plantIdState, plantIdDispatch } = useContext(ContextStore);
+  const { plantIdState, plantReviewState } = useContext(ContextStore);
   const {
     pk_plant_id,
     plant_name,
@@ -58,6 +58,8 @@ const Shop = () => {
 
   const isIpad = useMediaQuery({ maxWidth: 900 });
   const isPhone = useMediaQuery({ maxWidth: 760 });
+
+  const slug = (title) => title.toLowerCase().split(' ').join('-');
 
   const priceFormat = new Intl.NumberFormat('id-ID', {
     style: 'currency',
@@ -126,7 +128,7 @@ const Shop = () => {
         <Product>
           <div>
             <Info>
-              <Link to={`/ensiklopedia/${pk_plant_id}/${plant_name}`}>
+              <Link to={`/ensiklopedia/${pk_plant_id}/${slug(plant_name)}`}>
                 <ButtonInfo>Ensiklopedia</ButtonInfo>
               </Link>
 
@@ -293,7 +295,11 @@ const Shop = () => {
 
         <ReviewContainer>
           <h5>Ulasan</h5>
-          <ProductsContainer review />
+          {plantReviewState.length === 0 ? (
+            <p>Ayo, jadi orang pertama yang memberikan ulasan!</p>
+          ) : (
+            <ProductsContainer review />
+          )}
 
           {scroll && <ScrollSign center />}
         </ReviewContainer>

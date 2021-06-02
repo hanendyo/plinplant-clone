@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   LandingPage,
   Ensiklopedia,
@@ -16,12 +16,23 @@ import CMS from './hanendyo/CMS/CMS';
 import axios from 'axios';
 import { ContextStore } from './context/store/ContextStore';
 import { getPlants } from './context/actions';
-import { getArticles } from './context/actions/fetchingActions';
+import { getArticles, getUser } from './context/actions/fetchingActions';
+import Loader from './fajariadi/components/Loader';
 
 const App = () => {
-  const { tablePlantDispatch, tableArticleDispatch } = useContext(ContextStore);
+  const { tablePlantDispatch, tableArticleDispatch, userInfoDispatch } =
+    useContext(ContextStore);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // ::: FETCH USER INFO :::
+    const getUserInfo = async () => {
+      const res = await axios.get('http://localhost:5000/input/user/2');
+
+      userInfoDispatch(getUser(res.data.data));
+    };
+
     // ::: FETCH PLANT DATA :::
     const getTablePlant = async () => {
       const res = await axios.get(
@@ -40,25 +51,39 @@ const App = () => {
       tableArticleDispatch(getArticles(res.data.data));
     };
 
+    setLoading(true);
+
+    getUserInfo();
     getTablePlant();
     getTableArticle();
+
+    // ::: LOADING TIME :::
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   }, []);
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path='/' component={LandingPage} />
-        <Route path='/ensiklopedia/:id/:name' component={Ensiklopedia} />
-        <Route path='/shop/:id/:name' component={ShoppingPage} />
-        <Route path='/cart' component={CartPage} />
-        <Route path='/checkout' component={CheckoutPage} />
-        <Route path='/invoice' component={InvoicePage} />
-        <Route path='/transaction' component={TransactionPage} />
-        <Route path='/article/:id/:title' component={ArticlePage} />
-        <Route path='/profile' component={ProfilePage} />
-        <Route path='/cms' component={CMS} />
-      </Switch>
-    </Router>
+    <>
+      {loading ? (
+        <Loader loading={loading} />
+      ) : (
+        <Router>
+          <Switch>
+            <Route exact path='/' component={LandingPage} />
+            <Route path='/ensiklopedia/:id/:name' component={Ensiklopedia} />
+            <Route path='/shop/:id/:name' component={ShoppingPage} />
+            <Route path='/cart' component={CartPage} />
+            <Route path='/checkout' component={CheckoutPage} />
+            <Route path='/invoice' component={InvoicePage} />
+            <Route path='/transaction' component={TransactionPage} />
+            <Route path='/article/:id/:title' component={ArticlePage} />
+            <Route path='/profile' component={ProfilePage} />
+            <Route path='/cms' component={CMS} />
+          </Switch>
+        </Router>
+      )}
+    </>
   );
 };
 

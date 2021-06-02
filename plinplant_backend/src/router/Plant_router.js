@@ -1,4 +1,6 @@
 const {
+  getUser,
+  reviewGetByPlant,
   plant_input,
   review_input,
   plant_breeding_input,
@@ -126,9 +128,14 @@ router.get('/stock_get_all_datas', stock_get_all_datas);
 router.get('/user_get_all_datas', user_get_all_datas);
 router.get('/weight_get_all_datas', weight_get_all_datas);
 
+// GET USER - DUMMY
+router.get('/user/:id', getUser);
+
 // GET BY ID
 router.get('/plant_get_by_id/:id', plantGetById);
 router.get('/article_get_by_id/:id', articleGetById);
+// REVIEW
+router.get('/review/:id', reviewGetByPlant);
 
 // DELETE
 router.delete('/article_delete/:id', article_delete);

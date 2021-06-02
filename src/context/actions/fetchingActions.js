@@ -1,3 +1,17 @@
+// ::: USER INFO REDUCER ::: DUMMY :::
+
+export const getUser = (data) => ({
+  type: 'FETCH_USER_INFO',
+  payload: data,
+});
+
+// ::: END OF USER INFO REDUCER ::: DUMMY :::
+
+export const getReviews = (data) => ({
+  type: 'FETCH_PLANT_REVIEW',
+  payload: data,
+});
+
 export const getPlants = (data) => ({
   type: 'FETCH_TABLE_PLANT',
   payload: data,

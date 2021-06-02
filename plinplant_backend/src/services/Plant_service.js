@@ -1,6 +1,34 @@
 const pool = require('../database/Database');
 
 module.exports = {
+  // ::: QUERY TO GET USER INFO ::: DUMMY :::
+
+  getUserInfo: (id, callback) => {
+    pool.query(
+      `Select * from user_info where pk_user_id = ?`,
+      [id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+
+  // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
+
+  reviewGetPlantId: (id, callback) => {
+    pool.query(
+      `Select * from plant_review where fk_plant_id = ?`,
+      [id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+
   articleInputTable: (body, callback) => {
     console.log(`bdy: `, body);
 

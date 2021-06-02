@@ -97,8 +97,6 @@ VALUES
 
 ('Oregano', 'oregano_mature.jpg', 'Oregano ditemukan dalam masakan Meksiko dan Mediterania. Meski serupa, varietas ini berasal dari keluarga yang berbeda.', 'Selain memasak, oregano digunakan dalam banyak aplikasi medis. Minyak ini dapat digunakan sebagai antiseptik topikal untuk meredakan sakit tenggorokan dan membantu menangkal masuk angin. Ramuan itu sendiri memiliki banyak manfaat bagi kesehatan. Ini kaya akan antioksidan. dan memiliki sifat anti-inflamasi', 'Oregano menambah rasa pada saus, pizza dan sangat bagus untuk bumbu daging. Tambahkan di akhir memasak untuk memaksimalkan rasa.', '7 - 21', '80 - 90', 'Merambat', 4)
 
-
-
 -- ::: CATEGORY :::
 CREATE TABLE table_category(
 	pk_category_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -113,8 +111,6 @@ VALUES
 ('Sayuran Hijau'),
 ('Buah'),
 ('Rempah');
-
-
 
 -- ::: PLANT BREEDING :::
 CREATE TABLE table_plant_breeding(
@@ -205,8 +201,6 @@ VALUES
 
 ('Tabur langsung di tanah rata-rata di bawah sinar matahari penuh setelah semua bahaya embun beku ketika suhu tetap di atas 45 derajat F. Singkirkan gulma dan kerjakan bahan organik di atas 6-8 inci tanah; lalu ratakan dan halus. Taburkan benih secara merata dan tutupi dengan tanah halus. Kencangkan tanah dengan ringan dan jaga agar tetap lembab. Bibit akan tumbuh dalam 10-21 hari. Pisahkan tipis hingga 12 inci saat bibit memiliki tiga set daun.', 'Oregano sebenarnya memiliki rasa paling beraroma jika dibiarkan, dengan sedikit penyiraman dan tanpa pemupukan.', 'Jagalah agar tanaman disiram dengan baik selama musim tanam, terutama selama musim kering. Tanaman membutuhkan sekitar 1 inci hujan per minggu selama musim tanam. Gunakan alat pengukur hujan untuk memeriksa apakah Anda perlu menambahkan air. Cara terbaik adalah menyiram dengan sistem tetesan atau tetesan yang mengalirkan air pada tekanan rendah di permukaan tanah. Jika Anda menyiram dengan alat penyiram di atas kepala, sirami di pagi hari agar dedaunan memiliki waktu untuk mengering sebelum malam, untuk meminimalkan masalah penyakit. Jaga tanah tetap lembab tetapi tidak jenuh.', 'Daun segar dapat dipanen segera setelah tanaman mencapai ketinggian 6 ". Waktu terbaik untuk memanen daun adalah pagi hari setelah embun mengering. Panen seluruh batang dengan memotongnya setidaknya 1" di atas tanah untuk memungkinkan tumbuh baru pertumbuhan. Daun segar akan disimpan di lemari es selama sekitar lima hari, tetapi juga bisa dibekukan atau dikeringkan. Karena panas cenderung merusak rasa oregano, oregano harus ditambahkan ke makanan panas segera sebelum disajikan. Tidak seperti kebanyakan herba, daun oregano kering cenderung memiliki rasa yang lebih kuat daripada yang segar.', 'oregano_seed.jpg', 'oregano_tuber.jpg', 'oregano_young.jpg', 'oregano_mature.jpg', 35)
 
-
-
 -- ::: WEIGHT :::
 CREATE TABLE table_weight(
 	pk_weight_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -259,8 +253,6 @@ values
 (100, 500, 1500, 2000, 34, 34),
 (100, 500, 1500, 2000, 35, 35)
 
-
-
 -- ::: PRICELIST :::
 CREATE TABLE table_price_list(
 	pk_price_list_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -312,8 +304,6 @@ VALUES
 (20000, 50000, 150000, 300000, 34),
 (20000, 50000, 150000, 300000, 35)
 
-
-
 -- ::: STOCK :::
 CREATE TABLE table_stock (
 	pk_stock_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -363,8 +353,6 @@ VALUES
 (1000, 1000, 1000, 1000),
 (1000, 1000, 1000, 1000)
 
-
-
 -- ::: CREATE VIEW -> PLANT DATA :::
 CREATE VIEW plant_data
 AS
@@ -389,8 +377,7 @@ JOIN table_stock ON fk_stock_id = pk_stock_id
 SELECT * FROM plant_data
 drop view plant_data
 
-
-
+-- ::::::: END OF PLANT DATA :::::::
 
 
 -- ::: USER :::
@@ -400,6 +387,7 @@ CREATE TABLE table_user(
 	picture VARCHAR(255),
 	email VARCHAR(50),
 	`password` VARCHAR(50),
+	phone_number VARCHAR(50),
 	birth_date VARCHAR(50),
 	fk_gender_id INT
 );
@@ -408,14 +396,11 @@ DROP TABLE table_user
 truncate table table_user
 
 -- ::: USER INITIAL VALUE :::
-INSERT INTO table_user(fullname, picture, email, `password`, birth_date, fk_gender_id)
+INSERT INTO table_user(fullname, picture, email, `password`, phone_number, birth_date, fk_gender_id)
 VALUES
-('Fajar Riadi', 'ig.jpg', 'fajariadi.id@gmail.com', 'passwordPlinplant', '4 April 1997', 1),
-('Riadi Fajar', 'twt.jpg', 'riadifajar.id@gmail.com', 'passwordTwt', '22 Mei 1997', 1),
-('Hanendyo Indira', 'default.png', 'hanendyo.id@gmail.com', 'passwordDyo', '27 Juni 1997', 1)
-
-
-
+('Fajar Riadi', 'ig.jpg', 'fajariadi.id@gmail.com', 'passwordPlinplant', '085156493801', '4 April 1997', 1),
+('Dhika Adhiwijna', 'twt.jpg', 'adhika.id@gmail.com', 'passwordTwt', '085156493802', '22 Mei 1997', 1),
+('Hanendyo Indira', 'default.png', 'hanendyo.id@gmail.com', 'passwordDyo', '085156493803', '27 Juni 1997', 1)
 
 -- ::: GENDER :::
 CREATE TABLE table_gender(
@@ -429,8 +414,49 @@ drop table table_gender
 insert into table_gender(type)
 values('Pria'),('Wanita')
 
+-- ::: CREATE VIEW USER :::
+create view user_info
+as
+select pk_user_id, fullname, picture, email, `password`, phone_number, birth_date, type
+from table_user
+join table_gender on fk_gender_id = pk_gender_id
 
+select * from user_info
 
+-- ::: CITY :::
+CREATE TABLE table_city(
+	pk_city_id INT AUTO_INCREMENT PRIMARY KEY,
+	city_name VARCHAR(50),
+	city_code VARCHAR(50)
+);
+SELECT * FROM table_city;
+DROP TABLE table_city
+
+-- ::: CITY VALUES :::
+INSERT INTO table_city(city_name, city_code)
+VALUES
+('Jakarta', 'JKT'),
+('Bogor', 'BGR'),
+('Depok', 'DPK'),
+('Tangerang', 'TNG'),
+('Bekasi', 'BKS')
+
+-- ::: SHIPPING CHARGE :::
+CREATE TABLE table_shipping_charges(
+	pk_shipping_charges_id INT AUTO_INCREMENT PRIMARY KEY,
+	shipping_price INT,
+	fk_city_id INT
+);
+SELECT * FROM table_shipping_charges
+	
+-- ::: SHIPPING CHARGE VALUES :::
+INSERT INTO table_shipping_charges(shipping_price, fk_city_id)
+VALUES 
+(0, 1),
+(10000, 2),
+(12000, 3),
+(16000, 4),
+(18000, 5)
 
 -- ::: CONTACT :::
 CREATE TABLE table_contact(
@@ -450,46 +476,26 @@ insert into table_contact(recipient_name, phone_number, address, zipcode, fk_cit
 values
 ('Fajar Riadi', '085156493801', 'Bakso Zahra Salembaran', 15213, 4, 1),
 ('Dhika Adhiwijna', '085156493802', 'GBK Bung Karni', 15222, 1, 1),
-('Hanendyo', '085156493803', 'Puncak Gunung Warpat', 15212, 2, 1)
+('Hanendyo', '085156493803', 'Puncak Gunung Warpat', 15212, 2, 1),
+('Dyo Haw', '085156493844', 'Karawang - Dekat Stasiun Karawang Lama', 15312, 5, 2),
+('Yudi Irwanto', '085156493877', 'Alam Sutra, Nawadata Tower Lt. 17', 15442, 4, 2),
+('Vincent', '085156493860', 'Cinere - Patokan Lampu Merah Bermusik', 15552, 4, 2)
+
+
+
+-- ::: TESTING JOIN :::
+select recipient_name, phone_number, address, zipcode, city_name, city_code, shipping_price, fk_user_id
+from table_user
+join table_contact on fk_user_id = pk_user_id
+join table_city tc on fk_city_id = pk_city_id
+join table_shipping_charges tsc ON tsc.fk_city_id = tc.pk_city_id
 
 
 
 
 
--- ::: CITY :::
-CREATE TABLE table_city(
-	pk_city_id INT AUTO_INCREMENT PRIMARY KEY,
-	city_name VARCHAR(50),
-	city_code varchar(50)
-);
-SELECT * FROM table_city;
-drop table table_city
-
--- ::: CITY VALUES :::
-insert into table_city(city_name, city_code)
-values
-('Jakarta', 'JKT'),
-('Bogor', 'BGR'),
-('Depok', 'DPK'),
-('Tangerang', 'TNG'),
-('Bekasi', 'BKS')
 
 
--- ::: SHIPPING CHARGE :::
-CREATE TABLE table_shipping_charges(
-	pk_shipping_charges_id INT AUTO_INCREMENT PRIMARY KEY,
-	shipping_price INT,
-	fk_city_id INT
-);
-	
--- ::: SHIPPING CHARGE VALUES :::
-insert into table_shipping_charges(shipping_price, fk_city_id)
-values 
-(0, 1),
-(10000, 2),
-(12000, 3),
-(16000, 4),
-(18000, 5)
 
 
 
@@ -587,24 +593,24 @@ CREATE TABLE table_cart(
 );
 SELECT * FROM table_cart;
 drop table table_cart;
+truncate table table_cart
 
 INSERT INTO table_cart(phase_image, plant_name, plant_phase, price, quantity, fk_user_id)
 VALUES
 ('buah.jpg', 'Lavender', 'Biji', 20000, 2, 1),
 ('sayur.jpg', 'Blood Bull', 'Dewasa', 300000, 3, 1),
 ('hias.jpg', 'Lavender', 'Bonggol', 150000, 1, 1),
+('rempah.jpg', 'Lavender', 'Muda', 150000, 1, 2),
+('hias2.jpg', 'Tomat', 'Dewasa', 150000, 1, 3),
+('buah4.jpg', 'Jeruk', 'Bonggol', 150000, 1, 2)
 
 
-select phase_image, plant_name, plant_phase, price, quantity
+select phase_image, plant_name, plant_phase, price, quantity, fk_user_id
 from table_user
 join table_cart on fk_user_id = pk_user_id
+where fk_user_id = 1
 
 
-FROM table_plant
-JOIN table_category ON fk_category_id = pk_category_id
-JOIN table_plant_breeding ON fk_plant_id = pk_plant_id
-JOIN table_price_list ON pk_plant_breeding_id = fk_plant_breeding_id
-JOIN table_stock ON fk_stock_id = pk_stock_id
 
 
 

@@ -8,9 +8,12 @@ import Footer from '../../master/components/Footer/Footer';
 import axios from 'axios';
 import { ContextStore } from '../../context/store/ContextStore';
 import { getPlantById } from '../../context/actions/fetchingActions';
+import Loader from '../components/Loader';
 
 const Ensiklopedia = ({ match }) => {
   const { plantIdState, plantIdDispatch } = useContext(ContextStore);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getPlantId = async () => {
@@ -25,23 +28,36 @@ const Ensiklopedia = ({ match }) => {
       top: 0,
     });
 
+    setLoading(true);
+
     getPlantId();
+
+    // ::: LOADING TIME :::
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   }, [match.params.id]);
 
   console.log('PLANT', plantIdState);
 
   return (
-    <div>
-      <Navbar />
-      <Header />
-      <Body />
-      <CTAEnsiklopedia
-        id={plantIdState.pk_plant_id}
-        name={plantIdState.plant_name}
-      />
-      <RelatedProduct category={plantIdState.category_name} />
-      <Footer colored />
-    </div>
+    <>
+      {loading ? (
+        <Loader loading={loading} />
+      ) : (
+        <div>
+          <Navbar />
+          <Header />
+          <Body />
+          <CTAEnsiklopedia
+            id={plantIdState.pk_plant_id}
+            name={plantIdState.plant_name}
+          />
+          <RelatedProduct category={plantIdState.category_name} />
+          <Footer colored />
+        </div>
+      )}
+    </>
   );
 };
 

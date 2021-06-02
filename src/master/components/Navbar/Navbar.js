@@ -3,15 +3,16 @@ import { Home, Logo, Nav, LinksContainer, Container } from './Navbar.elemen';
 import { FaChevronLeft, FaShoppingCart } from 'react-icons/fa';
 import Button from '../additional/Button';
 import { colors } from '../../constant/style';
-import pic from '../../../fajariadi/assets/images/ig.jpg';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-  const login = true;
-  const [profile, setProfile] = useState(false);
+  const { tableArticleState, userInfoState } = useContext(ContextStore);
+  const login = userInfoState.length !== 0;
+  // [{...}] -> userInfoState[0] -> fullname.split(' ') -> ['Fajar', 'Riadi'] -> index 0
+  const greet = userInfoState[0]?.fullname.split(' ')[0];
 
-  const { tableArticleState } = useContext(ContextStore);
+  const [profile, setProfile] = useState(false);
 
   // ::: NAVBAR INTERACTION :::
   const [shadow, setShadow] = useState(false);
@@ -61,17 +62,29 @@ const Navbar = () => {
             {login ? (
               <>
                 <button onClick={() => setProfile(!profile)}>
-                  <img src={pic} alt='' />
-                  <p>Halo, Fajar</p>
+                  <img
+                    src={
+                      process.env.PUBLIC_URL +
+                      `/images/user_image/${userInfoState[0]?.picture}`
+                    }
+                    alt={userInfoState[0]?.fullname}
+                  />
+                  <p>Halo, {greet}</p>
                 </button>
 
                 <div>
                   <div>
-                    <img src={pic} alt='' />
+                    <img
+                      src={
+                        process.env.PUBLIC_URL +
+                        `/images/user_image/${userInfoState[0]?.picture}`
+                      }
+                      alt={userInfoState[0]?.fullname}
+                    />
 
                     <div>
-                      <h5>Fajar Riadi</h5>
-                      <span>fajariadi.js@gmail.com</span>
+                      <h5>{userInfoState[0]?.fullname}</h5>
+                      <span>{userInfoState[0]?.email}</span>
                     </div>
                   </div>
 

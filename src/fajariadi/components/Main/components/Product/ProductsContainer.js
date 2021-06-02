@@ -35,7 +35,8 @@ const ProductsContainer = ({
   selectAddress,
   related,
 }) => {
-  const { tablePlantState, tableArticleState } = useContext(ContextStore);
+  const { tablePlantState, tableArticleState, plantReviewState } =
+    useContext(ContextStore);
 
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
@@ -166,17 +167,27 @@ const ProductsContainer = ({
 
       {review && (
         <ReviewContainer>
-          {reviews.map(({ name, created, text, img, rating }, index) => (
-            <Cards
-              review
-              name={name}
-              created={created}
-              text={text}
-              rating={rating}
-              img={img}
-              key={index}
-            />
-          ))}
+          {plantReviewState.map(
+            ({
+              pk_review_id,
+              picture,
+              fullname,
+              rating,
+              created_at,
+              comment,
+            }) => (
+              <Cards
+                review
+                name={fullname}
+                created={created_at}
+                text={comment}
+                rating={rating}
+                img={picture}
+                key={pk_review_id}
+                id={pk_review_id}
+              />
+            )
+          )}
         </ReviewContainer>
       )}
 

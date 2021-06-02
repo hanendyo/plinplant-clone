@@ -11,7 +11,9 @@ import {
 import { CmsReducer } from '../reducer/CmsReducer';
 import {
   articleIdReducer,
+  plantReviewReducer,
   tableArticleReducer,
+  userInfoReducer,
 } from '../reducer/fetchingReducer';
 import {
   modalPilihAlamatReducer,
@@ -135,6 +137,15 @@ export const ContextProvider = ({ children }) => {
   );
 
   // !::: FETCHING :::
+  // ::: FETCH USER INFO ::: DUMMY :::
+  const [userInfoState, userInfoDispatch] = useReducer(userInfoReducer, []);
+
+  // ::: FETCH PLANT REVIEW :::
+  const [plantReviewState, plantReviewDispatch] = useReducer(
+    plantReviewReducer,
+    []
+  );
+
   // ::: FETCH TABLE PLANT :::
   const [tablePlantState, tablePlantDispatch] = useReducer(
     tablePlantReducer,
@@ -253,6 +264,14 @@ export const ContextProvider = ({ children }) => {
         // ::: FETCH ARTICLE ID :::
         articleIdState,
         articleIdDispatch,
+
+        // ::: FETCH USER INFO ::: DUMMY :::
+        userInfoState,
+        userInfoDispatch,
+
+        // ::: FETCH PLANT REVIEW :::
+        plantReviewState,
+        plantReviewDispatch,
       }}
     >
       {children}
