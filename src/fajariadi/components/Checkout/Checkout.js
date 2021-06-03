@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FaChevronDown, FaExclamationTriangle } from 'react-icons/fa';
+import { getSelectedAddress } from '../../../context/actions';
 import { openModalPilihAlamat } from '../../../context/actions/modalActions';
 import { ContextStore } from '../../../context/store/ContextStore';
 import PopoutComponent from '../../../dhika/ModalAlamat/PopupComponent/Popout';
@@ -7,7 +8,7 @@ import PopoutPengiriman from '../../../dhika/Pengiriman/PoputPengiriman/PopoutPe
 import Button from '../../../master/components/additional/Button';
 import ScrollSign from '../../../master/components/additional/ScrollSign';
 import ShoppingSummary from '../../../master/components/additional/ShoppingSummary';
-import { cartItems } from '../../../master/constant/data/dummy-data';
+import { priceFormat } from '../../../master/constant/constantVariables';
 import { colors } from '../../../master/constant/style';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
 import {
@@ -20,18 +21,34 @@ import {
 } from './Checkout.elemen';
 
 const Checkout = () => {
+  const { userCartState, userAddressState, selectedAddressState } =
+    useContext(ContextStore);
+
   const [scroll, setScroll] = useState(true);
 
+  const {
+    recipient_name,
+    phone_number,
+    address,
+    zipcode,
+    city_name,
+    city_code,
+    shipping_price,
+  } = userAddressState[selectedAddressState];
+
   useEffect(() => {
-    if (cartItems.length < 3) setScroll(false);
-    if (cartItems.length > 2) setScroll(true);
-  }, [cartItems]);
+    if (userCartState.length < 3) setScroll(false);
+    if (userCartState.length > 2) setScroll(true);
+  }, [userCartState]);
 
   const {
     modalPilihAlamatState,
     modalPilihAlamatDispatch,
     modalTambahAlamatState,
   } = useContext(ContextStore);
+
+  console.log('CHECKOUT', userCartState);
+  console.log('ADDRESSSSSS', userAddressState);
 
   return (
     <CheckoutSection>
@@ -46,14 +63,16 @@ const Checkout = () => {
               <div>
                 <Address>
                   <div>
-                    <h6>Fajar</h6>
-                    <span>085156493801</span>
+                    <h6>{recipient_name}</h6>
+                    <span>{phone_number}</span>
                   </div>
 
                   {/* Detail Alamat */}
-                  <p>Jl. Salembaran - Depan Bakso Zahra</p>
+                  <p>{address}</p>
                   {/* Kota - Kecamatan - Kode pos */}
-                  <p>Kecamatan Cibereum, Bogor, 15213</p>
+                  <p>
+                    {city_name}, {zipcode}
+                  </p>
                 </Address>
 
                 <Button
@@ -87,8 +106,8 @@ const Checkout = () => {
                   berikutnya. <FaExclamationTriangle className='warning' />
                 </p>
                 <p>
-                  Berat barang ({'< 1 Kg'}) dikenakan biaya ongkos kirim sebesar
-                  Rp 10.000. Berlaku kelipatan.{' '}
+                  Berat barang ({'< 1 Kg'}) dikenakan biaya ongkos kirim sebesar{' '}
+                  {priceFormat.format(shipping_price)}. Berlaku kelipatan.{' '}
                   <FaExclamationTriangle className='warning' />
                 </p>
 
@@ -101,7 +120,11 @@ const Checkout = () => {
             </div>
           </div>
 
-          <ShoppingSummary checkout />
+          <ShoppingSummary
+            checkout
+            city_code={city_code}
+            shipping_price={shipping_price}
+          />
         </div>
       </Container>
 

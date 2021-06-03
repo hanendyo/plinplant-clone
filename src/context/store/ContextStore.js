@@ -7,6 +7,7 @@ import {
   modalReviewReducer,
   tablePlantReducer,
   plantIdReducer,
+  selectedAddressReducer,
 } from '../reducer';
 import { CmsReducer } from '../reducer/CmsReducer';
 import {
@@ -15,6 +16,7 @@ import {
   tableArticleReducer,
   userInfoReducer,
   userCartReducer,
+  userAddressReducer,
 } from '../reducer/fetchingReducer';
 import {
   modalPilihAlamatReducer,
@@ -150,6 +152,18 @@ export const ContextProvider = ({ children }) => {
   // ::: FETCH USER CART :::
   const [userCartState, userCartDispatch] = useReducer(userCartReducer, []);
 
+  // ::: FETCH USER ADDRESS :::
+  const [userAddressState, userAddressDispatch] = useReducer(
+    userAddressReducer,
+    []
+  );
+
+  // ::: SELECTED USER ADDRESS :::
+  const [selectedAddressState, selectedAddressDispatch] = useReducer(
+    selectedAddressReducer,
+    0
+  );
+
   // ::: FETCH TABLE PLANT :::
   const [tablePlantState, tablePlantDispatch] = useReducer(
     tablePlantReducer,
@@ -280,6 +294,14 @@ export const ContextProvider = ({ children }) => {
         // ::: FETCH USER CART :::
         userCartState,
         userCartDispatch,
+
+        // ::: FETCH USER ADDRESS :::
+        userAddressState,
+        userAddressDispatch,
+
+        // ::: SELECTED USER ADDRESS :::
+        selectedAddressState,
+        selectedAddressDispatch,
       }}
     >
       {children}

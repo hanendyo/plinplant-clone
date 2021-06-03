@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from 'react';
 import {
   StyledProfile,
   ProfileContainer,
@@ -6,43 +6,41 @@ import {
   Information,
   Data,
   RightArea,
-} from "./Profile.component";
-import ModalAlamat from "../ModalAlamat/ModalAlamat";
-import UploadBox from "../../master/components/additional/UploadBox";
-import ProductsContainer from "../../fajariadi/components/Main/components/Product/ProductsContainer";
-import { addresses } from "../../master/constant/data/dummy-data";
-import ScrollSign from "../../master/components/additional/ScrollSign";
-import { ContextStore } from "../../context/store/ContextStore";
-import PopoutComponent from "../ModalAlamat/PopupComponent/Popout";
-import Button from "../../master/components/additional/Button";
-import { colors } from "../../master/constant/style";
-import { openModalTambahAlamat } from "../../context/actions/modalActions";
+} from './Profile.component';
+import UploadBox from '../../master/components/additional/UploadBox';
+import ProductsContainer from '../../fajariadi/components/Main/components/Product/ProductsContainer';
+import { addresses } from '../../master/constant/data/dummy-data';
+import ScrollSign from '../../master/components/additional/ScrollSign';
+import { ContextStore } from '../../context/store/ContextStore';
+import PopoutComponent from '../ModalAlamat/PopupComponent/Popout';
+import Button from '../../master/components/additional/Button';
+import { colors } from '../../master/constant/style';
+import { openModalTambahAlamat } from '../../context/actions/modalActions';
 
 const Profile = () => {
-  const [visible, setVisible] = useState(true);
+  const {
+    modalTambahAlamatState,
+    modalTambahAlamatDispatch,
+    userAddressState,
+  } = useContext(ContextStore);
 
   const [biodata, setBiodata] = useState(true);
   const [address, setAddress] = useState(false);
 
   const [empty, setEmpty] = useState(true);
 
-  const [selected, setSelected] = useState(false);
-
-  const { modalTambahAlamatState, modalTambahAlamatDispatch } =
-    useContext(ContextStore);
-
   const [scroll, setScroll] = useState(true);
 
   useEffect(() => {
-    if (addresses.length < 4) setScroll(false);
-    if (addresses.length > 3) setScroll(true);
-  }, [addresses]);
+    if (userAddressState.length < 3) setScroll(false);
+    if (userAddressState.length > 2) setScroll(true);
+  }, [userAddressState]);
 
   return (
     <StyledProfile>
       {biodata && (
         <ProfileContainer>
-          <div className="valueChoose">
+          <div className='valueChoose'>
             <TextBox biodata={biodata}>
               <p>Biodata Diri</p>
             </TextBox>
@@ -95,7 +93,7 @@ const Profile = () => {
 
       {address && (
         <ProfileContainer>
-          <div className="valueChoose">
+          <div className='valueChoose'>
             <TextBox
               onClick={() => {
                 setBiodata(!biodata);
@@ -114,12 +112,12 @@ const Profile = () => {
             <Button
               primary
               address
-              text="Tambah Alamat Baru"
+              text='Tambah Alamat Baru'
               bgColor={colors.yellow}
               onClick={() => modalTambahAlamatDispatch(openModalTambahAlamat())}
             />
 
-            <ProductsContainer profileAddress selected={selected} />
+            <ProductsContainer profileAddress />
 
             {scroll && <ScrollSign center />}
           </RightArea>

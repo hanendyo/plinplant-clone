@@ -32,6 +32,16 @@ export const userCartReducer = (state, action) => {
   }
 };
 
+export const userAddressReducer = (state, action) => {
+  switch (action.type) {
+    case 'FETCH_USER_ADDRESS':
+      return [...action.payload];
+
+    default:
+      return state;
+  }
+};
+
 export const tablePlantReducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_TABLE_PLANT':

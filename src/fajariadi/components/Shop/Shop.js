@@ -13,7 +13,6 @@ import {
   ReviewContainer,
   Info,
 } from './Shop.elemen';
-import { plant, reviews } from '../../../master/constant/data/dummy-data';
 import Quantity from '../../../master/components/additional/Quantity';
 import ScrollSign from '../../../master/components/additional/ScrollSign';
 import { useMediaQuery } from 'react-responsive';
@@ -39,6 +38,12 @@ const Shop = () => {
     mature_stock,
   } = plantIdState;
 
+  const rate = plantReviewState
+    .map((review) => review.rating)
+    .reduce((a, b) => a + b, 0);
+
+  const ratingAvg = rate === 0 ? 0 : rate / plantReviewState.length;
+
   // ::: SCROLL SIGN :::
   const [scroll, setScroll] = useState(true);
 
@@ -52,9 +57,9 @@ const Shop = () => {
   const [matureQuantity, setMatureQuantity] = useState(1);
 
   useEffect(() => {
-    if (reviews.length < 4) setScroll(false);
-    if (reviews.length > 3) setScroll(true);
-  }, [reviews]);
+    if (plantReviewState.length < 4) setScroll(false);
+    if (plantReviewState.length > 3) setScroll(true);
+  }, [plantReviewState]);
 
   const isIpad = useMediaQuery({ maxWidth: 900 });
   const isPhone = useMediaQuery({ maxWidth: 760 });
@@ -216,7 +221,8 @@ const Shop = () => {
 
                 <div>
                   <span>
-                    <FaStar className='star' /> 4.8
+                    <FaStar className='star' />{' '}
+                    {ratingAvg === 0 ? 0 : ratingAvg.toFixed(1)}
                   </span>
 
                   {highlight === 'seed' && <span>Stok {seed_stock}</span>}

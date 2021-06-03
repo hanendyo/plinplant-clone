@@ -7,14 +7,16 @@ import Quantity from './Quantity';
 import { FaCheck, FaCircle, FaRegTrashAlt } from 'react-icons/fa';
 import StatusOrder from './StatusOrder';
 import { ContextStore } from '../../../context/store/ContextStore';
-import { openModalReview } from '../../../context/actions';
+import { openModalReview, setSelectedAddress } from '../../../context/actions';
 import { useMediaQuery } from 'react-responsive';
 import { Link, useHistory } from 'react-router-dom';
+import { priceFormat, weightFormat } from '../../constant/constantVariables';
 
 const Cards = ({
   id,
   name,
   img,
+  weight,
   created,
   text,
   rating,
@@ -44,10 +46,17 @@ const Cards = ({
   postal,
   route,
   selected,
+  setSelected,
   search,
   selectAddress,
+  index,
 }) => {
-  const { modalReviewDispatch, articleIdState } = useContext(ContextStore);
+  const {
+    modalReviewDispatch,
+    articleIdState,
+    selectedAddressState,
+    selectedAddressDispatch,
+  } = useContext(ContextStore);
 
   const history = useHistory();
 
@@ -55,11 +64,7 @@ const Cards = ({
 
   const slug = (title) => title.toLowerCase().split(' ').join('-');
 
-  const priceFormat = new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0,
-  });
+  console.log('CARDDD ADDREE', selectedAddressState);
 
   return (
     <>
@@ -191,15 +196,20 @@ const Cards = ({
 
       {checkout && (
         <CardCheckout>
-          <img src={img} alt='' />
+          <img
+            src={process.env.PUBLIC_URL + `/images/Plant/${img}`}
+            alt={img}
+          />
 
           <div>
             <h5>{name}</h5>
             <span>{phase}</span>
-            <span>1 barang (500 gr)</span>
+            <span>
+              {quantity} barang ({weightFormat(weight)})
+            </span>
           </div>
 
-          <h5>{price}</h5>
+          <h5>{priceFormat.format(price)}</h5>
         </CardCheckout>
       )}
 
@@ -242,33 +252,33 @@ const Cards = ({
           <div>
             {status === 'Transaksi Selesai' ? (
               <div>
-                <a href='/invoice'>
+                <Link to='/invoice'>
                   <Button
                     primary
                     address
                     text='Lihat Detail Transaksi'
                     bgColor='unset'
                   />
-                </a>
+                </Link>
 
-                <a href='/invoice'>
+                <Link to='/invoice'>
                   <Button
                     primary
                     address
                     text='Beri Ulasan'
                     bgColor={colors.yellow}
                   />
-                </a>
+                </Link>
               </div>
             ) : (
-              <a href='/invoice'>
+              <Link to='/invoice'>
                 <Button
                   primary
                   address
                   text='Lihat Detail Transaksi'
                   bgColor={colors.yellow}
                 />
-              </a>
+              </Link>
             )}
           </div>
         </CardTransaction>
@@ -352,10 +362,15 @@ const Cards = ({
 
           <button>Ubah Alamat</button>
 
-          {selected ? (
+          {index === selectedAddressState ? (
             <FaCheck size={20} color={colors.white} className='checked' />
           ) : (
-            <Button primary text='Pilih' bgColor={colors.darkGreen} />
+            <Button
+              onClick={() => selectedAddressDispatch(setSelectedAddress(index))}
+              primary
+              text='Pilih'
+              bgColor={colors.darkGreen}
+            />
           )}
         </CardAddress>
       )}
@@ -374,10 +389,15 @@ const Cards = ({
 
           <button>Ubah Alamat</button>
 
-          {selected ? (
-            <FaCheck size={20} color={colors.white} className='checked' />
+          {index === selectedAddressState ? (
+            <FaCheck size={20} color={colors.darGreen} className='checked' />
           ) : (
-            <Button primary text='Pilih' bgColor={colors.darkGreen} />
+            <Button
+              onClick={() => selectedAddressDispatch(setSelectedAddress(index))}
+              primary
+              text='Pilih'
+              bgColor={colors.darkGreen}
+            />
           )}
         </CardModalAddress>
       )}

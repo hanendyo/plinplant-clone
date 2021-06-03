@@ -1,19 +1,32 @@
 import React, { useContext } from 'react';
 import { FaLongArrowAltRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { openModalTambahAlamat } from '../../../context/actions/modalActions';
 import { ContextStore } from '../../../context/store/ContextStore';
-import { priceFormat } from '../../constant/constantVariables';
+import { priceFormat, weightFormat } from '../../constant/constantVariables';
 import { addresses } from '../../constant/data/dummy-data';
 import { colors } from '../../constant/style';
 import Button from './Button';
 
-const ShoppingSummary = ({ checkout }) => {
-  const { modalTambahAlamatDispatch, userCartState } = useContext(ContextStore);
-  console.log('KENAPA NAN?', userCartState);
+const ShoppingSummary = ({ checkout, city_code, shipping_price }) => {
+  const { modalTambahAlamatDispatch, userCartState, userAddressState } =
+    useContext(ContextStore);
+
   const totalPrice = userCartState
     .map((item) => item.price * item.quantity)
     .reduce((a, b) => a + b, 0);
+
+  const totalItems = userCartState
+    .map((item) => item.quantity)
+    .reduce((a, b) => a + b, 0);
+
+  // ::: DALAM GRAM :::
+  const totalWeight = userCartState
+    .map((item) => item.weight * item.quantity)
+    .reduce((a, b) => a + b, 0);
+
+  const totalShippingPrice = Math.ceil(totalWeight / 1000) * shipping_price;
 
   return (
     <SummarySection>
@@ -22,7 +35,7 @@ const ShoppingSummary = ({ checkout }) => {
       <TotalPrice>
         <div>
           <p>Total Harga</p>
-          <span>4 barang</span>
+          <span>{totalItems} barang</span>
         </div>
 
         <p>{priceFormat.format(totalPrice)}</p>
@@ -33,27 +46,34 @@ const ShoppingSummary = ({ checkout }) => {
           <div>
             <p>Total Ongkos Kirim</p>
             <span>
-              JKT <FaLongArrowAltRight className='arrow' /> BGR
+              JKT <FaLongArrowAltRight className='arrow' /> {city_code}
             </span>
-            <span>2 Kg</span>
+            <span>{weightFormat(totalWeight)}</span>
           </div>
 
-          <p>Rp 21.950</p>
+          <p>{priceFormat.format(totalShippingPrice)}</p>
         </TotalShipping>
       )}
 
-      <TotalBill>
-        <h6>Total Tagihan</h6>
-        <h6>{priceFormat.format(totalPrice)}</h6>
-      </TotalBill>
+      {checkout ? (
+        <TotalBill>
+          <h6>Total Tagihan</h6>
+          <h6>{priceFormat.format(totalPrice + totalShippingPrice)}</h6>
+        </TotalBill>
+      ) : (
+        <TotalBill>
+          <h6>Total Tagihan</h6>
+          <h6>{priceFormat.format(totalPrice)}</h6>
+        </TotalBill>
+      )}
 
       {checkout ? (
-        <a href='/invoice'>
+        <Link to='/invoice'>
           <Button primary summary text='Proses' bgColor={colors.yellow} />
-        </a>
+        </Link>
       ) : (
         <div>
-          {addresses.length === 0 ? (
+          {userAddressState.length === 0 ? (
             <Button
               primary
               summary
@@ -62,9 +82,9 @@ const ShoppingSummary = ({ checkout }) => {
               onClick={() => modalTambahAlamatDispatch(openModalTambahAlamat())}
             />
           ) : (
-            <a href='/checkout'>
+            <Link to='/checkout'>
               <Button primary summary text='Beli' bgColor={colors.yellow} />
-            </a>
+            </Link>
           )}
         </div>
       )}

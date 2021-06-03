@@ -10,10 +10,13 @@ import {
 
 import { getPlants } from './fetchingActions';
 
+import { setSelectedAddress } from './selectedAddress';
+
 export {
   openModalUpload,
   closeModalUpload,
   openModalReview,
   closeModalReview,
   getPlants,
+  setSelectedAddress,
 };

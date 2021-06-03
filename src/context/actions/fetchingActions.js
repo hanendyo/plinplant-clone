@@ -17,6 +17,11 @@ export const getCarts = (data) => ({
   payload: data,
 });
 
+export const getAddresses = (data) => ({
+  type: 'FETCH_USER_ADDRESS',
+  payload: data,
+});
+
 export const getPlants = (data) => ({
   type: 'FETCH_TABLE_PLANT',
   payload: data,

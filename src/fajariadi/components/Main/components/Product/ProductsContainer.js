@@ -40,6 +40,7 @@ const ProductsContainer = ({
     tableArticleState,
     plantReviewState,
     userCartState,
+    userAddressState,
   } = useContext(ContextStore);
 
   const [activeItemIndex, setActiveItemIndex] = useState(0);
@@ -223,16 +224,29 @@ const ProductsContainer = ({
 
       {checkout && (
         <CheckoutContainer>
-          {cartItems.map(({ img, name, phase, price }, index) => (
-            <Cards
-              checkout
-              key={index}
-              img={img}
-              name={name}
-              phase={phase}
-              price={price}
-            />
-          ))}
+          {userCartState.map(
+            ({
+              pk_cart_id,
+              phase_image,
+              plant_name,
+              plant_phase,
+              quantity,
+              price,
+              weight,
+            }) => (
+              <Cards
+                checkout
+                id={pk_cart_id}
+                key={pk_cart_id}
+                img={phase_image}
+                name={plant_name}
+                phase={plant_phase}
+                price={price}
+                quantity={quantity}
+                weight={weight}
+              />
+            )
+          )}
         </CheckoutContainer>
       )}
 
@@ -329,35 +343,61 @@ const ProductsContainer = ({
 
       {profileAddress && (
         <AddressContainer>
-          {addresses.map(({ name, phone, city, postal, route }, index) => (
-            <Cards
-              address
-              key={index}
-              name={name}
-              phone={phone}
-              city={city}
-              postal={postal}
-              route={route}
-              selected={selected}
-            />
-          ))}
+          {userAddressState.map(
+            (
+              {
+                pk_contact_id,
+                recipient_name,
+                phone_number,
+                city_name,
+                zipcode,
+                address,
+              },
+              index
+            ) => (
+              <Cards
+                address
+                index={index}
+                key={pk_contact_id}
+                id={pk_contact_id}
+                name={recipient_name}
+                phone={phone_number}
+                city={city_name}
+                postal={zipcode}
+                route={address}
+              />
+            )
+          )}
         </AddressContainer>
       )}
 
       {selectAddress && (
         <ModalAddressContainer>
-          {addresses.map(({ name, phone, city, postal, route }, index) => (
-            <Cards
-              selectAddress
-              key={index}
-              name={name}
-              phone={phone}
-              city={city}
-              postal={postal}
-              route={route}
-              selected={selected}
-            />
-          ))}
+          {userAddressState.map(
+            (
+              {
+                pk_contact_id,
+                recipient_name,
+                phone_number,
+                city_name,
+                zipcode,
+                address,
+              },
+              index
+            ) => (
+              <Cards
+                selectAddress
+                index={index}
+                key={pk_contact_id}
+                id={pk_contact_id}
+                name={recipient_name}
+                phone={phone_number}
+                city={city_name}
+                postal={zipcode}
+                route={address}
+              />
+            )
+          )}
         </ModalAddressContainer>
       )}
     </>
