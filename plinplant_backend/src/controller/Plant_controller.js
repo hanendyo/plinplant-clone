@@ -3,6 +3,10 @@ const {
   getUserInfo,
   // REVIEW PLANT
   reviewGetPlantId,
+  // USER CART
+  cartGetByUserId,
+  // USER ADDRESS
+  addressGetByUserId,
   // ARTICLE
   articleInputTable,
   articleGetAllDatas,
@@ -110,6 +114,44 @@ module.exports = {
     const id = req.params.id;
 
     reviewGetPlantId(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+
+  cartGetByUser: (req, res) => {
+    const id = req.params.id;
+
+    cartGetByUserId(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+
+  addressGetByUser: (req, res) => {
+    const id = req.params.id;
+
+    addressGetByUserId(id, (err, results) => {
       if (err) {
         console.log(err);
         return res.status(500).json({

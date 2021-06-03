@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   StyledProfile,
   ProfileContainer,
@@ -7,7 +7,6 @@ import {
   Data,
   RightArea,
 } from "./Profile.component";
-import ModalAlamat from "../ModalAlamat/ModalAlamat";
 import UploadBox from "../../master/components/additional/UploadBox";
 import ProductsContainer from "../../fajariadi/components/Main/components/Product/ProductsContainer";
 import { addresses } from "../../master/constant/data/dummy-data";
@@ -17,13 +16,18 @@ import PopoutComponent from "../ModalAlamat/PopupComponent/Popout";
 import Button from "../../master/components/additional/Button";
 import { colors } from "../../master/constant/style";
 import {
-  openModalGantiNama,
   openModalTambahAlamat,
+  openModalGantiNama,
 } from "../../context/actions/modalActions";
-import ModalNama from "../ModalNama/ModalNama";
 
 const Profile = () => {
-  const [visible, setVisible] = useState(true);
+  const {
+    modalTambahAlamatState,
+    modalTambahAlamatDispatch,
+    modalGantiNamaState,
+    modalGantiNamaDispatch,
+    userAddressState,
+  } = useContext(ContextStore);
 
   const [biodata, setBiodata] = useState(true);
   const [address, setAddress] = useState(false);
@@ -32,19 +36,12 @@ const Profile = () => {
 
   const [selected, setSelected] = useState(false);
 
-  const {
-    modalTambahAlamatState,
-    modalTambahAlamatDispatch,
-    modalGantiNamaState,
-    modalGantiNamaDispatch,
-  } = useContext(ContextStore);
-
   const [scroll, setScroll] = useState(true);
 
   useEffect(() => {
-    if (addresses.length < 4) setScroll(false);
-    if (addresses.length > 3) setScroll(true);
-  }, [addresses]);
+    if (userAddressState.length < 3) setScroll(false);
+    if (userAddressState.length > 2) setScroll(true);
+  }, [userAddressState]);
 
   return (
     <StyledProfile>
@@ -130,7 +127,7 @@ const Profile = () => {
               onClick={() => modalTambahAlamatDispatch(openModalTambahAlamat())}
             />
 
-            <ProductsContainer profileAddress selected={selected} />
+            <ProductsContainer profileAddress />
 
             {scroll && <ScrollSign center />}
           </RightArea>

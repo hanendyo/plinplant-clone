@@ -29,6 +29,30 @@ module.exports = {
     );
   },
 
+  cartGetByUserId: (id, callback) => {
+    pool.query(
+      `Select * from user_cart where fk_user_id = ?`,
+      [id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+
+  addressGetByUserId: (id, callback) => {
+    pool.query(
+      `Select * from user_address where fk_user_id = ?`,
+      [id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+
   articleInputTable: (body, callback) => {
     console.log(`bdy: `, body);
 

@@ -36,7 +36,7 @@ const Navbar = () => {
   return (
     <Nav shadow={shadow}>
       <Container shadow={shadow}>
-        <Home href='/'>
+        <Home to='/'>
           <FaChevronLeft className='icon' />
           <p>Home</p>
         </Home>
@@ -45,9 +45,9 @@ const Navbar = () => {
 
         <LinksContainer login={login} profile={profile}>
           <li>
-            <a href='/cart'>
+            <Link to='/cart'>
               <FaShoppingCart className='cart' />
-            </a>
+            </Link>
           </li>
           <li>
             <Link
@@ -90,10 +90,10 @@ const Navbar = () => {
 
                   <ul>
                     <li>
-                      <a href='/profile'>Profil</a>
+                      <Link to='/profile'>Profil</Link>
                     </li>
                     <li>
-                      <a href='/transaction'>Daftar Transaksi</a>
+                      <Link to='/transaction'>Daftar Transaksi</Link>
                     </li>
                     <li>Keluar</li>
                   </ul>

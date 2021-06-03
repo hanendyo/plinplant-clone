@@ -527,8 +527,58 @@ values
 ('7 Juni 2021', 'Saya cinta Basil <3', 5, 1, 26),
 ('9 Juni 2021', 'Jadi orang italy beneran!!', 4, 1, 31)
 
+-- ::: CREATE VIEW REVIEW :::
+CREATE VIEW plant_review
+as
+select pk_review_id, picture, fullname, rating, created_at, comment, fk_plant_id
+from table_review
+join table_user on fk_user_id = pk_user_id
+join table_plant on fk_plant_id = pk_plant_id
 
+select * from plant_review
+drop view plant_review
 
+-- ::: CART :::
+CREATE TABLE table_cart(
+	pk_cart_id INT AUTO_INCREMENT PRIMARY KEY,
+	phase_image VARCHAR(255),
+	plant_name VARCHAR(50),
+	plant_phase VARCHAR(50),
+	price INT,	
+	quantity INT,
+	fk_user_id INT NOT NULL
+);
+SELECT * FROM table_cart;
+DROP TABLE table_cart;
+TRUNCATE TABLE table_cart
+
+-- ::: CART INITIAL VALUES :::
+INSERT INTO table_cart(phase_image, plant_name, plant_phase, price, quantity, fk_user_id)
+VALUES
+('buah.jpg', 'Lavender', 'Biji', 20000, 2, 1),
+('sayur.jpg', 'Blood Bull', 'Dewasa', 300000, 3, 1),
+('hias.jpg', 'Lavender', 'Bonggol', 150000, 1, 1),
+('rempah.jpg', 'Lavender', 'Muda', 150000, 1, 2),
+('hias2.jpg', 'Tomat', 'Dewasa', 150000, 1, 3),
+('buah4.jpg', 'Jeruk', 'Bonggol', 150000, 1, 2)
+
+-- ::: CREATE VIEW CART USER :::
+CREATE VIEW user_cart
+as
+SELECT pk_cart_id, phase_image, plant_name, plant_phase, price, quantity, fk_user_id
+FROM table_user
+JOIN table_cart ON fk_user_id = pk_user_id
+
+select * from user_cart
+
+-- ::: ORDER ::: BELUM TERSENTUH
+CREATE TABLE table_order(
+	pk_order_id INT AUTO_INCREMENT PRIMARY KEY,
+    STATUS VARCHAR(50),
+    created_at VARCHAR(50),
+    fk_user_id INT
+);
+SELECT * FROM table_order;
 
 -- ::: ARTIKEL :::
 CREATE TABLE table_article(
@@ -546,83 +596,3 @@ CREATE TABLE table_article(
 SELECT * FROM table_article;
 TRUNCATE TABLE table_article;
 DROP TABLE table_article;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--- table order
-CREATE TABLE table_order(
-	pk_order_id INT AUTO_INCREMENT PRIMARY KEY,
-    STATUS VARCHAR(50),
-    created_at VARCHAR(50),
-    fk_user_id INT
-);
-SELECT * FROM table_order;
-
-
-
-
--- table cart
-CREATE TABLE table_cart(
-	pk_cart_id INT AUTO_INCREMENT PRIMARY KEY,
-	phase_image varchar(255),
-	plant_name varchar(50),
-	plant_phase varchar(50),
-	price INT,	
-	quantity int,
-	fk_user_id int not null
-);
-SELECT * FROM table_cart;
-drop table table_cart;
-truncate table table_cart
-
-INSERT INTO table_cart(phase_image, plant_name, plant_phase, price, quantity, fk_user_id)
-VALUES
-('buah.jpg', 'Lavender', 'Biji', 20000, 2, 1),
-('sayur.jpg', 'Blood Bull', 'Dewasa', 300000, 3, 1),
-('hias.jpg', 'Lavender', 'Bonggol', 150000, 1, 1),
-('rempah.jpg', 'Lavender', 'Muda', 150000, 1, 2),
-('hias2.jpg', 'Tomat', 'Dewasa', 150000, 1, 3),
-('buah4.jpg', 'Jeruk', 'Bonggol', 150000, 1, 2)
-
-
-select phase_image, plant_name, plant_phase, price, quantity, fk_user_id
-from table_user
-join table_cart on fk_user_id = pk_user_id
-where fk_user_id = 1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

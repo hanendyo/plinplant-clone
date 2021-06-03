@@ -15,8 +15,27 @@ export const userInfoReducer = (state, action) => {
 export const plantReviewReducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_PLANT_REVIEW':
-      if (action.payload.length === 0) return (state = []);
-      return [...state, ...action.payload];
+      return [...action.payload];
+
+    default:
+      return state;
+  }
+};
+
+export const userCartReducer = (state, action) => {
+  switch (action.type) {
+    case 'FETCH_USER_CART':
+      return [...action.payload];
+
+    default:
+      return state;
+  }
+};
+
+export const userAddressReducer = (state, action) => {
+  switch (action.type) {
+    case 'FETCH_USER_ADDRESS':
+      return [...action.payload];
 
     default:
       return state;

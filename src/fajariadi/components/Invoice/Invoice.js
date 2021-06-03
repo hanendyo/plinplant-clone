@@ -20,17 +20,23 @@ import {
 } from './Invoice.elemen';
 
 const Invoice = () => {
+  const {
+    modalUploadState,
+    modalUploadDispatch,
+    modalReviewState,
+    userCartState,
+  } = useContext(ContextStore);
+
   const [scroll, setScroll] = useState(true);
 
-  const { modalUploadState, modalUploadDispatch, modalReviewState } =
-    useContext(ContextStore);
-
-  const status = 'selesai';
+  const [status, setStatus] = useState('proses');
 
   useEffect(() => {
     if (invoiceProduct.length < 5) setScroll(false);
     if (invoiceProduct.length > 4) setScroll(true);
   }, [invoiceProduct]);
+
+  console.log('INVOICEEEE', userCartState);
 
   return (
     <InvoiceSection>
@@ -59,7 +65,7 @@ const Invoice = () => {
           </div>
         </HeaderInfo>
 
-        <ShoppingDetail>
+        <ShoppingDetail status={status}>
           <div>
             <h5>Daftar Produk</h5>
 
@@ -118,16 +124,29 @@ const Invoice = () => {
             </Payment>
           </div>
 
-          <div>
-            <Button
-              primary
-              address
-              shop
-              text='Upload Bukti Transfer'
-              bgColor={colors.yellow}
-              onClick={() => modalUploadDispatch(openModalUpload())}
-            />
-          </div>
+          {status === 'proses' ? (
+            <div>
+              <Button
+                primary
+                address
+                shop
+                text='Pesanan Diterima'
+                bgColor={colors.yellow}
+                onClick={() => setStatus('selesai')}
+              />
+            </div>
+          ) : (
+            <div>
+              <Button
+                primary
+                address
+                shop
+                text='Upload Bukti Transfer'
+                bgColor={colors.yellow}
+                onClick={() => modalUploadDispatch(openModalUpload())}
+              />
+            </div>
+          )}
         </ShoppingDetail>
       </Container>
 

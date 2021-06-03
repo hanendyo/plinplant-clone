@@ -28,7 +28,7 @@ const App = () => {
   useEffect(() => {
     // ::: FETCH USER INFO :::
     const getUserInfo = async () => {
-      const res = await axios.get('http://localhost:5000/input/user/2');
+      const res = await axios.get('http://localhost:5000/input/user/1');
 
       userInfoDispatch(getUser(res.data.data));
     };
