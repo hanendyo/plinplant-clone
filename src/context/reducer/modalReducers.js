@@ -1,9 +1,9 @@
 export const modalUploadReducer = (state, action) => {
   switch (action.type) {
-    case 'OPEN_MODAL_UPLOAD':
+    case "OPEN_MODAL_UPLOAD":
       return !state;
 
-    case 'CLOSE_MODAL_UPLOAD':
+    case "CLOSE_MODAL_UPLOAD":
       return !state;
 
     default:
@@ -13,10 +13,10 @@ export const modalUploadReducer = (state, action) => {
 
 export const modalReviewReducer = (state, action) => {
   switch (action.type) {
-    case 'OPEN_MODAL_REVIEW':
+    case "OPEN_MODAL_REVIEW":
       return !state;
 
-    case 'CLOSE_MODAL_REVIEW':
+    case "CLOSE_MODAL_REVIEW":
       return !state;
 
     default:
@@ -26,10 +26,10 @@ export const modalReviewReducer = (state, action) => {
 
 export const modalPilihAlamatReducer = (state, action) => {
   switch (action.type) {
-    case 'OPEN_MODAL_PILIH_ALAMAT':
+    case "OPEN_MODAL_PILIH_ALAMAT":
       return !state;
 
-    case 'CLOSE_MODAL_PILIH_ALAMAT':
+    case "CLOSE_MODAL_PILIH_ALAMAT":
       return !state;
 
     default:
@@ -39,10 +39,36 @@ export const modalPilihAlamatReducer = (state, action) => {
 
 export const modalTambahAlamatReducer = (state, action) => {
   switch (action.type) {
-    case 'OPEN_MODAL_TAMBAH_ALAMAT':
+    case "OPEN_MODAL_TAMBAH_ALAMAT":
       return !state;
 
-    case 'CLOSE_MODAL_TAMBAH_ALAMAT':
+    case "CLOSE_MODAL_TAMBAH_ALAMAT":
+      return !state;
+
+    default:
+      return state;
+  }
+};
+
+export const modalGantiNamaReducer = (state, action) => {
+  switch (action.type) {
+    case "OPEN_MODAL_GANTI_NAMA":
+      return !state;
+
+    case "CLOSE_MODAL_GANTI_NAMA":
+      return !state;
+
+    default:
+      return state;
+  }
+};
+
+export const modalPilihNamaReducer = (state, action) => {
+  switch (action.type) {
+    case "OPEN_MODAL_PILIH_NAMA":
+      return !state;
+
+    case "CLOSE_MODAL_PILIH_NAMA":
       return !state;
 
     default:

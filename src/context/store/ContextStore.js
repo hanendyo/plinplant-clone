@@ -1,26 +1,28 @@
-import React, { createContext, useReducer } from 'react';
-import CmsInitial from '../initialState/CmsInitial';
-import SignInInitial from '../initialState/SignInInitial';
-import SignUpInitial from '../initialState/SignUpInitial';
+import React, { createContext, useReducer } from "react";
+import CmsInitial from "../initialState/CmsInitial";
+import SignInInitial from "../initialState/SignInInitial";
+import SignUpInitial from "../initialState/SignUpInitial";
 import {
   modalUploadReducer,
   modalReviewReducer,
   tablePlantReducer,
   plantIdReducer,
-} from '../reducer';
-import { CmsReducer } from '../reducer/CmsReducer';
+} from "../reducer";
+import { CmsReducer } from "../reducer/CmsReducer";
 import {
   articleIdReducer,
   plantReviewReducer,
   tableArticleReducer,
   userInfoReducer,
-} from '../reducer/fetchingReducer';
+} from "../reducer/fetchingReducer";
 import {
   modalPilihAlamatReducer,
   modalTambahAlamatReducer,
-} from '../reducer/modalReducers';
-import { SignInReducer } from '../reducer/SignInReducer';
-import { SignUpReducer } from '../reducer/SignUpReducer';
+  modalGantiNamaReducer,
+  modalPilihNamaReducer,
+} from "../reducer/modalReducers";
+import { SignInReducer } from "../reducer/SignInReducer";
+import { SignUpReducer } from "../reducer/SignUpReducer";
 
 export const ContextStore = createContext();
 
@@ -136,6 +138,18 @@ export const ContextProvider = ({ children }) => {
     false
   );
 
+  // ::: MODAL GANTI NAMA :::
+  const [modalGantiNamaState, modalGantiNamaDispatch] = useReducer(
+    modalGantiNamaReducer,
+    false
+  );
+
+  // ::: MODAL PILIH NAMA :::
+  const [modalPilihNamaState, modalPilihNamaDispatch] = useReducer(
+    modalPilihNamaReducer,
+    false
+  );
+
   // !::: FETCHING :::
   // ::: FETCH USER INFO ::: DUMMY :::
   const [userInfoState, userInfoDispatch] = useReducer(userInfoReducer, []);
@@ -248,6 +262,14 @@ export const ContextProvider = ({ children }) => {
         // ::: MODAL TAMBAH ALAMAT :::
         modalTambahAlamatState,
         modalTambahAlamatDispatch,
+
+        // ::: MODAL TAMBAH ALAMAT :::
+        modalGantiNamaState,
+        modalGantiNamaDispatch,
+
+        // ::: MODAL PILIH NAMA :::
+        modalPilihNamaState,
+        modalPilihNamaDispatch,
 
         // ::: FETCH TABLE PLANT :::
         tablePlantState,

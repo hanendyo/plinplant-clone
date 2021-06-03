@@ -16,7 +16,11 @@ import { ContextStore } from "../../context/store/ContextStore";
 import PopoutComponent from "../ModalAlamat/PopupComponent/Popout";
 import Button from "../../master/components/additional/Button";
 import { colors } from "../../master/constant/style";
-import { openModalTambahAlamat } from "../../context/actions/modalActions";
+import {
+  openModalGantiNama,
+  openModalTambahAlamat,
+} from "../../context/actions/modalActions";
+import ModalNama from "../ModalNama/ModalNama";
 
 const Profile = () => {
   const [visible, setVisible] = useState(true);
@@ -28,8 +32,12 @@ const Profile = () => {
 
   const [selected, setSelected] = useState(false);
 
-  const { modalTambahAlamatState, modalTambahAlamatDispatch } =
-    useContext(ContextStore);
+  const {
+    modalTambahAlamatState,
+    modalTambahAlamatDispatch,
+    modalGantiNamaState,
+    modalGantiNamaDispatch,
+  } = useContext(ContextStore);
 
   const [scroll, setScroll] = useState(true);
 
@@ -64,7 +72,9 @@ const Profile = () => {
             <Data>
               <li>Nama</li>
               <li>Muhammad Adhika Adhiwijna</li>
-              <li>Ubah</li>
+              <li onClick={() => modalGantiNamaDispatch(openModalGantiNama())}>
+                Ubah
+              </li>
             </Data>
 
             <Data>
@@ -90,6 +100,7 @@ const Profile = () => {
               <li>Tambah Nomor HP</li>
             </Data>
           </Information>
+          <ModalNama modal={modalGantiNamaState} />
         </ProfileContainer>
       )}
 
