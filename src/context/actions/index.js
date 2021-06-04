@@ -8,7 +8,7 @@ import {
   closeModalReview,
 } from './modalActions';
 
-import { getPlants } from './fetchingActions';
+import { getPlants, getInvoices, getInvoiceDetails } from './fetchingActions';
 
 import { setSelectedAddress } from './selectedAddress';
 
@@ -19,4 +19,6 @@ export {
   closeModalReview,
   getPlants,
   setSelectedAddress,
+  getInvoices,
+  getInvoiceDetails,
 };

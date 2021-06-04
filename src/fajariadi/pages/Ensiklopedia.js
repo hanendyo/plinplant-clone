@@ -35,7 +35,7 @@ const Ensiklopedia = ({ match }) => {
     // ::: LOADING TIME :::
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
   }, [match.params.id]);
 
   console.log('PLANT', plantIdState);

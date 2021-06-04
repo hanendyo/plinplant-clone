@@ -1,13 +1,16 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Footer from '../../master/components/Footer/Footer';
 import Navbar from '../../master/components/Navbar/Navbar';
 import ArtikelHeader from '../../dhika/Artikel/header/ArtikelHeader';
 import { ContextStore } from '../../context/store/ContextStore';
 import { getArticleById } from '../../context/actions/fetchingActions';
 import axios from 'axios';
+import Loader from '../components/Loader';
 
 const ArticlePage = ({ match }) => {
   const { articleIdState, articleIdDispatch } = useContext(ContextStore);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getArticleId = async () => {
@@ -22,15 +25,28 @@ const ArticlePage = ({ match }) => {
       top: 0,
     });
 
+    setLoading(true);
+
     getArticleId();
+
+    // ::: LOADING TIME :::
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }, [match.params.id]);
 
   return (
-    <div>
-      <Navbar />
-      <ArtikelHeader />
-      <Footer colored />
-    </div>
+    <>
+      {loading ? (
+        <Loader loading={loading} />
+      ) : (
+        <div>
+          <Navbar />
+          <ArtikelHeader />
+          <Footer colored />
+        </div>
+      )}
+    </>
   );
 };
 

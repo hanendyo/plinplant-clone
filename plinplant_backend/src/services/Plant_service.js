@@ -17,6 +17,27 @@ module.exports = {
 
   // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
 
+  invoiceGetId: (id, callBack) => {
+    pool.query(
+      `select * from user_invoice where fk_user_id = ? and pk_invoice_id = ?`,
+      [id.id, id.order],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results); // result[0]
+      }
+    );
+  },
+
+  invoiceGetAllDatas: (callback) => {
+    pool.query(`Select * from user_invoice`, [], (error, results, fields) => {
+      if (error) {
+        return callback(error);
+      }
+      return callback(null, results);
+    });
+  },
+
   reviewGetPlantId: (id, callback) => {
     pool.query(
       `Select * from plant_review where fk_plant_id = ?`,

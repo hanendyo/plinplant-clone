@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { FaLongArrowAltRight } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { openModalTambahAlamat } from '../../../context/actions/modalActions';
 import { ContextStore } from '../../../context/store/ContextStore';
@@ -10,8 +10,14 @@ import { colors } from '../../constant/style';
 import Button from './Button';
 
 const ShoppingSummary = ({ checkout, city_code, shipping_price }) => {
-  const { modalTambahAlamatDispatch, userCartState, userAddressState } =
-    useContext(ContextStore);
+  const {
+    modalTambahAlamatDispatch,
+    userCartState,
+    userAddressState,
+    selectedAddressState,
+  } = useContext(ContextStore);
+
+  const history = useHistory();
 
   const totalPrice = userCartState
     .map((item) => item.price * item.quantity)
@@ -27,6 +33,15 @@ const ShoppingSummary = ({ checkout, city_code, shipping_price }) => {
     .reduce((a, b) => a + b, 0);
 
   const totalShippingPrice = Math.ceil(totalWeight / 1000) * shipping_price;
+
+  const handleCheckout = () => {
+    history.push(`/invoice/1/1622764848807`);
+  };
+
+  console.log(
+    'DPATTTEETT',
+    userAddressState[selectedAddressState].pk_contact_id
+  );
 
   return (
     <SummarySection>
@@ -68,9 +83,14 @@ const ShoppingSummary = ({ checkout, city_code, shipping_price }) => {
       )}
 
       {checkout ? (
-        <Link to='/invoice'>
-          <Button primary summary text='Proses' bgColor={colors.yellow} />
-        </Link>
+        <Button
+          // disabled={true}
+          onClick={handleCheckout}
+          primary
+          summary
+          text='Proses'
+          bgColor={colors.yellow}
+        />
       ) : (
         <div>
           {userAddressState.length === 0 ? (

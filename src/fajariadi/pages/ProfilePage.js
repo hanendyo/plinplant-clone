@@ -28,7 +28,7 @@ const ProfilePage = () => {
     // ::: LOADING TIME :::
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
   }, []);
 
   console.log('PROFILEEEEE', userAddressState);

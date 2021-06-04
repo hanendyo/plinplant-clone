@@ -7,6 +7,9 @@ const {
   cartGetByUserId,
   // USER ADDRESS
   addressGetByUserId,
+  // USER INVOICE
+  invoiceGetId,
+  invoiceGetAllDatas,
   // ARTICLE
   articleInputTable,
   articleGetAllDatas,
@@ -109,6 +112,45 @@ module.exports = {
   },
 
   // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
+
+  invoiceGetById: (req, res) => {
+    const id = req.params.id;
+    const order = req.params.order;
+
+    invoiceGetId({ id, order }, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+      if (results.length === 0) {
+        return res.json({
+          success: 0,
+          message: 'Record not found',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+
+  invoiceGetAll: (req, res) => {
+    invoiceGetAllDatas((err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      return res.json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
 
   reviewGetByPlant: (req, res) => {
     const id = req.params.id;

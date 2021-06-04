@@ -12,6 +12,19 @@ export const userInfoReducer = (state, action) => {
 
 // ::: END OF USER INFO REDUCER ::: DUMMY :::
 
+export const invoiceReducer = (state, action) => {
+  switch (action.type) {
+    case 'FETCH_INVOICE_ALL':
+      return [...action.payload];
+
+    case 'FETCH_INVOICE_DETAIL':
+      return [...action.payload];
+
+    default:
+      return state;
+  }
+};
+
 export const plantReviewReducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_PLANT_REVIEW':

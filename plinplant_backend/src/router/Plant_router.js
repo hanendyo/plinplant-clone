@@ -3,6 +3,8 @@ const {
   reviewGetByPlant,
   cartGetByUser,
   addressGetByUser,
+  invoiceGetById,
+  invoiceGetAll,
   plant_input,
   review_input,
   plant_breeding_input,
@@ -142,6 +144,9 @@ router.get('/review/:id', reviewGetByPlant);
 router.get('/cart/:id', cartGetByUser);
 // ADDRESS
 router.get('/address/:id', addressGetByUser);
+// INVOICE
+router.get('/invoice/:id/:order', invoiceGetById);
+router.get('/invoice', invoiceGetAll);
 
 // DELETE
 router.delete('/article_delete/:id', article_delete);

@@ -16,12 +16,21 @@ import CMS from './hanendyo/CMS/CMS';
 import axios from 'axios';
 import { ContextStore } from './context/store/ContextStore';
 import { getPlants } from './context/actions';
-import { getArticles, getUser } from './context/actions/fetchingActions';
+import {
+  getArticles,
+  getInvoices,
+  getUser,
+} from './context/actions/fetchingActions';
 import Loader from './fajariadi/components/Loader';
 
 const App = () => {
-  const { tablePlantDispatch, tableArticleDispatch, userInfoDispatch } =
-    useContext(ContextStore);
+  const {
+    tablePlantDispatch,
+    tableArticleDispatch,
+    userInfoDispatch,
+    invoiceDispatch,
+    invoiceState,
+  } = useContext(ContextStore);
 
   const [loading, setLoading] = useState(true);
 
@@ -51,17 +60,27 @@ const App = () => {
       tableArticleDispatch(getArticles(res.data.data));
     };
 
+    // ::: FETCH INVOICE :::
+    const getInvoiceData = async () => {
+      const res = await axios.get('http://localhost:5000/input/invoice');
+
+      invoiceDispatch(getInvoices(res.data.data));
+    };
+
     setLoading(true);
 
     getUserInfo();
     getTablePlant();
     getTableArticle();
+    getInvoiceData();
 
     // ::: LOADING TIME :::
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
   }, []);
+
+  console.log('APPP', invoiceState);
 
   return (
     <>
@@ -75,7 +94,7 @@ const App = () => {
             <Route path='/shop/:id/:name' component={ShoppingPage} />
             <Route path='/cart' component={CartPage} />
             <Route path='/checkout' component={CheckoutPage} />
-            <Route path='/invoice' component={InvoicePage} />
+            <Route path='/invoice/:id/:order' component={InvoicePage} />
             <Route path='/transaction' component={TransactionPage} />
             <Route path='/article/:id/:title' component={ArticlePage} />
             <Route path='/profile' component={ProfilePage} />

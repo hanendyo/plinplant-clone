@@ -17,6 +17,7 @@ import {
   userInfoReducer,
   userCartReducer,
   userAddressReducer,
+  invoiceReducer,
 } from '../reducer/fetchingReducer';
 import {
   modalPilihAlamatReducer,
@@ -142,6 +143,9 @@ export const ContextProvider = ({ children }) => {
   // !::: FETCHING :::
   // ::: FETCH USER INFO ::: DUMMY :::
   const [userInfoState, userInfoDispatch] = useReducer(userInfoReducer, []);
+
+  // ::: FETCH INVOICES :::
+  const [invoiceState, invoiceDispatch] = useReducer(invoiceReducer, []);
 
   // ::: FETCH PLANT REVIEW :::
   const [plantReviewState, plantReviewDispatch] = useReducer(
@@ -302,6 +306,10 @@ export const ContextProvider = ({ children }) => {
         // ::: SELECTED USER ADDRESS :::
         selectedAddressState,
         selectedAddressDispatch,
+
+        // ::: SELECTED USER ADDRESS :::
+        invoiceState,
+        invoiceDispatch,
       }}
     >
       {children}

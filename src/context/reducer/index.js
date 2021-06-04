@@ -1,5 +1,9 @@
 import { modalUploadReducer, modalReviewReducer } from './modalReducers';
-import { tablePlantReducer, plantIdReducer } from './fetchingReducer';
+import {
+  tablePlantReducer,
+  plantIdReducer,
+  invoiceReducer,
+} from './fetchingReducer';
 import { selectedAddressReducer } from './selectedAddress';
 
 export {
@@ -8,4 +12,5 @@ export {
   tablePlantReducer,
   plantIdReducer,
   selectedAddressReducer,
+  invoiceReducer,
 };

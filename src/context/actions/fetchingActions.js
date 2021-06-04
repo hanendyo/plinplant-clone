@@ -7,6 +7,16 @@ export const getUser = (data) => ({
 
 // ::: END OF USER INFO REDUCER ::: DUMMY :::
 
+export const getInvoices = (data) => ({
+  type: 'FETCH_INVOICE_ALL',
+  payload: data,
+});
+
+export const getInvoiceDetails = (data) => ({
+  type: 'FETCH_INVOICE_DETAIL',
+  payload: data,
+});
+
 export const getReviews = (data) => ({
   type: 'FETCH_PLANT_REVIEW',
   payload: data,

@@ -287,13 +287,17 @@ const Cards = ({
       {invoice && (
         <CardInvoice>
           <div>
-            <img src={img} alt='' />
+            <img
+              src={process.env.PUBLIC_URL + `/images/Plant/${img}`}
+              alt={name}
+            />
 
             <div>
               <h6>{name}</h6>
               <span>{phase}</span>
               <span>
-                {quantity} barang (500 gr) x {price}
+                {quantity} barang ({weightFormat(weight)}) x{' '}
+                {priceFormat.format(price)}
               </span>
             </div>
           </div>
