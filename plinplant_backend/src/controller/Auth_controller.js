@@ -99,14 +99,14 @@ module.exports = {
 
           console.log(`JSONTOKEN CONTROLLER: `, jsontoken);
 
-          return res.cookie('token', jsontoken,{
+          return res.json({
             success: 1,
             message: "Login succcess",
             auth: true,
             token: jsontoken,
             result: result,
             httpOnly: true,
-          }).send();
+          })
         } else {
           return  res.status(401).json({
             success: 0,
@@ -139,7 +139,7 @@ module.exports = {
   },
   GET_LOGOUT: (req, res) => {
     res
-      .cookie("token ", "", {
+      .cookie("userToken ", "", {
         httpOnly: true,
         expires: new Date(0),
       })

@@ -55,25 +55,25 @@ const SignIn = () => {
   //! axios crendentials
   axios.defaults.withCredentials = true;
 
-  // useEffect(() => {
-  //   getDataSignInAPI();
-  // }, []);
+  useEffect(() => {
+    getDataSignInAPI();
+  }, []);
 
-  // const getDataSignInAPI = async () => {
-  //   try {
-  //     await axios.get(`http://localhost:5000/auth/login`).then((response) => {
-  //       // if (response.data.loggedIn === true) {
-  //       //   // setLoginStatus(response.data.user[0].fullname);
-  //       //   signInDispatch(signInAction("loginStatus", response.data));
-  //       // }
-  //       console.log(`RESPONSE GET DATA LOGIN API: `, response);
-  //       return response;
-  //     });
-  //   } catch (err) {
-  //     console.log(`login error`, err);
-  //     return err;
-  //   }
-  // };
+  const getDataSignInAPI = async () => {
+    try {
+      await axios.get(`http://localhost:5000/auth/login`).then((response) => {
+        // if (response.data.loggedIn === true) {
+        //   // setLoginStatus(response.data.user[0].fullname);
+        //   signInDispatch(signInAction("loginStatus", response.data));
+        // }
+        console.log(`RESPONSE GET DATA LOGIN API: `, response);
+        return response;
+      });
+    } catch (err) {
+      console.log(`login error`, err);
+      return err;
+    }
+  };
 
   const signInAPI = async (form) => {
     const data = new FormData();
@@ -87,7 +87,7 @@ const SignIn = () => {
         },
       });
       // localStorage.setItem("token", res.data.token);
-      // getDataSignInAPI();
+      getDataSignInAPI();
       console.log(`SIGNIN API RES: `, res);
       return res;
     } catch (err) {
@@ -113,7 +113,7 @@ const SignIn = () => {
     // POST TO API
     console.log(`sign in data: `, signInState);
     signInAPI(signInState).then((res) => {
-      // getDataSignInAPI()
+      getDataSignInAPI()
       if (res.status === 200) {
         setLoginStatus(true)
         signInDispatch(signInAction('loginStatus', res))
@@ -129,7 +129,7 @@ const SignIn = () => {
 
   const handleLogOut = () => {
     logOutAPI();
-    // getDataSignInAPI();
+    getDataSignInAPI();
 
     // Refresh web
     window.location.reload(false);
