@@ -10,9 +10,12 @@ const Transaction = () => {
 
   const [scroll, setScroll] = useState(true);
 
-  const uniqueTransaction = invoiceState
-    .map((invoice) => invoice.pk_invoice_id)
-    .filter((item, index, arr) => arr.indexOf(item) === index);
+  // !::: STACK OVERFLOW SOURCE -> https://stackoverflow.com/questions/15125920/how-to-get-distinct-values-from-an-array-of-objects-in-javascript :::
+  const key = 'pk_invoice_id';
+  const uniqueTransaction = [
+    ...new Map(invoiceState.map((item) => [item[key], item])).values(),
+  ];
+
   console.log('UNIQQQQ', uniqueTransaction);
 
   useEffect(() => {
@@ -25,7 +28,7 @@ const Transaction = () => {
       <Container>
         <h2>Daftar Transaksi (4)</h2>
 
-        <ProductsContainer transaction />
+        <ProductsContainer transaction uniqueTransaction={uniqueTransaction} />
 
         {scroll && <ScrollSign center />}
       </Container>

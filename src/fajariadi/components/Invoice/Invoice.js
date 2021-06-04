@@ -49,7 +49,7 @@ const Invoice = () => {
 
   const [scroll, setScroll] = useState(true);
 
-  const [status, setStatus] = useState('bayar');
+  const [status, setStatus] = useState('proses');
 
   useEffect(() => {
     if (invoiceState.length < 5) setScroll(false);
