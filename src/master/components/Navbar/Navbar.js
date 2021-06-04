@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Home, Logo, Nav, LinksContainer, Container } from './Navbar.elemen';
 import { FaChevronLeft, FaShoppingCart } from 'react-icons/fa';
 import Button from '../additional/Button';
 import { colors } from '../../constant/style';
-import pic from '../../../fajariadi/assets/images/ig.jpg';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-  const login = true;
+  const { tableArticleState, userInfoState } = useContext(ContextStore);
+  const login = userInfoState.length !== 0;
+  // [{...}] -> userInfoState[0] -> fullname.split(' ') -> ['Fajar', 'Riadi'] -> index 0
+  const greet = userInfoState[0]?.fullname.split(' ')[0];
+
   const [profile, setProfile] = useState(false);
 
   // ::: NAVBAR INTERACTION :::
@@ -26,10 +31,12 @@ const Navbar = () => {
   }, []);
   // ::: END OF NAVBAR INTERACTION :::
 
+  const slug = (title) => title?.toLowerCase().split(' ').join('-');
+
   return (
     <Nav shadow={shadow}>
       <Container shadow={shadow}>
-        <Home href='/'>
+        <Home to='/'>
           <FaChevronLeft className='icon' />
           <p>Home</p>
         </Home>
@@ -38,37 +45,55 @@ const Navbar = () => {
 
         <LinksContainer login={login} profile={profile}>
           <li>
-            <a href='/cart'>
+            <Link to='/cart'>
               <FaShoppingCart className='cart' />
-            </a>
+            </Link>
           </li>
           <li>
-            <a href='/article'>Artikel</a>
+            <Link
+              to={`/article/${tableArticleState[0]?.pk_article_id}/${slug(
+                tableArticleState[0]?.title
+              )}`}
+            >
+              Artikel
+            </Link>
           </li>
           <li>
             {login ? (
               <>
                 <button onClick={() => setProfile(!profile)}>
-                  <img src={pic} alt='' />
-                  <p>Halo, Fajar</p>
+                  <img
+                    src={
+                      process.env.PUBLIC_URL +
+                      `/images/user_image/${userInfoState[0]?.picture}`
+                    }
+                    alt={userInfoState[0]?.fullname}
+                  />
+                  <p>Halo, {greet}</p>
                 </button>
 
                 <div>
                   <div>
-                    <img src={pic} alt='' />
+                    <img
+                      src={
+                        process.env.PUBLIC_URL +
+                        `/images/user_image/${userInfoState[0]?.picture}`
+                      }
+                      alt={userInfoState[0]?.fullname}
+                    />
 
                     <div>
-                      <h5>Fajar Riadi</h5>
-                      <span>fajariadi.js@gmail.com</span>
+                      <h5>{userInfoState[0]?.fullname}</h5>
+                      <span>{userInfoState[0]?.email}</span>
                     </div>
                   </div>
 
                   <ul>
                     <li>
-                      <a href='/profile'>Profil</a>
+                      <Link to='/profile'>Profil</Link>
                     </li>
                     <li>
-                      <a href='/transaction'>Daftar Transaksi</a>
+                      <Link to='/transaction'>Daftar Transaksi</Link>
                     </li>
                     <li>Keluar</li>
                   </ul>

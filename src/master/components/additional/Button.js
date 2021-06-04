@@ -15,6 +15,7 @@ const Button = ({
   bgColor,
   text,
   onClick,
+  disabled,
   type,
 }) => {
   const isIpad = useMediaQuery({ maxWidth: 900 });
@@ -31,6 +32,7 @@ const Button = ({
       card={card}
       bgColor={bgColor}
       onClick={onClick}
+      disabled={disabled}
       type={type}
       isIpad={isIpad}
     >

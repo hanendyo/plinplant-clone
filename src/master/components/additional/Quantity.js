@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
 
-const Quantity = ({ quantity, shop }) => {
+const Quantity = ({ quantity, setQuantity, shop }) => {
   return (
     <Counter shop={shop}>
-      <span>-</span>
+      <span onClick={() => setQuantity(quantity === 1 ? 1 : quantity - 1)}>
+        -
+      </span>
       <span>{quantity}</span>
-      <span>+</span>
+      <span onClick={() => setQuantity(quantity + 1)}>+</span>
     </Counter>
   );
 };

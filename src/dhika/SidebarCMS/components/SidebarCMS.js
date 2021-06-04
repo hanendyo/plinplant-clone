@@ -11,14 +11,16 @@ const Container = styled.div`
   background: #fff;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: sticky;
   top: 0;
+  z-index: 100;
 `;
 
 const Nav = styled.div`
   background: ${colors.green};
   height: 80px;
   width: 100%;
+  min-width: 375px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -28,19 +30,29 @@ const Nav = styled.div`
 `;
 
 const NavIcon = styled.div`
-  margin-left: 2rem;
+  padding-left: 2rem;
   font-size: 2rem;
   height: 80px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0px;
 
   & > h5 {
     color: #fff;
     padding: 10px;
   }
 `;
+
+// const NavContainer = styled.div`
+//   background-color: red;
+//   width: 100%;
+//   height: 80px;
+//   display: flex;
+//   align-items: center;
+// `;
 
 const SidebarNav = styled.nav`
   background: ${colors.yellow};
@@ -103,6 +115,19 @@ const NavOut = styled.div`
   }
 `;
 
+const NavTimes = styled.div`
+  font-size: 2rem;
+  height: 80px;
+  width: 100%;
+  display: flex;
+  padding-left: 30px;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: ${colors.yellow};
+`;
+
 const SidebarCMS = () => {
   const [sidebar, setSidebar] = useState(false);
 
@@ -112,32 +137,34 @@ const SidebarCMS = () => {
 
   return (
     // <div>
-      <Container>
-        <Nav>
-          <NavIcon>
-            <FaIcons.FaBars
-              onClick={showSidebar}
-              style={{ cursor: "pointer" }}
-            />
-            <Logo className="logo-center">PlinPlant CMS</Logo>
-            <h5>Hello, Admin</h5>
-          </NavIcon>
-          <SidebarNav sidebar={sidebar}>
-            <SidebarWrap>
-              <NavIcon to="#">
-                <FaTimes onClick={showSidebar} style={{ cursor: "pointer" }} />
-              </NavIcon>
-              {SidebarData.map((item, index) => {
-                return <SubMenu item={item} key={index} />;
-              })}
-              <NavOut>
-                <h5>Keluar</h5>
-                <FaSignOutAlt />
-              </NavOut>
-            </SidebarWrap>
-          </SidebarNav>
-        </Nav>
-      </Container>
+    <Container>
+      <Nav>
+        <NavIcon>
+          <FaIcons.FaBars onClick={showSidebar} style={{ cursor: "pointer" }} />
+          <div style={{ display: "flex" }}>
+            <Logo className="logo-center">PlinPlant</Logo>
+            <h3 style={{ color: "#fff", padding: "2px", marginLeft: "10px" }}>
+              CMS
+            </h3>
+          </div>
+          <h5 style={{ marginRight: "15px" }}>Hello, Admin</h5>
+        </NavIcon>
+        <SidebarNav sidebar={sidebar}>
+          <SidebarWrap>
+            <NavTimes>
+              <FaTimes onClick={showSidebar} style={{ cursor: "pointer" }} />
+            </NavTimes>
+            {SidebarData.map((item, index) => {
+              return <SubMenu item={item} key={index} />;
+            })}
+            <NavOut>
+              <h5>Keluar</h5>
+              <FaSignOutAlt />
+            </NavOut>
+          </SidebarWrap>
+        </SidebarNav>
+      </Nav>
+    </Container>
     // </div>
   );
 };

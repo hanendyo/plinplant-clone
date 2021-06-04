@@ -6,6 +6,10 @@ import Button from '../../../master/components/additional/Button';
 import ScrollSign from '../../../master/components/additional/ScrollSign';
 import StatusOrder from '../../../master/components/additional/StatusOrder';
 import UploadBox from '../../../master/components/additional/UploadBox';
+import {
+  priceFormat,
+  weightFormat,
+} from '../../../master/constant/constantVariables';
 import { invoiceProduct } from '../../../master/constant/data/dummy-data';
 import { colors } from '../../../master/constant/style';
 import { ReviewModal } from '../../modals';
@@ -20,17 +24,54 @@ import {
 } from './Invoice.elemen';
 
 const Invoice = () => {
+  const {
+    modalUploadState,
+    modalUploadDispatch,
+    modalReviewState,
+    userCartState,
+    invoiceState,
+  } = useContext(ContextStore);
+
+  const {
+    no_order,
+    created_at,
+    // status,
+    recipient_name,
+    address,
+    city_name,
+    zipcode,
+    phone_number,
+    bank_name,
+    no_rek,
+    owner,
+    shipping_price,
+  } = invoiceState[0];
+
   const [scroll, setScroll] = useState(true);
 
-  const { modalUploadState, modalUploadDispatch, modalReviewState } =
-    useContext(ContextStore);
-
-  const status = 'selesai';
+  const [status, setStatus] = useState('proses');
 
   useEffect(() => {
-    if (invoiceProduct.length < 5) setScroll(false);
-    if (invoiceProduct.length > 4) setScroll(true);
-  }, [invoiceProduct]);
+    if (invoiceState.length < 5) setScroll(false);
+    if (invoiceState.length > 4) setScroll(true);
+  }, [invoiceState]);
+
+  const totalPrice = invoiceState
+    .map((item) => item.price * item.quantity)
+    .reduce((a, b) => a + b, 0);
+
+  const totalItems = invoiceState
+    .map((item) => item.quantity)
+    .reduce((a, b) => a + b, 0);
+
+  // ::: DALAM GRAM :::
+  const totalWeight = invoiceState
+    .map((item) => item.weight * item.quantity)
+    .reduce((a, b) => a + b, 0);
+
+  const totalShippingPrice = Math.ceil(totalWeight / 1000) * shipping_price;
+
+  const uniqueCode = Math.floor(Math.random() * 99);
 
   return (
     <InvoiceSection>
@@ -40,12 +81,12 @@ const Invoice = () => {
         <HeaderInfo>
           <div>
             <p>No. Order</p>
-            <h6>PP-lkjascLKJLKFklhadsl</h6>
+            <h6>PP-{no_order}</h6>
           </div>
 
           <div>
             <p>Tanggal Pembelian</p>
-            <h6>7 Mei 2021, 10.43 WIB</h6>
+            <h6>{created_at}</h6>
           </div>
 
           <div>
@@ -59,7 +100,7 @@ const Invoice = () => {
           </div>
         </HeaderInfo>
 
-        <ShoppingDetail>
+        <ShoppingDetail status={status}>
           <div>
             <h5>Daftar Produk</h5>
 
@@ -73,29 +114,38 @@ const Invoice = () => {
               <h5>Pengiriman</h5>
 
               <p>
-                Dikirim kepada <strong>Fajar Riadi</strong>
+                Dikirim kepada <strong>{recipient_name}</strong>
               </p>
-              <p>Jl. Salembaran - Depan Bakso Zahra</p>
-              <p>Kecamatan Cibeureum, Bogor, 15045</p>
-              <p>Telp. 085156493801</p>
+              <p>{address}</p>
+              <p>
+                {city_name}, {zipcode}
+              </p>
+              <p>Telp. {phone_number}</p>
             </Shipping>
 
             <Payment>
               <h5>Pembayaran</h5>
 
               <div>
-                <p>Total Harga (4 barang)</p>
-                <h6>Rp 100.000</h6>
+                <p>Total Harga ({totalItems} barang)</p>
+                <h6>{priceFormat.format(totalPrice)}</h6>
               </div>
 
               <div>
-                <p>Total Ongkos Kirim (JKT - BGR, 2 Kg)</p>
-                <h6>Rp 20.000</h6>
+                <p>
+                  Total Ongkos Kirim (JKT - BGR, {weightFormat(totalWeight)} )
+                </p>
+                <h6>{priceFormat.format(totalShippingPrice)}</h6>
               </div>
 
               <div>
                 <p>Total Tagihan</p>
-                <h6>Rp 120.067 *</h6>
+                <h6>
+                  {priceFormat.format(
+                    totalShippingPrice + totalPrice + uniqueCode
+                  )}{' '}
+                  *
+                </h6>
               </div>
 
               <div>
@@ -109,25 +159,38 @@ const Invoice = () => {
                 </p>
 
                 <h6>
-                  Transfer Bank BCA <br />
-                  3603136827 <br />
-                  A/n PlinPlant, Etc
+                  Transfer Bank {bank_name} <br />
+                  {no_rek} <br />
+                  A/n {owner}
                   <FaExclamationTriangle className='warning' />
                 </h6>
               </div>
             </Payment>
           </div>
 
-          <div>
-            <Button
-              primary
-              address
-              shop
-              text='Upload Bukti Transfer'
-              bgColor={colors.yellow}
-              onClick={() => modalUploadDispatch(openModalUpload())}
-            />
-          </div>
+          {status === 'proses' ? (
+            <div>
+              <Button
+                primary
+                address
+                shop
+                text='Pesanan Diterima'
+                bgColor={colors.yellow}
+                onClick={() => setStatus('selesai')}
+              />
+            </div>
+          ) : (
+            <div>
+              <Button
+                primary
+                address
+                shop
+                text='Upload Bukti Transfer'
+                bgColor={colors.yellow}
+                onClick={() => modalUploadDispatch(openModalUpload())}
+              />
+            </div>
+          )}
         </ShoppingDetail>
       </Container>
 

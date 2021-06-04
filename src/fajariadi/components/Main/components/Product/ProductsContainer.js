@@ -35,7 +35,14 @@ const ProductsContainer = ({
   selectAddress,
   related,
 }) => {
-  const { tablePlantState, plantIdState } = useContext(ContextStore);
+  const {
+    tablePlantState,
+    tableArticleState,
+    plantReviewState,
+    userCartState,
+    userAddressState,
+    invoiceState,
+  } = useContext(ContextStore);
 
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 50;
@@ -141,6 +148,7 @@ const ProductsContainer = ({
                 name={plant_name}
                 img={plant_image}
                 key={pk_plant_id}
+                id={pk_plant_id}
               />
             ))}
           </div>
@@ -149,58 +157,97 @@ const ProductsContainer = ({
 
       {scroll && (
         <ShopRelated>
-          {products
-            .filter((item) => category === item.category)
-            .map(({ name, img }, index) => (
-              <Cards scroll name={name} img={img} key={index} />
+          {tablePlantState
+            .filter((item) => category === item.category_name)
+            .map(({ plant_name, plant_image, pk_plant_id }) => (
+              <Cards
+                scroll
+                name={plant_name}
+                img={plant_image}
+                key={pk_plant_id}
+                id={pk_plant_id}
+              />
             ))}
         </ShopRelated>
       )}
 
       {review && (
         <ReviewContainer>
-          {reviews.map(({ name, created, text, img, rating }, index) => (
-            <Cards
-              review
-              name={name}
-              created={created}
-              text={text}
-              rating={rating}
-              img={img}
-              key={index}
-            />
-          ))}
+          {plantReviewState.map(
+            ({
+              pk_review_id,
+              picture,
+              fullname,
+              rating,
+              created_at,
+              comment,
+            }) => (
+              <Cards
+                review
+                name={fullname}
+                created={created_at}
+                text={comment}
+                rating={rating}
+                img={picture}
+                key={pk_review_id}
+                id={pk_review_id}
+              />
+            )
+          )}
         </ReviewContainer>
       )}
 
       {cart && (
         <CartContainer>
-          {cartItems.map(({ img, name, phase, price, quantity }, index) => (
-            <Cards
-              cart
-              key={index}
-              img={img}
-              name={name}
-              phase={phase}
-              price={price}
-              quantity={quantity}
-            />
-          ))}
+          {userCartState.map(
+            ({
+              pk_cart_id,
+              phase_image,
+              plant_name,
+              plant_phase,
+              quantity,
+              price,
+            }) => (
+              <Cards
+                cart
+                id={pk_cart_id}
+                key={pk_cart_id}
+                img={phase_image}
+                name={plant_name}
+                phase={plant_phase}
+                price={price}
+                quantity={quantity}
+              />
+            )
+          )}
         </CartContainer>
       )}
 
       {checkout && (
         <CheckoutContainer>
-          {cartItems.map(({ img, name, phase, price }, index) => (
-            <Cards
-              checkout
-              key={index}
-              img={img}
-              name={name}
-              phase={phase}
-              price={price}
-            />
-          ))}
+          {userCartState.map(
+            ({
+              pk_cart_id,
+              phase_image,
+              plant_name,
+              plant_phase,
+              quantity,
+              price,
+              weight,
+            }) => (
+              <Cards
+                checkout
+                id={pk_cart_id}
+                key={pk_cart_id}
+                img={phase_image}
+                name={plant_name}
+                phase={plant_phase}
+                price={price}
+                quantity={quantity}
+                weight={weight}
+              />
+            )
+          )}
         </CheckoutContainer>
       )}
 
@@ -241,18 +288,32 @@ const ProductsContainer = ({
 
       {invoice && (
         <InvoiceContainer>
-          {invoiceProduct.map(
-            ({ name, img, phase, price, quantity, review }, index) => (
+          {invoiceState.map(
+            (
+              {
+                fk_plant_id,
+                phase_image,
+                plant_name,
+                plant_phase,
+                quantity,
+                price,
+                weight,
+                review_status,
+              },
+              index
+            ) => (
               <Cards
                 invoice
                 key={index}
-                name={name}
-                img={img}
-                phase={phase}
+                name={plant_name}
+                img={phase_image}
+                phase={plant_phase}
                 price={price}
                 quantity={quantity}
-                reviewed={review}
+                weight={weight}
+                reviewed={review_status}
                 status={status}
+                plant={fk_plant_id}
               />
             )
           )}
@@ -261,16 +322,34 @@ const ProductsContainer = ({
 
       {article && (
         <ArticlesContainer>
-          {articles.map(
-            ({ img, title, author, release_date, reading_time }, index) => (
+          {tableArticleState.map(
+            (
+              {
+                pk_article_id,
+                article_image,
+                title,
+                author,
+                created_at,
+                duration,
+                source,
+                url,
+                content,
+              },
+              index
+            ) => (
               <Cards
                 article
-                key={index}
-                img={img}
+                key={pk_article_id}
+                id={pk_article_id}
+                index={index}
+                img={article_image}
                 title={title}
                 author={author}
-                release_date={release_date}
-                reading_time={reading_time}
+                created_at={created_at}
+                duration={duration}
+                source={source}
+                url={url}
+                content={content}
               />
             )
           )}
@@ -279,35 +358,61 @@ const ProductsContainer = ({
 
       {profileAddress && (
         <AddressContainer>
-          {addresses.map(({ name, phone, city, postal, route }, index) => (
-            <Cards
-              address
-              key={index}
-              name={name}
-              phone={phone}
-              city={city}
-              postal={postal}
-              route={route}
-              selected={selected}
-            />
-          ))}
+          {userAddressState.map(
+            (
+              {
+                pk_contact_id,
+                recipient_name,
+                phone_number,
+                city_name,
+                zipcode,
+                address,
+              },
+              index
+            ) => (
+              <Cards
+                address
+                index={index}
+                key={pk_contact_id}
+                id={pk_contact_id}
+                name={recipient_name}
+                phone={phone_number}
+                city={city_name}
+                postal={zipcode}
+                route={address}
+              />
+            )
+          )}
         </AddressContainer>
       )}
 
       {selectAddress && (
         <ModalAddressContainer>
-          {addresses.map(({ name, phone, city, postal, route }, index) => (
-            <Cards
-              selectAddress
-              key={index}
-              name={name}
-              phone={phone}
-              city={city}
-              postal={postal}
-              route={route}
-              selected={selected}
-            />
-          ))}
+          {userAddressState.map(
+            (
+              {
+                pk_contact_id,
+                recipient_name,
+                phone_number,
+                city_name,
+                zipcode,
+                address,
+              },
+              index
+            ) => (
+              <Cards
+                selectAddress
+                index={index}
+                key={pk_contact_id}
+                id={pk_contact_id}
+                name={recipient_name}
+                phone={phone_number}
+                city={city_name}
+                postal={zipcode}
+                route={address}
+              />
+            )
+          )}
         </ModalAddressContainer>
       )}
     </>

@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  makeStyles,
-  TextField,
-} from "@material-ui/core";
+import { Button, makeStyles, TextField } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "../CMS.css";
+import {
+  TableListPhone,
+  ContentBox,
+  ButtonList,
+  Container,
+  BoxForm,
+  BoxTable,
+  BoxTablePhone,
+  SpanImage,
+  ButtonContainer,
+  ImageBox,
+  List,
+  ListData,
+} from "../style/Form";
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +47,7 @@ const Weight = () => {
   // USE STATE
   const [dataWeight, setDataWeight] = useState([
     {
-        weight: ''
+      weight: "",
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -50,7 +60,7 @@ const Weight = () => {
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = 'weight'
+  const endPoint = "weight";
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -70,8 +80,8 @@ const Weight = () => {
 
   // POST
   const postAPI = async (form) => {
-    const data = new FormData()
-    data.append(`weight`, form.weight)
+    const data = new FormData();
+    data.append(`weight`, form.weight);
     axios
       .post(url + `${endPoint}_input`, data, {
         headers: {
@@ -128,11 +138,11 @@ const Weight = () => {
     } else {
       postAPI(weightState);
     }
-  
+
     setDataWeight([
       {
         ...dataWeight,
-        weight: weightState.weight
+        weight: weightState.weight,
       },
     ]);
 
@@ -148,6 +158,10 @@ const Weight = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     setIsUpdate(true);
     setIndexUpdate(index);
     weightDispatch(cmsAction(`weight`, data.weight));
@@ -164,8 +178,7 @@ const Weight = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    weightDispatch(cmsAction(`weight`, ''));
-  
+    weightDispatch(cmsAction(`weight`, ""));
   };
 
   // FORM CHANGE
@@ -174,73 +187,110 @@ const Weight = () => {
   };
 
   return (
-    <div className="cmsForm">
-      <h3>Weight input</h3>
-      <form
-        encweight="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          value={weightState.weight}
-          name="weight"
-          onChange={(e) => formChange(`weight`, e.target.value)}
-          id="outlined-basic"
-          label="Weight"
-          variant="outlined"
-        />
-       
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          weight="submit"
+    <Container>
+      <h4>WEIGHT INPUT</h4>
+      <BoxForm>
+        <form
+          encweight="multipart/form-data"
+          className={classes.root}
+          onSubmit={(e) => handleSubmit(e)}
+          noValidate
+          autoComplete="off"
         >
-          {isUpdate ? "Update" : "Submit"}
-        </Button>
-        {isUpdate && (
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-            onClick={() => handleCancel()}
-          >
-            Cancel
-          </Button>
-        )}
-      </form>
-      <div>
-        <br />
-        <h3>Result: </h3>
-        {dataWeight.map(
-          (data, index) => (
-            console.log(`data weight map: `, dataWeight),
-            (
-              <ul className='map' key={index}>
-                <li>WEIGHT ID: <span>{data.pk_weight_id}</span></li>
-                <li>WEIGHT: <span>{data.weight}</span></li>
-                {
-                  <div>
-                    <button
-                      onClick={() => handleDelete(data.pk_weight_id, index)}
-                    >
-                      delete
-                    </button>
-                    <button onClick={() => handleUpdate(data, index)}>
-                      Update
-                    </button>
-                    <br />
-                  </div>
-                }
-                <br/>
-              </ul>
-            )
-          )
-        )}
-      </div>
-    </div>
+          <TextField
+            value={weightState.weight}
+            name="weight"
+            onChange={(e) => formChange(`weight`, e.target.value)}
+            id="outlined-basic"
+            label="Weight"
+            variant="outlined"
+          />
+          <ButtonContainer>
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              type="submit"
+              style={{ backgroundColor: `${colors.green}` }}
+            >
+              {isUpdate ? "Update" : "Submit"}
+            </Button>
+            {isUpdate && (
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                onClick={() => handleCancel()}
+                style={{
+                  marginTop: "20px",
+                  backgroundColor: `${colors.green}`,
+                }}
+              >
+                Cancel
+              </Button>
+            )}
+          </ButtonContainer>
+        </form>
+      </BoxForm>
+      <br />
+      <h4>WEIGHT DATA</h4>
+      <BoxTable>
+        <List>
+          <li>WEIGHT ID</li>
+          <li>PLANT WEIGHT</li>
+          <li>ACTION</li>
+        </List>
+        {dataWeight.map((data, index) => (
+          <ListData key={index}>
+            <li>{data.pk_weight_id}</li>
+            <li>{data.weight}</li>
+            <ButtonList>
+              <Button
+                onClick={() => handleUpdate(data, index)}
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                type="update"
+                style={{
+                  marginBottom: "10px",
+                  backgroundColor: `${colors.green}`,
+                }}
+              >
+                Update
+              </Button>
+              <Button
+                onClick={() => handleDelete(data.pk_article_id, index)}
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                type="delete"
+                style={{ backgroundColor: `${colors.green}` }}
+              >
+                delete
+              </Button>
+            </ButtonList>
+          </ListData>
+          // <ul className='map' key={index}>
+          //   <li>WEIGHT ID: <span>{data.pk_weight_id}</span></li>
+          //   <li>WEIGHT: <span>{data.weight}</span></li>
+          //   {
+          //     <div>
+          //       <button
+          //         onClick={() => handleDelete(data.pk_weight_id, index)}
+          //       >
+          //         delete
+          //       </button>
+          //       <button onClick={() => handleUpdate(data, index)}>
+          //         Update
+          //       </button>
+          //       <br />
+          //     </div>
+          //   }
+          //   <br/>
+          // </ul>
+        ))}
+      </BoxTable>
+    </Container>
   );
 };
 

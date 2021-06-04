@@ -22,7 +22,7 @@ const fileStorage = multer.diskStorage({
       fieldName === 'young_image_upload' ||
       fieldName === 'mature_image_upload'
     ) {
-      cb(null, '../public/images/plant_image');
+      cb(null, '../public/images/Plant');
     }
 
     if (fieldName === 'picture_upload') {
@@ -32,10 +32,7 @@ const fileStorage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const pathname = req.path;
-    cb(
-      null,
-      pathname + '_image_' + Date.now() + path.extname(file.originalname)
-    );
+    cb(null, file.originalname);
   },
 });
 

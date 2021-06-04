@@ -7,16 +7,16 @@ import Quantity from './Quantity';
 import { FaCheck, FaCircle, FaRegTrashAlt } from 'react-icons/fa';
 import StatusOrder from './StatusOrder';
 import { ContextStore } from '../../../context/store/ContextStore';
-import { openModalReview } from '../../../context/actions';
+import { openModalReview, setSelectedAddress } from '../../../context/actions';
 import { useMediaQuery } from 'react-responsive';
-import { Link } from 'react-router-dom';
-
-export const slug = (title) => title.toLowerCase().split(' ').join('-');
+import { Link, useHistory } from 'react-router-dom';
+import { priceFormat, weightFormat } from '../../constant/constantVariables';
 
 const Cards = ({
   id,
   name,
   img,
+  weight,
   created,
   text,
   rating,
@@ -24,8 +24,8 @@ const Cards = ({
   reviewed,
   cart,
   article,
-  release_date,
-  reading_time,
+  created_at,
+  duration,
   title,
   author,
   checkout,
@@ -46,11 +46,25 @@ const Cards = ({
   postal,
   route,
   selected,
+  setSelected,
   search,
   selectAddress,
+  index,
 }) => {
-  const { modalReviewDispatch } = useContext(ContextStore);
+  const {
+    modalReviewDispatch,
+    articleIdState,
+    selectedAddressState,
+    selectedAddressDispatch,
+  } = useContext(ContextStore);
+
+  const history = useHistory();
+
   const isMini = useMediaQuery({ maxWidth: 370 });
+
+  const slug = (title) => title.toLowerCase().split(' ').join('-');
+
+  console.log('CARDDD ADDREE', selectedAddressState);
 
   return (
     <>
@@ -63,9 +77,9 @@ const Cards = ({
 
             {/* BUTTON CONTAINER */}
             <div>
-              <a href='/shop'>
+              <Link to={`/shop/${id}/${slug(name)}`}>
                 <Button card text='Beli' bgColor={colors.green} />
-              </a>
+              </Link>
 
               <Link to={`/ensiklopedia/${id}/${slug(name)}`}>
                 <Button
@@ -91,17 +105,17 @@ const Cards = ({
 
             {/* BUTTON CONTAINER */}
             <div>
-              <a href='/shop'>
+              <Link to={`/shop/${id}/${slug(name)}`}>
                 <Button card text='Beli' bgColor={colors.green} />
-              </a>
+              </Link>
 
-              <a href='/ensiklopedia'>
+              <Link to={`/ensiklopedia/${id}/${slug(name)}`}>
                 <Button
                   card
                   text='Ensiklopedia'
                   bgColor={colors.lightGreenTransparent}
                 />
-              </a>
+              </Link>
             </div>
             {/* END OF BUTTON CONTAINER */}
           </div>
@@ -112,23 +126,23 @@ const Cards = ({
 
       {scroll && (
         <CardProductShop>
-          <img src={img} alt='' />
+          <img src={process.env.PUBLIC_URL + `/images/Plant/${img}`} alt='' />
 
           <div>
             <h5>{name}</h5>
 
-            <a href='/shop'>
+            <Link to={`/shop/${id}/${slug(name)}`}>
               <Button primary shop text='Beli' bgColor={colors.green} />
-            </a>
+            </Link>
 
-            <a href='/ensiklopedia'>
+            <Link to={`/ensiklopedia/${id}/${slug(name)}`}>
               <Button
                 primary
                 shop
                 text='Ensiklopedia'
                 bgColor={colors.lightGreenTransparent}
               />
-            </a>
+            </Link>
           </div>
         </CardProductShop>
       )}
@@ -149,7 +163,10 @@ const Cards = ({
 
           <p>{text}</p>
 
-          <img src={img} alt='' />
+          <img
+            src={process.env.PUBLIC_URL + `/images/user_image/${img}`}
+            alt={name}
+          />
 
           <Rating rate={rating} />
         </CardReview>
@@ -157,7 +174,10 @@ const Cards = ({
 
       {cart && (
         <CardCart>
-          <img src={img} alt='' />
+          <img
+            src={process.env.PUBLIC_URL + `/images/Plant/${img}`}
+            alt={img}
+          />
 
           <div>
             <div>
@@ -165,7 +185,7 @@ const Cards = ({
               <span>{phase}</span>
             </div>
 
-            <h5>{price}</h5>
+            <h5>{priceFormat.format(price)}</h5>
           </div>
 
           <Quantity quantity={quantity} />
@@ -176,15 +196,20 @@ const Cards = ({
 
       {checkout && (
         <CardCheckout>
-          <img src={img} alt='' />
+          <img
+            src={process.env.PUBLIC_URL + `/images/Plant/${img}`}
+            alt={img}
+          />
 
           <div>
             <h5>{name}</h5>
             <span>{phase}</span>
-            <span>1 barang (500 gr)</span>
+            <span>
+              {quantity} barang ({weightFormat(weight)})
+            </span>
           </div>
 
-          <h5>{price}</h5>
+          <h5>{priceFormat.format(price)}</h5>
         </CardCheckout>
       )}
 
@@ -227,33 +252,33 @@ const Cards = ({
           <div>
             {status === 'Transaksi Selesai' ? (
               <div>
-                <a href='/invoice'>
+                <Link to='/invoice'>
                   <Button
                     primary
                     address
                     text='Lihat Detail Transaksi'
                     bgColor='unset'
                   />
-                </a>
+                </Link>
 
-                <a href='/invoice'>
+                <Link to='/invoice'>
                   <Button
                     primary
                     address
                     text='Beri Ulasan'
                     bgColor={colors.yellow}
                   />
-                </a>
+                </Link>
               </div>
             ) : (
-              <a href='/invoice'>
+              <Link to='/invoice'>
                 <Button
                   primary
                   address
                   text='Lihat Detail Transaksi'
                   bgColor={colors.yellow}
                 />
-              </a>
+              </Link>
             )}
           </div>
         </CardTransaction>
@@ -262,13 +287,17 @@ const Cards = ({
       {invoice && (
         <CardInvoice>
           <div>
-            <img src={img} alt='' />
+            <img
+              src={process.env.PUBLIC_URL + `/images/Plant/${img}`}
+              alt={name}
+            />
 
             <div>
               <h6>{name}</h6>
               <span>{phase}</span>
               <span>
-                {quantity} barang (500 gr) x {price}
+                {quantity} barang ({weightFormat(weight)}) x{' '}
+                {priceFormat.format(price)}
               </span>
             </div>
           </div>
@@ -295,8 +324,15 @@ const Cards = ({
       )}
 
       {article && (
-        <CardArticle>
-          <img src={img} alt='' />
+        <CardArticle
+          onClick={() => history.push(`/article/${id}/${slug(title)}`)}
+          active={articleIdState.pk_article_id}
+          id={id}
+        >
+          <img
+            src={process.env.PUBLIC_URL + `/images/article_image/${img}`}
+            alt={title}
+          />
 
           <div>
             <h6>{title}</h6>
@@ -305,11 +341,11 @@ const Cards = ({
             </span>
 
             {isMini ? (
-              <p>{release_date}</p>
+              <p>{created_at}</p>
             ) : (
               <p>
-                {release_date} <FaCircle size={5} className='circle' />{' '}
-                {reading_time} menit baca
+                {created_at} <FaCircle size={5} className='circle' /> {duration}{' '}
+                baca
               </p>
             )}
           </div>
@@ -330,10 +366,15 @@ const Cards = ({
 
           <button>Ubah Alamat</button>
 
-          {selected ? (
+          {index === selectedAddressState ? (
             <FaCheck size={20} color={colors.white} className='checked' />
           ) : (
-            <Button primary text='Pilih' bgColor={colors.darkGreen} />
+            <Button
+              onClick={() => selectedAddressDispatch(setSelectedAddress(index))}
+              primary
+              text='Pilih'
+              bgColor={colors.darkGreen}
+            />
           )}
         </CardAddress>
       )}
@@ -352,10 +393,15 @@ const Cards = ({
 
           <button>Ubah Alamat</button>
 
-          {selected ? (
-            <FaCheck size={20} color={colors.white} className='checked' />
+          {index === selectedAddressState ? (
+            <FaCheck size={20} color={colors.darGreen} className='checked' />
           ) : (
-            <Button primary text='Pilih' bgColor={colors.darkGreen} />
+            <Button
+              onClick={() => selectedAddressDispatch(setSelectedAddress(index))}
+              primary
+              text='Pilih'
+              bgColor={colors.darkGreen}
+            />
           )}
         </CardModalAddress>
       )}
@@ -834,18 +880,19 @@ const CardInvoice = styled.div`
 `;
 
 const CardArticle = styled.div`
-  background-color: ${colors.lightGreenTransparent};
   display: flex;
   border-radius: 10px;
   overflow: hidden;
   transition: all 0.3s ease;
   cursor: pointer;
 
+  background-color: ${({ id, active }) =>
+    active === id ? colors.lightGreen : colors.lightGreenTransparent};
+
   &:not(:last-of-type) {
     margin-bottom: 10px;
   }
 
-  &:first-of-type,
   &:hover {
     background-color: ${colors.lightGreen};
 
@@ -859,14 +906,14 @@ const CardArticle = styled.div`
   }
 
   & > img {
-    width: 130px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
     margin-right: 10px;
   }
 
   & > div {
-    padding: 10px 0;
+    padding: 10px 10px 10px 0;
 
     & > h6 {
       color: ${colors.white};
@@ -875,7 +922,8 @@ const CardArticle = styled.div`
     & > span,
     p {
       font-size: 14px;
-      color: ${colors.lightGreen};
+      color: ${({ id, active }) =>
+        active === id ? '#22222280' : colors.lightGreen};
     }
 
     & > p {

@@ -3,12 +3,30 @@ import {
   Button,
   makeStyles,
   TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
 } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "../CMS.css";
+import {
+  TableListPhone,
+  ContentBox,
+  ButtonList,
+  Container,
+  BoxForm,
+  BoxTable,
+  BoxTablePhone,
+  SpanImage,
+  ButtonContainer,
+  ImageBox,
+  List,
+  ListData,
+} from "../style/Form";
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     button: {
       width: "80%",
       margin: "5px 0",
-      backgroundColor: "rgb(187, 203, 194)",
+      backgroundColor: `"rgb(187, 203, 194)"`,
       color: "primary",
     },
   },
@@ -37,9 +55,9 @@ const Contact = () => {
   // USE STATE
   const [dataOrder, setDataOrder] = useState([
     {
-      status: '',
-      created_at: '',
-      fk_user_id: '',
+      status: "",
+      created_at: "",
+      fk_user_id: "",
       // fk_city_id: ''
     },
   ]);
@@ -53,7 +71,7 @@ const Contact = () => {
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = 'order'
+  const endPoint = "order";
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -159,6 +177,10 @@ const Contact = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     // console.log(`index update: `, index);
     console.log(`data id update: `, data.pk_order_id);
     setIsUpdate(true);
@@ -181,10 +203,9 @@ const Contact = () => {
   // CLEAR FORM
   const clearFormData = () => {
     orderDispatch(cmsAction(`status`, ""));
-    orderDispatch(cmsAction(`created_at`, ''));
-    orderDispatch(cmsAction(`fk_user_id`, ''));
+    orderDispatch(cmsAction(`created_at`, ""));
+    orderDispatch(cmsAction(`fk_user_id`, ""));
     // orderDispatch(cmsAction(`fk_city_id`, ''));
-
   };
 
   // FORM CHANGE
@@ -193,91 +214,126 @@ const Contact = () => {
   };
 
   return (
-    <div className="cmsForm">
-      <h3>Order input</h3>
-      <form
-        encType="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          value={orderState.status}
-          name="status"
-          onChange={(e) => formChange(`status`, e.target.value)}
-          id="outlined-basic"
-          label="Order status"
-          variant="outlined"
-        />
-        <TextField
-          value={orderState.created_at}
-          name="created_at"
-          onChange={(e) => formChange(`created_at`, e.target.value)}
-          id="outlined-basic"
-          label="Created at"
-          variant="outlined"
-        />
-        <TextField
-          value={orderState.fk_user_id}
-          name="fk_user_id"
-          onChange={(e) => formChange(`fk_user_id`, e.target.value)}
-          id="outlined-basic"
-          label="User_ID"
-          variant="outlined"
-        />
-       
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
+    <Container>
+      <h4>ORDER INPUT</h4>
+      <BoxForm>
+        <form
+          encType="multipart/form-data"
+          className={classes.root}
+          onSubmit={(e) => handleSubmit(e)}
+          noValidate
+          autoComplete="off"
         >
-          {isUpdate ? "Update" : "Submit"}
-        </Button>
-        {isUpdate && (
+          <FormControl className={classes.formControl}>
+            <InputLabel id="status"> Order Status</InputLabel>
+            <Select
+              value={orderState.status}
+              onChange={(e) => formChange("status", e.target.value)}
+              name="status"
+              labelId="status"
+              id="outlined-basic"
+              variant="outlined"
+            >
+              <MenuItem value={1}>{"Verifikasi Pembayaran"}</MenuItem>
+              <MenuItem value={2}>{"Sedang Dikirim"}</MenuItem>
+              <MenuItem value={3}>{"Transaksi Selesai"}</MenuItem>
+            </Select>
+          </FormControl>
+          {/* <TextField
+            value={orderState.status}
+            name="status"
+            onChange={(e) => formChange(`status`, e.target.value)}
+            id="outlined-basic"
+            label="Order status"
+            variant="outlined"
+          /> */}
+          <TextField
+            value={orderState.created_at}
+            name="created_at"
+            onChange={(e) => formChange(`created_at`, e.target.value)}
+            id="outlined-basic"
+            label="Created at"
+            variant="outlined"
+          />
+          <TextField
+            value={orderState.fk_user_id}
+            name="fk_user_id"
+            onChange={(e) => formChange(`fk_user_id`, e.target.value)}
+            id="outlined-basic"
+            label="User_ID"
+            variant="outlined"
+          />
+
           <Button
             className={classes.button}
             variant="contained"
             color="primary"
-            onClick={() => handleCancel()}
+            type="submit"
+            style={{ backgroundColor: `${colors.green}` }}
           >
-            Cancel
+            {isUpdate ? "Update" : "Submit"}
           </Button>
-        )}
-      </form>
-      <div>
-        <br />
-        <h3>Result: </h3>
-        {dataOrder.map(
-          (data, index) => (
-            console.log(`data contact map: `, dataOrder),
-            (
-              <ul className='map' key={index}>
-                <li>ORDER ID: <span>{data.pk_order_id}</span></li>
-                <li>ORDER STATUS: <span>{data.status}</span></li>
-                <li>CREATED AT: <span>{data.created_at}</span></li>
-                <li>USER_ID: <span>{data.fk_user_id}</span></li>
-                {
-                  <div>
-                    <button
-                      onClick={() => handleDelete(data.pk_order_id, index)}
-                    >
-                      delete
-                    </button>
-                    <button onClick={() => handleUpdate(data, index)}>
-                      Update
-                    </button>
-                    <br />
-                  </div>
-                }
-                <br />
-              </ul>
-            )
-          )
-        )}
-      </div>
-    </div>
+          {isUpdate && (
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={() => handleCancel()}
+              style={{ marginTop: "20px", backgroundColor: `${colors.green}` }}
+            >
+              Cancel
+            </Button>
+          )}
+        </form>
+      </BoxForm>
+      <br />
+      <h4>ORDER STATUS DATA</h4>
+      <BoxTable>
+        <List>
+          <li>ORDER ID</li>
+          <li>STATUS</li>
+          <li>CREATED AT</li>
+          <li>USER ID</li>
+          <li>ACTION</li>
+        </List>
+
+        {dataOrder.map((data, index) => (
+          <ListData key={index}>
+            <li>{data.pk_order_id}</li>
+            <li>{data.status}</li>
+            <li>{data.created_at}</li>
+            <li>{data.fk_user_id}</li>
+            {
+              <ButtonList>
+                <Button
+                  onClick={() => handleUpdate(data, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="update"
+                  style={{
+                    marginBottom: "10px",
+                    backgroundColor: `${colors.green}`,
+                  }}
+                >
+                  Update
+                </Button>
+                <Button
+                  onClick={() => handleDelete(data.pk_order_id, index)}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="delete"
+                  style={{ backgroundColor: `${colors.green}` }}
+                >
+                  delete
+                </Button>
+              </ButtonList>
+            }
+          </ListData>
+        ))}
+      </BoxTable>
+    </Container>
   );
 };
 

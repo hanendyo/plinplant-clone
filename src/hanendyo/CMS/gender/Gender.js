@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  makeStyles,
-  TextField,
-} from "@material-ui/core";
+import { Button, makeStyles, TextField } from "@material-ui/core";
 import { useContext } from "react";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
 import axios from "axios";
-import "../CMS.css";
+import {
+  TableListPhone,
+  ContentBox,
+  ButtonList,
+  Container,
+  BoxForm,
+  BoxTable,
+  BoxTablePhone,
+  SpanImage,
+  ButtonContainer,
+  ImageBox,
+  List,
+  ListData,
+} from "../style/Form";
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,8 +47,8 @@ const Category = () => {
   // USE STATE
   const [dataGender, setDataGender] = useState([
     {
-        pk_gender_id: '',
-        type: '',
+      pk_gender_id: "",
+      type: "",
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -51,7 +61,7 @@ const Category = () => {
   }, []);
 
   const url = "http://localhost:5000/input/";
-  const endPoint = 'gender'
+  const endPoint = "gender";
 
   // GET
   const getAllDatasAPI = async () => {
@@ -141,12 +151,12 @@ const Category = () => {
     } else {
       postAPI(genderState);
     }
-  
+
     setDataGender([
       {
         ...dataGender,
         pk_gender_id: genderState.pk_gender_id,
-        type: genderState.type
+        type: genderState.type,
       },
     ]);
 
@@ -162,6 +172,10 @@ const Category = () => {
 
   // HANDLE UPDATE
   const handleUpdate = (data, index) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     setIsUpdate(true);
     setIndexUpdate(index);
     genderDispatch(cmsAction(`type`, data.type));
@@ -179,7 +193,6 @@ const Category = () => {
   const clearFormData = () => {
     genderDispatch(cmsAction(`type`, ""));
     genderDispatch(cmsAction(`pk_gender_id`, ""));
-  
   };
 
   // FORM CHANGE
@@ -188,73 +201,88 @@ const Category = () => {
   };
 
   return (
-    <div className="cmsForm">
-      <h3>Gender input</h3>
-      <form
-        encType="multipart/form-data"
-        className={classes.root}
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          value={genderState.type}
-          name="type"
-          onChange={(e) => formChange(`type`, e.target.value)}
-          id="outlined-basic"
-          label="Gender type"
-          variant="outlined"
-        />
-
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
+    <Container>
+      <h4>GENDER INPUT</h4>
+      <BoxForm>
+        <form
+          encType="multipart/form-data"
+          className={classes.root}
+          onSubmit={(e) => handleSubmit(e)}
+          noValidate
+          autoComplete="off"
         >
-          {isUpdate ? "Update" : "Submit"}
-        </Button>
-        {isUpdate && (
+          <TextField
+            value={genderState.type}
+            name="type"
+            onChange={(e) => formChange(`type`, e.target.value)}
+            id="outlined-basic"
+            label="Gender name"
+            variant="outlined"
+          />
+
           <Button
             className={classes.button}
             variant="contained"
             color="primary"
-            onClick={() => handleCancel()}
+            type="submit"
+            style={{ backgroundColor: `${colors.green}` }}
           >
-            Cancel
+            {isUpdate ? "Update" : "Submit"}
           </Button>
-        )}
-      </form>
-      <div>
-        <br />
-        <h3>Result: </h3>
-        {dataGender.map(
-          (data, index) => (
-            console.log(`data article map: `, dataGender),
-            (
-              <ul className='map' key={index}>
-                <li>GENDER TYPE: <span>{data.type}</span></li>
-                <li>GENDER ID: <span>{data.pk_gender_id}</span></li>
-                {
-                  <div>
-                    <button
-                      onClick={() => handleDelete(data.pk_gender_id, index)}
-                    >
-                      delete
-                    </button>
-                    <button onClick={() => handleUpdate(data, index)}>
-                      Update
-                    </button>
-                    <br />
-                  </div>
-                }
-                <br/>
-              </ul>
-            )
-          )
-        )}
-      </div>
-    </div>
+          {isUpdate && (
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={() => handleCancel()}
+              style={{ marginTop: "20px", backgroundColor: `${colors.green}` }}
+            >
+              Cancel
+            </Button>
+          )}
+        </form>
+      </BoxForm>
+      <br />
+      <h4>GENDER DATA</h4>
+      <BoxTable>
+        <List>
+          <li>GENDER ID</li>
+          <li>GENDER TYPE</li>
+          <li>ACTION</li>
+        </List>
+        {dataGender.map((data, index) => (
+          <ListData key={index}>
+            <li>{data.pk_gender_id}</li>
+            <li>{data.type}</li>
+            <ButtonList>
+              <Button
+                onClick={() => handleUpdate(data, index)}
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                type="update"
+                style={{
+                  marginBottom: "10px",
+                  backgroundColor: `${colors.green}`,
+                }}
+              >
+                Update
+              </Button>
+              <Button
+                onClick={() => handleDelete(data.pk_gender_id, index)}
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                type="delete"
+                style={{ backgroundColor: `${colors.green}` }}
+              >
+                delete
+              </Button>
+            </ButtonList>
+          </ListData>
+        ))}
+      </BoxTable>
+    </Container>
   );
 };
 

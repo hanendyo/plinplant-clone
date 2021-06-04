@@ -9,10 +9,6 @@ import {
   Container,
 } from './Body.component';
 import { FaCircle } from 'react-icons/fa';
-import seed from '../../images/basil-seed.png';
-import tuber from '../../images/basil-tuber.jpg';
-import juvenil from '../../images/basil-juvenil.jpg';
-import mature from '../../images/basil-mature.jpg';
 import { ContextStore } from '../../../context/store/ContextStore';
 
 const Body = () => {

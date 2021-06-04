@@ -7,8 +7,18 @@ import {
   modalReviewReducer,
   tablePlantReducer,
   plantIdReducer,
+  selectedAddressReducer,
 } from '../reducer';
 import { CmsReducer } from '../reducer/CmsReducer';
+import {
+  articleIdReducer,
+  plantReviewReducer,
+  tableArticleReducer,
+  userInfoReducer,
+  userCartReducer,
+  userAddressReducer,
+  invoiceReducer,
+} from '../reducer/fetchingReducer';
 import {
   modalPilihAlamatReducer,
   modalTambahAlamatReducer,
@@ -131,13 +141,50 @@ export const ContextProvider = ({ children }) => {
   );
 
   // !::: FETCHING :::
+  // ::: FETCH USER INFO ::: DUMMY :::
+  const [userInfoState, userInfoDispatch] = useReducer(userInfoReducer, []);
+
+  // ::: FETCH INVOICES :::
+  const [invoiceState, invoiceDispatch] = useReducer(invoiceReducer, []);
+
+  // ::: FETCH PLANT REVIEW :::
+  const [plantReviewState, plantReviewDispatch] = useReducer(
+    plantReviewReducer,
+    []
+  );
+
+  // ::: FETCH USER CART :::
+  const [userCartState, userCartDispatch] = useReducer(userCartReducer, []);
+
+  // ::: FETCH USER ADDRESS :::
+  const [userAddressState, userAddressDispatch] = useReducer(
+    userAddressReducer,
+    []
+  );
+
+  // ::: SELECTED USER ADDRESS :::
+  const [selectedAddressState, selectedAddressDispatch] = useReducer(
+    selectedAddressReducer,
+    0
+  );
+
   // ::: FETCH TABLE PLANT :::
   const [tablePlantState, tablePlantDispatch] = useReducer(
     tablePlantReducer,
     []
   );
 
+  // ::: FETCH TABLE PLANT BY ID :::
   const [plantIdState, plantIdDispatch] = useReducer(plantIdReducer, {});
+
+  // ::: FETCH TABLE ARTICLE :::
+  const [tableArticleState, tableArticleDispatch] = useReducer(
+    tableArticleReducer,
+    []
+  );
+
+  // ::: FETCH TABLE ARTICLE BY ID :::
+  const [articleIdState, articleIdDispatch] = useReducer(articleIdReducer, {});
 
   return (
     <ContextStore.Provider
@@ -231,6 +278,38 @@ export const ContextProvider = ({ children }) => {
         // ::: FETCH PLANT ID :::
         plantIdState,
         plantIdDispatch,
+
+        // ::: FETCH ARTICLE :::
+        tableArticleState,
+        tableArticleDispatch,
+
+        // ::: FETCH ARTICLE ID :::
+        articleIdState,
+        articleIdDispatch,
+
+        // ::: FETCH USER INFO ::: DUMMY :::
+        userInfoState,
+        userInfoDispatch,
+
+        // ::: FETCH PLANT REVIEW :::
+        plantReviewState,
+        plantReviewDispatch,
+
+        // ::: FETCH USER CART :::
+        userCartState,
+        userCartDispatch,
+
+        // ::: FETCH USER ADDRESS :::
+        userAddressState,
+        userAddressDispatch,
+
+        // ::: SELECTED USER ADDRESS :::
+        selectedAddressState,
+        selectedAddressDispatch,
+
+        // ::: SELECTED USER ADDRESS :::
+        invoiceState,
+        invoiceDispatch,
       }}
     >
       {children}

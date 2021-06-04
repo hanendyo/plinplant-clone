@@ -1,16 +1,92 @@
 const pool = require('../database/Database');
 
 module.exports = {
+  // ::: QUERY TO GET USER INFO ::: DUMMY :::
+
+  getUserInfo: (id, callback) => {
+    pool.query(
+      `Select * from user_info where pk_user_id = ?`,
+      [id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+
+  // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
+
+  invoiceGetId: (id, callBack) => {
+    pool.query(
+      `select * from user_invoice where fk_user_id = ? and pk_invoice_id = ?`,
+      [id.id, id.order],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results); // result[0]
+      }
+    );
+  },
+
+  invoiceGetAllDatas: (callback) => {
+    pool.query(`Select * from user_invoice`, [], (error, results, fields) => {
+      if (error) {
+        return callback(error);
+      }
+      return callback(null, results);
+    });
+  },
+
+  reviewGetPlantId: (id, callback) => {
+    pool.query(
+      `Select * from plant_review where fk_plant_id = ?`,
+      [id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+
+  cartGetByUserId: (id, callback) => {
+    pool.query(
+      `Select * from user_cart where fk_user_id = ?`,
+      [id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+
+  addressGetByUserId: (id, callback) => {
+    pool.query(
+      `Select * from user_address where fk_user_id = ?`,
+      [id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+
   articleInputTable: (body, callback) => {
     console.log(`bdy: `, body);
 
-    const sql = `insert into table_article (article_image, author, title, content, created_at) values(?, ?, ?, ?, ?)`;
+    const sql = `insert into table_article (article_image, title, author, created_at, duration, source, url, content) values(?, ?, ?, ?, ?, ?, ?, ?)`;
     const column = [
       body.article_image,
-      body.author,
       body.title,
-      body.content,
+      body.author,
       body.created_at,
+      body.duration,
+      body.source,
+      body.url,
+      body.content,
     ];
 
     console.log(`BODY ARTICLE IMAGE: `, body.article_image);
@@ -33,6 +109,18 @@ module.exports = {
     });
   },
 
+  articleGetId: (id, callback) => {
+    pool.query(
+      `Select * from table_article where pk_article_id = ?`,
+      [id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+
   articleDelete: (id, callback) => {
     pool.query(
       `delete from table_article where pk_article_id = ?`,
@@ -51,13 +139,16 @@ module.exports = {
   articleUpdate: (data, callback) => {
     console.log(`DATA ARTICLE UPDATE: `, data);
     pool.query(
-      `update table_article set article_image=?, author=?, title=?, content=?, created_at=? where pk_article_id=?`,
+      `update table_article set article_image=?, title=?, author=?, created_at=?, duration=?, source=?, url=?, content=? where pk_article_id=?`,
       [
         data.article_image,
-        data.author,
         data.title,
-        data.content,
+        data.author,
         data.created_at,
+        data.duration,
+        data.source,
+        data.url,
+        data.content,
         data.pk_article_id,
       ],
       (error, result, fields) => {
@@ -620,8 +711,13 @@ module.exports = {
   },
 
   reviewInputTable: (data, callback) => {
-    const sql = `insert into table_review (comment, rating) values(?,?)`;
-    const column = [data.comment, data.rating];
+    const sql = `insert into table_review (comment, rating, fk_user_id , fk_plant_id) values(?,?,?,?)`;
+    const column = [
+      data.comment,
+      data.rating,
+      data.fk_user_id,
+      data.fk_plant_id,
+    ];
     pool.query(sql, column, (err, result, fields) => {
       if (err) {
         return callback(err);
@@ -656,14 +752,13 @@ module.exports = {
 
   reviewUpdate: (data, callback) => {
     pool.query(
-      `update table_review set seed_price=?, tuber_price=?, young_price=?, mature_price=?, fk_plant_breeding_id=?, fk_stock_id=? where pk_review_id=?`,
+      `update table_review set comment=?, rating=?, fk_user_id=?, fk_plant_id=? where pk_review_id=?`,
       [
-        data.seed_price,
-        data.tuber_price,
-        data.young_price,
-        data.mature_price,
-        fk_plant_breeding_id,
-        fk_stock_id,
+        data.comment,
+        data.rating,
+        data.fk_user_id,
+        data.fk_plant_id,
+        data.pk_review_id,
       ],
       (error, result, fields) => {
         if (error) {
