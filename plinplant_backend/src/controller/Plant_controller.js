@@ -929,6 +929,7 @@ module.exports = {
 
   review_input: (req, res) => {
     const body = req.body;
+    console.log(`BODY REVIEW CONTROLLER: `, body);
     reviewInputTable(body, (err, result) => {
       if (err) {
         return res.json({

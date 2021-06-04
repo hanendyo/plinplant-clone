@@ -22,6 +22,7 @@ import {
   getUser,
 } from './context/actions/fetchingActions';
 import Loader from './fajariadi/components/Loader';
+import { SignIn, SignUp } from './hanendyo/AuthPages/AuthPages';
 
 const App = () => {
   const {
@@ -99,6 +100,8 @@ const App = () => {
             <Route path='/article/:id/:title' component={ArticlePage} />
             <Route path='/profile' component={ProfilePage} />
             <Route path='/cms' component={CMS} />
+            <Route exact path='/register' component={SignUp} />
+            <Route exact path='/login' component={SignIn} />
           </Switch>
         </Router>
       )}
