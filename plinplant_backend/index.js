@@ -72,15 +72,15 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }))
-// app.use(session({
-//   key: 'userToken',
-//   secret: 'secretcode',
-//   resave: false,
-//   saveUninitialized: false,
-//   cookie: {
-//     expires: 60 * 60 * 24
-//   }
-// }))
+app.use(session({
+  key: 'userToken',
+  secret: 'secretcode',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    expires: 60 * 60 * 24
+  }
+}))
 
 
 // path
