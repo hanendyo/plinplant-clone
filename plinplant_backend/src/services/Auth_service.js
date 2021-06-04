@@ -2,8 +2,8 @@ const pool = require("../database/Database");
 
 module.exports = {
   postRegister: (data, callback) => {
-    console.log(`CALLBACK NYA: `, callback);
-    console.log(`DATA NYA: `, data);
+    console.log(`CALLBACK SERVICE: `, callback);
+    console.log(`DATA SERVICE: `, data);
     const sql = `insert into table_user (fullname, email, password)values(?,?,?)`;
     const database = [
       data.fullname,
@@ -16,10 +16,10 @@ module.exports = {
         return callback(null, err);
       }
 
-      console.log(`DATA EMAIL: `, data.email);
-      console.log(`RESULT NYA: `, result);
-      console.log(`ERROR NYA: `, err);
-      console.log(`FIELDS NYA: `, fields);
+      console.log(`DATA EMAIL SERVICE: `, data.email);
+      console.log(`RESULT SERVICE: `, result);
+      console.log(`ERROR SERVICE: `, err);
+      console.log(`FIELDS SERVICE: `, fields);
 
       return callback(null, result);
     });

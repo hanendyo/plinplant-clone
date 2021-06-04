@@ -63,6 +63,7 @@ const {
 } = require('../controller/Plant_controller');
 const router = require('express').Router();
 const upload = require('../..');
+const AuthValidation = require('../middleware/AuthValidation');
 
 // POST
 router.post(
@@ -124,7 +125,7 @@ router.get('/user_get_all_datas', user_get_all_datas);
 router.get('/weight_get_all_datas', weight_get_all_datas);
 
 // GET BY ID
-router.get('/plant_get_by_id/:id', plantGetById);
+router.get('/plant_get_by_id/:id',plantGetById);
 
 // DELETE
 router.delete('/article_delete/:id', article_delete);

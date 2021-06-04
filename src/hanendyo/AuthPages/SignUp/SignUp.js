@@ -160,7 +160,7 @@ const SignUp = () => {
           </form>
 
           <p>
-            Already have an account? <a href="">Log In</a>{" "}
+            Already have an account? <a href="/login">Log In</a>{" "}
           </p>
         </div>
         <div className="bgImageContainer">

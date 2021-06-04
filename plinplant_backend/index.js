@@ -35,10 +35,7 @@ const fileStorage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const pathname = req.path;
-    cb(
-      null,
-      pathname + '_image_' + Date.now() + path.extname(file.originalname)
-    );
+    cb(null, file.originalname);
   },
 });
 const checkFileType = (req, file, cb) => {
@@ -64,26 +61,26 @@ dotenv.config();
 
 const authRoutes = require('./src/router/Auth_router');
 const plantRoutes = require('./src/router/Plant_router');
-const AuthValidation = require('./src/middleware/AuthValidation');
+// const AuthValidation = require('./src/middleware/AuthValidation');
 
 // middleware
 app.use(cors({
   origin: ['http://localhost:3000'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true  
+  credentials: true
 }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(session({
-  key:'userId',
-  secret: 'secretcode',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    expires: 60 * 60 * 24
-  }
-}))
+app.use(express.urlencoded({ extended: true }))
+// app.use(session({
+//   key: 'userToken',
+//   secret: 'secretcode',
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: {
+//     expires: 60 * 60 * 24
+//   }
+// }))
 
 
 // path
@@ -91,9 +88,9 @@ app.use('/auth', authRoutes);
 app.use('/input', plantRoutes);
 
 // testing path
-app.use('/checkUserAuth', AuthValidation, (req, res)=> {
-  res.send('you are authenticated!')
-})
+// app.use('/checkUserAuth', AuthValidation, (req, res) => {
+//   res.send('you are authenticated!')
+// })
 
 
 // Setup server

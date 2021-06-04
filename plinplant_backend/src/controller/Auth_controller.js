@@ -8,72 +8,65 @@ const { sign } = require("jsonwebtoken");
 
 module.exports = {
   POST_REGISTER: (req, res) => {
-    const body = req.body;
-    const { email, password, password_verify } = req.body;
-    console.log(`-----CONTROLLER!-----`);
-    console.log(`BODY NYA: `, body);
+    try {
+      const body = req.body;
+      const { email, password, password_verify } = req.body;
+      console.log(`-----CONTROLLER!-----`);
+      console.log(`BODY CONTROLLER: `, body);
 
-    // bycrypt
-    const salt = genSaltSync(10);
-    body.password = hashSync(body.password, salt);
-    console.log(`SALT: `, salt);
-    console.log(`BODY PASS HASHED: `, body.password);
+      // bycrypt
+      const salt = genSaltSync(10); //--> gensalt berfungsi untuk men-generate karakter sebanyak inputan
+      body.password = hashSync(body.password, salt); //--> menggabungkan  password asli dengan gensalt
+      console.log(`SALT CONTROLLER: `, salt);
+      console.log(`BODY PASS HASHED CONTROLLER: `, body.password);
 
-    postRegister(body, (err, result) => {
-      console.log(`-----SERVICE!-----`);
-      console.log(`CODERES NYA: `, result);
-      console.log(`ERR NYA: `, err);
+      postRegister(body, (err, result) => {
+        console.log(`-----SERVICE!-----`);
+        console.log(`CODERES CONTROLLER: `, result);
+        console.log(`ERR CONTROLLER: `, err);
 
-      //validation
-      if (err) {
-        // cegat email yang sama
-        return res.json({
-          success: 0,
-          message: "Database connection error!",
+        //validation
+        if (err) {
+          return res.status(400).json({
+            errorMessage: "Database connection error!",
+          });
+        }
+        if (!result) {
+          return res.status(400).json({
+            errorMessage: "form cannot be empty",
+          });
+        }
+        if (result.code === "ER_DUP_ENTRY") {
+          return res.status(400).json({
+            errorMessage: "Email already taken!",
+          });
+        }
+        if (!email || !password || !password_verify) {
+          return res.status(400).json({
+            errorMessage: "Please enter all required fields",
+          });
+        }
+        if (password.length < 6) {
+          return res.status(400).json({
+            errorMessage: "Password length must be more than 6 characters ",
+          });
+        }
+        if (password !== password_verify) {
+          return res.status(400).json({
+            errorMessage: "Please verify the password",
+          });
+        }
+
+        return res.status(201).json({
+          success: 1,
+          message: "Register success",
           data: result,
         });
-      }
-      if (!result) {
-        return res.json({
-          success: 0,
-          message: "form cannot be empty",
-          data: result,
-        });
-      }
-      if (result.code === "ER_DUP_ENTRY") {
-        return res.json({
-          success: 0,
-          message: "Email already taken!",
-          data: result,
-        });
-      }
-      if (!email || !password || !password_verify) {
-        return res.json({
-          success: 0,
-          message: "Please enter all required fields",
-          // data: err,
-        });
-      }
-      if (password.length < 6) {
-        return res.json({
-          success: 0,
-          message: "Password length must be more than 6 characters ",
-          // data: err,
-        });
-      }
-      if (password !== password_verify) {
-        return res.json({
-          success: 0,
-          message: "Please verify the password",
-          // data: err,
-        });
-      }
-      return res.status(201).json({
-        success: 1,
-        message: "Register success",
-        data: result,
       });
-    });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send();
+    }
   },
   POST_LOGIN: (req, res) => {
     const { email, password } = req.body;
@@ -84,15 +77,11 @@ module.exports = {
         res.send({ err });
       }
 
-      // console.log(`BODY PASSWORD: `, body.password);
-      // console.log(`RESULTS ONLY: `, result);
-      // console.log(`RESULTS PASSWORD: `, result[0].password);
-
       sess.user = result;
       console.log(`SESSION: `, sess);
 
       if (!email || !password) {
-        return res.json({
+        res.status(400).json({
           success: 0,
           message: "Please enter all required fields",
         });
@@ -100,7 +89,6 @@ module.exports = {
 
       if (result.length > 0) {
         const hasil = compareSync(body.password, result[0].password);
-        // console.log(`HASIL: `, hasil);
         console.log(`result for jwt: `, result);
 
         if (hasil) {
@@ -109,35 +97,35 @@ module.exports = {
             expiresIn: 300,
           });
 
-          console.log(`SIGN: `, sign);
-          console.log(`JSONTOKEN: `, jsontoken);
+          console.log(`JSONTOKEN CONTROLLER: `, jsontoken);
 
-          return res.json({
+          return res.cookie('token', jsontoken,{
             success: 1,
             message: "Login succcess",
             auth: true,
             token: jsontoken,
             result: result,
-          });
+            httpOnly: true,
+          }).send();
         } else {
-          return res.json({
+          return  res.status(401).json({
             success: 0,
             message: "Invalid Email or Password",
-            auth: true,
+            auth: false,
           });
         }
       } else {
-        return res.json({
+        return  res.status(400 ).json({
           success: 0,
           message: "User doesn't exist",
-          auth: true,
+          auth: false,
         });
       }
     });
   },
   GET_LOGIN: (req, res) => {
     const session = req.session.user;
-    console.log(`GET_LOGIN SESSION: `, req.session);
+    console.log(`GET_LOGIN SESSION CONTROLLER: `, req.session);
 
     if (session) {
       res.send({ loggedIn: true, user: session });
@@ -145,9 +133,13 @@ module.exports = {
       res.send({ loggedIn: false });
     }
   },
+  GET_LOGGED_IN: (req, res) => {
+    const token = req
+    console.log(`TOKEN GET LOGGED IN CONTROLLER: `, token);
+  },
   GET_LOGOUT: (req, res) => {
     res
-      .cookie("userId", "", {
+      .cookie("token ", "", {
         httpOnly: true,
         expires: new Date(0),
       })

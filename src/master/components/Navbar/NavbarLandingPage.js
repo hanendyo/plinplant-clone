@@ -7,15 +7,11 @@ import pic from '../../../fajariadi/assets/images/ig.jpg';
 import { Link, useHistory } from 'react-router-dom';
 import { ContextStore } from '../../../context/store/ContextStore';
 import axios from 'axios';
-import { signInAction } from '../../../context/actions/SignInAction';
 
 const NavbarLandingPage = () => {
   const history = useHistory();
   const [login, setLogin] = useState(false);
   const [profile, setProfile] = useState(false);
-
-  const context = useContext(ContextStore);
-  const { signInState, signInDispatch } = context;
 
   // ::: NAVBAR INTERACTION :::
   const [shadow, setShadow] = useState(false);
@@ -35,6 +31,7 @@ const NavbarLandingPage = () => {
   }, []);
   // ::: END OF NAVBAR INTERACTION :::
 
+
   return (
     <Nav shadow={shadow}>
       <Container shadow={shadow}>
@@ -50,6 +47,7 @@ const NavbarLandingPage = () => {
             <a href='/article'>Artikel</a>
           </li>
           <li>
+            {/* {console.log(`LANDING STATE: `, landingState)} */}
             {login ? (
               <>
                 <button onClick={() => setProfile(!profile)}>
