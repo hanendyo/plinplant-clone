@@ -34,6 +34,7 @@ const ProductsContainer = ({
   searching,
   selectAddress,
   related,
+  uniqueTransaction,
 }) => {
   const {
     tablePlantState,
@@ -253,33 +254,31 @@ const ProductsContainer = ({
 
       {transaction && (
         <TransactionContainer>
-          {transactions.map(
+          {uniqueTransaction.map(
             (
               {
-                img,
-                name,
-                phase,
-                price,
-                quantity,
-                totalPrice,
-                created,
-                no_order,
-                status,
+                // created_at,
+                // no_order,
+                // status,
+                // price,
+                // quantity,
+                // totalPrice,
+                // created,
               },
               index
             ) => (
               <Cards
-                transaction
-                key={index}
-                img={img}
-                name={name}
-                phase={phase}
-                price={price}
-                quantity={quantity}
-                totalPrice={totalPrice}
-                created={created}
-                no_order={no_order}
-                status={status}
+              // transaction
+              // key={index}
+              // img={img}
+              // name={name}
+              // phase={phase}
+              // price={price}
+              // quantity={quantity}
+              // totalPrice={totalPrice}
+              // created={created}
+              // no_order={no_order}
+              // status={status}
               />
             )
           )}

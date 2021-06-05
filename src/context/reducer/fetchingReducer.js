@@ -3,7 +3,7 @@
 export const userInfoReducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_USER_INFO':
-      return [...state, ...action.payload];
+      return [...action.payload];
 
     default:
       return state;

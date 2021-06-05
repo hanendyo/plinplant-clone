@@ -11,15 +11,8 @@ const InvoicePage = ({ match }) => {
   const [fetch, setfetch] = useState([]);
 
   useEffect(() => {
-    const getInvoice = async () => {
-      const res = await axios.get(
-        'http://localhost:5000/input/invoice/1/1622764848807'
-      );
-
-      invoiceDispatch(getInvoiceDetails(res.data.data));
-    };
-
-    getInvoice();
+    // :: STATIC ID & ORDER PARAMS
+    invoiceDispatch(getInvoiceDetails());
   }, []);
 
   console.log('DETAILLSSS', invoiceState);

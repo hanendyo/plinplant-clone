@@ -14,24 +14,11 @@ const CheckoutPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // const getCartUserId = async () => {
-    //   const res = await axios.get(
-    //     `http://localhost:5000/input/cart/${userInfoState[0]?.pk_user_id}`
-    //   );
-    //   userCartDispatch(getCarts(res.data.data));
-    // };
-
-    // const getAddressUserId = async () => {
-    //   const res = await axios.get(
-    //     `http://localhost:5000/input/address/${userInfoState[0]?.pk_user_id}`
-    //   );
-    //   userAddressDispatch(getAddresses(res.data.data));
-    // };
-
     setLoading(true);
 
-    // getCartUserId();
-    // getAddressUserId();
+    userCartDispatch(getCarts(userInfoState));
+
+    userAddressDispatch(getAddresses(userInfoState));
 
     // ::: LOADING TIME :::
     setTimeout(() => {

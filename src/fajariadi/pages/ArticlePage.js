@@ -13,27 +13,19 @@ const ArticlePage = ({ match }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getArticleId = async () => {
-      const res = await axios.get(
-        `http://localhost:5000/input/article_get_by_id/${match.params.id}`
-      );
-
-      articleIdDispatch(getArticleById(res.data.data[0]));
-    };
-
-    window.scrollTo({
-      top: 0,
-    });
-
     setLoading(true);
 
-    getArticleId();
+    articleIdDispatch(getArticleById(match));
+
+    window.scrollTo({ top: 0 });
 
     // ::: LOADING TIME :::
     setTimeout(() => {
       setLoading(false);
     }, 1000);
   }, [match.params.id]);
+
+  console.log('ARTICLE SATUU', articleIdState);
 
   return (
     <>

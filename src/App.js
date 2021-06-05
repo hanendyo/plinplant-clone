@@ -11,9 +11,7 @@ import {
   ProfilePage,
 } from './fajariadi/pages';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import NavigationCMS from './dhika/SidebarCMS/Navigation';
 import CMS from './hanendyo/CMS/CMS';
-import axios from 'axios';
 import { ContextStore } from './context/store/ContextStore';
 import { getPlants } from './context/actions';
 import {
@@ -27,53 +25,31 @@ import { SignIn, SignUp } from './hanendyo/AuthPages/AuthPages';
 const App = () => {
   const {
     tablePlantDispatch,
+    tablePlantState,
     tableArticleDispatch,
+    tableArticleState,
     userInfoDispatch,
     invoiceDispatch,
     invoiceState,
+    userInfoState,
   } = useContext(ContextStore);
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // ::: FETCH USER INFO :::
-    const getUserInfo = async () => {
-      const res = await axios.get('http://localhost:5000/input/user/1');
-
-      userInfoDispatch(getUser(res.data.data));
-    };
-
-    // ::: FETCH PLANT DATA :::
-    const getTablePlant = async () => {
-      const res = await axios.get(
-        'http://localhost:5000/input/plant_get_all_datas'
-      );
-
-      tablePlantDispatch(getPlants(res.data.data));
-    };
-
-    // ::: FETCH ARTICLE :::
-    const getTableArticle = async () => {
-      const res = await axios.get(
-        'http://localhost:5000/input/article_get_all_datas'
-      );
-
-      tableArticleDispatch(getArticles(res.data.data));
-    };
-
-    // ::: FETCH INVOICE :::
-    const getInvoiceData = async () => {
-      const res = await axios.get('http://localhost:5000/input/invoice');
-
-      invoiceDispatch(getInvoices(res.data.data));
-    };
-
     setLoading(true);
 
-    getUserInfo();
-    getTablePlant();
-    getTableArticle();
-    getInvoiceData();
+    // ::: FETCH USER INFO - THUNK :::
+    userInfoDispatch(getUser());
+
+    // ::: FETCH PLANT DATA :::
+    tablePlantDispatch(getPlants());
+
+    // ::: FETCH ARTICLE :::
+    tableArticleDispatch(getArticles());
+
+    // ::: FETCH INVOICE :::
+    invoiceDispatch(getInvoices());
 
     // ::: LOADING TIME :::
     setTimeout(() => {
@@ -81,7 +57,10 @@ const App = () => {
     }, 1000);
   }, []);
 
-  console.log('APPP', invoiceState);
+  console.log('APP - USER INFO', userInfoState);
+  console.log('APP - ALL PLANT DATA', tablePlantState);
+  console.log('APP - ALL ARTICLE DATA', tableArticleState);
+  console.log('APP - ALL INVOICE DATA', invoiceState);
 
   return (
     <>
