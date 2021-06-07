@@ -26,7 +26,7 @@ export const getPlantById = (match) => async (dispatch) => {
 };
 
 // ::: CART ACTION :::
-export const addCart = (data, phase) => async (dispatch) => {
+export const addCart = (data, phase, notif) => async (dispatch) => {
   const body = new FormData();
 
   if (phase === 'Biji') {
@@ -80,6 +80,12 @@ export const addCart = (data, phase) => async (dispatch) => {
   });
 
   console.log('ADDED TO CART !!!!!', res);
+
+  if (res.status === 200) notif(true);
+
+  setTimeout(() => {
+    notif(false);
+  }, 2000);
 
   dispatch({ type: 'ADD_USER_CART', payload: data });
 };
@@ -173,6 +179,24 @@ export const createInvoice = (data) => async (dispatch) => {
   console.log('INVOICE CREATED !!!!!', res);
 
   dispatch({ type: 'CREATE_INVOICE', payload: data });
+};
+
+export const updateStatusTransaction = (data) => async (dispatch) => {
+  console.log('DATAAAA', data);
+  const status = data.transactionStatus;
+  const pk_invoice_id = data.pk_invoice_id;
+
+  const res = await axios.put('http://localhost:5000/input/invoice', {
+    status,
+    pk_invoice_id,
+  });
+
+  console.log('STATUS UPDATED !!!!!', res);
+
+  dispatch({
+    type: 'INVOICE_TRANSACTION_DONE',
+    payload: { status, pk_invoice_id },
+  });
 };
 
 export const getReviews = (match) => async (dispatch) => {

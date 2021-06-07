@@ -20,6 +20,7 @@ import { ContextStore } from '../../../context/store/ContextStore';
 import { Link } from 'react-router-dom';
 import { priceFormat } from '../../../master/constant/constantVariables';
 import { addCart } from '../../../context/actions/fetchingActions';
+import AlertSign from '../../../master/components/additional/AlertSign';
 
 const Shop = () => {
   const { plantIdState, plantReviewState, userCartDispatch, userInfoState } =
@@ -56,6 +57,9 @@ const Shop = () => {
   // ::: SCROLL SIGN :::
   const [scroll, setScroll] = useState(true);
 
+  // ::: ALERT SIGN :::
+  const [notif, setNotif] = useState(false);
+
   // ::: HIGHLIGHT PRODUCT :::
   const [highlight, setHighlight] = useState('Biji');
 
@@ -89,7 +93,8 @@ const Shop = () => {
             pk_plant_id,
             pk_user_id,
           },
-          highlight
+          highlight,
+          setNotif
         )
       );
     }
@@ -107,7 +112,8 @@ const Shop = () => {
             pk_plant_id,
             pk_user_id,
           },
-          highlight
+          highlight,
+          setNotif
         )
       );
     }
@@ -125,7 +131,8 @@ const Shop = () => {
             pk_plant_id,
             pk_user_id,
           },
-          highlight
+          highlight,
+          setNotif
         )
       );
     }
@@ -143,7 +150,8 @@ const Shop = () => {
             pk_plant_id,
             pk_user_id,
           },
-          highlight
+          highlight,
+          setNotif
         )
       );
     }
@@ -153,6 +161,8 @@ const Shop = () => {
     setYoungQuantity(1);
     setMatureQuantity(1);
   };
+
+  console.log('NOTIFFF', notif);
 
   return (
     <main
@@ -291,8 +301,7 @@ const Shop = () => {
                 )}
 
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-                  aliquam.
+                  Kamu sedang melihat fase {highlight} dari tanaman {plant_name}
                 </p>
 
                 <ButtonCart onClick={addToCartHandler}>
@@ -358,6 +367,11 @@ const Shop = () => {
 
           {scroll && <ScrollSign center />}
         </ReviewContainer>
+
+        <AlertSign
+          text='Berhasil menambahkan tanaman kedalam keranjang.'
+          notif={notif}
+        />
       </Container>
     </main>
   );

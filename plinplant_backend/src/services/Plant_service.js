@@ -40,7 +40,6 @@ module.exports = {
   },
 
   invoiceCreate: (data, callBack) => {
-    console.log('INVOICE DATA', data);
     pool.query(
       `INSERT INTO table_invoice(pk_invoice_id, no_order, created_at, status, review_status, fk_user_id, fk_contact_id, fk_bank_id) values( ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
@@ -53,6 +52,19 @@ module.exports = {
         data.fk_contact_id,
         data.fk_bank_id,
       ],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results);
+      }
+    );
+  },
+
+  invoiceDone: (data, callBack) => {
+    console.log('PESANAN SELESAI', data);
+    pool.query(
+      `update table_invoice set status=? where pk_invoice_id=?`,
+      [data.status, data.pk_invoice_id],
       (error, results, fields) => {
         if (error) return callBack(error);
 
@@ -483,12 +495,16 @@ module.exports = {
   },
 
   orderGetAllDatas: (callback) => {
-    pool.query(`Select * from table_invoice`, [], (error, results, fields) => {
-      if (error) {
-        return callback(error);
+    pool.query(
+      `Select * from table_invoice order by pk_invoice_id desc`,
+      [],
+      (error, results, fields) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results);
       }
-      return callback(null, results);
-    });
+    );
   },
 
   orderDelete: (id, callback) => {

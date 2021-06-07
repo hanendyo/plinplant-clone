@@ -182,7 +182,7 @@ const Contact = () => {
       behavior: 'smooth',
     });
     // console.log(`index update: `, index);
-    console.log(`data id update: `, data.pk_order_id);
+    // console.log(`data id update: `, data.pk_order_id);
     setIsUpdate(true);
     setIndexUpdate(index);
     orderDispatch(cmsAction(`pk_invoice_id`, data.pk_invoice_id));
@@ -235,7 +235,7 @@ const Contact = () => {
               <MenuItem value={'bayar'}>{'Menunggu Pembayaran'}</MenuItem>
               <MenuItem value={'verif'}>{'Verifikasi Pembayaran'}</MenuItem>
               <MenuItem value={'proses'}>{'Pesanan Dikirim'}</MenuItem>
-              <MenuItem value={'selese'}>{'Transaksi Selesai'}</MenuItem>
+              <MenuItem value={'selesai'}>{'Transaksi Selesai'}</MenuItem>
             </Select>
           </FormControl>
           {/* <TextField
@@ -246,22 +246,22 @@ const Contact = () => {
             label="Order status"
             variant="outlined"
           /> */}
-          <TextField
+          {/* <TextField
             value={orderState.created_at}
             name='created_at'
             onChange={(e) => formChange(`created_at`, e.target.value)}
             id='outlined-basic'
             label='Created at'
             variant='outlined'
-          />
-          <TextField
+          /> */}
+          {/* <TextField
             value={orderState.fk_user_id}
             name='fk_user_id'
             onChange={(e) => formChange(`fk_user_id`, e.target.value)}
             id='outlined-basic'
             label='User_ID'
             variant='outlined'
-          />
+          /> */}
 
           <Button
             className={classes.button}

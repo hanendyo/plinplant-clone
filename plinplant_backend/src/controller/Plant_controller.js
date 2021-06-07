@@ -15,6 +15,7 @@ const {
   invoiceGetId,
   invoiceGetAllDatas,
   invoiceCreate,
+  invoiceDone,
   // BANK
   bankGetAll,
   // ARTICLE
@@ -164,7 +165,26 @@ module.exports = {
     const body = req.body;
 
     invoiceCreate(body, (err, results) => {
-      console.log('INVOICE CREATED', body);
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        message: results,
+      });
+    });
+  },
+
+  invoiceTransactionDone: (req, res) => {
+    const body = req.body;
+
+    invoiceDone(body, (err, results) => {
+      console.log('INVOICE TRANSACTION', body);
       if (err) {
         console.log(err);
         return res.status(500).json({

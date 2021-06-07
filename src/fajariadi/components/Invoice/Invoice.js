@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { openModalUpload } from '../../../context/actions';
+import { cmsAction } from '../../../context/actions/CmsAction';
+import { updateStatusTransaction } from '../../../context/actions/fetchingActions';
 import { ContextStore } from '../../../context/store/ContextStore';
 import Button from '../../../master/components/additional/Button';
 import ScrollSign from '../../../master/components/additional/ScrollSign';
@@ -30,11 +32,14 @@ const Invoice = () => {
     modalReviewState,
     userCartState,
     invoiceState,
+    invoiceDispatch,
+    orderDispatch,
   } = useContext(ContextStore);
 
   console.log('STATE INVOICEEE', invoiceState);
 
   const {
+    pk_invoice_id,
     no_order,
     created_at,
     status,
@@ -50,6 +55,7 @@ const Invoice = () => {
   } = invoiceState[0];
 
   const [scroll, setScroll] = useState(true);
+  const transactionStatus = 'selesai';
 
   useEffect(() => {
     if (invoiceState.length < 5) setScroll(false);
@@ -72,6 +78,12 @@ const Invoice = () => {
   const totalShippingPrice = Math.ceil(totalWeight / 1000) * shipping_price;
 
   const uniqueCode = Math.floor(Math.random() * 99);
+
+  const handleUpdateStatus = (data) => {
+    invoiceDispatch(updateStatusTransaction(data));
+
+    window.location.reload();
+  };
 
   return (
     <InvoiceSection>
@@ -176,7 +188,9 @@ const Invoice = () => {
                 shop
                 text='Pesanan Diterima'
                 bgColor={colors.yellow}
-                onClick={() => console.log('selesai')}
+                onClick={() =>
+                  handleUpdateStatus({ transactionStatus, pk_invoice_id })
+                }
               />
             </div>
           ) : (
@@ -194,7 +208,11 @@ const Invoice = () => {
         </ShoppingDetail>
       </Container>
 
-      <UploadBox invoice modal={modalUploadState} />
+      <UploadBox
+        pk_invoice_id={pk_invoice_id}
+        invoice
+        modal={modalUploadState}
+      />
       <ReviewModal modal={modalReviewState} />
     </InvoiceSection>
   );

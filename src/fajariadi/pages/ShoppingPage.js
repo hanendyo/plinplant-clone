@@ -11,12 +11,7 @@ import Loader from '../components/Loader';
 import Shop from '../components/Shop/Shop';
 
 const ShoppingPage = ({ match }) => {
-  const {
-    plantIdState,
-    plantIdDispatch,
-    plantReviewDispatch,
-    plantReviewState,
-  } = useContext(ContextStore);
+  const { plantIdDispatch, plantReviewDispatch } = useContext(ContextStore);
 
   const [loading, setLoading] = useState(true);
 
