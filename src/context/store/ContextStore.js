@@ -22,7 +22,9 @@ import {
   modalPilihAlamatReducer,
   modalTambahAlamatReducer,
   modalGantiNamaReducer,
-  modalPilihNamaReducer,
+  modalGantiGenderReducer,
+  modalGantiNomorReducer,
+  modalGantiBirthdateReducer,
 } from "../reducer/modalReducers";
 import { SignInReducer } from "../reducer/SignInReducer";
 import { SignUpReducer } from "../reducer/SignUpReducer";
@@ -147,9 +149,21 @@ export const ContextProvider = ({ children }) => {
     false
   );
 
-  // ::: MODAL PILIH NAMA :::
-  const [modalPilihNamaState, modalPilihNamaDispatch] = useReducer(
-    modalPilihNamaReducer,
+  // ::: MODAL GANTI GENDER :::
+  const [modalGantiGenderState, modalGantiGenderDispatch] = useReducer(
+    modalGantiGenderReducer,
+    false
+  );
+
+  // ::: MODAL GANTI NOMOR HP :::
+  const [modalGantiNomorState, modalGantiNomorDispatch] = useReducer(
+    modalGantiNomorReducer,
+    false
+  );
+
+  // ::: MODAL GANTI BIRTH DATE :::
+  const [modalGantiBirthdateState, modalGantiBirthdateDispatch] = useReducer(
+    modalGantiBirthdateReducer,
     false
   );
 
@@ -281,13 +295,21 @@ export const ContextProvider = ({ children }) => {
         modalTambahAlamatState,
         modalTambahAlamatDispatch,
 
-        // ::: MODAL TAMBAH ALAMAT :::
+        // ::: MODAL GANTI NAMA :::
         modalGantiNamaState,
         modalGantiNamaDispatch,
 
-        // ::: MODAL PILIH NAMA :::
-        modalPilihNamaState,
-        modalPilihNamaDispatch,
+        // ::: MODAL GANTI GENDER :::
+        modalGantiGenderState,
+        modalGantiGenderDispatch,
+
+        // ::: MODAL GANTI NOMOR :::
+        modalGantiNomorState,
+        modalGantiNomorDispatch,
+
+        // ::: MODAL GANTI BIRTHDATE :::
+        modalGantiBirthdateState,
+        modalGantiBirthdateDispatch,
 
         // ::: FETCH TABLE PLANT :::
         tablePlantState,

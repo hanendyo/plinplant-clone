@@ -31,11 +31,29 @@ export const closeModalGantiNama = () => ({
   type: "CLOSE_MODAL_GANTI_NAMA",
 });
 
-// ::: MODAL PILIH NAMA ACTION :::
-export const openModalPilihNama = () => ({
-  type: "OPEN_MODAL_PILIH_NAMA",
+// ::: MODAL GANTI GENDER ACTION :::
+export const openModalGantiGender = () => ({
+  type: "OPEN_MODAL_GANTI_GENDER",
 });
 
-export const closeModalPilihNama = () => ({
-  type: "CLOSE_MODAL_NAMA_NAMA",
+export const closeModalGantiGender = () => ({
+  type: "CLOSE_MODAL_GANTI_GENDER",
+});
+
+// ::: MODAL GANTI NOMOR ACTION :::
+export const openModalGantiNomor = () => ({
+  type: "OPEN_MODAL_GANTI_NOMOR",
+});
+
+export const closeModalGantiNomor = () => ({
+  type: "CLOSE_MODAL_GANTI_NOMOR",
+});
+
+// ::: MODAL GANTI BIRTHDATE ACTION :::
+export const openModalGantiBirthdate = () => ({
+  type: "OPEN_MODAL_GANTI_BIRTHDATE",
+});
+
+export const closeModalGantiBirthdate = () => ({
+  type: "CLOSE_MODAL_GANTI_BIRTHDATE",
 });

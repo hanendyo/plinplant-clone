@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { FaChevronDown, FaExclamationTriangle } from 'react-icons/fa';
-import { getSelectedAddress } from '../../../context/actions';
-import { openModalPilihAlamat } from '../../../context/actions/modalActions';
-import { ContextStore } from '../../../context/store/ContextStore';
-import PopoutComponent from '../../../dhika/ModalAlamat/PopupComponent/Popout';
-import PopoutPengiriman from '../../../dhika/Pengiriman/PoputPengiriman/PopoutPengiriman';
-import Button from '../../../master/components/additional/Button';
-import ScrollSign from '../../../master/components/additional/ScrollSign';
-import ShoppingSummary from '../../../master/components/additional/ShoppingSummary';
-import { priceFormat } from '../../../master/constant/constantVariables';
-import { colors } from '../../../master/constant/style';
-import ProductsContainer from '../Main/components/Product/ProductsContainer';
+import React, { useContext, useEffect, useState } from "react";
+import { FaChevronDown, FaExclamationTriangle } from "react-icons/fa";
+import { getSelectedAddress } from "../../../context/actions";
+import { openModalPilihAlamat } from "../../../context/actions/modalActions";
+import { ContextStore } from "../../../context/store/ContextStore";
+import PopoutComponent from "../../../dhika/Modal/ModalAlamat/PopupComponent/Popout";
+import PopoutPengiriman from "../../../dhika/Pengiriman/PoputPengiriman/PopoutPengiriman";
+import Button from "../../../master/components/additional/Button";
+import ScrollSign from "../../../master/components/additional/ScrollSign";
+import ShoppingSummary from "../../../master/components/additional/ShoppingSummary";
+import { priceFormat } from "../../../master/constant/constantVariables";
+import { colors } from "../../../master/constant/style";
+import ProductsContainer from "../Main/components/Product/ProductsContainer";
 import {
   Address,
   Container,
@@ -18,7 +18,7 @@ import {
   Payment,
   ShippingAddress,
   CheckoutSection,
-} from './Checkout.elemen';
+} from "./Checkout.elemen";
 
 const Checkout = () => {
   const { userCartState, userAddressState, selectedAddressState } =
@@ -47,8 +47,8 @@ const Checkout = () => {
     modalTambahAlamatState,
   } = useContext(ContextStore);
 
-  console.log('CHECKOUT', userCartState);
-  console.log('ADDRESSSSSS', userAddressState);
+  console.log("CHECKOUT", userCartState);
+  console.log("ADDRESSSSSS", userAddressState);
 
   return (
     <CheckoutSection>
@@ -78,7 +78,7 @@ const Checkout = () => {
                 <Button
                   primary
                   address
-                  text='Pilih Alamat Lain'
+                  text="Pilih Alamat Lain"
                   bgColor={colors.lightGreenTransparent}
                   onClick={() =>
                     modalPilihAlamatDispatch(openModalPilihAlamat())
@@ -98,17 +98,17 @@ const Checkout = () => {
                 <h6>Pilih Pembayaran</h6>
 
                 <button>
-                  Bank Transfer <FaChevronDown className='dropdown' />
+                  Bank Transfer <FaChevronDown className="dropdown" />
                 </button>
 
                 <p>
                   Pembayaran diatas pukul 14:00 berpotensi dikirim hari
-                  berikutnya. <FaExclamationTriangle className='warning' />
+                  berikutnya. <FaExclamationTriangle className="warning" />
                 </p>
                 <p>
-                  Berat barang ({'< 1 Kg'}) dikenakan biaya ongkos kirim sebesar{' '}
-                  {priceFormat.format(shipping_price)}. Berlaku kelipatan.{' '}
-                  <FaExclamationTriangle className='warning' />
+                  Berat barang ({"< 1 Kg"}) dikenakan biaya ongkos kirim sebesar{" "}
+                  {priceFormat.format(shipping_price)}. Berlaku kelipatan.{" "}
+                  <FaExclamationTriangle className="warning" />
                 </p>
 
                 <ul>

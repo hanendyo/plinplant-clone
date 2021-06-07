@@ -63,12 +63,38 @@ export const modalGantiNamaReducer = (state, action) => {
   }
 };
 
-export const modalPilihNamaReducer = (state, action) => {
+export const modalGantiGenderReducer = (state, action) => {
   switch (action.type) {
-    case "OPEN_MODAL_PILIH_NAMA":
+    case "OPEN_MODAL_GANTI_GENDER":
       return !state;
 
-    case "CLOSE_MODAL_PILIH_NAMA":
+    case "CLOSE_MODAL_GANTI_GENDER":
+      return !state;
+
+    default:
+      return state;
+  }
+};
+
+export const modalGantiNomorReducer = (state, action) => {
+  switch (action.type) {
+    case "OPEN_MODAL_GANTI_NOMOR":
+      return !state;
+
+    case "CLOSE_MODAL_GANTI_NOMOR":
+      return !state;
+
+    default:
+      return state;
+  }
+};
+
+export const modalGantiBirthdateReducer = (state, action) => {
+  switch (action.type) {
+    case "OPEN_MODAL_GANTI_BIRTHDATE":
+      return !state;
+
+    case "CLOSE_MODAL_GANTI_BIRTHDATE":
       return !state;
 
     default:

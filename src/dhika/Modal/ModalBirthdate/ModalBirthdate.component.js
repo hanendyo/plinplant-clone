@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { colors } from '../../../master/constant/style/index';
+import styled from "styled-components";
+import { colors } from "../../../master/constant/style/index";
 
 export const Popup = styled.div`
   position: fixed;
@@ -12,7 +12,7 @@ export const Popup = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 999;
-  display: ${({ modal }) => (modal ? 'auto' : 'none')};
+  display: ${({ modal }) => (modal ? "auto" : "none")};
 `;
 
 export const PopupInner = styled.div`
@@ -26,6 +26,18 @@ export const PopupInner = styled.div`
 
   & > h4 {
     text-align: center;
+  }
+
+  & > p {
+    color: gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  & > p:nth-of-type(1) {
+    margin-top: 10px;
+  }
+  & > p:nth-of-type(2) {
     margin-bottom: 20px;
   }
 

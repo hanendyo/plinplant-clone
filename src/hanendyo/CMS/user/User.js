@@ -403,7 +403,6 @@ const Article = () => {
           <li>PASSWORD</li>
           <li>BIRTH DATE</li>
           <li>PICTURE</li>
-          <li>CONTACT ID</li>
           <li>GENDER ID</li>
           <li>ACTION</li>
         </List>
@@ -414,7 +413,7 @@ const Article = () => {
             <li>{data.email}</li>
             <li>{data.password}</li>
             <li>{data.birth_date}</li>
-            <li>{data.fk_contact_id}</li>
+            <li>{data.picture}</li>
             <li>{data.fk_gender_id}</li>
             {
               <ButtonList>

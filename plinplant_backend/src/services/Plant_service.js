@@ -1,4 +1,4 @@
-const pool = require('../database/Database');
+const pool = require("../database/Database");
 
 module.exports = {
   // ::: QUERY TO GET USER INFO ::: DUMMY :::
@@ -15,6 +15,55 @@ module.exports = {
     );
   },
 
+  // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
+
+  // ::: QUERY TO UPDATE USER INFO ::: DUMMY :::
+
+  updateUsernameID: (body, id, callback) => {
+    pool.query(
+      `UPDATE table_user SET fullname=? where pk_user_id = ?`,
+      [body.fullname, id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+
+  updateBirthdateID: (body, id, callback) => {
+    pool.query(
+      `UPDATE table_user SET birth_date=? where pk_user_id = ?`,
+      [body.birth_date, id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+  updateGenderID: (body, id, callback) => {
+    pool.query(
+      `UPDATE table_user SET fk_gender_id=? where pk_user_id = ?`,
+      [body.fk_gender_id, id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+  updatePhoneNumberID: (body, id, callback) => {
+    pool.query(
+      `UPDATE table_user SET phone_number=? where pk_user_id = ?`,
+      [body.phone_number, id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
   // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
 
   reviewGetPlantId: (id, callback) => {

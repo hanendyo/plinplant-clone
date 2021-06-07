@@ -1,6 +1,11 @@
 const {
   // USER - DUMMY
   getUserInfo,
+  // EDIT USER BY ID
+  updateUsernameID,
+  updateBirthdateID,
+  updateGenderID,
+  updatePhoneNumberID,
   // REVIEW PLANT
   reviewGetPlantId,
   // USER CART
@@ -84,7 +89,7 @@ const {
   weightGetAllDatas,
   weightDelete,
   weightUpdate,
-} = require('../services/Plant_service');
+} = require("../services/Plant_service");
 
 module.exports = {
   // ::: QUERY TO GET USER INFO ::: DUMMY :::
@@ -97,7 +102,88 @@ module.exports = {
         console.log(err);
         return res.status(500).json({
           success: 0,
-          message: 'Database connection error',
+          message: "Database connection error",
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+
+  // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
+
+  // ::: QUERY TO UPDATE USER INFO ::: DUMMY :::
+
+  updateUsernameByID: (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+
+    updateUsernameID(body, id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: "Database connection error",
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+  updateBirthdateByID: (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+
+    updateBirthdateID(body, id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: "Database connection error",
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+  updateGenderByID: (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+
+    updateGenderID(body, id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: "Database connection error",
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+  updatePhoneNumberByID: (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+
+    updatePhoneNumberID(body, id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: "Database connection error",
         });
       }
 
@@ -118,7 +204,7 @@ module.exports = {
         console.log(err);
         return res.status(500).json({
           success: 0,
-          message: 'Database connection error',
+          message: "Database connection error",
         });
       }
 
@@ -137,7 +223,7 @@ module.exports = {
         console.log(err);
         return res.status(500).json({
           success: 0,
-          message: 'Database connection error',
+          message: "Database connection error",
         });
       }
 
@@ -156,7 +242,7 @@ module.exports = {
         console.log(err);
         return res.status(500).json({
           success: 0,
-          message: 'Database connection error',
+          message: "Database connection error",
         });
       }
 
@@ -178,19 +264,19 @@ module.exports = {
       if (err) {
         return res.json({
           success: 0,
-          message: 'Database connection error!',
+          message: "Database connection error!",
         });
       }
       if (result.length === 0) {
         return res.json({
           success: 0,
-          message: 'form cannot be empty',
+          message: "form cannot be empty",
           data: result,
         });
       }
       return res.json({
         status: 1,
-        message: 'Input Article Data Success',
+        message: "Input Article Data Success",
         data: result,
       });
     });
@@ -204,13 +290,13 @@ module.exports = {
         console.log(err);
         return res.status(500).json({
           success: 0,
-          message: 'Database connection error',
+          message: "Database connection error",
         });
       }
       if (results.length === 0) {
         return res.json({
           success: 0,
-          message: 'Record not found',
+          message: "Record not found",
         });
       }
 
@@ -245,7 +331,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'article deleted successfully',
+        message: "article deleted successfully",
         data: result,
       });
     });
@@ -263,7 +349,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'article Updated successfully',
+        message: "article Updated successfully",
         data: result,
       });
     });
@@ -276,12 +362,12 @@ module.exports = {
       if (err) {
         return res.json({
           success: 0,
-          message: 'Database connection error!',
+          message: "Database connection error!",
         });
       }
       return res.json({
         status: 1,
-        message: 'Input Category Data Success',
+        message: "Input Category Data Success",
         data: result,
       });
     });
@@ -311,7 +397,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'category deleted successfully',
+        message: "category deleted successfully",
         data: result,
       });
     });
@@ -329,7 +415,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'category Updated successfully',
+        message: "category Updated successfully",
         data: result,
       });
     });
@@ -341,12 +427,12 @@ module.exports = {
       if (err) {
         return res.json({
           success: 0,
-          message: 'Database connection error!',
+          message: "Database connection error!",
         });
       }
       return res.json({
         status: 1,
-        message: 'Input City Data Success',
+        message: "Input City Data Success",
         data: result,
       });
     });
@@ -376,7 +462,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'city deleted successfully',
+        message: "city deleted successfully",
         data: result,
       });
     });
@@ -395,7 +481,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'city Updated successfully',
+        message: "city Updated successfully",
         data: result,
       });
     });
@@ -407,12 +493,12 @@ module.exports = {
       if (err) {
         return res.json({
           success: 0,
-          message: 'Database connection error!',
+          message: "Database connection error!",
         });
       }
       return res.json({
         status: 1,
-        message: 'Input Contact Data Success',
+        message: "Input Contact Data Success",
         data: result,
       });
     });
@@ -442,7 +528,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'contact deleted successfully',
+        message: "contact deleted successfully",
         data: result,
       });
     });
@@ -460,7 +546,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'contact Updated successfully',
+        message: "contact Updated successfully",
         data: result,
       });
     });
@@ -474,12 +560,12 @@ module.exports = {
       if (err) {
         return res.json({
           success: 0,
-          message: 'Database connection error!',
+          message: "Database connection error!",
         });
       }
       return res.json({
         status: 1,
-        message: 'Input Gender Data Success',
+        message: "Input Gender Data Success",
         data: result,
       });
     });
@@ -509,7 +595,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'gender deleted successfully',
+        message: "gender deleted successfully",
         data: result,
       });
     });
@@ -527,7 +613,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'gender Updated successfully',
+        message: "gender Updated successfully",
         data: result,
       });
     });
@@ -539,12 +625,12 @@ module.exports = {
       if (err) {
         return res.json({
           success: 0,
-          message: 'Database connection error!',
+          message: "Database connection error!",
         });
       }
       return res.json({
         status: 1,
-        message: 'Input Order Data Success',
+        message: "Input Order Data Success",
         data: result,
       });
     });
@@ -574,7 +660,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'order deleted successfully',
+        message: "order deleted successfully",
         data: result,
       });
     });
@@ -592,7 +678,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'order Updated successfully',
+        message: "order Updated successfully",
         data: result,
       });
     });
@@ -604,12 +690,12 @@ module.exports = {
       if (err) {
         return res.json({
           success: 0,
-          message: 'Database connection error!',
+          message: "Database connection error!",
         });
       }
       return res.json({
         status: 1,
-        message: 'Input Order Item Data Success',
+        message: "Input Order Item Data Success",
         data: result,
       });
     });
@@ -639,7 +725,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'order item deleted successfully',
+        message: "order item deleted successfully",
         data: result,
       });
     });
@@ -657,7 +743,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'order item Updated successfully',
+        message: "order item Updated successfully",
         data: result,
       });
     });
@@ -671,12 +757,12 @@ module.exports = {
       if (err) {
         return res.json({
           success: 0,
-          message: 'Database connection error!',
+          message: "Database connection error!",
         });
       }
       return res.json({
         status: 1,
-        message: 'Input Plant Data Success',
+        message: "Input Plant Data Success",
         data: result,
       });
     });
@@ -703,13 +789,13 @@ module.exports = {
         console.log(err);
         return res.status(500).json({
           success: 0,
-          message: 'Database connection error',
+          message: "Database connection error",
         });
       }
       if (results.length === 0) {
         return res.json({
           success: 0,
-          message: 'Record not found',
+          message: "Record not found",
         });
       }
 
@@ -731,7 +817,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'plant deleted successfully',
+        message: "plant deleted successfully",
         data: result,
       });
     });
@@ -749,7 +835,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'plant Updated successfully',
+        message: "plant Updated successfully",
         data: result,
       });
     });
@@ -761,12 +847,12 @@ module.exports = {
       if (err) {
         return res.json({
           success: 0,
-          message: 'Database connection error!',
+          message: "Database connection error!",
         });
       }
       return res.json({
         status: 1,
-        message: ' Input Plant Breeding Data Success',
+        message: " Input Plant Breeding Data Success",
         data: result,
       });
     });
@@ -796,7 +882,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'Plant Breeding deleted successfully',
+        message: "Plant Breeding deleted successfully",
         data: result,
       });
     });
@@ -814,7 +900,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'Plant Breeding Updated successfully',
+        message: "Plant Breeding Updated successfully",
         data: result,
       });
     });
@@ -826,12 +912,12 @@ module.exports = {
       if (err) {
         return res.json({
           success: 0,
-          message: 'Database connection error!',
+          message: "Database connection error!",
         });
       }
       return res.json({
         status: 1,
-        message: 'Input Price List Data Success',
+        message: "Input Price List Data Success",
         data: result,
       });
     });
@@ -861,7 +947,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'Price List deleted successfully',
+        message: "Price List deleted successfully",
         data: result,
       });
     });
@@ -879,7 +965,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'Price List Updated successfully',
+        message: "Price List Updated successfully",
         data: result,
       });
     });
@@ -891,12 +977,12 @@ module.exports = {
       if (err) {
         return res.json({
           success: 0,
-          message: 'Database connection error!',
+          message: "Database connection error!",
         });
       }
       return res.json({
         status: 1,
-        message: 'Input Review Data Success',
+        message: "Input Review Data Success",
         data: result,
       });
     });
@@ -926,7 +1012,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'Review deleted successfully',
+        message: "Review deleted successfully",
         data: result,
       });
     });
@@ -944,7 +1030,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'Review Updated successfully',
+        message: "Review Updated successfully",
         data: result,
       });
     });
@@ -956,12 +1042,12 @@ module.exports = {
       if (err) {
         return res.json({
           success: 0,
-          message: 'Database connection error!',
+          message: "Database connection error!",
         });
       }
       return res.json({
         status: 1,
-        message: 'Input Shipping Charges Data Success',
+        message: "Input Shipping Charges Data Success",
         data: result,
       });
     });
@@ -991,7 +1077,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'Shipping Charges deleted successfully',
+        message: "Shipping Charges deleted successfully",
         data: result,
       });
     });
@@ -1009,7 +1095,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'Shipping Charges Updated successfully',
+        message: "Shipping Charges Updated successfully",
         data: result,
       });
     });
@@ -1021,12 +1107,12 @@ module.exports = {
       if (err) {
         return res.json({
           success: 0,
-          message: 'Database connection error!',
+          message: "Database connection error!",
         });
       }
       return res.json({
         status: 1,
-        message: 'Input Stock Data Success',
+        message: "Input Stock Data Success",
         data: result,
       });
     });
@@ -1056,7 +1142,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'Stock deleted successfully',
+        message: "Stock deleted successfully",
         data: result,
       });
     });
@@ -1074,7 +1160,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'Stock Updated successfully',
+        message: "Stock Updated successfully",
         data: result,
       });
     });
@@ -1086,12 +1172,12 @@ module.exports = {
       if (err) {
         return res.json({
           success: 0,
-          message: 'Database connection error!',
+          message: "Database connection error!",
         });
       }
       return res.json({
         status: 1,
-        message: 'Input User Data Success',
+        message: "Input User Data Success",
         data: result,
       });
     });
@@ -1121,7 +1207,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'User deleted successfully',
+        message: "User deleted successfully",
         data: result,
       });
     });
@@ -1139,7 +1225,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'User Updated successfully',
+        message: "User Updated successfully",
         data: result,
       });
     });
@@ -1151,12 +1237,12 @@ module.exports = {
       if (err) {
         return res.json({
           success: 0,
-          message: 'Database connection error!',
+          message: "Database connection error!",
         });
       }
       return res.json({
         status: 1,
-        message: 'Input Weight Data Success',
+        message: "Input Weight Data Success",
         data: result,
       });
     });
@@ -1186,7 +1272,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'Weight deleted successfully',
+        message: "Weight deleted successfully",
         data: result,
       });
     });
@@ -1204,7 +1290,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: 'Weight Updated successfully',
+        message: "Weight Updated successfully",
         data: result,
       });
     });

@@ -65,6 +65,10 @@ const {
   weight_get_all_datas,
   weight_delete,
   weight_update,
+  updateUsernameByID,
+  updateBirthdateByID,
+  updateGenderByID,
+  updatePhoneNumberByID,
 } = require("../controller/Plant_controller");
 const router = require("express").Router();
 const upload = require("../..");
@@ -201,5 +205,10 @@ router.put("/shipping_charges_update", shipping_charges_update);
 router.put("/stock_update", stock_update);
 router.put("/user_update", user_update);
 router.put("/weight_update", weight_update);
+// POST USER BY ID
+router.put("/user_update_name/:id", updateUsernameByID);
+router.put("/user_update_birthdate/:id", updateBirthdateByID);
+router.put("/user_update_gender/:id", updateGenderByID);
+router.put("/user_update_phonenumber/:id", updatePhoneNumberByID);
 
 module.exports = router;
