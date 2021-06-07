@@ -7,7 +7,7 @@ import {
   ButtonContainer,
 } from "./ModalGender.component";
 import { colors } from "../../../master/constant/style/index";
-import { TextField } from "@material-ui/core";
+// import { TextField } from "@material-ui/core";
 import { closeModalGantiGender } from "../../../context/actions/modalActions";
 import { ContextStore } from "../../../context/store/ContextStore";
 import Button from "../../../master/components/additional/Button";
@@ -31,8 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ModalGender = ({ modal, state }) => {
-  const { modalGantiGenderDispatch, userInfoState, userInfoDispatch } =
-    useContext(ContextStore);
+  const { modalGantiGenderDispatch } = useContext(ContextStore);
 
   const [input, setInput] = useState({
     fk_gender_id: 1,

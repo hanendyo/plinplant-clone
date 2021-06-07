@@ -12,9 +12,9 @@ import { closeModalGantiBirthdate } from "../../../context/actions/modalActions"
 import { ContextStore } from "../../../context/store/ContextStore";
 import Button from "../../../master/components/additional/Button";
 import axios from "axios";
-import KeyboardDatePicker from "@material-ui/pickers";
+
 const ModalBirthdate = ({ modal, state }) => {
-  const { modalGantiBirthdateDispatch, userInfoState, userInfoDispatch } =
+  const { modalGantiBirthdateDispatch, userInfoState } =
     useContext(ContextStore);
 
   // console.log("Halo ini yang ditangkap modal :", state);
@@ -39,7 +39,7 @@ const ModalBirthdate = ({ modal, state }) => {
 
     modalGantiBirthdateDispatch(closeModalGantiBirthdate());
 
-    // refreshPage();
+    refreshPage();
   };
 
   return (

@@ -10,15 +10,14 @@ import { colors } from "../../../master/constant/style/index";
 import { TextField } from "@material-ui/core";
 import {
   closeModalGantiNomor,
-  openModalGantiNomor,
+  // openModalGantiNomor,
 } from "../../../context/actions/modalActions";
 import { ContextStore } from "../../../context/store/ContextStore";
 import Button from "../../../master/components/additional/Button";
 import axios from "axios";
 
 const ModalPhone = ({ modal, state }) => {
-  const { modalGantiNomorDispatch, userInfoState, userInfoDispatch } =
-    useContext(ContextStore);
+  const { modalGantiNomorDispatch, userInfoState } = useContext(ContextStore);
 
   console.log("Halo ini yang ditangkap modal :", state);
 
