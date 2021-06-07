@@ -144,9 +144,9 @@ export const Payment = styled.section`
     color: ${colors.white};
     z-index: 1;
 
-    &:focus {
+    /* &:focus {
       & > .dropdown {
-        transform: rotate(-180deg) translateY(8px);
+        transform: ;
       }
 
       & ~ ul {
@@ -154,13 +154,14 @@ export const Payment = styled.section`
         opacity: 1;
         top: 90px;
       }
-    }
+    } */
 
     & > .dropdown {
       position: absolute;
       top: 50%;
       right: 20px;
-      transform: translateY(-50%);
+      transform: ${({ payment }) =>
+        payment ? 'rotate(-180deg) translateY(8px)' : 'translateY(-50%)'};
       transition: all 0.3s ease;
     }
   }
@@ -188,19 +189,17 @@ export const Payment = styled.section`
 
   & > ul {
     position: absolute;
-    top: 70px;
+    top: ${({ payment }) => (payment ? '90px' : '70px')};
     left: 0;
     right: 0;
     background-color: ${colors.lightGreen};
-    /* backdrop-filter: blur(10px); */
     border-radius: 10px;
-    /* padding: 10px 0; */
     text-align: center;
     overflow: hidden;
     box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    visibility: hidden;
-    opacity: 0;
+    visibility: ${({ payment }) => (payment ? 'visible' : 'hidden')};
+    opacity: ${({ payment }) => (payment ? '1' : '0')};
 
     & > li {
       padding: 10px 0;

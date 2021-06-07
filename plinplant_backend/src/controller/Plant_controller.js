@@ -5,11 +5,18 @@ const {
   reviewGetPlantId,
   // USER CART
   cartGetByUserId,
+  cartAdd,
+  cartDelete,
+  cartUpdate,
+  cartCheckout,
   // USER ADDRESS
   addressGetByUserId,
   // USER INVOICE
   invoiceGetId,
   invoiceGetAllDatas,
+  invoiceCreate,
+  // BANK
+  bankGetAll,
   // ARTICLE
   articleInputTable,
   articleGetAllDatas,
@@ -113,6 +120,7 @@ module.exports = {
 
   // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
 
+  // :: INVOICE ::
   invoiceGetById: (req, res) => {
     const id = req.params.id;
     const order = req.params.order;
@@ -152,6 +160,28 @@ module.exports = {
     });
   },
 
+  invoiceCreated: (req, res) => {
+    const body = req.body;
+
+    invoiceCreate(body, (err, results) => {
+      console.log('INVOICE CREATED', body);
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        message: results,
+      });
+    });
+  },
+
+  // :: END OF INVOICE ::
+
   reviewGetByPlant: (req, res) => {
     const id = req.params.id;
 
@@ -171,6 +201,7 @@ module.exports = {
     });
   },
 
+  // ::: CART CONTROLLER :::
   cartGetByUser: (req, res) => {
     const id = req.params.id;
 
@@ -189,6 +220,129 @@ module.exports = {
       });
     });
   },
+
+  cartAddItem: (req, res) => {
+    const body = req.body;
+
+    cartAdd(body, (err, results) => {
+      console.log('CART ADD', body);
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        message: results,
+      });
+    });
+  },
+
+  cartDeleteById: (req, res) => {
+    const id = req.params.id;
+
+    cartDelete(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+
+      if (results.affectedRows === 0) {
+        return res.json({
+          success: 0,
+          message: 'Record not found',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+
+  cartUpdateQty: (req, res) => {
+    const body = req.body;
+
+    cartUpdate(body, (err, results) => {
+      console.log('CART UPDATE BUGSS', body);
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+
+      if (results.affectedRows === 0) {
+        return res.json({
+          success: 0,
+          message: 'Record not found',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        message: 'Update succes',
+        result: results,
+      });
+    });
+  },
+
+  cartCheckoutProses: (req, res) => {
+    const body = req.body;
+
+    cartCheckout(body, (err, results) => {
+      console.log('CHECKOUT PROSESSS', body);
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+
+      if (results.affectedRows === 0) {
+        return res.json({
+          success: 0,
+          message: 'Record not found',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        message: 'Update succes',
+        result: results,
+      });
+    });
+  },
+
+  // ::: END OF CART CONTROLLER :::
+
+  // :: BANK ::
+  bankGetAllData: (req, res) => {
+    bankGetAll((err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+      return res.status(200).json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+
+  // :: END OF BANK ::
 
   addressGetByUser: (req, res) => {
     const id = req.params.id;
@@ -623,10 +777,8 @@ module.exports = {
   },
 
   order_update: (req, res) => {
-    const id = req.params.id;
     const body = req.body;
     console.log(`BE BODY: `, body);
-    console.log(`BE ID: `, id);
     orderUpdate(body, (err, result) => {
       if (err) {
         console.log(`ERROR!: `, err);

@@ -18,9 +18,12 @@ import ScrollSign from '../../../master/components/additional/ScrollSign';
 import { useMediaQuery } from 'react-responsive';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { Link } from 'react-router-dom';
+import { priceFormat } from '../../../master/constant/constantVariables';
+import { addCart } from '../../../context/actions/fetchingActions';
 
 const Shop = () => {
-  const { plantIdState, plantReviewState } = useContext(ContextStore);
+  const { plantIdState, plantReviewState, userCartDispatch, userInfoState } =
+    useContext(ContextStore);
   const {
     pk_plant_id,
     plant_name,
@@ -36,7 +39,13 @@ const Shop = () => {
     tuber_stock,
     teen_stock,
     mature_stock,
+    seed_weight,
+    tuber_weight,
+    young_weight,
+    mature_weight,
   } = plantIdState;
+
+  const { pk_user_id } = userInfoState[0];
 
   const rate = plantReviewState
     .map((review) => review.rating)
@@ -48,7 +57,7 @@ const Shop = () => {
   const [scroll, setScroll] = useState(true);
 
   // ::: HIGHLIGHT PRODUCT :::
-  const [highlight, setHighlight] = useState('seed');
+  const [highlight, setHighlight] = useState('Biji');
 
   // ::: QUANTITIY EACH PHASE :::
   const [seedQuantity, setSeedQuantity] = useState(1);
@@ -66,40 +75,77 @@ const Shop = () => {
 
   const slug = (title) => title.toLowerCase().split(' ').join('-');
 
-  const priceFormat = new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0,
-  });
-
   const addToCartHandler = () => {
-    if (highlight === 'seed') {
-      console.log('HIGHLIGHT', highlight);
-      console.log('SEED QTY', seedQuantity);
-      console.log('PRICE SEED', seed_price);
-      console.log('IMAGE SEED', seed_image);
-      console.log('PLANT NAME', plant_name);
+    if (highlight === 'Biji') {
+      userCartDispatch(
+        addCart(
+          {
+            seed_image,
+            plant_name,
+            highlight,
+            seed_price,
+            seedQuantity,
+            seed_weight,
+            pk_plant_id,
+            pk_user_id,
+          },
+          highlight
+        )
+      );
     }
-    if (highlight === 'tuber') {
-      console.log('HIGHLIGHT', highlight);
-      console.log('TUBER QTY', tuberQuantity);
-      console.log('PRICE TUBER', tuber_price);
-      console.log('IMAGE TUBER', tuber_image);
-      console.log('PLANT NAME', plant_name);
+
+    if (highlight === 'Bonggol') {
+      userCartDispatch(
+        addCart(
+          {
+            tuber_image,
+            plant_name,
+            highlight,
+            tuber_price,
+            tuberQuantity,
+            tuber_weight,
+            pk_plant_id,
+            pk_user_id,
+          },
+          highlight
+        )
+      );
     }
-    if (highlight === 'young') {
-      console.log('HIGHLIGHT', highlight);
-      console.log('YOUNG QTY', youngQuantity);
-      console.log('PRICE YOUNG', teen_price);
-      console.log('IMAGE YOUNG', young_image);
-      console.log('PLANT NAME', plant_name);
+
+    if (highlight === 'Muda') {
+      userCartDispatch(
+        addCart(
+          {
+            young_image,
+            plant_name,
+            highlight,
+            teen_price,
+            youngQuantity,
+            young_weight,
+            pk_plant_id,
+            pk_user_id,
+          },
+          highlight
+        )
+      );
     }
-    if (highlight === 'mature') {
-      console.log('HIGHLIGHT', highlight);
-      console.log('MATURE QTY', matureQuantity);
-      console.log('PRICE MATURE', mature_price);
-      console.log('IMAGE MATURE', mature_image);
-      console.log('PLANT NAME', plant_name);
+
+    if (highlight === 'Dewasa') {
+      userCartDispatch(
+        addCart(
+          {
+            mature_image,
+            plant_name,
+            highlight,
+            mature_price,
+            matureQuantity,
+            mature_weight,
+            pk_plant_id,
+            pk_user_id,
+          },
+          highlight
+        )
+      );
     }
 
     setSeedQuantity(1);
@@ -143,7 +189,7 @@ const Shop = () => {
             <ProductHighlight>
               <div>
                 <>
-                  {highlight === 'seed' && (
+                  {highlight === 'Biji' && (
                     <>
                       <img
                         src={
@@ -160,7 +206,7 @@ const Shop = () => {
                     </>
                   )}
 
-                  {highlight === 'tuber' && (
+                  {highlight === 'Bonggol' && (
                     <>
                       <img
                         src={
@@ -178,7 +224,7 @@ const Shop = () => {
                     </>
                   )}
 
-                  {highlight === 'young' && (
+                  {highlight === 'Muda' && (
                     <>
                       <img
                         src={
@@ -196,7 +242,7 @@ const Shop = () => {
                     </>
                   )}
 
-                  {highlight === 'mature' && (
+                  {highlight === 'Dewasa' && (
                     <>
                       <img
                         src={
@@ -225,22 +271,22 @@ const Shop = () => {
                     {ratingAvg === 0 ? 0 : ratingAvg.toFixed(1)}
                   </span>
 
-                  {highlight === 'seed' && <span>Stok {seed_stock}</span>}
-                  {highlight === 'tuber' && <span>Stok {tuber_stock}</span>}
-                  {highlight === 'young' && <span>Stok {teen_stock}</span>}
-                  {highlight === 'mature' && <span>Stok {mature_stock}</span>}
+                  {highlight === 'Biji' && <span>Stok {seed_stock}</span>}
+                  {highlight === 'Bonggol' && <span>Stok {tuber_stock}</span>}
+                  {highlight === 'Muda' && <span>Stok {teen_stock}</span>}
+                  {highlight === 'Dewasa' && <span>Stok {mature_stock}</span>}
                 </div>
 
-                {highlight === 'seed' && (
+                {highlight === 'Biji' && (
                   <h5>{priceFormat.format(seed_price)}</h5>
                 )}
-                {highlight === 'tuber' && (
+                {highlight === 'Bonggol' && (
                   <h5>{priceFormat.format(tuber_price)}</h5>
                 )}
-                {highlight === 'young' && (
+                {highlight === 'Muda' && (
                   <h5>{priceFormat.format(teen_price)}</h5>
                 )}
-                {highlight === 'mature' && (
+                {highlight === 'Dewasa' && (
                   <h5>{priceFormat.format(mature_price)}</h5>
                 )}
 
@@ -257,41 +303,41 @@ const Shop = () => {
           </div>
 
           <div>
-            <div onClick={() => setHighlight('seed')}>
+            <div onClick={() => setHighlight('Biji')}>
               <Image
                 src={process.env.PUBLIC_URL + `/images/Plant/${seed_image}`}
                 alt={plant_name}
-                active={'seed'}
+                active={'Biji'}
                 highlight={highlight}
               />
               <h6>Biji</h6>
             </div>
 
-            <div onClick={() => setHighlight('tuber')}>
+            <div onClick={() => setHighlight('Bonggol')}>
               <Image
                 src={process.env.PUBLIC_URL + `/images/Plant/${tuber_image}`}
                 alt={plant_name}
-                active={'tuber'}
+                active={'Bonggol'}
                 highlight={highlight}
               />
               <h6>Bonggol</h6>
             </div>
 
-            <div onClick={() => setHighlight('young')}>
+            <div onClick={() => setHighlight('Muda')}>
               <Image
                 src={process.env.PUBLIC_URL + `/images/Plant/${young_image}`}
                 alt={plant_name}
-                active={'young'}
+                active={'Muda'}
                 highlight={highlight}
               />
               <h6>Muda</h6>
             </div>
 
-            <div onClick={() => setHighlight('mature')}>
+            <div onClick={() => setHighlight('Dewasa')}>
               <Image
                 src={process.env.PUBLIC_URL + `/images/Plant/${mature_image}`}
                 alt={plant_name}
-                active={'mature'}
+                active={'Dewasa'}
                 highlight={highlight}
               />
               <h6>Dewasa</h6>

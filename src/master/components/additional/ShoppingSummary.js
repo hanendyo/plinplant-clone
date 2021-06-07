@@ -2,19 +2,34 @@ import React, { useContext } from 'react';
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import {
+  cartCheckout,
+  createInvoice,
+} from '../../../context/actions/fetchingActions';
 import { openModalTambahAlamat } from '../../../context/actions/modalActions';
 import { ContextStore } from '../../../context/store/ContextStore';
-import { priceFormat, weightFormat } from '../../constant/constantVariables';
-import { addresses } from '../../constant/data/dummy-data';
+import {
+  priceFormat,
+  weightFormat,
+  months,
+} from '../../constant/constantVariables';
 import { colors } from '../../constant/style';
 import Button from './Button';
 
-const ShoppingSummary = ({ checkout, city_code, shipping_price }) => {
+const ShoppingSummary = ({
+  checkout,
+  city_code,
+  shipping_price,
+  fk_contact_id,
+  fk_bank_id,
+}) => {
   const {
     modalTambahAlamatDispatch,
     userCartState,
+    userCartDispatch,
     userAddressState,
-    selectedAddressState,
+    userInfoState,
+    invoiceDispatch,
   } = useContext(ContextStore);
 
   const history = useHistory();
@@ -35,13 +50,42 @@ const ShoppingSummary = ({ checkout, city_code, shipping_price }) => {
   const totalShippingPrice = Math.ceil(totalWeight / 1000) * shipping_price;
 
   const handleCheckout = () => {
-    history.push(`/invoice/1/1622764848807`);
-  };
+    console.log('CHECKOUT!!');
+    const fk_user_id = userInfoState[0]?.pk_user_id;
 
-  console.log(
-    'DPATTTEETT',
-    userAddressState[selectedAddressState].pk_contact_id
-  );
+    const time = new Date();
+    const fk_invoice_id = time.getTime();
+    const date = time.getDate();
+    const month = time.getMonth();
+    const year = time.getFullYear();
+    const hour = time.getHours();
+    const min = time.getMinutes();
+
+    const created_at = `${date} ${months[month]} ${year}, ${
+      hour < 10 ? `0${hour}` : hour
+    }:${min < 10 ? `0${min}` : min} WIB`;
+    const status = 'bayar';
+    const review_status = false;
+
+    userCartDispatch(cartCheckout({ fk_invoice_id, fk_user_id }));
+
+    invoiceDispatch(
+      createInvoice({
+        fk_invoice_id,
+        fk_invoice_id,
+        created_at,
+        status,
+        review_status,
+        fk_user_id,
+        fk_contact_id,
+        fk_bank_id,
+      })
+    );
+
+    console.log('HISTORY PUSH CHECKOUT!!');
+
+    history.push(`/invoice/${fk_user_id}/${fk_invoice_id}`);
+  };
 
   return (
     <SummarySection>

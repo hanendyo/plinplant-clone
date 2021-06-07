@@ -28,8 +28,6 @@ const Ensiklopedia = ({ match }) => {
     }, 1000);
   }, [match.params.id]);
 
-  console.log('PLANT', plantIdState);
-
   return (
     <>
       {loading ? (

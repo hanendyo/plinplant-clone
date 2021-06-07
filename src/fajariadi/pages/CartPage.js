@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { getAddresses, getCarts } from '../../context/actions/fetchingActions';
 import { ContextStore } from '../../context/store/ContextStore';
@@ -8,13 +7,8 @@ import Cart from '../components/Cart/Cart';
 import Loader from '../components/Loader';
 
 const CartPage = () => {
-  const {
-    userCartDispatch,
-    userCartState,
-    userInfoState,
-    userAddressDispatch,
-    userAddressState,
-  } = useContext(ContextStore);
+  const { userCartDispatch, userInfoState, userAddressDispatch } =
+    useContext(ContextStore);
 
   const [loading, setLoading] = useState(true);
 
@@ -29,10 +23,7 @@ const CartPage = () => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, []);
-
-  console.log('CARTTTTT', userCartState);
-  console.log('ADDDRREESS', userAddressState);
+  }, [userCartDispatch]);
 
   return (
     <>

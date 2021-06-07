@@ -254,31 +254,33 @@ const ProductsContainer = ({
 
       {transaction && (
         <TransactionContainer>
-          {uniqueTransaction.map(
+          {transactions.map(
             (
               {
-                // created_at,
-                // no_order,
-                // status,
-                // price,
-                // quantity,
-                // totalPrice,
-                // created,
+                img,
+                name,
+                phase,
+                no_order,
+                status,
+                price,
+                quantity,
+                totalPrice,
+                created,
               },
               index
             ) => (
               <Cards
-              // transaction
-              // key={index}
-              // img={img}
-              // name={name}
-              // phase={phase}
-              // price={price}
-              // quantity={quantity}
-              // totalPrice={totalPrice}
-              // created={created}
-              // no_order={no_order}
-              // status={status}
+                transaction
+                key={index}
+                img={img}
+                name={name}
+                phase={phase}
+                price={price}
+                quantity={quantity}
+                totalPrice={totalPrice}
+                created={created}
+                no_order={no_order}
+                status={status}
               />
             )
           )}

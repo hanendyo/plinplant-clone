@@ -19,9 +19,9 @@ const Transaction = () => {
   console.log('UNIQQQQ', uniqueTransaction);
 
   useEffect(() => {
-    if (transactions.length < 3) setScroll(false);
-    if (transactions.length > 2) setScroll(true);
-  }, [transactions]);
+    if (uniqueTransaction.length < 3) setScroll(false);
+    if (uniqueTransaction.length > 2) setScroll(true);
+  }, [uniqueTransaction]);
 
   return (
     <TransactionSection>

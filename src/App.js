@@ -25,13 +25,9 @@ import { SignIn, SignUp } from './hanendyo/AuthPages/AuthPages';
 const App = () => {
   const {
     tablePlantDispatch,
-    tablePlantState,
     tableArticleDispatch,
-    tableArticleState,
     userInfoDispatch,
     invoiceDispatch,
-    invoiceState,
-    userInfoState,
   } = useContext(ContextStore);
 
   const [loading, setLoading] = useState(true);
@@ -56,11 +52,6 @@ const App = () => {
       setLoading(false);
     }, 1000);
   }, []);
-
-  console.log('APP - USER INFO', userInfoState);
-  console.log('APP - ALL PLANT DATA', tablePlantState);
-  console.log('APP - ALL ARTICLE DATA', tableArticleState);
-  console.log('APP - ALL INVOICE DATA', invoiceState);
 
   return (
     <>

@@ -32,10 +32,12 @@ const Invoice = () => {
     invoiceState,
   } = useContext(ContextStore);
 
+  console.log('STATE INVOICEEE', invoiceState);
+
   const {
     no_order,
     created_at,
-    // status,
+    status,
     recipient_name,
     address,
     city_name,
@@ -48,8 +50,6 @@ const Invoice = () => {
   } = invoiceState[0];
 
   const [scroll, setScroll] = useState(true);
-
-  const [status, setStatus] = useState('proses');
 
   useEffect(() => {
     if (invoiceState.length < 5) setScroll(false);
@@ -176,7 +176,7 @@ const Invoice = () => {
                 shop
                 text='Pesanan Diterima'
                 bgColor={colors.yellow}
-                onClick={() => setStatus('selesai')}
+                onClick={() => console.log('selesai')}
               />
             </div>
           ) : (

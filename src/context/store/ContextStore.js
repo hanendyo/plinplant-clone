@@ -19,6 +19,7 @@ import {
   userCartReducer,
   userAddressReducer,
   invoiceReducer,
+  bankReducer,
 } from '../reducer/fetchingReducer';
 import {
   modalPilihAlamatReducer,
@@ -144,21 +145,21 @@ export const ContextProvider = ({ children }) => {
     false
   );
 
-  // !::: FETCHING :::
+  // !::::::::::::::::::::: FETCHING ::::::::::::::::::::::::
   // ::: FETCH USER INFO ::: DUMMY :::
   const [userInfoState, userInfoDispatch] = useThunkReducer(
     userInfoReducer,
     []
   );
 
-  // ::: FETCH INVOICES :::
-  const [invoiceState, invoiceDispatch] = useThunkReducer(invoiceReducer, []);
-
-  // ::: FETCH PLANT REVIEW :::
-  const [plantReviewState, plantReviewDispatch] = useThunkReducer(
-    plantReviewReducer,
+  // ::: FETCH TABLE PLANT :::
+  const [tablePlantState, tablePlantDispatch] = useThunkReducer(
+    tablePlantReducer,
     []
   );
+
+  // ::: FETCH TABLE PLANT BY ID :::
+  const [plantIdState, plantIdDispatch] = useThunkReducer(plantIdReducer, {});
 
   // ::: FETCH USER CART :::
   const [userCartState, userCartDispatch] = useThunkReducer(
@@ -178,14 +179,17 @@ export const ContextProvider = ({ children }) => {
     0
   );
 
-  // ::: FETCH TABLE PLANT :::
-  const [tablePlantState, tablePlantDispatch] = useThunkReducer(
-    tablePlantReducer,
+  // ::: FETCH BANK :::
+  const [bankState, bankDispatch] = useThunkReducer(bankReducer, []);
+
+  // ::: FETCH INVOICES :::
+  const [invoiceState, invoiceDispatch] = useThunkReducer(invoiceReducer, []);
+
+  // ::: FETCH PLANT REVIEW :::
+  const [plantReviewState, plantReviewDispatch] = useThunkReducer(
+    plantReviewReducer,
     []
   );
-
-  // ::: FETCH TABLE PLANT BY ID :::
-  const [plantIdState, plantIdDispatch] = useThunkReducer(plantIdReducer, {});
 
   // ::: FETCH TABLE ARTICLE :::
   const [tableArticleState, tableArticleDispatch] = useThunkReducer(
@@ -323,6 +327,10 @@ export const ContextProvider = ({ children }) => {
         // ::: SELECTED USER ADDRESS :::
         invoiceState,
         invoiceDispatch,
+
+        // ::: BANK :::
+        bankState,
+        bankDispatch,
       }}
     >
       {children}

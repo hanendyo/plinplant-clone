@@ -35,9 +35,6 @@ const ShoppingPage = ({ match }) => {
     }, 1000);
   }, [match.params.id]);
 
-  console.log('SHOP', plantIdState);
-  console.log('REVIEWWWWW', plantReviewState);
-
   return (
     <>
       {loading ? (
