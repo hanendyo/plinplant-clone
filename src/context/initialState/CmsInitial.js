@@ -61,6 +61,7 @@ export default {
     password: '',
     birth_date: '',
     picture: '',
+    phone_number: '',
     fk_contact_id: '',
     fk_gender_id: '',
   },

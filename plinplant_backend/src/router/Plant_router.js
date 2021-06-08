@@ -70,7 +70,7 @@ const {
 } = require('../controller/Plant_controller');
 const router = require('express').Router();
 const upload = require('../..');
-const AuthValidation = require('../middleware/AuthValidation');
+// const AuthValidation = require('../middleware/AuthValidation');
 
 // POST
 router.post(
@@ -123,7 +123,7 @@ router.get('/contact_get_all_datas', contact_get_all_datas);
 router.get('/gender_get_all_datas', gender_get_all_datas);
 router.get('/order_get_all_datas', order_get_all_datas);
 router.get('/order_item_get_all_datas', order_item_get_all_datas);
-router.get('/plant_get_all_datas', plant_get_all_datas);
+router.get('/plant_get_all_datas' ,plant_get_all_datas);
 router.get('/plant_breeding_get_all_datas', plant_breeding_get_all_datas);
 router.get('/price_list_get_all_datas', price_list_get_all_datas);
 router.get('/review_get_all_datas', review_get_all_datas);
@@ -204,7 +204,7 @@ router.put('/price_list_update', price_list_update);
 router.put('/review_update', review_update);
 router.put('/shipping_charges_update', shipping_charges_update);
 router.put('/stock_update', stock_update);
-router.put('/user_update', user_update);
+router.put('/user_update', upload.single('picture_upload'),user_update);
 router.put('/weight_update', weight_update);
 
 module.exports = router;

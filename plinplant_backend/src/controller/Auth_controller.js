@@ -89,7 +89,9 @@ module.exports = {
 
       if (result.length > 0) {
         const hasil = compareSync(body.password, result[0].password);
-        console.log(`result for jwt: `, result);
+        console.log(`result for body.password: `, body);
+        console.log(`result for result.password: `, result[0]);
+        console.log(`HASIL COMPARE: `, hasil);
 
         if (hasil) {
           const id = result[0].pk_user_id;
@@ -100,10 +102,8 @@ module.exports = {
           console.log(`JSONTOKEN CONTROLLER: `, jsontoken);
 
           return res.json({
-            success: 1,
             message: "Login succcess",
-            auth: true,
-            token: jsontoken,
+            loggedIn: true,
             result: result,
             httpOnly: true,
           })
@@ -111,7 +111,8 @@ module.exports = {
           return  res.status(401).json({
             success: 0,
             message: "Invalid Email or Password",
-            auth: false,
+            loggedIn: false
+            // auth: false,
           });
         }
       } else {

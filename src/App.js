@@ -81,7 +81,7 @@ const App = () => {
     }, 1000);
   }, []);
 
-  console.log('APPP', invoiceState);
+  console.log('APP INVOICE-STATE', invoiceState);
 
   return (
     <>

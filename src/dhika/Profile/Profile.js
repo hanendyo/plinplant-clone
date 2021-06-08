@@ -18,6 +18,7 @@ import { colors } from '../../master/constant/style';
 import { openModalTambahAlamat } from '../../context/actions/modalActions';
 
 const Profile = () => {
+
   const {
     modalTambahAlamatState,
     modalTambahAlamatDispatch,

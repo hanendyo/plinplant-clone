@@ -892,20 +892,22 @@ module.exports = {
   },
 
   userInputTable: (data, callback) => {
-    const sql = `insert into table_user (fullname, email, password, birth_date, picture, fk_contact_id, fk_gender_id) values(?, ?, ?, ?, ?, ?, ?)`;
+    const sql = `insert into table_user (fullname, email, password, birth_date, phone_number, picture, fk_gender_id) values(?, ?, ?, ?, ?, ?, ?)`;
     const column = [
       data.fullname,
       data.email,
       data.password,
       data.birth_date,
+      data.phone_number,
       data.picture,
-      data.fk_contact_id,
       data.fk_gender_id,
     ];
     pool.query(sql, column, (err, result, fields) => {
       if (err) {
+        console.log(`ERROR!: `, err);
         return callback(err);
       }
+      console.log(`RESULT!: `, result);
       return callback(null, result);
     });
   },
@@ -936,14 +938,14 @@ module.exports = {
 
   userUpdate: (data, callback) => {
     pool.query(
-      `update table_user set fullname=?, email=?, password=?, birth_date=?, picture=?, fk_contact_id=?, fk_gender_id=? where pk_user_id=?`,
+      `update table_user set fullname=?, email=?, password=?, birth_date=?, phone_number=?,picture=?, fk_gender_id=? where pk_user_id=?`,
       [
         data.fullname,
         data.email,
         data.password,
         data.birth_date,
+        data.phone_number,
         data.picture,
-        data.fk_contact_id,
         data.fk_gender_id,
         data.pk_user_id,
       ],

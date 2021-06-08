@@ -7,9 +7,15 @@ import { Link, useHistory } from 'react-router-dom';
 import { ContextStore } from '../../../context/store/ContextStore';
 
 const NavbarLandingPage = () => {
+
+  let userData = JSON.parse( localStorage.getItem('user-data') ) || {}
+  console.log(`USERDATA-NAVBARLANDINGPAGE: `, userData);
+  const {pk_user_id, fullname, picture} = userData.data.result[0]
+  const loggedIn = userData.data.loggedIn
+  
   const { tableArticleState, userInfoState } = useContext(ContextStore);
   const login = userInfoState.length !== 0;
-
+  
   const history = useHistory();
 
   // [{...}] -> userInfoState[0] -> fullname.split(' ') -> ['Fajar', 'Riadi'] -> index 0
@@ -58,17 +64,19 @@ const NavbarLandingPage = () => {
           </li>
           <li>
             {/* {console.log(`LANDING STATE: `, landingState)} */}
-            {login ? (
+            {loggedIn ? (
               <>
                 <button onClick={() => setProfile(!profile)}>
                   <img
                     src={
                       process.env.PUBLIC_URL +
-                      `/images/user_image/${userInfoState[0]?.picture}`
+                      // `/images/user_image/${picture}`
+                      `/images/user_image/default.png`
+                      // `/images/default.png`
                     }
                     alt={userInfoState[0]?.fullname}
                   />
-                  <p>Halo, {greet}</p>
+                  <p>Halo, {fullname}</p>
                 </button>
 
                 {/* Profile Hover */}
@@ -77,7 +85,8 @@ const NavbarLandingPage = () => {
                     <img
                       src={
                         process.env.PUBLIC_URL +
-                        `/images/user_image/${userInfoState[0]?.picture}`
+                        // `/images/user_image/${userInfoState[0]?.picture}`
+                        `/images/user_image/default.png`
                       }
                       alt={userInfoState[0]?.fullname}
                     />
