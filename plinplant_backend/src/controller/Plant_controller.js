@@ -20,6 +20,8 @@ const {
   invoiceDone,
   // BANK
   bankGetAll,
+  // TRANSACTION
+  transactionGet,
   // ARTICLE
   articleInputTable,
   articleGetAllDatas,
@@ -411,8 +413,25 @@ module.exports = {
       });
     });
   },
-
   // :: END OF BANK ::
+  transactionGetByUser: (req, res) => {
+    const id = req.params.id;
+
+    transactionGet(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
 
   addressGetByUser: (req, res) => {
     const id = req.params.id;

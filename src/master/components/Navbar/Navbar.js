@@ -93,7 +93,9 @@ const Navbar = () => {
                       <Link to='/profile'>Profil</Link>
                     </li>
                     <li>
-                      <Link to='/transaction'>Daftar Transaksi</Link>
+                      <Link to={`/${userInfoState[0]?.pk_user_id}/transaction`}>
+                        Daftar Transaksi
+                      </Link>
                     </li>
                     <li>Keluar</li>
                   </ul>

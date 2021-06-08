@@ -66,7 +66,7 @@ const App = () => {
             <Route path='/cart' component={CartPage} />
             <Route path='/checkout' component={CheckoutPage} />
             <Route path='/invoice/:id/:order' component={InvoicePage} />
-            <Route path='/transaction' component={TransactionPage} />
+            <Route path='/:id/transaction' component={TransactionPage} />
             <Route path='/article/:id/:title' component={ArticlePage} />
             <Route path='/profile' component={ProfilePage} />
             <Route path='/cms' component={CMS} />

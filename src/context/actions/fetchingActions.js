@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // ::: USER INFO REDUCER ::: DUMMY :::
 export const getUser = () => async (dispatch) => {
-  const res = await axios.get('http://localhost:5000/input/user/2');
+  const res = await axios.get('http://localhost:5000/input/user/1');
 
   dispatch({ type: 'FETCH_USER_INFO', payload: res.data.data });
 };
@@ -153,6 +153,15 @@ export const getBanks = () => async (dispatch) => {
   console.log('REEYYSS', res);
 
   dispatch({ type: 'FETCH_BANK', payload: res.data.data });
+};
+
+export const getTransactions = (match) => async (dispatch) => {
+  const res = await axios.get(
+    `http://localhost:5000/input/transaction/${match.params.id}`
+  );
+  console.log('GET TRANSACTIONNN', res);
+
+  dispatch({ type: 'FETCH_LIST_TRANSACTION', payload: res.data.data });
 };
 
 export const getInvoices = () => async (dispatch) => {

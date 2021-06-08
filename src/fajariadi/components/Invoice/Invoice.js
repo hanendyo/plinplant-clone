@@ -103,12 +103,10 @@ const Invoice = () => {
 
           <div>
             <p>Status Transaksi</p>
-            {status === 'bayar' && <StatusOrder status='Menunggu Pembayaran' />}
-            {status === 'verif' && (
-              <StatusOrder status='Verifikasi Pembayaran' />
-            )}
-            {status === 'proses' && <StatusOrder status='Pesanan Diantar' />}
-            {status === 'selesai' && <StatusOrder status='Transaksi Selesai' />}
+            {status === 'bayar' && <StatusOrder status='bayar' />}
+            {status === 'verif' && <StatusOrder status='verif' />}
+            {status === 'proses' && <StatusOrder status='proses' />}
+            {status === 'selesai' && <StatusOrder status='selesai' />}
           </div>
         </HeaderInfo>
 

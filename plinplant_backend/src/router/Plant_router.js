@@ -14,6 +14,7 @@ const {
   invoiceGetAll,
   invoiceCreated,
   invoiceTransactionDone,
+  transactionGetByUser,
   plant_input,
   review_input,
   plant_breeding_input,
@@ -169,6 +170,8 @@ router.post('/invoice', upload.none(), invoiceCreated);
 router.get('/invoice/:id/:order', invoiceGetById);
 router.get('/invoice', invoiceGetAll);
 router.put('/invoice', invoiceTransactionDone);
+// TRANSACTION
+router.get('/transaction/:id', transactionGetByUser);
 
 // DELETE
 router.delete('/article_delete/:id', article_delete);

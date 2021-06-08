@@ -54,6 +54,9 @@ const Cards = ({
   selectAddress,
   index,
   cartId,
+  total_price,
+  total_products,
+  user,
 }) => {
   const {
     modalReviewDispatch,
@@ -237,29 +240,34 @@ const Cards = ({
 
           {/* Product Info */}
           <div>
-            <img src={img} alt='' />
+            <img
+              src={process.env.PUBLIC_URL + `/images/Plant/${img}`}
+              alt={name}
+            />
 
             <div>
               <h6>{name}</h6>
               <span>{phase}</span>
               <span>
-                {quantity} barang x {price}
+                {quantity} barang x {priceFormat.format(price)}
               </span>
 
-              <span>+3 produk lainnya</span>
+              {total_products > 1 && (
+                <span>+{total_products - 1} produk lainnya</span>
+              )}
             </div>
 
             <div>
               <p>Total Belanja</p>
-              <h6>{totalPrice}</h6>
+              <h6>{priceFormat.format(total_price)}</h6>
             </div>
           </div>
 
           {/* Button Container */}
           <div>
-            {status === 'Transaksi Selesai' ? (
+            {status === 'selesai' ? (
               <div>
-                <Link to='/invoice'>
+                <Link to={`/invoice/${user}/${id}`}>
                   <Button
                     primary
                     address
@@ -268,7 +276,7 @@ const Cards = ({
                   />
                 </Link>
 
-                <Link to='/invoice'>
+                <Link to={`/invoice/${user}/${id}`}>
                   <Button
                     primary
                     address
@@ -278,7 +286,7 @@ const Cards = ({
                 </Link>
               </div>
             ) : (
-              <Link to='/invoice'>
+              <Link to={`/invoice/${user}/${id}`}>
                 <Button
                   primary
                   address

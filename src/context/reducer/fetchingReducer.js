@@ -115,6 +115,16 @@ export const bankReducer = (state, action) => {
   }
 };
 
+export const transactionReducer = (state, action) => {
+  switch (action.type) {
+    case 'FETCH_LIST_TRANSACTION':
+      return [...action.payload];
+
+    default:
+      return state;
+  }
+};
+
 export const invoiceReducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_INVOICE_ALL':

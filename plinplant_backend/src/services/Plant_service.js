@@ -2,7 +2,6 @@ const pool = require('../database/Database');
 
 module.exports = {
   // ::: QUERY TO GET USER INFO ::: DUMMY :::
-
   getUserInfo: (id, callback) => {
     pool.query(
       `Select * from user_info where pk_user_id = ?`,
@@ -14,7 +13,6 @@ module.exports = {
       }
     );
   },
-
   // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
 
   // :: INVOICE ::
@@ -212,6 +210,21 @@ module.exports = {
   },
 
   // :: END OF BANK ::
+
+  // :: TRANSACTION ::
+  transactionGet: (id, callback) => {
+    pool.query(
+      `Select * from list_transaction where fk_user_id = ?`,
+      [id],
+      (error, results, fields) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results);
+      }
+    );
+  },
+  // :: END OF TRANSACTION ::
 
   articleInputTable: (body, callback) => {
     console.log(`bdy: `, body);
