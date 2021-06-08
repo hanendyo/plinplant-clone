@@ -41,13 +41,12 @@ module.exports = {
 
   invoiceCreate: (data, callBack) => {
     pool.query(
-      `INSERT INTO table_invoice(pk_invoice_id, no_order, created_at, status, review_status, fk_user_id, fk_contact_id, fk_bank_id) values( ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO table_invoice(pk_invoice_id, no_order, created_at, status, fk_user_id, fk_contact_id, fk_bank_id) values(  ?, ?, ?, ?, ?, ?, ?)`,
       [
         data.pk_invoice_id,
         data.no_order,
         data.created_at,
         data.status,
-        data.review_status,
         data.fk_user_id,
         data.fk_contact_id,
         data.fk_bank_id,
@@ -72,6 +71,7 @@ module.exports = {
       }
     );
   },
+
   // :: END OF INVOICE ::
 
   reviewGetPlantId: (id, callback) => {
@@ -82,6 +82,25 @@ module.exports = {
         if (error) return callback(error);
 
         return callback(null, results); // result[0]
+      }
+    );
+  },
+
+  reviewPost: (data, callBack) => {
+    console.log('REVIEW DATAAA', data);
+    pool.query(
+      `INSERT INTO table_review(created_at, comment, rating, fk_user_id, fk_plant_id) VALUES(?, ?, ?, ?, ?)`,
+      [
+        data.created_at,
+        data.comment,
+        data.rating,
+        data.fk_user_id,
+        data.fk_plant_id,
+      ],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results);
       }
     );
   },
@@ -149,6 +168,19 @@ module.exports = {
     pool.query(
       `UPDATE table_cart SET fk_invoice_id = ? WHERE fk_user_id = ? AND fk_invoice_id = 0`,
       [data.fk_invoice_id, data.fk_user_id],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results); // result[0] juga bisa
+      }
+    );
+  },
+
+  cartUpdateReviewed: (data, callBack) => {
+    console.log('CART UPDATE REVIEWED', data);
+    pool.query(
+      `update table_cart set reviewed = ? where pk_cart_id = ? and fk_invoice_id = ?`,
+      [data.rating, data.pk_cart_id, data.fk_invoice_id],
       (error, results, fields) => {
         if (error) return callBack(error);
 

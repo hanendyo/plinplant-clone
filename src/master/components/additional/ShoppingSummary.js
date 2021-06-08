@@ -65,7 +65,6 @@ const ShoppingSummary = ({
       hour < 10 ? `0${hour}` : hour
     }:${min < 10 ? `0${min}` : min} WIB`;
     const status = 'bayar';
-    const review_status = false;
 
     userCartDispatch(cartCheckout({ fk_invoice_id, fk_user_id }));
 
@@ -75,7 +74,6 @@ const ShoppingSummary = ({
         fk_invoice_id,
         created_at,
         status,
-        review_status,
         fk_user_id,
         fk_contact_id,
         fk_bank_id,

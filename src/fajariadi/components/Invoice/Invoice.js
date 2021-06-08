@@ -30,13 +30,13 @@ const Invoice = () => {
     modalUploadState,
     modalUploadDispatch,
     modalReviewState,
-    userCartState,
     invoiceState,
     invoiceDispatch,
-    orderDispatch,
+    plantIdReviewState,
   } = useContext(ContextStore);
 
   console.log('STATE INVOICEEE', invoiceState);
+  console.log('PLANT IDD REVIEWWWW', plantIdReviewState);
 
   const {
     pk_invoice_id,
@@ -213,7 +213,13 @@ const Invoice = () => {
         invoice
         modal={modalUploadState}
       />
-      <ReviewModal modal={modalReviewState} />
+
+      <ReviewModal
+        fk_invoice_id={pk_invoice_id}
+        plantId={plantIdReviewState.id}
+        phase={plantIdReviewState.phase}
+        modal={modalReviewState}
+      />
     </InvoiceSection>
   );
 };

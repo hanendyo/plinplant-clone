@@ -3,12 +3,14 @@ const {
   getUserInfo,
   // REVIEW PLANT
   reviewGetPlantId,
+  reviewPost,
   // USER CART
   cartGetByUserId,
   cartAdd,
   cartDelete,
   cartUpdate,
   cartCheckout,
+  cartUpdateReviewed,
   // USER ADDRESS
   addressGetByUserId,
   // USER INVOICE
@@ -221,6 +223,26 @@ module.exports = {
     });
   },
 
+  reviewPostByPlant: (req, res) => {
+    const body = req.body;
+
+    reviewPost(body, (err, results) => {
+      console.log('REVIEW BODYYYY', body);
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        message: results,
+      });
+    });
+  },
+
   // ::: CART CONTROLLER :::
   cartGetByUser: (req, res) => {
     const id = req.params.id;
@@ -320,6 +342,34 @@ module.exports = {
 
     cartCheckout(body, (err, results) => {
       console.log('CHECKOUT PROSESSS', body);
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error',
+        });
+      }
+
+      if (results.affectedRows === 0) {
+        return res.json({
+          success: 0,
+          message: 'Record not found',
+        });
+      }
+
+      return res.status(200).json({
+        success: 1,
+        message: 'Update succes',
+        result: results,
+      });
+    });
+  },
+
+  cartUpdateReviewedBtn: (req, res) => {
+    const body = req.body;
+
+    cartUpdateReviewed(body, (err, results) => {
+      console.log('BTN REVIEW UPDATE', body);
       if (err) {
         console.log(err);
         return res.status(500).json({

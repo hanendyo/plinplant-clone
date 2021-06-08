@@ -24,6 +24,7 @@ import {
 import {
   modalPilihAlamatReducer,
   modalTambahAlamatReducer,
+  plantIdReviewReducer,
 } from '../reducer/modalReducers';
 import { SignInReducer } from '../reducer/SignInReducer';
 import { SignUpReducer } from '../reducer/SignUpReducer';
@@ -131,6 +132,11 @@ export const ContextProvider = ({ children }) => {
   const [modalReviewState, modalReviewDispatch] = useReducer(
     modalReviewReducer,
     false
+  );
+
+  const [plantIdReviewState, plantIdReviewDispatch] = useThunkReducer(
+    plantIdReviewReducer,
+    { id: 1, phase: 'Biji', cartId: 1 }
   );
 
   // ::: MODAL PILIH ALAMAT :::
@@ -279,6 +285,8 @@ export const ContextProvider = ({ children }) => {
         // ::: MODAL REVIEW :::
         modalReviewState,
         modalReviewDispatch,
+        plantIdReviewState,
+        plantIdReviewDispatch,
 
         // ::: MODAL PILIH ALAMAT :::
         modalPilihAlamatState,

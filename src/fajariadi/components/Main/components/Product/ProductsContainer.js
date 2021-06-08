@@ -1,17 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ItemsCarousel from 'react-items-carousel';
 import Cards from '../../../../../master/components/additional/Cards';
-import {
-  addresses,
-  articles,
-  scroll,
-  cartItems,
-  invoiceProduct,
-  products,
-  reviews,
-  transactions,
-} from '../../../../../master/constant/data/dummy-data';
+import { transactions } from '../../../../../master/constant/data/dummy-data';
 import { colors } from '../../../../../master/constant/style';
 import styled from 'styled-components';
 import { useMediaQuery } from 'react-responsive';
@@ -299,7 +290,8 @@ const ProductsContainer = ({
                 quantity,
                 price,
                 weight,
-                review_status,
+                reviewed,
+                pk_cart_id,
               },
               index
             ) => (
@@ -312,9 +304,10 @@ const ProductsContainer = ({
                 price={price}
                 quantity={quantity}
                 weight={weight}
-                reviewed={review_status}
+                reviewed={reviewed}
                 status={status}
                 plant={fk_plant_id}
+                cartId={pk_cart_id}
               />
             )
           )}

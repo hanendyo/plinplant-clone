@@ -24,6 +24,20 @@ export const modalReviewReducer = (state, action) => {
   }
 };
 
+export const plantIdReviewReducer = (state, action) => {
+  switch (action.type) {
+    case 'GET_PLANT_ID':
+      return {
+        id: action.payload.plant,
+        phase: action.payload.phase,
+        cartId: action.payload.cartId,
+      };
+
+    default:
+      return state;
+  }
+};
+
 export const modalPilihAlamatReducer = (state, action) => {
   switch (action.type) {
     case 'OPEN_MODAL_PILIH_ALAMAT':

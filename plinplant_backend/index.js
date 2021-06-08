@@ -16,7 +16,7 @@ const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     let fieldName = file.fieldname;
     if (fieldName === 'article_image_upload') {
-      cb(null, './images/article_image');
+      cb(null, '../public/images/article_image');
     }
     if (
       fieldName === 'plant_image_upload' ||
@@ -64,24 +64,27 @@ const plantRoutes = require('./src/router/Plant_router');
 // const AuthValidation = require('./src/middleware/AuthValidation');
 
 // middleware
-app.use(cors({
-  origin: ['http://localhost:3000'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: ['http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }))
-app.use(session({
-  key: 'userToken',
-  secret: 'secretcode',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    expires: 60 * 60 * 24
-  }
-}))
-
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  session({
+    key: 'userToken',
+    secret: 'secretcode',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 60 * 60 * 24,
+    },
+  })
+);
 
 // path
 app.use('/auth', authRoutes);
@@ -91,7 +94,6 @@ app.use('/input', plantRoutes);
 // app.use('/checkUserAuth', AuthValidation, (req, res) => {
 //   res.send('you are authenticated!')
 // })
-
 
 // Setup server
 const APP_PORT = process.env.APP_PORT;

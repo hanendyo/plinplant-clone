@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
 import Button from '../../../master/components/additional/Button';
@@ -12,9 +12,11 @@ import { useMediaQuery } from 'react-responsive';
 import { Link, useHistory } from 'react-router-dom';
 import { priceFormat, weightFormat } from '../../constant/constantVariables';
 import { deleteCart } from '../../../context/actions/fetchingActions';
+import { getPlantId } from '../../../context/actions/modalActions';
 
 const Cards = ({
   id,
+  plant,
   name,
   img,
   weight,
@@ -51,6 +53,7 @@ const Cards = ({
   search,
   selectAddress,
   index,
+  cartId,
 }) => {
   const {
     modalReviewDispatch,
@@ -58,6 +61,7 @@ const Cards = ({
     selectedAddressState,
     selectedAddressDispatch,
     userCartDispatch,
+    plantIdReviewDispatch,
   } = useContext(ContextStore);
 
   const history = useHistory();
@@ -296,7 +300,9 @@ const Cards = ({
             />
 
             <div>
-              <h6>{name}</h6>
+              <h6 onClick={() => history.push(`/shop/${plant}/${slug(name)}`)}>
+                {name}
+              </h6>
               <span>{phase}</span>
               <span>
                 {quantity} barang ({weightFormat(weight)}) x{' '}
@@ -308,7 +314,7 @@ const Cards = ({
           {status === 'selesai' && (
             <>
               {reviewed ? (
-                <Rating reviewed rate={4} />
+                <Rating reviewed rate={reviewed} />
               ) : (
                 <div>
                   <Button
@@ -317,7 +323,13 @@ const Cards = ({
                     address
                     text='Beri Ulasan'
                     bgColor={colors.lightGreenTransparent}
-                    onClick={() => modalReviewDispatch(openModalReview())}
+                    onClick={() => {
+                      console.log('CARTTTT IDDD', cartId);
+                      plantIdReviewDispatch(
+                        getPlantId({ plant, phase, cartId })
+                      );
+                      modalReviewDispatch(openModalReview());
+                    }}
                   />
                 </div>
               )}
@@ -609,6 +621,10 @@ const CardCart = styled.div`
     }
   }
 
+  & > .trash {
+    cursor: pointer;
+  }
+
   & > h5 {
     color: ${colors.white};
     margin-right: 10px;
@@ -855,6 +871,7 @@ const CardInvoice = styled.div`
     & > div {
       & > h6 {
         color: ${colors.white};
+        cursor: pointer;
       }
 
       & > span {
