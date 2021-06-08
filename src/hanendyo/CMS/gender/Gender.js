@@ -84,7 +84,7 @@ const Category = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append("pk_gender_id", form.pk_gender_id);
+    // data.append("pk_gender_id", form.pk_gender_id);
     data.append("type", form.type);
 
     axios
@@ -95,7 +95,7 @@ const Category = () => {
       })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Category successfuly created!`);
+        console.log(`Gender successfuly created!`);
         console.log(res);
         return res;
       })

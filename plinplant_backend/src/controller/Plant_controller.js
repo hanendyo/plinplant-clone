@@ -1042,12 +1042,12 @@ module.exports = {
     const body = req.body;
     plantBreedingInputTable(body, (err, result) => {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           success: 0,
           message: 'Database connection error!',
         });
       }
-      return res.json({
+      return res.status(200).json({
         status: 1,
         message: ' Input Plant Breeding Data Success',
         data: result,
@@ -1366,6 +1366,7 @@ module.exports = {
 
   user_input: (req, res) => {
     const body = req.body;
+    console.log(`USER BODY: `, body);
     userInputTable(body, (err, result) => {
       if (err) {
         return res.json({

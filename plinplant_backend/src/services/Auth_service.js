@@ -1,15 +1,11 @@
-const pool = require("../database/Database");
+const pool = require('../database/Database');
 
 module.exports = {
   postRegister: (data, callback) => {
     console.log(`CALLBACK SERVICE: `, callback);
     console.log(`DATA SERVICE: `, data);
     const sql = `insert into table_user (fullname, email, password)values(?,?,?)`;
-    const database = [
-      data.fullname,
-      data.email,
-      data.password,
-    ];
+    const database = [data.fullname, data.email, data.password];
     pool.query(sql, database, (err, result, fields) => {
       if (err) {
         console.log(`SERVICE ERROR:`, err.Error);
@@ -27,7 +23,7 @@ module.exports = {
   postLogin: (data, callback) => {
     pool.query(
       `select * from table_user where email=?`,
-      [data.email ],
+      [data.email],
       (err, result) => {
         if (err) {
           console.log(`SERVICE ERROR:`, err.Error);
@@ -36,10 +32,9 @@ module.exports = {
         console.log(`SERVICE SUCCESS`);
         return callback(null, result);
       }
-    )
+    );
   },
   // getLogin: (data, callback)=>{
   //   console.log(`DATA GET LOGIN: `, data);
   // }
-
 };

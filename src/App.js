@@ -36,7 +36,7 @@ const App = () => {
     setLoading(true);
 
     // ::: FETCH USER INFO - THUNK :::
-    userInfoDispatch(getUser());
+    // userInfoDispatch(getUser());
 
     // ::: FETCH PLANT DATA :::
     tablePlantDispatch(getPlants());

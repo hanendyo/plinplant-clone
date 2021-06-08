@@ -7,6 +7,12 @@ import { Link, useHistory } from 'react-router-dom';
 import { ContextStore } from '../../../context/store/ContextStore';
 
 const NavbarLandingPage = () => {
+  let userData = JSON.parse(localStorage.getItem('user-data')) || [];
+
+  console.log(`USERDATA-NAVBARLANDINGPAGE: `, userData);
+  const { pk_user_id, fullname, picture, email } = userData.data.result[0];
+  const loggedIn = userData.data.loggedIn;
+
   const { tableArticleState, userInfoState } = useContext(ContextStore);
   const login = userInfoState.length !== 0;
 
@@ -41,7 +47,7 @@ const NavbarLandingPage = () => {
       <Container shadow={shadow}>
         <Logo>PlinPlant</Logo>
 
-        <LinksContainer login={login} profile={profile}>
+        <LinksContainer login={loggedIn} profile={profile}>
           <li>
             <Link to='/cart'>
               <FaShoppingCart className='cart' />
@@ -58,17 +64,20 @@ const NavbarLandingPage = () => {
           </li>
           <li>
             {/* {console.log(`LANDING STATE: `, landingState)} */}
-            {login ? (
+            {loggedIn ? (
               <>
                 <button onClick={() => setProfile(!profile)}>
                   <img
                     src={
-                      process.env.PUBLIC_URL +
-                      `/images/user_image/${userInfoState[0]?.picture}`
+                      !picture
+                        ? process.env.PUBLIC_URL +
+                          `/images/user_image/default.png`
+                        : process.env.PUBLIC_URL +
+                          `/images/user_image/${picture}`
                     }
                     alt={userInfoState[0]?.fullname}
                   />
-                  <p>Halo, {greet}</p>
+                  <p>Halo, {fullname}</p>
                 </button>
 
                 {/* Profile Hover */}
@@ -77,14 +86,15 @@ const NavbarLandingPage = () => {
                     <img
                       src={
                         process.env.PUBLIC_URL +
-                        `/images/user_image/${userInfoState[0]?.picture}`
+                        // `/images/user_image/${userInfoState[0]?.picture}`
+                        `/images/user_image/default.png`
                       }
                       alt={userInfoState[0]?.fullname}
                     />
 
                     <div>
-                      <h5>{userInfoState[0]?.fullname}</h5>
-                      <span>{userInfoState[0]?.email}</span>
+                      <h5>{fullname}</h5>
+                      <span>{email}</span>
                     </div>
                   </div>
 

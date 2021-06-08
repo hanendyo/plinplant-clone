@@ -61,6 +61,7 @@ const Article = () => {
       email: "",
       password: "",
       birth_date: "",
+      phone_number: "",
       fk_contact_id: "",
       fk_gender_id: "",
     },
@@ -133,7 +134,7 @@ const Article = () => {
     data.append("password", form.password);
     data.append("birth_date", form.birth_date);
     data.append("email", form.email);
-    data.append("fk_contact_id", form.fk_contact_id);
+    data.append("number_phone", form.number_phone);
     data.append("fk_gender_id", form.fk_gender_id);
     data.append("picture", form.picture);
     data.append("picture_upload", imageUpload);
@@ -141,7 +142,7 @@ const Article = () => {
     axios
       .post(url + endPoint + `_input`, data, {
         headers: {
-          "birth_date-type": "multipart/form-data",
+          "content-type": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -169,12 +170,27 @@ const Article = () => {
   };
 
   // UPDATE
-  const updateAPI = async (data) => {
+  const updateAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.append("fullname", form.fullname);
+    data.append("password", form.password);
+    data.append("birth_date", form.birth_date);
+    data.append("email", form.email);
+    data.append("number_phone", form.number_phone);
+    data.append("fk_gender_id", form.fk_gender_id);
+    data.append("picture", form.picture);
+    data.append("picture_upload", imageUpload);
+
     axios
-      .put(url + endPoint + `_update`, data)
+      .put(url + endPoint + `_update`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`User successfuly updated!`);
+        console.log(`User successfuly created!`);
         console.log(res);
         return res;
       })
@@ -183,6 +199,30 @@ const Article = () => {
         console.log(err);
         return err;
       });
+
+
+
+
+
+
+
+
+
+
+
+    // axios
+    //   .put(url + endPoint + `_update`, data)
+    //   .then((res) => {
+    //     getAllDatasAPI();
+    //     console.log(`User successfuly updated!`);
+    //     console.log(res);
+    //     return res;
+    //   })
+    //   .catch((err) => {
+    //     console.log(`ERROR!`);
+    //     console.log(err);
+    //     return err;
+    //   });
   };
 
   // HANDLE SUBMIT
@@ -203,6 +243,7 @@ const Article = () => {
         email: userState.email,
         password: userState.password,
         birth_date: userState.birth_date,
+        phone_number: userState.phone_number,
         fk_contact_id: userState.fk_contact_id,
         fk_gender_id: userState.fk_gender_id,
       },
@@ -230,8 +271,9 @@ const Article = () => {
     userDispatch(cmsAction(`password`, data.password));
     userDispatch(cmsAction(`birth_date`, data.birth_date));
     userDispatch(cmsAction(`email`, data.email));
+    userDispatch(cmsAction(`phone_number`, data.phone_number));
     userDispatch(cmsAction(`picture`, data.picture));
-    userDispatch(cmsAction(`fk_contact_id`, data.fk_contact_id));
+    userDispatch(cmsAction(`picture_upload`, data.picture_upload));
     userDispatch(cmsAction(`fk_gender_id`, data.fk_gender_id));
     userDispatch(cmsAction(`pk_user_id`, data.pk_user_id));
     console.log(`update from userState: `, userState);
@@ -249,6 +291,7 @@ const Article = () => {
     userDispatch(cmsAction(`password`, ""));
     userDispatch(cmsAction(`birth_date`, ""));
     userDispatch(cmsAction(`email`, ""));
+    userDispatch(cmsAction(`phone_number`, ""));
     userDispatch(cmsAction(`picture`, ""));
     userDispatch(cmsAction(`fk_contact_id`, ""));
     userDispatch(cmsAction(`fk_gender_id`, ""));
@@ -308,15 +351,15 @@ const Article = () => {
             onChange={(e) => formChange("birth_date", e.target.value)}
             name="birth_date"
             id="outlined-static"
-            label="birth_date"
+            label="Birth Date"
             variant="outlined"
           />
           <TextField
-            value={userState.fk_contact_id}
-            onChange={(e) => formChange("fk_contact_id", e.target.value)}
-            name="fk_contact_id"
+            value={userState.phone_number}
+            onChange={(e) => formChange("phone_number", e.target.value)}
+            name="phone_number"
             id="outlined-basic"
-            label="Contact_ID"
+            label="Phone number"
             variant="outlined"
           />
           <FormControl className={classes.formControl}>
@@ -360,7 +403,7 @@ const Article = () => {
 
             <input
               accept="image/*"
-              name="Profile Picture Upload"
+              name="picture_upload"
               className={classes.input}
               id="contained-button-file"
               multiple

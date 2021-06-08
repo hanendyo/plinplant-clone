@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
 
+
 // config
 const app = express();
 
@@ -15,6 +16,10 @@ const app = express();
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     let fieldName = file.fieldname;
+
+    console.log(`FIELDNAME USER: `, fieldName);
+    console.log(`REQ MULTER USER: `, req.file);
+
     if (fieldName === 'article_image_upload') {
       cb(null, '../public/images/article_image');
     }

@@ -47,7 +47,8 @@ const SignIn = () => {
   const classes = useStyles();
   const history = useHistory();
   const [loginStatus, setLoginStatus] = useState(false);
-  const [loginName, setLoginName] = useState('');
+  const [loginName, setLoginName] = useState("");
+  const [local, setLocal] = useState([]);
 
   const context = useContext(ContextStore);
   const { signInState, signInDispatch } = context;
@@ -55,25 +56,29 @@ const SignIn = () => {
   //! axios crendentials
   axios.defaults.withCredentials = true;
 
-  useEffect(() => {
-    getDataSignInAPI();
-  }, []);
+  // useEffect(() => {
+  //   getDataSignInAPI();
+  // }, []);
 
-  const getDataSignInAPI = async () => {
-    try {
-      await axios.get(`http://localhost:5000/auth/login`).then((response) => {
-        // if (response.data.loggedIn === true) {
-        //   // setLoginStatus(response.data.user[0].fullname);
-        //   signInDispatch(signInAction("loginStatus", response.data));
-        // }
-        console.log(`RESPONSE GET DATA LOGIN API: `, response);
-        return response;
-      });
-    } catch (err) {
-      console.log(`login error`, err);
-      return err;
-    }
-  };
+  // const getDataSignInAPI = async () => {
+  //   try {
+  //     await axios.get(`http://localhost:5000/auth/login`).then((response) => {
+  //       signInDispatch(signInAction("loginStatus", response.data));
+  //       setLocal(...local, signInState.loginStatus.user);
+  //       console.log(`SET LOCAL: `, local);
+  //       console.log(`RESPONSE GET DATA LOGIN API: `, response);
+  //       localStorage.setItem(
+  //         "user-data",
+  //         JSON.stringify(signInState.loginStatus)
+  //       );
+
+  //       return response;
+  //     });
+  //   } catch (err) {
+  //     console.log(`login error`, err);
+  //     return err;
+  //   }
+  // };
 
   const signInAPI = async (form) => {
     const data = new FormData();
@@ -86,8 +91,7 @@ const SignIn = () => {
           "content-type": "multipart/form-data",
         },
       });
-      // localStorage.setItem("token", res.data.token);
-      getDataSignInAPI();
+      // getDataSignInAPI();
       console.log(`SIGNIN API RES: `, res);
       return res;
     } catch (err) {
@@ -113,39 +117,24 @@ const SignIn = () => {
     // POST TO API
     console.log(`sign in data: `, signInState);
     signInAPI(signInState).then((res) => {
-      getDataSignInAPI()
+      // getDataSignInAPI();
+      console.log(`SUBMIT RES: `, res);
+      localStorage.setItem(
+        "user-data",
+        JSON.stringify(res)
+      );
       if (res.status === 200) {
-        setLoginStatus(true)
-        signInDispatch(signInAction('loginStatus', res))
+        setLoginStatus(true);
+        signInDispatch(signInAction("loginStatus", res));
         history.push("/");
-        if(loginStatus === true){
-          setLoginName(res.data.result[0].fullname)
+        if (loginStatus === true) {
+          setLoginName(res.data.result[0].fullname);
         }
         // signInDispatch(signInAction("loginStatus", res.data));
       }
       console.log(`res submit: `, res);
     });
   };
-
-  const handleLogOut = () => {
-    logOutAPI();
-    getDataSignInAPI();
-
-    // Refresh web
-    window.location.reload(false);
-  };
-
-  // const checkUserAuth = () => {
-  //   axios
-  //     .get(`http://localhost:5000/checkUserAuth`, {
-  //       headers: {
-  //         "x-access-token": localStorage.getItem("token"),
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //     });
-  // };
 
   return (
     <div className="container">
@@ -224,16 +213,6 @@ const SignIn = () => {
         </div>
       </div>
       <br />
-
-      {/* TESTING LOGOUT */}
-      {
-        <button onClick={handleLogOut}>Logout</button>
-      }
-      <br />
-      {/* {signInState.loginStatus.auth && (
-        <button onClick={checkUserAuth}>check auth</button>
-      )} */}
-
       <Box mt={5}>
         <Copyright />
       </Box>
