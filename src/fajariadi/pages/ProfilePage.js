@@ -29,7 +29,7 @@ const ProfilePage = () => {
     setTimeout(() => {
       setLoading(false);
     }, 50);
-  }, []);
+  }, [userAddressDispatch, userInfoState]);
 
   console.log("PROFILEEEEE", userAddressState);
 

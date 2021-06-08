@@ -4,6 +4,9 @@ const multer = require('multer');
 const path = require('path');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const jwt = require('jsonwebtoken');
 
 // config
 const app = express();
@@ -13,7 +16,7 @@ const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     let fieldName = file.fieldname;
     if (fieldName === 'article_image_upload') {
-      cb(null, '../public/images/article_image');
+      cb(null, './images/article_image');
     }
     if (
       fieldName === 'plant_image_upload' ||
@@ -35,7 +38,6 @@ const fileStorage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-
 const checkFileType = (req, file, cb) => {
   if (
     file.mimetype === 'image/png' ||
@@ -47,7 +49,6 @@ const checkFileType = (req, file, cb) => {
     cb(null, false);
   }
 };
-
 const upload = multer({
   storage: fileStorage,
   limits: { fileSize: 5000000 },
@@ -60,15 +61,37 @@ dotenv.config();
 
 const authRoutes = require('./src/router/Auth_router');
 const plantRoutes = require('./src/router/Plant_router');
+// const AuthValidation = require('./src/middleware/AuthValidation');
 
 // middleware
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }))
+app.use(session({
+  key: 'userToken',
+  secret: 'secretcode',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    expires: 60 * 60 * 24
+  }
+}))
+
 
 // path
 app.use('/auth', authRoutes);
 app.use('/input', plantRoutes);
+
+// testing path
+// app.use('/checkUserAuth', AuthValidation, (req, res) => {
+//   res.send('you are authenticated!')
+// })
+
 
 // Setup server
 const APP_PORT = process.env.APP_PORT;

@@ -11,11 +11,11 @@ const CTAEnsiklopedia = ({ id, name }) => {
     <SectionCTAE>
       <Container>
         <div>
-          <h2>Lorem Ipsum Dolor</h2>
+          <h2>Tertarik untuk membeli {name}?</h2>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sunt
-            illum neque soluta voluptate aperiam hic explicabo quibusdam
-            provident molestias?
+            Bagaimana pengalaman kamu melihat pertumbuhan tanaman {name} ini?
+            Apakah kamu tertarik untuk merawatnya? Yuk, klik tombol Beli
+            Sekarang dan nantikan tanaman ini sampai kerumahmu.
           </p>
         </div>
 

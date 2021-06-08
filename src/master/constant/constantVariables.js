@@ -8,3 +8,18 @@ export const weightFormat = (weight) => {
   if (weight > 999) return `${weight / 1000} kg`;
   if (weight < 1000) return `${weight} gr`;
 };
+
+export const months = [
+  'Januari',
+  'Februari',
+  'Maret',
+  'April',
+  'Mei',
+  'Juni',
+  'Juli',
+  'Agustus',
+  'September',
+  'Oktober',
+  'November',
+  'Desember',
+];

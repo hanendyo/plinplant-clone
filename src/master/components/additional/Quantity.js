@@ -1,16 +1,46 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
+import {
+  decrementCart,
+  getCarts,
+  incrementCart,
+} from '../../../context/actions/fetchingActions';
+import { ContextStore } from '../../../context/store/ContextStore';
 import { colors } from '../../constant/style';
 
-const Quantity = ({ quantity, setQuantity, shop }) => {
+const Quantity = ({ quantity, setQuantity, pk_cart_id, shop }) => {
+  const { userCartDispatch, userInfoState } = useContext(ContextStore);
+
   return (
-    <Counter shop={shop}>
-      <span onClick={() => setQuantity(quantity === 1 ? 1 : quantity - 1)}>
-        -
-      </span>
-      <span>{quantity}</span>
-      <span onClick={() => setQuantity(quantity + 1)}>+</span>
-    </Counter>
+    <>
+      {shop ? (
+        <Counter shop={shop}>
+          <span onClick={() => setQuantity(quantity === 1 ? 1 : quantity - 1)}>
+            -
+          </span>
+          <span>{quantity}</span>
+          <span onClick={() => setQuantity(quantity + 1)}>+</span>
+        </Counter>
+      ) : (
+        <Counter>
+          <span
+            onClick={() =>
+              userCartDispatch(decrementCart({ quantity, pk_cart_id }))
+            }
+          >
+            -
+          </span>
+          <span>{quantity}</span>
+          <span
+            onClick={() =>
+              userCartDispatch(incrementCart({ quantity, pk_cart_id }))
+            }
+          >
+            +
+          </span>
+        </Counter>
+      )}
+    </>
   );
 };
 

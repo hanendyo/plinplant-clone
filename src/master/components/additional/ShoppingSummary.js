@@ -1,17 +1,38 @@
 import React, { useContext } from 'react';
 import { FaLongArrowAltRight } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import {
+  cartCheckout,
+  createInvoice,
+} from '../../../context/actions/fetchingActions';
 import { openModalTambahAlamat } from '../../../context/actions/modalActions';
 import { ContextStore } from '../../../context/store/ContextStore';
-import { priceFormat, weightFormat } from '../../constant/constantVariables';
-import { addresses } from '../../constant/data/dummy-data';
+import {
+  priceFormat,
+  weightFormat,
+  months,
+} from '../../constant/constantVariables';
 import { colors } from '../../constant/style';
 import Button from './Button';
 
-const ShoppingSummary = ({ checkout, city_code, shipping_price }) => {
-  const { modalTambahAlamatDispatch, userCartState, userAddressState } =
-    useContext(ContextStore);
+const ShoppingSummary = ({
+  checkout,
+  city_code,
+  shipping_price,
+  fk_contact_id,
+  fk_bank_id,
+}) => {
+  const {
+    modalTambahAlamatDispatch,
+    userCartState,
+    userCartDispatch,
+    userAddressState,
+    userInfoState,
+    invoiceDispatch,
+  } = useContext(ContextStore);
+
+  const history = useHistory();
 
   const totalPrice = userCartState
     .map((item) => item.price * item.quantity)
@@ -27,6 +48,44 @@ const ShoppingSummary = ({ checkout, city_code, shipping_price }) => {
     .reduce((a, b) => a + b, 0);
 
   const totalShippingPrice = Math.ceil(totalWeight / 1000) * shipping_price;
+
+  const handleCheckout = () => {
+    console.log('CHECKOUT!!');
+    const fk_user_id = userInfoState[0]?.pk_user_id;
+
+    const time = new Date();
+    const fk_invoice_id = time.getTime();
+    const date = time.getDate();
+    const month = time.getMonth();
+    const year = time.getFullYear();
+    const hour = time.getHours();
+    const min = time.getMinutes();
+
+    const created_at = `${date} ${months[month]} ${year}, ${
+      hour < 10 ? `0${hour}` : hour
+    }:${min < 10 ? `0${min}` : min} WIB`;
+    const status = 'bayar';
+    const review_status = false;
+
+    userCartDispatch(cartCheckout({ fk_invoice_id, fk_user_id }));
+
+    invoiceDispatch(
+      createInvoice({
+        fk_invoice_id,
+        fk_invoice_id,
+        created_at,
+        status,
+        review_status,
+        fk_user_id,
+        fk_contact_id,
+        fk_bank_id,
+      })
+    );
+
+    console.log('HISTORY PUSH CHECKOUT!!');
+
+    history.push(`/invoice/${fk_user_id}/${fk_invoice_id}`);
+  };
 
   return (
     <SummarySection>
@@ -68,9 +127,14 @@ const ShoppingSummary = ({ checkout, city_code, shipping_price }) => {
       )}
 
       {checkout ? (
-        <Link to='/invoice'>
-          <Button primary summary text='Proses' bgColor={colors.yellow} />
-        </Link>
+        <Button
+          // disabled={true}
+          onClick={handleCheckout}
+          primary
+          summary
+          text='Proses'
+          bgColor={colors.yellow}
+        />
       ) : (
         <div>
           {userAddressState.length === 0 ? (

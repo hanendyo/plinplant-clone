@@ -5,15 +5,25 @@ import Button from './Button';
 import { colors } from '../../constant/style';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { closeModalUpload } from '../../../context/actions';
+import { updateStatusTransaction } from '../../../context/actions/fetchingActions';
 
-const UploadBox = ({ invoice, modal, profile }) => {
-  const { modalUploadDispatch } = useContext(ContextStore);
+const UploadBox = ({ pk_invoice_id, invoice, modal, profile }) => {
+  const { modalUploadDispatch, invoiceDispatch } = useContext(ContextStore);
 
   const inputFile = useRef(null);
+
+  const transactionStatus = 'verif';
 
   const onButtonClick = () => {
     // `current` points to the mounted file input element
     inputFile.current.click();
+  };
+
+  const handleUpdateStatus = (data) => {
+    invoiceDispatch(updateStatusTransaction(data));
+
+    modalUploadDispatch(closeModalUpload());
+    window.location.reload();
   };
 
   return (
@@ -73,7 +83,14 @@ const UploadBox = ({ invoice, modal, profile }) => {
                 onClick={() => modalUploadDispatch(closeModalUpload())}
               />
 
-              <Button primary text='Kirim' bgColor={colors.green} />
+              <Button
+                primary
+                text='Kirim'
+                bgColor={colors.green}
+                onClick={() =>
+                  handleUpdateStatus({ pk_invoice_id, transactionStatus })
+                }
+              />
             </div>
           </ModalBox>
         </ModalOverlay>

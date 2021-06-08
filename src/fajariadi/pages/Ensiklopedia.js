@@ -16,29 +16,17 @@ const Ensiklopedia = ({ match }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getPlantId = async () => {
-      const res = await axios.get(
-        `http://localhost:5000/input/plant_get_by_id/${match.params.id}`
-      );
-
-      plantIdDispatch(getPlantById(res.data.data[0]));
-    };
-
-    window.scrollTo({
-      top: 0,
-    });
-
     setLoading(true);
 
-    getPlantId();
+    plantIdDispatch(getPlantById(match));
+
+    window.scrollTo({ top: 0 });
 
     // ::: LOADING TIME :::
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
   }, [match.params.id]);
-
-  console.log('PLANT', plantIdState);
 
   return (
     <>

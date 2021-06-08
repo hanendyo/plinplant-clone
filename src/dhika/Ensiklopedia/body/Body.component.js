@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors, StyledContainer } from '../../../master/constant/style/index';
 
 export const Container = styled(StyledContainer)`
-  margin-top: 10rem;
+  margin-top: 12rem;
   position: relative;
 
   & > h2 {
@@ -14,7 +14,7 @@ export const Container = styled(StyledContainer)`
     color: ${colors.black};
     padding: unset;
     width: 100%;
-    max-width: 700px;
+    max-width: 900px;
     margin: 20px auto 50px;
   }
 
@@ -33,6 +33,7 @@ export const Container = styled(StyledContainer)`
     margin-top: 5rem;
 
     &::before {
+      top: 300px;
       left: 10%;
     }
   }

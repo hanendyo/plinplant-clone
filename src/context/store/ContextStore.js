@@ -1,4 +1,5 @@
 import React, { createContext, useReducer } from "react";
+import { useThunkReducer } from "react-hook-thunk-reducer";
 import CmsInitial from "../initialState/CmsInitial";
 import SignInInitial from "../initialState/SignInInitial";
 import SignUpInitial from "../initialState/SignUpInitial";
@@ -17,6 +18,8 @@ import {
   userInfoReducer,
   userCartReducer,
   userAddressReducer,
+  invoiceReducer,
+  bankReducer,
 } from "../reducer/fetchingReducer";
 import {
   modalPilihAlamatReducer,
@@ -40,7 +43,10 @@ export const ContextProvider = ({ children }) => {
   );
 
   // LOGIN
-  const [loginState, loginDispatch] = useReducer(SignInReducer, SignInInitial);
+  const [signInState, signInDispatch] = useReducer(
+    SignInReducer,
+    SignInInitial
+  );
 
   //! CMS
   // ARTICLE
@@ -169,46 +175,61 @@ export const ContextProvider = ({ children }) => {
 
   // !::: FETCHING :::
   // ::: FETCH USER INFO ::: DUMMY :::
-  const [userInfoState, userInfoDispatch] = useReducer(userInfoReducer, []);
-
-  // ::: FETCH PLANT REVIEW :::
-  const [plantReviewState, plantReviewDispatch] = useReducer(
-    plantReviewReducer,
+  const [userInfoState, userInfoDispatch] = useThunkReducer(
+    userInfoReducer,
     []
-  );
-
-  // ::: FETCH USER CART :::
-  const [userCartState, userCartDispatch] = useReducer(userCartReducer, []);
-
-  // ::: FETCH USER ADDRESS :::
-  const [userAddressState, userAddressDispatch] = useReducer(
-    userAddressReducer,
-    []
-  );
-
-  // ::: SELECTED USER ADDRESS :::
-  const [selectedAddressState, selectedAddressDispatch] = useReducer(
-    selectedAddressReducer,
-    0
   );
 
   // ::: FETCH TABLE PLANT :::
-  const [tablePlantState, tablePlantDispatch] = useReducer(
+  const [tablePlantState, tablePlantDispatch] = useThunkReducer(
     tablePlantReducer,
     []
   );
 
   // ::: FETCH TABLE PLANT BY ID :::
-  const [plantIdState, plantIdDispatch] = useReducer(plantIdReducer, {});
+  const [plantIdState, plantIdDispatch] = useThunkReducer(plantIdReducer, {});
+
+  // ::: FETCH USER CART :::
+  const [userCartState, userCartDispatch] = useThunkReducer(
+    userCartReducer,
+    []
+  );
+
+  // ::: FETCH USER ADDRESS :::
+  const [userAddressState, userAddressDispatch] = useThunkReducer(
+    userAddressReducer,
+    []
+  );
+
+  // ::: SELECTED USER ADDRESS :::
+  const [selectedAddressState, selectedAddressDispatch] = useThunkReducer(
+    selectedAddressReducer,
+    0
+  );
+
+  // ::: FETCH BANK :::
+  const [bankState, bankDispatch] = useThunkReducer(bankReducer, []);
+
+  // ::: FETCH INVOICES :::
+  const [invoiceState, invoiceDispatch] = useThunkReducer(invoiceReducer, []);
+
+  // ::: FETCH PLANT REVIEW :::
+  const [plantReviewState, plantReviewDispatch] = useThunkReducer(
+    plantReviewReducer,
+    []
+  );
 
   // ::: FETCH TABLE ARTICLE :::
-  const [tableArticleState, tableArticleDispatch] = useReducer(
+  const [tableArticleState, tableArticleDispatch] = useThunkReducer(
     tableArticleReducer,
     []
   );
 
   // ::: FETCH TABLE ARTICLE BY ID :::
-  const [articleIdState, articleIdDispatch] = useReducer(articleIdReducer, {});
+  const [articleIdState, articleIdDispatch] = useThunkReducer(
+    articleIdReducer,
+    {}
+  );
 
   return (
     <ContextStore.Provider
@@ -217,8 +238,8 @@ export const ContextProvider = ({ children }) => {
         signUpState,
         signUpDispatch,
         // login
-        loginState,
-        loginDispatch,
+        signInState,
+        signInDispatch,
         // article
         articleState,
         articleDispatch,
@@ -346,6 +367,14 @@ export const ContextProvider = ({ children }) => {
         // ::: SELECTED USER ADDRESS :::
         selectedAddressState,
         selectedAddressDispatch,
+
+        // ::: SELECTED USER ADDRESS :::
+        invoiceState,
+        invoiceDispatch,
+
+        // ::: BANK :::
+        bankState,
+        bankDispatch,
       }}
     >
       {children}

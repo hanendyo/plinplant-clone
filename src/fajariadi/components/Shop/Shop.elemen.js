@@ -4,6 +4,7 @@ import { colors, StyledContainer } from '../../../master/constant/style';
 export const Container = styled(StyledContainer)`
   display: flex;
   justify-content: space-between;
+  position: relative;
 
   @media (max-width: 1200px) {
     flex-wrap: wrap;

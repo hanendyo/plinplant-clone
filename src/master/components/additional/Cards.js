@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
 import Button from '../../../master/components/additional/Button';
@@ -11,6 +11,7 @@ import { openModalReview, setSelectedAddress } from '../../../context/actions';
 import { useMediaQuery } from 'react-responsive';
 import { Link, useHistory } from 'react-router-dom';
 import { priceFormat, weightFormat } from '../../constant/constantVariables';
+import { deleteCart } from '../../../context/actions/fetchingActions';
 
 const Cards = ({
   id,
@@ -56,6 +57,7 @@ const Cards = ({
     articleIdState,
     selectedAddressState,
     selectedAddressDispatch,
+    userCartDispatch,
   } = useContext(ContextStore);
 
   const history = useHistory();
@@ -63,8 +65,6 @@ const Cards = ({
   const isMini = useMediaQuery({ maxWidth: 370 });
 
   const slug = (title) => title.toLowerCase().split(' ').join('-');
-
-  console.log('CARDDD ADDREE', selectedAddressState);
 
   return (
     <>
@@ -188,9 +188,12 @@ const Cards = ({
             <h5>{priceFormat.format(price)}</h5>
           </div>
 
-          <Quantity quantity={quantity} />
+          <Quantity quantity={quantity} pk_cart_id={id} />
 
-          <FaRegTrashAlt className='trash' />
+          <FaRegTrashAlt
+            className='trash'
+            onClick={() => userCartDispatch(deleteCart(id))}
+          />
         </CardCart>
       )}
 
@@ -287,13 +290,17 @@ const Cards = ({
       {invoice && (
         <CardInvoice>
           <div>
-            <img src={img} alt='' />
+            <img
+              src={process.env.PUBLIC_URL + `/images/Plant/${img}`}
+              alt={name}
+            />
 
             <div>
               <h6>{name}</h6>
               <span>{phase}</span>
               <span>
-                {quantity} barang (500 gr) x {price}
+                {quantity} barang ({weightFormat(weight)}) x{' '}
+                {priceFormat.format(price)}
               </span>
             </div>
           </div>

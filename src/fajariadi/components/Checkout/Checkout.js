@@ -21,12 +21,16 @@ import {
 } from "./Checkout.elemen";
 
 const Checkout = () => {
-  const { userCartState, userAddressState, selectedAddressState } =
+  const { userCartState, userAddressState, selectedAddressState, bankState } =
     useContext(ContextStore);
 
   const [scroll, setScroll] = useState(true);
+  const [payment, setPayment] = useState(false);
+  const [bankId, setBankId] = useState(0);
+  const [placeholder, setPlaceholder] = useState('Bank Transfer');
 
   const {
+    pk_contact_id,
     recipient_name,
     phone_number,
     address,
@@ -47,8 +51,12 @@ const Checkout = () => {
     modalTambahAlamatState,
   } = useContext(ContextStore);
 
-  console.log("CHECKOUT", userCartState);
-  console.log("ADDRESSSSSS", userAddressState);
+  const handleBank = (id, name) => {
+    setBankId(id);
+    setPlaceholder(`Transfer ${name}`);
+
+    setPayment(!payment);
+  };
 
   return (
     <CheckoutSection>
@@ -94,11 +102,11 @@ const Checkout = () => {
                 {scroll && <ScrollSign />}
               </ListItem>
 
-              <Payment>
+              <Payment payment={payment}>
                 <h6>Pilih Pembayaran</h6>
 
-                <button>
-                  Bank Transfer <FaChevronDown className="dropdown" />
+                <button onClick={() => setPayment(!payment)}>
+                  {placeholder} <FaChevronDown className='dropdown' />
                 </button>
 
                 <p>
@@ -112,9 +120,15 @@ const Checkout = () => {
                 </p>
 
                 <ul>
-                  <li>Transfer Bank BCA</li>
-                  <li>Transfer Bank BNI</li>
-                  <li>Transfer Bank MANDIRI</li>
+                  {bankState.map(({ pk_bank_id, bank_name }) => (
+                    <li
+                      key={pk_bank_id}
+                      pk_bank_id={pk_bank_id}
+                      onClick={() => handleBank(pk_bank_id, bank_name)}
+                    >
+                      Transfer Bank {bank_name}
+                    </li>
+                  ))}
                 </ul>
               </Payment>
             </div>
@@ -124,6 +138,8 @@ const Checkout = () => {
             checkout
             city_code={city_code}
             shipping_price={shipping_price}
+            fk_contact_id={pk_contact_id}
+            fk_bank_id={bankId}
           />
         </div>
       </Container>

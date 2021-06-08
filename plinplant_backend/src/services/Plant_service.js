@@ -30,6 +30,18 @@ module.exports = {
       }
     );
   },
+  // :: INVOICE ::
+  invoiceGetId: (id, callBack) => {
+    pool.query(
+      `select * from user_invoice where fk_user_id = ? and pk_invoice_id = ?`,
+      [id.id, id.order],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results); // result[0]
+      }
+    );
+  },
 
   updateBirthdateID: (body, id, callback) => {
     pool.query(
@@ -65,6 +77,49 @@ module.exports = {
     );
   },
   // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
+  invoiceGetAllDatas: (callback) => {
+    pool.query(`Select * from user_invoice`, [], (error, results, fields) => {
+      if (error) {
+        return callback(error);
+      }
+      return callback(null, results);
+    });
+  },
+
+  invoiceCreate: (data, callBack) => {
+    pool.query(
+      `INSERT INTO table_invoice(pk_invoice_id, no_order, created_at, status, review_status, fk_user_id, fk_contact_id, fk_bank_id) values( ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        data.pk_invoice_id,
+        data.no_order,
+        data.created_at,
+        data.status,
+        data.review_status,
+        data.fk_user_id,
+        data.fk_contact_id,
+        data.fk_bank_id,
+      ],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results);
+      }
+    );
+  },
+
+  invoiceDone: (data, callBack) => {
+    console.log("PESANAN SELESAI", data);
+    pool.query(
+      `update table_invoice set status=? where pk_invoice_id=?`,
+      [data.status, data.pk_invoice_id],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results);
+      }
+    );
+  },
+  // :: END OF INVOICE ::
 
   reviewGetPlantId: (id, callback) => {
     pool.query(
@@ -78,9 +133,10 @@ module.exports = {
     );
   },
 
+  // :: CART SERVICE :::
   cartGetByUserId: (id, callback) => {
     pool.query(
-      `Select * from user_cart where fk_user_id = ?`,
+      `Select * from user_cart where fk_user_id = ? and fk_invoice_id = 0 order by pk_cart_id `,
       [id],
       (error, results, fields) => {
         if (error) return callback(error);
@@ -89,6 +145,65 @@ module.exports = {
       }
     );
   },
+
+  cartAdd: (data, callBack) => {
+    console.log("CART ADD", data);
+    pool.query(
+      `INSERT INTO table_cart(phase_image, plant_name, plant_phase, price, quantity, weight, fk_plant_id, fk_user_id) values(?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        data.phase_image,
+        data.plant_name,
+        data.plant_phase,
+        data.price,
+        data.quantity,
+        data.weight,
+        data.fk_plant_id,
+        data.fk_user_id,
+      ],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results);
+      }
+    );
+  },
+
+  cartDelete: (id, callBack) => {
+    pool.query(
+      `delete from table_cart where pk_cart_id = ?`,
+      [id],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results); // result[0] juga bisa
+      }
+    );
+  },
+
+  cartUpdate: (data, callBack) => {
+    pool.query(
+      `update table_cart set quantity = ? where pk_cart_id = ?`,
+      [data.quantity, data.pk_cart_id],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results); // result[0] juga bisa
+      }
+    );
+  },
+
+  cartCheckout: (data, callBack) => {
+    pool.query(
+      `UPDATE table_cart SET fk_invoice_id = ? WHERE fk_user_id = ? AND fk_invoice_id = 0`,
+      [data.fk_invoice_id, data.fk_user_id],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results); // result[0] juga bisa
+      }
+    );
+  },
+  // :: END OF CART SERVICE :::
 
   addressGetByUserId: (id, callback) => {
     pool.query(
@@ -101,6 +216,17 @@ module.exports = {
       }
     );
   },
+
+  // :: BANK ::
+  bankGetAll: (callBack) => {
+    pool.query(`select * from table_bank`, [], (error, results, fields) => {
+      if (error) return callBack(error);
+
+      return callBack(null, results);
+    });
+  },
+
+  // :: END OF BANK ::
 
   articleInputTable: (body, callback) => {
     console.log(`bdy: `, body);
@@ -416,12 +542,16 @@ module.exports = {
   },
 
   orderGetAllDatas: (callback) => {
-    pool.query(`Select * from table_order`, [], (error, results, fields) => {
-      if (error) {
-        return callback(error);
+    pool.query(
+      `Select * from table_invoice order by pk_invoice_id desc`,
+      [],
+      (error, results, fields) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results);
       }
-      return callback(null, results);
-    });
+    );
   },
 
   orderDelete: (id, callback) => {
@@ -441,8 +571,8 @@ module.exports = {
 
   orderUpdate: (data, callback) => {
     pool.query(
-      `update table_order set status=?, created_at=?, fk_user_id=? where pk_order_id=?`,
-      [data.status, data.created_at, data.fk_user_id, data.pk_order_id],
+      `update table_invoice set status=? where pk_invoice_id=?`,
+      [data.status, data.pk_invoice_id],
       (error, result, fields) => {
         if (error) {
           console.log(`ERROR: `, error);
@@ -646,7 +776,7 @@ module.exports = {
 
   plantBreedingUpdate: (data, callback) => {
     pool.query(
-      `update table_plant_breeding set seed=?, tuber=?, young=?, mature=?, seed_image=?, tuber_image=?, young_image=?, matur_image=?, fk_plant_id=? where pk_plant_breeding_id=?`,
+      `update table_plant_breeding set seed=?, tuber=?, young=?, mature=?, seed_image=?, tuber_image=?, young_image=?, mature_image=?, fk_plant_id=? where pk_plant_breeding_id=?`,
       [
         data.seed,
         data.tuber,
@@ -671,21 +801,24 @@ module.exports = {
   },
 
   priceListInputTable: (data, callback) => {
-    const sql = `insert into table_plant_breeding (seed_price, tuber_price, young_price, mature_price, fk_plant_breeding_id, fk_stock_id) values(?, ?, ?, ?, ?, ?)`;
-    const column = [
-      data.seed_price,
-      data.tuber_price,
-      data.young_price,
-      data.mature_price,
-      fk_plant_breeding_id,
-      fk_stock_id,
-    ];
-    pool.query(sql, column, (err, result, fields) => {
-      if (err) {
-        return callback(err);
+    console.log(`DATA PRICELIST SERVICE: `, data);
+    pool.query(
+      `insert into table_price_list (seed_price, tuber_price, young_price, mature_price, fk_plant_breeding_id, fk_stock_id) values(?, ?, ?, ?, ?, ?)`,
+      [
+        data.seed_price,
+        data.tuber_price,
+        data.young_price,
+        data.mature_price,
+        data.fk_plant_breeding_id,
+        data.fk_stock_id,
+      ],
+      (err, result, fields) => {
+        if (err) {
+          return callback(err);
+        }
+        return callback(null, result);
       }
-      return callback(null, result);
-    });
+    );
   },
 
   priceListGetAllDatas: (callback) => {
@@ -724,8 +857,9 @@ module.exports = {
         data.tuber_price,
         data.young_price,
         data.mature_price,
-        fk_plant_breeding_id,
-        fk_stock_id,
+        data.fk_plant_breeding_id,
+        data.fk_stock_id,
+        data.pk_price_list_id,
       ],
       (error, result, fields) => {
         if (error) {
@@ -739,6 +873,7 @@ module.exports = {
   },
 
   reviewInputTable: (data, callback) => {
+    console.log(`DATA REVIEW SERVICE`, data);
     const sql = `insert into table_review (comment, rating, fk_user_id , fk_plant_id) values(?,?,?,?)`;
     const column = [
       data.comment,
@@ -840,15 +975,8 @@ module.exports = {
 
   shippingChargesUpdate: (data, callback) => {
     pool.query(
-      `update table_shipping_charges set seed_price=?, tuber_price=?, young_price=?, mature_price=?, fk_plant_breeding_id=?, fk_stock_id=? where pk_shipping_charges_id=?`,
-      [
-        data.seed_price,
-        data.tuber_price,
-        data.young_price,
-        data.mature_price,
-        fk_plant_breeding_id,
-        fk_stock_id,
-      ],
+      `update table_shipping_charges set shipping_price=?, fk_city_id=? where pk_shipping_charges_id=?`,
+      [data.shipping_price, data.fk_city_id, data.pk_shipping_charges_id],
       (error, result, fields) => {
         if (error) {
           console.log(`ERROR: `, error);
@@ -861,7 +989,7 @@ module.exports = {
   },
 
   stockInputTable: (data, callback) => {
-    const sql = `insert into table_plant_breeding (seed_stock, tuber_stock, young_stock, mature_stock) values(?, ?, ?, ?)`;
+    const sql = `insert into table_stock (seed_stock, tuber_stock, young_stock, mature_stock) values(?, ?, ?, ?)`;
     const column = [
       data.seed_stock,
       data.tuber_stock,
@@ -903,7 +1031,13 @@ module.exports = {
   stockUpdate: (data, callback) => {
     pool.query(
       `update table_stock set seed_stock=?, tuber_stock=?, young_stock=?, mature_stock=? where pk_stock_id=?`,
-      [data.seed_stock, data.tuber_stock, data.young_stock, data.mature_stock],
+      [
+        data.seed_stock,
+        data.tuber_stock,
+        data.young_stock,
+        data.mature_stock,
+        data.pk_stock_id,
+      ],
       (error, result, fields) => {
         if (error) {
           console.log(`ERROR: `, error);
@@ -960,7 +1094,7 @@ module.exports = {
 
   userUpdate: (data, callback) => {
     pool.query(
-      `update table_user set fullname=? email=?, password=?, birth_date=?, picture=?, fk_contact_id=?, fk_gender_id=? where pk_user_id=?`,
+      `update table_user set fullname=?, email=?, password=?, birth_date=?, picture=?, fk_contact_id=?, fk_gender_id=? where pk_user_id=?`,
       [
         data.fullname,
         data.email,
@@ -969,6 +1103,7 @@ module.exports = {
         data.picture,
         data.fk_contact_id,
         data.fk_gender_id,
+        data.pk_user_id,
       ],
       (error, result, fields) => {
         if (error) {
@@ -1019,7 +1154,7 @@ module.exports = {
   weightUpdate: (data, callback) => {
     pool.query(
       `update table_weight set weight=? where pk_weight_id=?`,
-      [data.weight],
+      [data.weight, data.pk_weight_id],
       (error, result, fields) => {
         if (error) {
           console.log(`ERROR: `, error);

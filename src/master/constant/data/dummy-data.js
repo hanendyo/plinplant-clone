@@ -231,7 +231,7 @@ export const valueProps = [
     img: ensiklopedia,
   },
   {
-    name: 'Shopping',
+    name: 'Belanja Online',
     img: shopping,
   },
   {
@@ -239,7 +239,7 @@ export const valueProps = [
     img: artikel,
   },
   {
-    name: 'Shipping',
+    name: 'Kurir Pribadi',
     img: shipping,
   },
 ];

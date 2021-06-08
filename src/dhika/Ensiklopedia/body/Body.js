@@ -14,6 +14,7 @@ import { ContextStore } from '../../../context/store/ContextStore';
 const Body = () => {
   const { plantIdState } = useContext(ContextStore);
   const {
+    plant_name,
     seed,
     tuber,
     young,
@@ -27,11 +28,12 @@ const Body = () => {
   return (
     <section>
       <Container>
-        <h2>Plant Breeding</h2>
+        <h2>Proses Pemeliharaan Tanaman</h2>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati aut
-          cupiditate vitae ullam! Doloremque quaerat numquam ipsam vitae, ea
-          non?
+          Setiap fase dari suatu tanaman itu memiliki perlakuan yang
+          berbeda-beda dalam proses pemeliharaannya. Kira-kira apa saja ya
+          proses pemeliharaan dari tanaman {plant_name} ini? Yuk kita lihat
+          perjalanan tanaman ini dari biji sampai tumbuh dewasa.
         </p>
 
         <Breeding>

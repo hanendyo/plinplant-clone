@@ -34,6 +34,7 @@ const ProductsContainer = ({
   searching,
   selectAddress,
   related,
+  uniqueTransaction,
 }) => {
   const {
     tablePlantState,
@@ -41,6 +42,7 @@ const ProductsContainer = ({
     plantReviewState,
     userCartState,
     userAddressState,
+    invoiceState,
   } = useContext(ContextStore);
 
   const [activeItemIndex, setActiveItemIndex] = useState(0);
@@ -258,12 +260,12 @@ const ProductsContainer = ({
                 img,
                 name,
                 phase,
+                no_order,
+                status,
                 price,
                 quantity,
                 totalPrice,
                 created,
-                no_order,
-                status,
               },
               index
             ) => (
@@ -287,18 +289,32 @@ const ProductsContainer = ({
 
       {invoice && (
         <InvoiceContainer>
-          {invoiceProduct.map(
-            ({ name, img, phase, price, quantity, review }, index) => (
+          {invoiceState.map(
+            (
+              {
+                fk_plant_id,
+                phase_image,
+                plant_name,
+                plant_phase,
+                quantity,
+                price,
+                weight,
+                review_status,
+              },
+              index
+            ) => (
               <Cards
                 invoice
                 key={index}
-                name={name}
-                img={img}
-                phase={phase}
+                name={plant_name}
+                img={phase_image}
+                phase={plant_phase}
                 price={price}
                 quantity={quantity}
-                reviewed={review}
+                weight={weight}
+                reviewed={review_status}
                 status={status}
+                plant={fk_plant_id}
               />
             )
           )}

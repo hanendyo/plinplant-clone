@@ -3,12 +3,14 @@ import { Container, LinksContainer, Logo, Nav } from './Navbar.elemen';
 import { FaShoppingCart } from 'react-icons/fa';
 import Button from '../additional/Button';
 import { colors } from '../../constant/style';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { ContextStore } from '../../../context/store/ContextStore';
 
 const NavbarLandingPage = () => {
   const { tableArticleState, userInfoState } = useContext(ContextStore);
   const login = userInfoState.length !== 0;
+
+  const history = useHistory();
 
   // [{...}] -> userInfoState[0] -> fullname.split(' ') -> ['Fajar', 'Riadi'] -> index 0
   const greet = userInfoState[0]?.fullname.split(' ')[0];
@@ -55,6 +57,7 @@ const NavbarLandingPage = () => {
             </Link>
           </li>
           <li>
+            {/* {console.log(`LANDING STATE: `, landingState)} */}
             {login ? (
               <>
                 <button onClick={() => setProfile(!profile)}>
@@ -101,13 +104,13 @@ const NavbarLandingPage = () => {
                 <Button
                   text='Masuk'
                   bgColor={colors.white}
-                  onClick={() => console.log('Masuk')}
+                  onClick={() => history.push('/login')}
                 />
                 <Button
                   primary
                   text='Daftar'
                   bgColor={colors.lightGreenTransparent}
-                  onClick={() => console.log('Daftar')}
+                  onClick={() => history.push('/register')}
                 />
               </>
             )}
