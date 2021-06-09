@@ -1,93 +1,98 @@
 import {
   Box,
   Button,
-  Link,
-  makeStyles,
   TextField,
   Typography,
-} from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
-import bgImage from "../../image/signin_bg.png";
-import { FaGoogle } from "react-icons/fa";
-import "./SignIn.css";
-import { ContextStore } from "../../../context/store/ContextStore";
-import { signInAction } from "../../../context/actions/SignInAction";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
+  InputLabel,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+  FormControl,
+} from '@material-ui/core';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
+import React, { useContext } from 'react';
+import bgImage from '../../image/signin_bg.png';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { signInAction } from '../../../context/actions/SignInAction';
+import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
+import { userLogin } from '../../../context/actions/userLoginAction';
+import { colors } from '../../../master/constant/style';
+import { Container, FormLogin } from './SignIn.elemen';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="">
-        PlinPlant
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
+    <Typography variant='body2' color='textSecondary' align='center'>
+      {'Copyright © '}
+      PlinPlant {new Date().getFullYear()}
+      {'.'}
     </Typography>
   );
 }
 
-const useStyles = makeStyles({
-  input: {
-    width: "80%",
-    margin: "5px 0",
-    backgroundColor: "rgba(187, 203, 194, 0.2)",
-  },
-  button: {
-    width: "80%",
-    margin: "5px 0",
-    backgroundColor: "rgb(187, 203, 194)",
-    color: "primary",
-  },
-  copyright: {},
-});
-
 const SignIn = () => {
-  const classes = useStyles();
   const history = useHistory();
-  const [loginStatus, setLoginStatus] = useState(false);
-  const [loginName, setLoginName] = useState("");
 
   const context = useContext(ContextStore);
-  const { signInState, signInDispatch } = context;
+  const { signInState, signInDispatch, userLoginDispatch } = context;
+
+  // ::: MATERIAL UI TEMPLATE SETUP :::
+  const [values, setValues] = React.useState({
+    amount: '',
+    password: '',
+    weight: '',
+    weightRange: '',
+    showPassword: false,
+  });
+
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+  // ::: END OF MATERIAL UI TEMPLATE SETUP :::
 
   //! axios crendentials
   axios.defaults.withCredentials = true;
 
-  useEffect(() => {
-    getDataSignInAPI();
-  }, []);
+  // useEffect(() => {
+  //   getDataSignInAPI();
+  // }, []);
 
-  const getDataSignInAPI = async () => {
-    try {
-      await axios.get(`http://localhost:5000/auth/login`).then((response) => {
-        // if (response.data.loggedIn === true) {
-        //   // setLoginStatus(response.data.user[0].fullname);
-        //   signInDispatch(signInAction("loginStatus", response.data));
-        // }
-        console.log(`RESPONSE GET DATA LOGIN API: `, response);
-        return response;
-      });
-    } catch (err) {
-      console.log(`login error`, err);
-      return err;
-    }
-  };
+  // const getDataSignInAPI = async () => {
+  //   try {
+  //     await axios.get(`http://localhost:5000/auth/login`).then((response) => {
+  //       signInDispatch(signInAction("loginStatus", response.data));
+  //       setLocal(...local, signInState.loginStatus.user);
+  //       console.log(`SET LOCAL: `, local);
+  //       console.log(`RESPONSE GET DATA LOGIN API: `, response);
+  //       localStorage.setItem(
+  //         "user-data",
+  //         JSON.stringify(signInState.loginStatus)
+  //       );
+
+  //       return response;
+  //     });
+  //   } catch (err) {
+  //     console.log(`login error`, err);
+  //     return err;
+  //   }
+  // };
 
   const signInAPI = async (form) => {
     const data = new FormData();
-    data.append("email", form.email);
-    data.append("password", form.password);
+    data.append('email', form.email);
+    data.append('password', form.password);
 
     try {
-      let res = await axios.post("http://localhost:5000/auth/login", data, {
+      let res = await axios.post('http://localhost:5000/auth/login', data, {
         headers: {
-          "content-type": "multipart/form-data",
+          'content-type': 'multipart/form-data',
         },
       });
-      // localStorage.setItem("token", res.data.token);
-      getDataSignInAPI();
+      // getDataSignInAPI();
       console.log(`SIGNIN API RES: `, res);
       return res;
     } catch (err) {
@@ -113,6 +118,7 @@ const SignIn = () => {
     // POST TO API
     console.log(`sign in data: `, signInState);
     signInAPI(signInState).then((res) => {
+<<<<<<< HEAD
       getDataSignInAPI();
       localStorage.setItem(
         "user-data",
@@ -127,109 +133,129 @@ const SignIn = () => {
           setLoginName(res.data.result[0].fullname);
         }
         // signInDispatch(signInAction("loginStatus", res.data));
+=======
+      // getDataSignInAPI();
+      console.log(`SUBMIT RES: `, res);
+
+      userLoginDispatch(userLogin(res.data));
+
+      localStorage.setItem('userInfo', JSON.stringify(res.data));
+      if (res.status === 200) {
+        //   setLoginStatus(true);
+        //   signInDispatch(signInAction('loginStatus', res));
+        history.push('/');
+        //   if (loginStatus === true) {
+        //     setLoginName(res.data.result[0].fullname);
+        //   }
+        //   // signInDispatch(signInAction("loginStatus", res.data));
+>>>>>>> 30c83d079c135ec682733b7fdadf1e029a65029d
       }
       console.log(`res submit: `, res);
     });
   };
 
-  const handleLogOut = () => {
-    logOutAPI();
-    getDataSignInAPI();
-
-    // Refresh web
-    window.location.reload(false);
-  };
-
-  // const checkUserAuth = () => {
-  //   axios
-  //     .get(`http://localhost:5000/checkUserAuth`, {
-  //       headers: {
-  //         "x-access-token": localStorage.getItem("token"),
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //     });
-  // };
-
   return (
-    <div className="container">
-      <div className="content">
-        <div className="txtFields">
-          <h1>PlinPlant</h1>
-          <form
-            encType="multipart/form-data"
-            className={classes.root}
-            onSubmit={(e) => handleSubmit(e)}
-            noValidate
-            autoComplete="off"
-          >
-            {/* Email input */}
-            <TextField
-              className={classes.input}
-              required
-              placeholder="Input Your Email"
-              id="outlined-basic"
-              label="Email"
-              value={signInState.email}
-              onChange={(e) =>
-                signInDispatch(signInAction("email", e.target.value))
-              }
-              variant="outlined"
-            />
+    <main style={{ backgroundColor: colors.white }}>
+      <Container>
+        <div>
+          <FormLogin>
+            <h1>PlinPlant</h1>
 
-            {/* Password input */}
-            <TextField
-              className={classes.input}
-              required
-              placeholder="Input Your Password"
-              id="outlined-basic"
-              label="Password"
-              value={signInState.password}
-              onChange={(e) =>
-                signInDispatch(signInAction("password", e.target.value))
-              }
-              variant="outlined"
-            />
+            <p>Masukkan email dan password.</p>
 
-            {/* Sign In button */}
-            <Button
-              className={classes.button}
-              variant="contained"
-              color="primary"
-              type="submit"
+            <form
+              encType='multipart/form-data'
+              onSubmit={(e) => handleSubmit(e)}
+              noValidate
+              autoComplete='off'
             >
-              Sign In
-            </Button>
-          </form>
-          <p>OR</p>
+              {/* Email input */}
+              <TextField
+                className='form-field'
+                required
+                placeholder='Masukkan Email'
+                id='outlined-basic'
+                label='Email'
+                value={signInState.email}
+                onChange={(e) =>
+                  signInDispatch(signInAction('email', e.target.value))
+                }
+                variant='outlined'
+              />
 
-          {/* Sign In with Google */}
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-          >
-            <FaGoogle className="faGoogle" />
-            Sign In With Google
-          </Button>
+              {/* Password input */}
+              {/* <TextField
+                className='form-field'
+                required
+                placeholder='Masukkan Password'
+                id='outlined-basic'
+                label='Password'
+                value={signInState.password}
+                onChange={(e) =>
+                  signInDispatch(signInAction('password', e.target.value))
+                }
+                variant='outlined'
+              /> */}
+              <FormControl className='form-field' variant='outlined'>
+                <InputLabel htmlFor='outlined-adornment-password'>
+                  Password
+                </InputLabel>
+                <OutlinedInput
+                  label='Password'
+                  placeholder='Masukkan Password'
+                  required
+                  id='outlined-adornment-password'
+                  type={values.showPassword ? 'text' : 'password'}
+                  value={signInState.password}
+                  onChange={(e) =>
+                    signInDispatch(signInAction('password', e.target.value))
+                  }
+                  endAdornment={
+                    <InputAdornment position='end'>
+                      <IconButton
+                        aria-label='toggle password visibility'
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge='end'
+                      >
+                        {values.showPassword ? (
+                          <Visibility />
+                        ) : (
+                          <VisibilityOff />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  labelWidth={70}
+                />
+              </FormControl>
 
-          {/* forgot password */}
-          <p>
-            <a href="">Forgot password?</a>
-          </p>
+              {/* Sign In button */}
+              <Button
+                className='btn-login'
+                variant='contained'
+                color='primary'
+                type='submit'
+              >
+                Sign In
+              </Button>
+            </form>
 
-          {/* dont have account */}
-          <p>
-            Don't have an account yet? <a href="/register">Sign Up</a>
-          </p>
+            {/* forgot password */}
+            {/* <p>
+              <a href=''>Forgot password?</a>
+            </p> */}
+
+            {/* dont have account */}
+            <p>
+              Belum punya akun PlinPlant? <Link to='/register'>Sign Up</Link>
+            </p>
+          </FormLogin>
+
+          <img src={bgImage} alt='' />
         </div>
-        <div className="bgImageContainer">
-          <img className="bgImage" src={bgImage} alt="" />
-        </div>
-      </div>
-      <br />
 
+<<<<<<< HEAD
       {/* TESTING LOGOUT */}
       {<button onClick={handleLogOut}>Logout</button>}
       <br />
@@ -241,6 +267,13 @@ const SignIn = () => {
         <Copyright />
       </Box>
     </div>
+=======
+        <Box mt={5}>
+          <Copyright />
+        </Box>
+      </Container>
+    </main>
+>>>>>>> 30c83d079c135ec682733b7fdadf1e029a65029d
   );
 };
 

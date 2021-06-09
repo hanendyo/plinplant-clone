@@ -4,18 +4,19 @@ import { FaChevronLeft, FaShoppingCart } from 'react-icons/fa';
 import Button from '../additional/Button';
 import { colors } from '../../constant/style';
 import { ContextStore } from '../../../context/store/ContextStore';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { userLogout } from '../../../context/actions/userLoginAction';
 
 const Navbar = () => {
-  const { tableArticleState, userInfoState } = useContext(ContextStore);
-  const login = userInfoState.length !== 0;
-  // [{...}] -> userInfoState[0] -> fullname.split(' ') -> ['Fajar', 'Riadi'] -> index 0
-  const greet = userInfoState[0]?.fullname.split(' ')[0];
+  const { tableArticleState, userLoginState, userLoginDispatch } =
+    useContext(ContextStore);
 
   const [profile, setProfile] = useState(false);
 
   // ::: NAVBAR INTERACTION :::
   const [shadow, setShadow] = useState(false);
+
+  const history = useHistory();
 
   useEffect(() => {
     const scrollNav = () => {
@@ -43,11 +44,17 @@ const Navbar = () => {
 
         <Logo className='logo-center'>PlinPlant</Logo>
 
-        <LinksContainer login={login} profile={profile}>
+        <LinksContainer login={userLoginState} profile={profile}>
           <li>
-            <Link to='/cart'>
-              <FaShoppingCart className='cart' />
-            </Link>
+            {userLoginState ? (
+              <Link to='/cart'>
+                <FaShoppingCart className='cart' />
+              </Link>
+            ) : (
+              <Link to='/login'>
+                <FaShoppingCart className='cart' />
+              </Link>
+            )}
           </li>
           <li>
             <Link
@@ -59,32 +66,38 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            {login ? (
+            {userLoginState ? (
               <>
                 <button onClick={() => setProfile(!profile)}>
                   <img
                     src={
-                      process.env.PUBLIC_URL +
-                      `/images/user_image/${userInfoState[0]?.picture}`
+                      !userLoginState.picture
+                        ? process.env.PUBLIC_URL +
+                          `/images/user_image/default.png`
+                        : process.env.PUBLIC_URL +
+                          `/images/user_image/${userLoginState.picture}`
                     }
-                    alt={userInfoState[0]?.fullname}
+                    alt={userLoginState.fullname}
                   />
-                  <p>Halo, {greet}</p>
+                  <p>Halo, {userLoginState.fullname.split(' ')[0]}</p>
                 </button>
 
                 <div>
                   <div>
                     <img
                       src={
-                        process.env.PUBLIC_URL +
-                        `/images/user_image/${userInfoState[0]?.picture}`
+                        !userLoginState.picture
+                          ? process.env.PUBLIC_URL +
+                            `/images/user_image/default.png`
+                          : process.env.PUBLIC_URL +
+                            `/images/user_image/${userLoginState.picture}`
                       }
-                      alt={userInfoState[0]?.fullname}
+                      alt={userLoginState.fullname}
                     />
 
                     <div>
-                      <h5>{userInfoState[0]?.fullname}</h5>
-                      <span>{userInfoState[0]?.email}</span>
+                      <h5>{userLoginState.fullname}</h5>
+                      <span>{userLoginState.email}</span>
                     </div>
                   </div>
 
@@ -93,9 +106,19 @@ const Navbar = () => {
                       <Link to='/profile'>Profil</Link>
                     </li>
                     <li>
-                      <Link to='/transaction'>Daftar Transaksi</Link>
+                      <Link to={`/${userLoginState.pk_user_id}/transaction`}>
+                        Daftar Transaksi
+                      </Link>
                     </li>
-                    <li>Keluar</li>
+                    <li
+                      onClick={() => {
+                        userLoginDispatch(userLogout());
+                        history.push('/');
+                        window.location.reload();
+                      }}
+                    >
+                      Keluar
+                    </li>
                   </ul>
                 </div>
               </>
@@ -104,13 +127,13 @@ const Navbar = () => {
                 <Button
                   text='Masuk'
                   bgColor={colors.white}
-                  onClick={() => console.log('Masuk')}
+                  onClick={() => history.push('/login')}
                 />
                 <Button
                   primary
                   text='Daftar'
                   bgColor={colors.lightGreenTransparent}
-                  onClick={() => console.log('Daftar')}
+                  onClick={() => history.push('/register')}
                 />
               </>
             )}

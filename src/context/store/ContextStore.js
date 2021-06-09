@@ -11,6 +11,7 @@ import {
   selectedAddressReducer,
 } from "../reducer";
 import { CmsReducer } from "../reducer/CmsReducer";
+import { userLoginReducer } from "../reducer/userLoginReducer";
 import {
   articleIdReducer,
   plantReviewReducer,
@@ -32,6 +33,10 @@ import {
 import { SignInReducer } from "../reducer/SignInReducer";
 import { SignUpReducer } from "../reducer/SignUpReducer";
 
+const userInfoFromLocalStorage = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : null;
+
 export const ContextStore = createContext();
 
 export const ContextProvider = ({ children }) => {
@@ -46,6 +51,12 @@ export const ContextProvider = ({ children }) => {
   const [signInState, signInDispatch] = useReducer(
     SignInReducer,
     SignInInitial
+  );
+
+  // :: USER LOGIN ::
+  const [userLoginState, userLoginDispatch] = useThunkReducer(
+    userLoginReducer,
+    userInfoFromLocalStorage
   );
 
   //! CMS
@@ -137,6 +148,11 @@ export const ContextProvider = ({ children }) => {
     false
   );
 
+  const [plantIdReviewState, plantIdReviewDispatch] = useThunkReducer(
+    plantIdReviewReducer,
+    { id: 1, phase: "Biji", cartId: 1 }
+  );
+
   // ::: MODAL PILIH ALAMAT :::
   const [modalPilihAlamatState, modalPilihAlamatDispatch] = useReducer(
     modalPilihAlamatReducer,
@@ -210,6 +226,12 @@ export const ContextProvider = ({ children }) => {
   // ::: FETCH BANK :::
   const [bankState, bankDispatch] = useThunkReducer(bankReducer, []);
 
+  // ::: FETCH TRANSACTION :::
+  const [transactionState, transactionDispatch] = useThunkReducer(
+    transactionReducer,
+    []
+  );
+
   // ::: FETCH INVOICES :::
   const [invoiceState, invoiceDispatch] = useThunkReducer(invoiceReducer, []);
 
@@ -240,6 +262,9 @@ export const ContextProvider = ({ children }) => {
         // login
         signInState,
         signInDispatch,
+        // :: USER LOGIN ::
+        userLoginState,
+        userLoginDispatch,
         // article
         articleState,
         articleDispatch,
@@ -307,6 +332,8 @@ export const ContextProvider = ({ children }) => {
         // ::: MODAL REVIEW :::
         modalReviewState,
         modalReviewDispatch,
+        plantIdReviewState,
+        plantIdReviewDispatch,
 
         // ::: MODAL PILIH ALAMAT :::
         modalPilihAlamatState,
@@ -375,6 +402,10 @@ export const ContextProvider = ({ children }) => {
         // ::: BANK :::
         bankState,
         bankDispatch,
+
+        // ::: TRANSACTION :::
+        transactionState,
+        transactionDispatch,
       }}
     >
       {children}

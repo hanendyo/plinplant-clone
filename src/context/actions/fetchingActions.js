@@ -90,9 +90,9 @@ export const addCart = (data, phase, notif) => async (dispatch) => {
   dispatch({ type: 'ADD_USER_CART', payload: data });
 };
 
-export const getCarts = (userInfoState) => async (dispatch) => {
+export const getCarts = (userLoginState) => async (dispatch) => {
   const res = await axios.get(
-    `http://localhost:5000/input/cart/user/${userInfoState[0]?.pk_user_id}`
+    `http://localhost:5000/input/cart/user/${userLoginState.pk_user_id}`
   );
   dispatch({ type: 'FETCH_USER_CART', payload: res.data.data });
 };
@@ -127,11 +127,23 @@ export const cartCheckout = (data) => async (dispatch) => {
 
   dispatch({ type: 'CHECKOUT_USER_CART', payload: data });
 };
+
+export const cartUpdateReviewBtn = (data) => async (dispatch) => {
+  const res = await axios.put(
+    `http://localhost:5000/input/cart/reviewed`,
+    data
+  );
+
+  console.log('CART BUTTON REVIEW UPDATED !!!', res);
+
+  dispatch({ type: 'UPDATE_REVIEWED_CART', payload: data });
+};
+
 // ::: END OF CART ACTION :::
 
-export const getAddresses = (userInfoState) => async (dispatch) => {
+export const getAddresses = (userLoginState) => async (dispatch) => {
   const res = await axios.get(
-    `http://localhost:5000/input/address/${userInfoState[0]?.pk_user_id}`
+    `http://localhost:5000/input/address/${userLoginState.pk_user_id}`
   );
   dispatch({ type: 'FETCH_USER_ADDRESS', payload: res.data.data });
 };
@@ -141,6 +153,15 @@ export const getBanks = () => async (dispatch) => {
   console.log('REEYYSS', res);
 
   dispatch({ type: 'FETCH_BANK', payload: res.data.data });
+};
+
+export const getTransactions = (match) => async (dispatch) => {
+  const res = await axios.get(
+    `http://localhost:5000/input/transaction/${match.params.id}`
+  );
+  console.log('GET TRANSACTIONNN', res);
+
+  dispatch({ type: 'FETCH_LIST_TRANSACTION', payload: res.data.data });
 };
 
 export const getInvoices = () => async (dispatch) => {
@@ -165,7 +186,6 @@ export const createInvoice = (data) => async (dispatch) => {
   body.append('no_order', data.fk_invoice_id);
   body.append('created_at', data.created_at);
   body.append('status', data.status);
-  body.append('review_status', data.review_status);
   body.append('fk_user_id', data.fk_user_id);
   body.append('fk_contact_id', data.fk_contact_id);
   body.append('fk_bank_id', data.fk_bank_id);
@@ -205,6 +225,26 @@ export const getReviews = (match) => async (dispatch) => {
   );
 
   dispatch({ type: 'FETCH_PLANT_REVIEW', payload: res.data.data });
+};
+
+export const reviewPost = (data) => async (dispatch) => {
+  const body = new FormData();
+
+  body.append('created_at', data.review_created);
+  body.append('comment', data.comment);
+  body.append('rating', data.rating);
+  body.append('fk_user_id', data.fk_user_id);
+  body.append('fk_plant_id', data.plantId);
+
+  const res = await axios.post('http://localhost:5000/input/review', body, {
+    headers: {
+      'content-type': 'multipart/form-data',
+    },
+  });
+
+  console.log('REVIEW CREATED !!!!!', res);
+
+  dispatch({ type: 'POST_PLANT_REVIEW', payload: data });
 };
 
 export const getArticles = () => async (dispatch) => {

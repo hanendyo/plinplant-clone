@@ -17,13 +17,13 @@ import Quantity from '../../../master/components/additional/Quantity';
 import ScrollSign from '../../../master/components/additional/ScrollSign';
 import { useMediaQuery } from 'react-responsive';
 import { ContextStore } from '../../../context/store/ContextStore';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { priceFormat } from '../../../master/constant/constantVariables';
 import { addCart } from '../../../context/actions/fetchingActions';
 import AlertSign from '../../../master/components/additional/AlertSign';
 
 const Shop = () => {
-  const { plantIdState, plantReviewState, userCartDispatch, userInfoState } =
+  const { plantIdState, plantReviewState, userCartDispatch, userLoginState } =
     useContext(ContextStore);
   const {
     pk_plant_id,
@@ -46,7 +46,7 @@ const Shop = () => {
     mature_weight,
   } = plantIdState;
 
-  const { pk_user_id } = userInfoState[0];
+  const history = useHistory();
 
   const rate = plantReviewState
     .map((review) => review.rating)
@@ -80,6 +80,8 @@ const Shop = () => {
   const slug = (title) => title.toLowerCase().split(' ').join('-');
 
   const addToCartHandler = () => {
+    const { pk_user_id } = userLoginState;
+
     if (highlight === 'Biji') {
       userCartDispatch(
         addCart(
@@ -304,9 +306,15 @@ const Shop = () => {
                   Kamu sedang melihat fase {highlight} dari tanaman {plant_name}
                 </p>
 
-                <ButtonCart onClick={addToCartHandler}>
-                  <FaCartPlus className='cart' /> Tambah ke Keranjang
-                </ButtonCart>
+                {userLoginState ? (
+                  <ButtonCart onClick={addToCartHandler}>
+                    <FaCartPlus className='cart' /> Tambah ke Keranjang
+                  </ButtonCart>
+                ) : (
+                  <ButtonCart onClick={() => history.push('/login')}>
+                    <FaCartPlus className='cart' /> Tambah ke Keranjang
+                  </ButtonCart>
+                )}
               </div>
             </ProductHighlight>
           </div>

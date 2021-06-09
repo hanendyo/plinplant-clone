@@ -3,21 +3,28 @@ import styled from 'styled-components';
 import { colors } from '../../constant/style';
 
 const StatusOrder = ({ status }) => {
-  return <Status status={status}>{status}</Status>;
+  const formatStatus = (status) => {
+    if (status === 'bayar') return 'Menunggu Pembayaran';
+    if (status === 'verif') return 'Verifikasi Pembayaran';
+    if (status === 'proses') return 'Pesanan Diantar';
+    if (status === 'selesai') return 'Transaksi Selesai';
+  };
+
+  return <Status status={status}>{formatStatus(status)}</Status>;
 };
 
 const bgColor = (status) => {
-  if (status === 'Menunggu Pembayaran') return `${colors.yellowTransparent}`;
-  if (status === 'Verifikasi Pembayaran' || status === 'Pesanan Diantar')
+  if (status === 'bayar') return `${colors.yellowTransparent}`;
+  if (status === 'verif' || status === 'proses')
     return `${colors.lightGreenTransparent}`;
-  if (status === 'Transaksi Selesai') return '#00FF704D';
+  if (status === 'selesai') return '#00FF704D';
 };
 
 const color = (status) => {
-  if (status === 'Menunggu Pembayaran') return `${colors.yellow}`;
-  if (status === 'Verifikasi Pembayaran') return `${colors.lightGreen}`;
-  if (status === 'Pesanan Diantar') return `${colors.white}`;
-  if (status === 'Transaksi Selesai') return '#00FF70';
+  if (status === 'bayar') return `${colors.yellow}`;
+  if (status === 'verif') return `${colors.lightGreen}`;
+  if (status === 'proses') return `${colors.white}`;
+  if (status === 'selesai') return '#00FF70';
 };
 
 const Status = styled.span`

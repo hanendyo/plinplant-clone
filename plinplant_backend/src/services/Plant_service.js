@@ -2,7 +2,6 @@ const pool = require("../database/Database");
 
 module.exports = {
   // ::: QUERY TO GET USER INFO ::: DUMMY :::
-
   getUserInfo: (id, callback) => {
     pool.query(
       `Select * from user_info where pk_user_id = ?`,
@@ -14,7 +13,6 @@ module.exports = {
       }
     );
   },
-
   // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
 
   // ::: QUERY TO UPDATE USER INFO ::: DUMMY :::
@@ -88,13 +86,12 @@ module.exports = {
 
   invoiceCreate: (data, callBack) => {
     pool.query(
-      `INSERT INTO table_invoice(pk_invoice_id, no_order, created_at, status, review_status, fk_user_id, fk_contact_id, fk_bank_id) values( ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO table_invoice(pk_invoice_id, no_order, created_at, status, fk_user_id, fk_contact_id, fk_bank_id) values(  ?, ?, ?, ?, ?, ?, ?)`,
       [
         data.pk_invoice_id,
         data.no_order,
         data.created_at,
         data.status,
-        data.review_status,
         data.fk_user_id,
         data.fk_contact_id,
         data.fk_bank_id,
@@ -119,6 +116,7 @@ module.exports = {
       }
     );
   },
+
   // :: END OF INVOICE ::
 
   reviewGetPlantId: (id, callback) => {
@@ -129,6 +127,25 @@ module.exports = {
         if (error) return callback(error);
 
         return callback(null, results); // result[0]
+      }
+    );
+  },
+
+  reviewPost: (data, callBack) => {
+    console.log('REVIEW DATAAA', data);
+    pool.query(
+      `INSERT INTO table_review(created_at, comment, rating, fk_user_id, fk_plant_id) VALUES(?, ?, ?, ?, ?)`,
+      [
+        data.created_at,
+        data.comment,
+        data.rating,
+        data.fk_user_id,
+        data.fk_plant_id,
+      ],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results);
       }
     );
   },
@@ -203,6 +220,19 @@ module.exports = {
       }
     );
   },
+
+  cartUpdateReviewed: (data, callBack) => {
+    console.log('CART UPDATE REVIEWED', data);
+    pool.query(
+      `update table_cart set reviewed = ? where pk_cart_id = ? and fk_invoice_id = ?`,
+      [data.rating, data.pk_cart_id, data.fk_invoice_id],
+      (error, results, fields) => {
+        if (error) return callBack(error);
+
+        return callBack(null, results); // result[0] juga bisa
+      }
+    );
+  },
   // :: END OF CART SERVICE :::
 
   addressGetByUserId: (id, callback) => {
@@ -227,6 +257,21 @@ module.exports = {
   },
 
   // :: END OF BANK ::
+
+  // :: TRANSACTION ::
+  transactionGet: (id, callback) => {
+    pool.query(
+      `Select * from list_transaction where fk_user_id = ? order by pk_invoice_id desc`,
+      [id],
+      (error, results, fields) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results);
+      }
+    );
+  },
+  // :: END OF TRANSACTION ::
 
   articleInputTable: (body, callback) => {
     console.log(`bdy: `, body);
@@ -1050,20 +1095,22 @@ module.exports = {
   },
 
   userInputTable: (data, callback) => {
-    const sql = `insert into table_user (fullname, email, password, birth_date, picture, fk_contact_id, fk_gender_id) values(?, ?, ?, ?, ?, ?, ?)`;
+    const sql = `insert into table_user (fullname, email, password, birth_date, phone_number, picture, fk_gender_id) values(?, ?, ?, ?, ?, ?, ?)`;
     const column = [
       data.fullname,
       data.email,
       data.password,
       data.birth_date,
+      data.phone_number,
       data.picture,
-      data.fk_contact_id,
       data.fk_gender_id,
     ];
     pool.query(sql, column, (err, result, fields) => {
       if (err) {
+        console.log(`ERROR!: `, err);
         return callback(err);
       }
+      console.log(`RESULT!: `, result);
       return callback(null, result);
     });
   },
@@ -1094,14 +1141,14 @@ module.exports = {
 
   userUpdate: (data, callback) => {
     pool.query(
-      `update table_user set fullname=?, email=?, password=?, birth_date=?, picture=?, fk_contact_id=?, fk_gender_id=? where pk_user_id=?`,
+      `update table_user set fullname=?, email=?, password=?, birth_date=?, phone_number=?,picture=?, fk_gender_id=? where pk_user_id=?`,
       [
         data.fullname,
         data.email,
         data.password,
         data.birth_date,
+        data.phone_number,
         data.picture,
-        data.fk_contact_id,
         data.fk_gender_id,
         data.pk_user_id,
       ],

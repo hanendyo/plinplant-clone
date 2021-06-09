@@ -6,7 +6,7 @@ import ProductsContainer from '../Main/components/Product/ProductsContainer';
 import { Container, TransactionSection } from './Transaction.elemen';
 
 const Transaction = () => {
-  const { invoiceState, invoiceDispatch } = useContext(ContextStore);
+  const { invoiceState, transactionState } = useContext(ContextStore);
 
   const [scroll, setScroll] = useState(true);
 
@@ -16,19 +16,19 @@ const Transaction = () => {
     ...new Map(invoiceState.map((item) => [item[key], item])).values(),
   ];
 
-  console.log('UNIQQQQ', uniqueTransaction);
+  console.log('LISTTTTT', transactionState);
 
   useEffect(() => {
-    if (uniqueTransaction.length < 3) setScroll(false);
-    if (uniqueTransaction.length > 2) setScroll(true);
-  }, [uniqueTransaction]);
+    if (transactionState.length < 3) setScroll(false);
+    if (transactionState.length > 2) setScroll(true);
+  }, [transactionState]);
 
   return (
     <TransactionSection>
       <Container>
-        <h2>Daftar Transaksi (4)</h2>
+        <h2>Daftar Transaksi ({transactionState.length})</h2>
 
-        <ProductsContainer transaction uniqueTransaction={uniqueTransaction} />
+        <ProductsContainer transaction transactionState={transactionState} />
 
         {scroll && <ScrollSign center />}
       </Container>

@@ -1,17 +1,20 @@
 const {
   getUser,
   reviewGetByPlant,
+  reviewPostByPlant,
   cartGetByUser,
   cartAddItem,
   cartDeleteById,
   cartUpdateQty,
   cartCheckoutProses,
+  cartUpdateReviewedBtn,
   addressGetByUser,
   bankGetAllData,
   invoiceGetById,
   invoiceGetAll,
   invoiceCreated,
   invoiceTransactionDone,
+  transactionGetByUser,
   plant_input,
   review_input,
   plant_breeding_input,
@@ -148,6 +151,7 @@ router.post("/cart", upload.none(), cartAddItem);
 router.get("/cart/user/:id", cartGetByUser);
 router.put("/cart/update", cartUpdateQty);
 router.put("/cart/checkout", cartCheckoutProses);
+router.put("/cart/reviewed", cartUpdateReviewedBtn);
 router.delete("/cart/delete/:id", cartDeleteById);
 // ::: END OF CART ROUTER :::
 
@@ -162,6 +166,7 @@ router.get("/plant_get_by_id/:id", plantGetById);
 router.get("/article_get_by_id/:id", articleGetById);
 // REVIEW
 router.get("/review/:id", reviewGetByPlant);
+router.post("/review", upload.none(), reviewPostByPlant);
 // ADDRESS
 router.get("/address/:id", addressGetByUser);
 // INVOICE
@@ -169,6 +174,8 @@ router.post("/invoice", upload.none(), invoiceCreated);
 router.get("/invoice/:id/:order", invoiceGetById);
 router.get("/invoice", invoiceGetAll);
 router.put("/invoice", invoiceTransactionDone);
+// TRANSACTION
+router.get("/transaction/:id", transactionGetByUser);
 
 // DELETE
 router.delete("/article_delete/:id", article_delete);

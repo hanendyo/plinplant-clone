@@ -82,6 +82,14 @@ export const userCartReducer = (state, action) => {
           : cart
       );
 
+    case 'UPDATE_REVIEWED_CART':
+      return state.filter((cart) =>
+        cart.pk_cart_id === action.payload.pk_cart_id &&
+        cart.fk_invoice_id === action.payload.fk_invoice_id
+          ? { ...cart, reviewed: action.payload.rating }
+          : cart
+      );
+
     default:
       return state;
   }
@@ -107,6 +115,16 @@ export const bankReducer = (state, action) => {
   }
 };
 
+export const transactionReducer = (state, action) => {
+  switch (action.type) {
+    case 'FETCH_LIST_TRANSACTION':
+      return [...action.payload];
+
+    default:
+      return state;
+  }
+};
+
 export const invoiceReducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_INVOICE_ALL':
@@ -123,7 +141,6 @@ export const invoiceReducer = (state, action) => {
           no_order: action.payload.no_order,
           created_at: action.payload.created_at,
           status: action.payload.status,
-          review_status: action.payload.review_status,
           fk_user_id: action.payload.fk_user_id,
           fk_contact_id: action.payload.fk_contact_id,
           fk_bank_id: action.payload.fk_bank_id,
@@ -146,6 +163,18 @@ export const plantReviewReducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_PLANT_REVIEW':
       return [...action.payload];
+
+    case 'POST_PLANT_REVIEW':
+      return [
+        ...state,
+        {
+          created_at: action.payload.created_at,
+          comment: action.payload.comment,
+          rating: action.payload.rating,
+          fk_user_id: action.payload.fk_user_id,
+          fk_plant_id: action.payload.fk_plant_id,
+        },
+      ];
 
     default:
       return state;

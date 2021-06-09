@@ -8,6 +8,8 @@ export const openModalReview = () => ({ type: "OPEN_MODAL_REVIEW" });
 
 export const closeModalReview = () => ({ type: "CLOSE_MODAL_REVIEW" });
 
+export const getPlantId = (data) => ({ type: 'GET_PLANT_ID', payload: data });
+
 // ::: MODAL PILIH ALAMAT ACTION :::
 export const openModalPilihAlamat = () => ({ type: "OPEN_MODAL_PILIH_ALAMAT" });
 

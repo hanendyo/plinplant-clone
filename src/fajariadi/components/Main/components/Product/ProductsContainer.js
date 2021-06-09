@@ -1,17 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ItemsCarousel from 'react-items-carousel';
 import Cards from '../../../../../master/components/additional/Cards';
-import {
-  addresses,
-  articles,
-  scroll,
-  cartItems,
-  invoiceProduct,
-  products,
-  reviews,
-  transactions,
-} from '../../../../../master/constant/data/dummy-data';
 import { colors } from '../../../../../master/constant/style';
 import styled from 'styled-components';
 import { useMediaQuery } from 'react-responsive';
@@ -34,7 +24,7 @@ const ProductsContainer = ({
   searching,
   selectAddress,
   related,
-  uniqueTransaction,
+  transactionState,
 }) => {
   const {
     tablePlantState,
@@ -254,33 +244,36 @@ const ProductsContainer = ({
 
       {transaction && (
         <TransactionContainer>
-          {transactions.map(
-            (
-              {
-                img,
-                name,
-                phase,
-                no_order,
-                status,
-                price,
-                quantity,
-                totalPrice,
-                created,
-              },
-              index
-            ) => (
+          {transactionState.map(
+            ({
+              pk_invoice_id,
+              created_at,
+              no_order,
+              status,
+              phase_image,
+              plant_name,
+              plant_phase,
+              price,
+              quantity,
+              total_products,
+              total_price,
+              fk_user_id,
+            }) => (
               <Cards
                 transaction
-                key={index}
-                img={img}
-                name={name}
-                phase={phase}
+                key={pk_invoice_id}
+                id={pk_invoice_id}
+                img={phase_image}
+                name={plant_name}
+                phase={plant_phase}
                 price={price}
                 quantity={quantity}
-                totalPrice={totalPrice}
-                created={created}
+                total_price={total_price}
+                total_products={total_products}
+                created={created_at}
                 no_order={no_order}
                 status={status}
+                user={fk_user_id}
               />
             )
           )}
@@ -299,7 +292,8 @@ const ProductsContainer = ({
                 quantity,
                 price,
                 weight,
-                review_status,
+                reviewed,
+                pk_cart_id,
               },
               index
             ) => (
@@ -312,9 +306,10 @@ const ProductsContainer = ({
                 price={price}
                 quantity={quantity}
                 weight={weight}
-                reviewed={review_status}
+                reviewed={reviewed}
                 status={status}
                 plant={fk_plant_id}
+                cartId={pk_cart_id}
               />
             )
           )}

@@ -5,15 +5,16 @@ import Button from '../additional/Button';
 import { colors } from '../../constant/style';
 import { Link, useHistory } from 'react-router-dom';
 import { ContextStore } from '../../../context/store/ContextStore';
+import { userLogout } from '../../../context/actions/userLoginAction';
 
 const NavbarLandingPage = () => {
-  const { tableArticleState, userInfoState } = useContext(ContextStore);
-  const login = userInfoState.length !== 0;
+  const { tableArticleState, userLoginState, userLoginDispatch } =
+    useContext(ContextStore);
 
   const history = useHistory();
 
   // [{...}] -> userInfoState[0] -> fullname.split(' ') -> ['Fajar', 'Riadi'] -> index 0
-  const greet = userInfoState[0]?.fullname.split(' ')[0];
+  // const greet = userInfoState[0]?.fullname.split(' ')[0];
 
   const [profile, setProfile] = useState(false);
 
@@ -41,11 +42,17 @@ const NavbarLandingPage = () => {
       <Container shadow={shadow}>
         <Logo>PlinPlant</Logo>
 
-        <LinksContainer login={login} profile={profile}>
+        <LinksContainer login={userLoginState} profile={profile}>
           <li>
-            <Link to='/cart'>
-              <FaShoppingCart className='cart' />
-            </Link>
+            {userLoginState ? (
+              <Link to='/cart'>
+                <FaShoppingCart className='cart' />
+              </Link>
+            ) : (
+              <Link to='/login'>
+                <FaShoppingCart className='cart' />
+              </Link>
+            )}
           </li>
           <li>
             <Link
@@ -57,18 +64,20 @@ const NavbarLandingPage = () => {
             </Link>
           </li>
           <li>
-            {/* {console.log(`LANDING STATE: `, landingState)} */}
-            {login ? (
+            {userLoginState ? (
               <>
                 <button onClick={() => setProfile(!profile)}>
                   <img
                     src={
-                      process.env.PUBLIC_URL +
-                      `/images/user_image/${userInfoState[0]?.picture}`
+                      !userLoginState.picture
+                        ? process.env.PUBLIC_URL +
+                          `/images/user_image/default.png`
+                        : process.env.PUBLIC_URL +
+                          `/images/user_image/${userLoginState.picture}`
                     }
-                    alt={userInfoState[0]?.fullname}
+                    alt={userLoginState.fullname}
                   />
-                  <p>Halo, {greet}</p>
+                  <p>Halo, {userLoginState.fullname.split(' ')[0]}</p>
                 </button>
 
                 {/* Profile Hover */}
@@ -76,15 +85,18 @@ const NavbarLandingPage = () => {
                   <div>
                     <img
                       src={
-                        process.env.PUBLIC_URL +
-                        `/images/user_image/${userInfoState[0]?.picture}`
+                        !userLoginState.picture
+                          ? process.env.PUBLIC_URL +
+                            `/images/user_image/default.png`
+                          : process.env.PUBLIC_URL +
+                            `/images/user_image/${userLoginState.picture}`
                       }
-                      alt={userInfoState[0]?.fullname}
+                      alt={userLoginState.fullname}
                     />
 
                     <div>
-                      <h5>{userInfoState[0]?.fullname}</h5>
-                      <span>{userInfoState[0]?.email}</span>
+                      <h5>{userLoginState.fullname}</h5>
+                      <span>{userLoginState.email}</span>
                     </div>
                   </div>
 
@@ -93,9 +105,18 @@ const NavbarLandingPage = () => {
                       <Link to='/profile'>Profil</Link>
                     </li>
                     <li>
-                      <Link to='/transaction'>Daftar Transaksi</Link>
+                      <Link to={`/${userLoginState.pk_user_id}/transaction`}>
+                        Daftar Transaksi
+                      </Link>
                     </li>
-                    <li>Keluar</li>
+                    <li
+                      onClick={() => {
+                        userLoginDispatch(userLogout());
+                        window.location.reload();
+                      }}
+                    >
+                      Keluar
+                    </li>
                   </ul>
                 </div>
               </>

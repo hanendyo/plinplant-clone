@@ -1,23 +1,17 @@
 import axios from 'axios';
 import React, { useContext, useEffect } from 'react';
 import { getInvoices } from '../../context/actions';
+import { getTransactions } from '../../context/actions/fetchingActions';
 import { ContextStore } from '../../context/store/ContextStore';
 import Footer from '../../master/components/Footer/Footer';
 import Navbar from '../../master/components/Navbar/Navbar';
 import Transaction from '../components/Transaction/Transaction';
 
-const TransactionPage = () => {
-  const { invoiceState, invoiceDispatch } = useContext(ContextStore);
+const TransactionPage = ({ match }) => {
+  const { invoiceState, transactionDispatch } = useContext(ContextStore);
 
   useEffect(() => {
-    // ::: FETCH INVOICE :::
-    const getInvoiceData = async () => {
-      const res = await axios.get('http://localhost:5000/input/invoice');
-
-      invoiceDispatch(getInvoices(res.data.data));
-    };
-
-    getInvoiceData();
+    transactionDispatch(getTransactions(match));
   }, []);
 
   console.log('TRANSACTION', invoiceState);

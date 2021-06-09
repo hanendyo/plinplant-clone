@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
 import Button from '../../../master/components/additional/Button';
@@ -12,9 +12,11 @@ import { useMediaQuery } from 'react-responsive';
 import { Link, useHistory } from 'react-router-dom';
 import { priceFormat, weightFormat } from '../../constant/constantVariables';
 import { deleteCart } from '../../../context/actions/fetchingActions';
+import { getPlantId } from '../../../context/actions/modalActions';
 
 const Cards = ({
   id,
+  plant,
   name,
   img,
   weight,
@@ -51,6 +53,10 @@ const Cards = ({
   search,
   selectAddress,
   index,
+  cartId,
+  total_price,
+  total_products,
+  user,
 }) => {
   const {
     modalReviewDispatch,
@@ -58,6 +64,7 @@ const Cards = ({
     selectedAddressState,
     selectedAddressDispatch,
     userCartDispatch,
+    plantIdReviewDispatch,
   } = useContext(ContextStore);
 
   const history = useHistory();
@@ -233,29 +240,34 @@ const Cards = ({
 
           {/* Product Info */}
           <div>
-            <img src={img} alt='' />
+            <img
+              src={process.env.PUBLIC_URL + `/images/Plant/${img}`}
+              alt={name}
+            />
 
             <div>
               <h6>{name}</h6>
               <span>{phase}</span>
               <span>
-                {quantity} barang x {price}
+                {quantity} barang x {priceFormat.format(price)}
               </span>
 
-              <span>+3 produk lainnya</span>
+              {total_products > 1 && (
+                <span>+{total_products - 1} produk lainnya</span>
+              )}
             </div>
 
             <div>
               <p>Total Belanja</p>
-              <h6>{totalPrice}</h6>
+              <h6>{priceFormat.format(total_price)}</h6>
             </div>
           </div>
 
           {/* Button Container */}
           <div>
-            {status === 'Transaksi Selesai' ? (
+            {status === 'selesai' ? (
               <div>
-                <Link to='/invoice'>
+                <Link to={`/invoice/${user}/${id}`}>
                   <Button
                     primary
                     address
@@ -264,7 +276,7 @@ const Cards = ({
                   />
                 </Link>
 
-                <Link to='/invoice'>
+                <Link to={`/invoice/${user}/${id}`}>
                   <Button
                     primary
                     address
@@ -274,7 +286,7 @@ const Cards = ({
                 </Link>
               </div>
             ) : (
-              <Link to='/invoice'>
+              <Link to={`/invoice/${user}/${id}`}>
                 <Button
                   primary
                   address
@@ -296,7 +308,9 @@ const Cards = ({
             />
 
             <div>
-              <h6>{name}</h6>
+              <h6 onClick={() => history.push(`/shop/${plant}/${slug(name)}`)}>
+                {name}
+              </h6>
               <span>{phase}</span>
               <span>
                 {quantity} barang ({weightFormat(weight)}) x{' '}
@@ -308,7 +322,7 @@ const Cards = ({
           {status === 'selesai' && (
             <>
               {reviewed ? (
-                <Rating reviewed rate={4} />
+                <Rating reviewed rate={reviewed} />
               ) : (
                 <div>
                   <Button
@@ -317,7 +331,13 @@ const Cards = ({
                     address
                     text='Beri Ulasan'
                     bgColor={colors.lightGreenTransparent}
-                    onClick={() => modalReviewDispatch(openModalReview())}
+                    onClick={() => {
+                      console.log('CARTTTT IDDD', cartId);
+                      plantIdReviewDispatch(
+                        getPlantId({ plant, phase, cartId })
+                      );
+                      modalReviewDispatch(openModalReview());
+                    }}
                   />
                 </div>
               )}
@@ -609,6 +629,10 @@ const CardCart = styled.div`
     }
   }
 
+  & > .trash {
+    cursor: pointer;
+  }
+
   & > h5 {
     color: ${colors.white};
     margin-right: 10px;
@@ -855,6 +879,7 @@ const CardInvoice = styled.div`
     & > div {
       & > h6 {
         color: ${colors.white};
+        cursor: pointer;
       }
 
       & > span {

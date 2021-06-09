@@ -8,22 +8,15 @@ import Navbar from "../../master/components/Navbar/Navbar";
 import Loader from "../components/Loader";
 
 const ProfilePage = () => {
-  const { userAddressDispatch, userAddressState, userInfoState } =
+  const { userAddressDispatch, userAddressState, userLoginState } =
     useContext(ContextStore);
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getAddressUserId = async () => {
-      const res = await axios.get(
-        `http://localhost:5000/input/address/${userInfoState[0]?.pk_user_id}`
-      );
-      userAddressDispatch(getAddresses(res.data.data));
-    };
+    userAddressDispatch(getAddresses(userLoginState));
 
     setLoading(true);
-
-    getAddressUserId();
 
     // ::: LOADING TIME :::
     setTimeout(() => {

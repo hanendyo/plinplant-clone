@@ -12,7 +12,6 @@ import {
   priceFormat,
   weightFormat,
 } from '../../../master/constant/constantVariables';
-import { invoiceProduct } from '../../../master/constant/data/dummy-data';
 import { colors } from '../../../master/constant/style';
 import { ReviewModal } from '../../modals';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';
@@ -30,13 +29,13 @@ const Invoice = () => {
     modalUploadState,
     modalUploadDispatch,
     modalReviewState,
-    userCartState,
     invoiceState,
     invoiceDispatch,
-    orderDispatch,
+    plantIdReviewState,
   } = useContext(ContextStore);
 
   console.log('STATE INVOICEEE', invoiceState);
+  console.log('PLANT IDD REVIEWWWW', plantIdReviewState);
 
   const {
     pk_invoice_id,
@@ -103,12 +102,10 @@ const Invoice = () => {
 
           <div>
             <p>Status Transaksi</p>
-            {status === 'bayar' && <StatusOrder status='Menunggu Pembayaran' />}
-            {status === 'verif' && (
-              <StatusOrder status='Verifikasi Pembayaran' />
-            )}
-            {status === 'proses' && <StatusOrder status='Pesanan Diantar' />}
-            {status === 'selesai' && <StatusOrder status='Transaksi Selesai' />}
+            {status === 'bayar' && <StatusOrder status='bayar' />}
+            {status === 'verif' && <StatusOrder status='verif' />}
+            {status === 'proses' && <StatusOrder status='proses' />}
+            {status === 'selesai' && <StatusOrder status='selesai' />}
           </div>
         </HeaderInfo>
 
@@ -213,7 +210,13 @@ const Invoice = () => {
         invoice
         modal={modalUploadState}
       />
-      <ReviewModal modal={modalReviewState} />
+
+      <ReviewModal
+        fk_invoice_id={pk_invoice_id}
+        plantId={plantIdReviewState.id}
+        phase={plantIdReviewState.phase}
+        modal={modalReviewState}
+      />
     </InvoiceSection>
   );
 };

@@ -3,8 +3,7 @@ import { FaStar } from 'react-icons/fa';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
 
-const RatingInput = () => {
-  const [checked, setChecked] = useState('star5');
+const RatingInput = ({ checked, setChecked }) => {
   const [level, setLevel] = useState('Sangat Baik');
 
   useEffect(() => {

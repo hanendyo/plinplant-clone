@@ -10,7 +10,6 @@ const LandingPage = () => {
 
   useEffect(() => {
     setLoading(true);
-
     // ::: LOADING TIME :::
     setTimeout(() => {
       setLoading(false);
