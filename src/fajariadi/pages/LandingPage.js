@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import Header from '../components/Header/Header';
-import Main from '../components/Main/Main';
-import NavbarLandingPage from '../../master/components/Navbar/NavbarLandingPage';
-import Footer from '../../master/components/Footer/Footer';
-import Loader from '../components/Loader';
+import React, { useEffect, useState } from "react";
+import Header from "../components/Header/Header";
+import Main from "../components/Main/Main";
+import NavbarLandingPage from "../../master/components/Navbar/NavbarLandingPage";
+import Footer from "../../master/components/Footer/Footer";
+import Loader from "../components/Loader";
 
 const LandingPage = () => {
   const [loading, setLoading] = useState(true);

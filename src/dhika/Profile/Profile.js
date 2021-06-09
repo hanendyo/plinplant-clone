@@ -54,6 +54,10 @@ const Profile = () => {
 
   const [scroll, setScroll] = useState(true);
 
+  // let userData = JSON.parse(localStorage.getItem("user-data")) || {};
+
+  // console.log(`USERDATA-LANDINGPAGE: `, userData);
+
   useEffect(() => {
     // ::: FETCH USER INFO :::
     const getUserInfo = async () => {

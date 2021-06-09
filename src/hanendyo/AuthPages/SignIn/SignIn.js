@@ -47,7 +47,7 @@ const SignIn = () => {
   const classes = useStyles();
   const history = useHistory();
   const [loginStatus, setLoginStatus] = useState(false);
-  const [loginName, setLoginName] = useState('');
+  const [loginName, setLoginName] = useState("");
 
   const context = useContext(ContextStore);
   const { signInState, signInDispatch } = context;
@@ -113,13 +113,18 @@ const SignIn = () => {
     // POST TO API
     console.log(`sign in data: `, signInState);
     signInAPI(signInState).then((res) => {
-      getDataSignInAPI()
+      getDataSignInAPI();
+      localStorage.setItem(
+        "user-data",
+
+        JSON.stringify(res)
+      );
       if (res.status === 200) {
-        setLoginStatus(true)
-        signInDispatch(signInAction('loginStatus', res))
+        setLoginStatus(true);
+        signInDispatch(signInAction("loginStatus", res));
         history.push("/");
-        if(loginStatus === true){
-          setLoginName(res.data.result[0].fullname)
+        if (loginStatus === true) {
+          setLoginName(res.data.result[0].fullname);
         }
         // signInDispatch(signInAction("loginStatus", res.data));
       }
@@ -226,9 +231,7 @@ const SignIn = () => {
       <br />
 
       {/* TESTING LOGOUT */}
-      {
-        <button onClick={handleLogOut}>Logout</button>
-      }
+      {<button onClick={handleLogOut}>Logout</button>}
       <br />
       {/* {signInState.loginStatus.auth && (
         <button onClick={checkUserAuth}>check auth</button>

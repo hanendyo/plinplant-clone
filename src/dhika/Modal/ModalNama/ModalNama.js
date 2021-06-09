@@ -21,8 +21,9 @@ const ModalNama = ({ modal, state }) => {
     useContext(ContextStore);
 
   // console.log("Halo ini yang ditangkap modal :", state);
-
+  // let userData = JSON.parse(localStorage.getItem("user-data")) || {};
   const [input, setInput] = useState({
+    // fullname: userData.data.result[0].fullname,
     fullname: userInfoState[0]?.fullname,
   });
 
@@ -43,11 +44,13 @@ const ModalNama = ({ modal, state }) => {
     e.preventDefault();
     await axios
       .put("http://localhost:5000/input/user_update_name/1", input)
-      .then((response) => console.log(response))
+      .then((response) => console.log("Ini response", response))
       .catch((err) => console.log(err));
 
+    console.log();
     modalGantiNamaDispatch(closeModalGantiNama());
-    refreshPage();
+    // localStorage.setItem("user-data", res)
+    // refreshPage();
   };
 
   return (
