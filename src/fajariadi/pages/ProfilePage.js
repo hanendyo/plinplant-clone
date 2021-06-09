@@ -22,7 +22,7 @@ const ProfilePage = () => {
     setTimeout(() => {
       setLoading(false);
     }, 50);
-  }, [userAddressDispatch, userInfoState]);
+  }, [userAddressDispatch]);
 
   console.log("PROFILEEEEE", userAddressState);
 

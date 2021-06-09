@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
@@ -6,6 +6,61 @@ import { FaTimes, FaSignOutAlt } from "react-icons/fa";
 import { colors } from "../../../master/constant/style/index";
 import { SidebarData } from "./SidebarList";
 import SubMenu from "./SubMenu";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { useHistory } from "react-router-dom";
+import { userLogout } from "../../../context/actions/userLoginAction";
+
+const SidebarCMS = () => {
+  const { userLoginState, userLoginDispatch } = useContext(ContextStore);
+  const [sidebar, setSidebar] = useState(false);
+  const history = useHistory();
+
+  const showSidebar = () => {
+    setSidebar(!sidebar);
+  };
+
+  return (
+    <Container>
+      <Nav>
+        <NavIcon>
+          <FaIcons.FaBars onClick={showSidebar} style={{ cursor: "pointer" }} />
+          <div style={{ display: "flex" }}>
+            <Logo className="logo-center">PlinPlant</Logo>
+            <h3 style={{ color: "#fff", padding: "2px", marginLeft: "10px" }}>
+              CMS
+            </h3>
+          </div>
+          <h5 style={{ marginRight: "15px" }}>
+            Hello, {userLoginState.fullname.split(" ")[0]}
+          </h5>
+        </NavIcon>
+        <SidebarNav sidebar={sidebar}>
+          <SidebarWrap>
+            <NavTimes>
+              <FaTimes onClick={showSidebar} style={{ cursor: "pointer" }} />
+            </NavTimes>
+            {SidebarData.map((item, index) => {
+              return <SubMenu item={item} key={index} />;
+            })}
+            <NavOut
+              onClick={() => {
+                userLoginDispatch(userLogout());
+                history.push("/");
+                window.location.reload();
+              }}
+            >
+              <h5>Keluar</h5>
+              <FaSignOutAlt />
+            </NavOut>
+          </SidebarWrap>
+        </SidebarNav>
+      </Nav>
+    </Container>
+    // </div>
+  );
+};
+
+export default SidebarCMS;
 
 const Container = styled.div`
   background: #fff;
@@ -127,46 +182,3 @@ const NavTimes = styled.div`
   left: 0;
   background-color: ${colors.yellow};
 `;
-
-const SidebarCMS = () => {
-  const [sidebar, setSidebar] = useState(false);
-
-  const showSidebar = () => {
-    setSidebar(!sidebar);
-  };
-
-  return (
-    // <div>
-    <Container>
-      <Nav>
-        <NavIcon>
-          <FaIcons.FaBars onClick={showSidebar} style={{ cursor: "pointer" }} />
-          <div style={{ display: "flex" }}>
-            <Logo className="logo-center">PlinPlant</Logo>
-            <h3 style={{ color: "#fff", padding: "2px", marginLeft: "10px" }}>
-              CMS
-            </h3>
-          </div>
-          <h5 style={{ marginRight: "15px" }}>Hello, Admin</h5>
-        </NavIcon>
-        <SidebarNav sidebar={sidebar}>
-          <SidebarWrap>
-            <NavTimes>
-              <FaTimes onClick={showSidebar} style={{ cursor: "pointer" }} />
-            </NavTimes>
-            {SidebarData.map((item, index) => {
-              return <SubMenu item={item} key={index} />;
-            })}
-            <NavOut>
-              <h5>Keluar</h5>
-              <FaSignOutAlt />
-            </NavOut>
-          </SidebarWrap>
-        </SidebarNav>
-      </Nav>
-    </Container>
-    // </div>
-  );
-};
-
-export default SidebarCMS;

@@ -42,18 +42,19 @@ const Profile = () => {
     modalGantiNomorDispatch,
     userAddressState,
     userInfoState,
+    userLoginState,
+    userLoginDispatch,
   } = useContext(ContextStore);
 
   const [state, setState] = useState("");
-
   const [biodata, setBiodata] = useState(true);
   const [address, setAddress] = useState(false);
 
   // const [empty, setEmpty] = useState(true);
   // const [selected, setSelected] = useState(false);
-
+  const [gender, setGender] = useState(true);
   const [scroll, setScroll] = useState(true);
-
+  console.log(userLoginState);
   // let userData = JSON.parse(localStorage.getItem("user-data")) || {};
 
   // console.log(`USERDATA-LANDINGPAGE: `, userData);
@@ -97,7 +98,7 @@ const Profile = () => {
             <h4>Ubah Biodata Diri</h4>
             <Data>
               <li>Nama</li>
-              <li>{userInfoState[0]?.fullname}</li>
+              <li>{userLoginState.fullname}</li>
               <li
                 onClick={() => {
                   setState("name");
@@ -110,7 +111,7 @@ const Profile = () => {
 
             <Data>
               <li>Tanggal Lahir</li>
-              <li>{userInfoState[0]?.birth_date}</li>
+              <li>{userLoginState.birth_date}</li>
               <li
                 onClick={() => {
                   setState("tanggal lahir");
@@ -123,15 +124,29 @@ const Profile = () => {
 
             <Data>
               <li>Jenis Kelamin</li>
-              <li>{userInfoState[0]?.type}</li>
-              <li
-                onClick={() => {
-                  setState("Jenis Kelamin");
-                  modalGantiGenderDispatch(openModalGantiGender());
-                }}
-              >
-                Ubah
-              </li>
+              {gender && (
+                <li
+                  onClick={() => {
+                    modalGantiGenderDispatch(openModalGantiGender());
+                    setGender(false);
+                  }}
+                >
+                  Tambah Jenis Kelamin
+                </li>
+              )}
+              {gender === false && (
+                <>
+                  <li>{userLoginState.type}</li>
+                  <li
+                    onClick={() => {
+                      setState("Jenis Kelamin");
+                      modalGantiGenderDispatch(openModalGantiGender());
+                    }}
+                  >
+                    Ubah
+                  </li>
+                </>
+              )}
             </Data>
 
             <h4>Ubah Kontak</h4>
@@ -142,7 +157,7 @@ const Profile = () => {
 
             <Data>
               <li>Nomor HP</li>
-              <li>{userInfoState[0]?.phone_number}</li>
+              <li>{userLoginState.phone_number}</li>
               <li
                 onClick={() => {
                   setState("Nomor HP");

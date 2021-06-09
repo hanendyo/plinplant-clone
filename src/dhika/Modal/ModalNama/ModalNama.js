@@ -17,23 +17,17 @@ import Button from "../../../master/components/additional/Button";
 import axios from "axios";
 
 const ModalNama = ({ modal, state }) => {
-  const { modalGantiNamaDispatch, userInfoState, userInfoDispatch } =
+  const { modalGantiNamaDispatch, userLoginState, userLoginDispatch } =
     useContext(ContextStore);
 
   // console.log("Halo ini yang ditangkap modal :", state);
   // let userData = JSON.parse(localStorage.getItem("user-data")) || {};
   const [input, setInput] = useState({
     // fullname: userData.data.result[0].fullname,
-    fullname: userInfoState[0]?.fullname,
+    fullname: userLoginState.fullname,
   });
 
   useEffect(() => {}, []);
-
-  if (state === "fullname") {
-    console.log("State is :", state);
-  } else {
-    console.log("State is : Others");
-  }
 
   const refreshPage = () => {
     window.location.reload(false);
@@ -43,14 +37,16 @@ const ModalNama = ({ modal, state }) => {
     console.log(input);
     e.preventDefault();
     await axios
-      .put("http://localhost:5000/input/user_update_name/1", input)
+      .put(
+        `http://localhost:5000/input/user_update_name/${input.fullname}`,
+        input
+      )
       .then((response) => console.log("Ini response", response))
       .catch((err) => console.log(err));
 
     console.log();
     modalGantiNamaDispatch(closeModalGantiNama());
-    // localStorage.setItem("user-data", res)
-    // refreshPage();
+    refreshPage();
   };
 
   return (

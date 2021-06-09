@@ -9,14 +9,19 @@ import {
   TransactionPage,
   ArticlePage,
   ProfilePage,
-} from './fajariadi/pages';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import CMS from './hanendyo/CMS/CMS';
-import { ContextStore } from './context/store/ContextStore';
-import { getPlants } from './context/actions';
-import { getArticles, getInvoices } from './context/actions/fetchingActions';
-import Loader from './fajariadi/components/Loader';
-import { SignIn, SignUp } from './hanendyo/AuthPages/AuthPages';
+} from "./fajariadi/pages";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import CMS from "./hanendyo/CMS/CMS";
+import { ContextStore } from "./context/store/ContextStore";
+import { getPlants } from "./context/actions";
+import { getArticles, getInvoices } from "./context/actions/fetchingActions";
+import Loader from "./fajariadi/components/Loader";
+import { SignIn, SignUp } from "./hanendyo/AuthPages/AuthPages";
 
 const App = () => {
   const {
@@ -24,6 +29,7 @@ const App = () => {
     tableArticleDispatch,
     invoiceDispatch,
     invoiceState,
+    userLoginState,
   } = useContext(ContextStore);
 
   const [loading, setLoading] = useState(true);
@@ -48,7 +54,7 @@ const App = () => {
       setLoading(false);
     }, 1000);
   }, []);
-  console.log('APPP - INVOICEE', invoiceState);
+  console.log("APPP - INVOICEE", invoiceState);
 
   return (
     <>
@@ -57,33 +63,25 @@ const App = () => {
       ) : (
         <Router>
           <Switch>
-<<<<<<< HEAD
             <Route exact path="/" component={LandingPage} />
             <Route path="/ensiklopedia/:id/:name" component={Ensiklopedia} />
             <Route path="/shop/:id/:name" component={ShoppingPage} />
             <Route path="/cart" component={CartPage} />
             <Route path="/checkout" component={CheckoutPage} />
             <Route path="/invoice/:id/:order" component={InvoicePage} />
-            <Route path="/transaction" component={TransactionPage} />
+            <Route path="/:id/transaction" component={TransactionPage} />
             <Route path="/article/:id/:title" component={ArticlePage} />
             <Route path="/profile" component={ProfilePage} />
-            <Route path="/cms" component={CMS} />
+            <Route path="/cms" component={CMS}>
+              {" "}
+              {userLoginState ? (
+                <Route path="/cms/" component={CMS} />
+              ) : (
+                <Redirect to={"/login"} />
+              )}{" "}
+            </Route>
             <Route exact path="/register" component={SignUp} />
             <Route exact path="/login" component={SignIn} />
-=======
-            <Route exact path='/' component={LandingPage} />
-            <Route path='/ensiklopedia/:id/:name' component={Ensiklopedia} />
-            <Route path='/shop/:id/:name' component={ShoppingPage} />
-            <Route path='/cart' component={CartPage} />
-            <Route path='/checkout' component={CheckoutPage} />
-            <Route path='/invoice/:id/:order' component={InvoicePage} />
-            <Route path='/:id/transaction' component={TransactionPage} />
-            <Route path='/article/:id/:title' component={ArticlePage} />
-            <Route path='/profile' component={ProfilePage} />
-            <Route path='/cms' component={CMS} />
-            <Route exact path='/register' component={SignUp} />
-            <Route exact path='/login' component={SignIn} />
->>>>>>> 30c83d079c135ec682733b7fdadf1e029a65029d
           </Switch>
         </Router>
       )}
