@@ -22,6 +22,7 @@ const Profile = () => {
     modalTambahAlamatState,
     modalTambahAlamatDispatch,
     userAddressState,
+    userLoginState,
   } = useContext(ContextStore);
 
   const [biodata, setBiodata] = useState(true);
@@ -61,13 +62,13 @@ const Profile = () => {
             <h4>Ubah Biodata Diri</h4>
             <Data>
               <li>Nama</li>
-              <li>Muhammad Adhika Adhiwijna</li>
+              <li>{userLoginState.fullname}</li>
               <li>Ubah</li>
             </Data>
 
             <Data>
               <li>Tanggal Lahir</li>
-              <li>9 May 2021</li>
+              <li>{userLoginState.birth_date}</li>
               <li>Ubah</li>
             </Data>
 
@@ -80,12 +81,19 @@ const Profile = () => {
             <h4>Ubah Kontak</h4>
             <Data>
               <li>Email</li>
-              <li>adiwijna@gmail.com</li>
+              <li>{userLoginState.email}</li>
             </Data>
 
             <Data empty={empty}>
               <li>Nomor HP</li>
-              <li>Tambah Nomor HP</li>
+              {userLoginState.phone_number ? (
+                <>
+                  <li>{userLoginState.phone_number}</li>
+                  <li>Ubah</li>
+                </>
+              ) : (
+                <li>Tambah Nomor HP</li>
+              )}
             </Data>
           </Information>
         </ProfileContainer>

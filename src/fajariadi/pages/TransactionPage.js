@@ -12,6 +12,8 @@ const TransactionPage = ({ match }) => {
 
   useEffect(() => {
     transactionDispatch(getTransactions(match));
+
+    window.scrollTo({ top: 0 });
   }, []);
 
   console.log('TRANSACTION', invoiceState);
