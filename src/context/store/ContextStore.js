@@ -11,6 +11,7 @@ import {
   selectedAddressReducer,
 } from '../reducer';
 import { CmsReducer } from '../reducer/CmsReducer';
+import { userLoginReducer } from '../reducer/userLoginReducer';
 import {
   articleIdReducer,
   plantReviewReducer,
@@ -30,6 +31,10 @@ import {
 import { SignInReducer } from '../reducer/SignInReducer';
 import { SignUpReducer } from '../reducer/SignUpReducer';
 
+const userInfoFromLocalStorage = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
+  : null;
+
 export const ContextStore = createContext();
 
 export const ContextProvider = ({ children }) => {
@@ -44,6 +49,12 @@ export const ContextProvider = ({ children }) => {
   const [signInState, signInDispatch] = useReducer(
     SignInReducer,
     SignInInitial
+  );
+
+  // :: USER LOGIN ::
+  const [userLoginState, userLoginDispatch] = useThunkReducer(
+    userLoginReducer,
+    userInfoFromLocalStorage
   );
 
   //! CMS
@@ -225,6 +236,9 @@ export const ContextProvider = ({ children }) => {
         // login
         signInState,
         signInDispatch,
+        // :: USER LOGIN ::
+        userLoginState,
+        userLoginDispatch,
         // article
         articleState,
         articleDispatch,

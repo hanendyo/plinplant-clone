@@ -110,7 +110,6 @@ module.exports = {
             phone_number: result[0].phone_number,
             birth_date: result[0].birth_date,
             fk_gender_id: result[0].fk_gender_id,
-            loggedIn: true,
           });
         } else {
           return res.status(401).json({

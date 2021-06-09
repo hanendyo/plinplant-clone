@@ -5,7 +5,6 @@ import { Body } from '../../dhika/Ensiklopedia/';
 import { CTAEnsiklopedia } from '../../dhika/Ensiklopedia/';
 import { RelatedProduct } from '../../dhika/Ensiklopedia/';
 import Footer from '../../master/components/Footer/Footer';
-import axios from 'axios';
 import { ContextStore } from '../../context/store/ContextStore';
 import { getPlantById } from '../../context/actions/fetchingActions';
 import Loader from '../components/Loader';

@@ -14,11 +14,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import CMS from './hanendyo/CMS/CMS';
 import { ContextStore } from './context/store/ContextStore';
 import { getPlants } from './context/actions';
-import {
-  getArticles,
-  getInvoices,
-  getUser,
-} from './context/actions/fetchingActions';
+import { getArticles, getInvoices } from './context/actions/fetchingActions';
 import Loader from './fajariadi/components/Loader';
 import { SignIn, SignUp } from './hanendyo/AuthPages/AuthPages';
 
@@ -26,8 +22,8 @@ const App = () => {
   const {
     tablePlantDispatch,
     tableArticleDispatch,
-    userInfoDispatch,
     invoiceDispatch,
+    invoiceState,
   } = useContext(ContextStore);
 
   const [loading, setLoading] = useState(true);
@@ -52,6 +48,7 @@ const App = () => {
       setLoading(false);
     }, 1000);
   }, []);
+  console.log('APPP - INVOICEE', invoiceState);
 
   return (
     <>

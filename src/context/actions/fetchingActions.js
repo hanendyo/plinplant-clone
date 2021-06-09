@@ -90,9 +90,9 @@ export const addCart = (data, phase, notif) => async (dispatch) => {
   dispatch({ type: 'ADD_USER_CART', payload: data });
 };
 
-export const getCarts = (userInfoState) => async (dispatch) => {
+export const getCarts = (userLoginState) => async (dispatch) => {
   const res = await axios.get(
-    `http://localhost:5000/input/cart/user/${userInfoState[0]?.pk_user_id}`
+    `http://localhost:5000/input/cart/user/${userLoginState.pk_user_id}`
   );
   dispatch({ type: 'FETCH_USER_CART', payload: res.data.data });
 };
@@ -141,9 +141,9 @@ export const cartUpdateReviewBtn = (data) => async (dispatch) => {
 
 // ::: END OF CART ACTION :::
 
-export const getAddresses = (userInfoState) => async (dispatch) => {
+export const getAddresses = (userLoginState) => async (dispatch) => {
   const res = await axios.get(
-    `http://localhost:5000/input/address/${userInfoState[0]?.pk_user_id}`
+    `http://localhost:5000/input/address/${userLoginState.pk_user_id}`
   );
   dispatch({ type: 'FETCH_USER_ADDRESS', payload: res.data.data });
 };

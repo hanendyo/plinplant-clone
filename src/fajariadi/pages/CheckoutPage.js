@@ -15,7 +15,7 @@ const CheckoutPage = () => {
   const {
     userCartDispatch,
     userAddressDispatch,
-    userInfoState,
+    userLoginState,
     bankDispatch,
     bankState,
   } = useContext(ContextStore);
@@ -27,9 +27,9 @@ const CheckoutPage = () => {
 
     bankDispatch(getBanks());
 
-    userCartDispatch(getCarts(userInfoState));
+    userCartDispatch(getCarts(userLoginState));
 
-    userAddressDispatch(getAddresses(userInfoState));
+    userAddressDispatch(getAddresses(userLoginState));
 
     // ::: LOADING TIME :::
     setTimeout(() => {

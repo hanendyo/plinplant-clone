@@ -3,8 +3,6 @@ import styled from 'styled-components';
 const StyledContainer = styled.div`
   width: 80vw;
   margin: 0 auto;
-<<<<<<< HEAD
-=======
 
   @media (min-width: 1600px) and (max-height: 1080px) {
     width: 70vw;
@@ -25,7 +23,6 @@ const StyledContainer = styled.div`
   @media (max-width: 576px) {
     width: 95vw;
   }
->>>>>>> 77d28ea2cdcd0bc48b8a3107f12af0495f78c773
 `;
 
 export default StyledContainer;

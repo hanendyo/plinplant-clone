@@ -214,7 +214,7 @@ module.exports = {
   // :: TRANSACTION ::
   transactionGet: (id, callback) => {
     pool.query(
-      `Select * from list_transaction where fk_user_id = ?`,
+      `Select * from list_transaction where fk_user_id = ? order by pk_invoice_id desc`,
       [id],
       (error, results, fields) => {
         if (error) {

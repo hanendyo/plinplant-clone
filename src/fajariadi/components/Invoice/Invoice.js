@@ -12,7 +12,6 @@ import {
   priceFormat,
   weightFormat,
 } from '../../../master/constant/constantVariables';
-import { invoiceProduct } from '../../../master/constant/data/dummy-data';
 import { colors } from '../../../master/constant/style';
 import { ReviewModal } from '../../modals';
 import ProductsContainer from '../Main/components/Product/ProductsContainer';

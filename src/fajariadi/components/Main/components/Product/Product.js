@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Container,
   SearchBar,
@@ -6,10 +6,7 @@ import {
   ProductSlider,
 } from './Product.element';
 import { FaSearch } from 'react-icons/fa';
-// import {
-//   products,
-//   productsCategory,
-// } from '../../../../../master/constant/data/dummy-data';
+
 import ProductsContainer from './ProductsContainer';
 import { ContextStore } from '../../../../../context/store/ContextStore';
 
@@ -17,8 +14,6 @@ const Product = () => {
   const [search, setSearch] = useState('');
 
   const { tablePlantState } = useContext(ContextStore);
-
-  useEffect(() => {}, []);
 
   const searching = search
     .toLowerCase()

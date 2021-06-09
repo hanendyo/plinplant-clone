@@ -28,7 +28,7 @@ const ShoppingSummary = ({
     userCartState,
     userCartDispatch,
     userAddressState,
-    userInfoState,
+    userLoginState,
     invoiceDispatch,
   } = useContext(ContextStore);
 
@@ -51,7 +51,7 @@ const ShoppingSummary = ({
 
   const handleCheckout = () => {
     console.log('CHECKOUT!!');
-    const fk_user_id = userInfoState[0]?.pk_user_id;
+    const fk_user_id = userLoginState.pk_user_id;
 
     const time = new Date();
     const fk_invoice_id = time.getTime();

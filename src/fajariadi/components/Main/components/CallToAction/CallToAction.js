@@ -1,10 +1,13 @@
-import React from "react";
-import Button from "../../../../../master/components/additional/Button";
-import { colors } from "../../../../../master/constant/style";
-import { Container, SectionCTA } from "./CallToAction.elemen";
-import { cta } from "../../../../assets/illustration";
+import React from 'react';
+import Button from '../../../../../master/components/additional/Button';
+import { colors } from '../../../../../master/constant/style';
+import { Container, SectionCTA } from './CallToAction.elemen';
+import { cta } from '../../../../assets/illustration';
+import { useHistory } from 'react-router-dom';
 
 const CallToAction = () => {
+  const history = useHistory();
+
   return (
     <SectionCTA>
       <Container>
@@ -17,11 +20,17 @@ const CallToAction = () => {
             banyak lagi!
           </p>
 
-          <Button primary cta text="Gabung Sekarang" bgColor={colors.green} />
+          <Button
+            onClick={() => history.push('/register')}
+            primary
+            cta
+            text='Gabung Sekarang'
+            bgColor={colors.green}
+          />
         </div>
 
         <div>
-          <img src={cta} alt="" />
+          <img src={cta} alt='' />
         </div>
       </Container>
     </SectionCTA>

@@ -26,7 +26,7 @@ const Transaction = () => {
   return (
     <TransactionSection>
       <Container>
-        <h2>Daftar Transaksi (4)</h2>
+        <h2>Daftar Transaksi ({transactionState.length})</h2>
 
         <ProductsContainer transaction transactionState={transactionState} />
 

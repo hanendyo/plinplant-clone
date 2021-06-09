@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ItemsCarousel from 'react-items-carousel';
 import Cards from '../../../../../master/components/additional/Cards';
-import { transactions } from '../../../../../master/constant/data/dummy-data';
 import { colors } from '../../../../../master/constant/style';
 import styled from 'styled-components';
 import { useMediaQuery } from 'react-responsive';

@@ -7,7 +7,7 @@ import Cart from '../components/Cart/Cart';
 import Loader from '../components/Loader';
 
 const CartPage = () => {
-  const { userCartDispatch, userInfoState, userAddressDispatch } =
+  const { userCartDispatch, userLoginState, userAddressDispatch } =
     useContext(ContextStore);
 
   const [loading, setLoading] = useState(true);
@@ -15,9 +15,9 @@ const CartPage = () => {
   useEffect(() => {
     setLoading(true);
 
-    userCartDispatch(getCarts(userInfoState));
+    userCartDispatch(getCarts(userLoginState));
 
-    userAddressDispatch(getAddresses(userInfoState));
+    userAddressDispatch(getAddresses(userLoginState));
 
     // ::: LOADING TIME :::
     setTimeout(() => {
