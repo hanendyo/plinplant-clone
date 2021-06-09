@@ -9,7 +9,6 @@ import {
 } from './Profile.component';
 import UploadBox from '../../master/components/additional/UploadBox';
 import ProductsContainer from '../../fajariadi/components/Main/components/Product/ProductsContainer';
-import { addresses } from '../../master/constant/data/dummy-data';
 import ScrollSign from '../../master/components/additional/ScrollSign';
 import { ContextStore } from '../../context/store/ContextStore';
 import PopoutComponent from '../ModalAlamat/PopupComponent/Popout';
