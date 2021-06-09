@@ -19,7 +19,7 @@ import {
 const ReviewModal = ({ fk_invoice_id, plantId, phase, modal }) => {
   const {
     modalReviewDispatch,
-    userInfoState,
+    userLoginState,
     plantReviewDispatch,
     plantIdReviewState,
     userCartDispatch,
@@ -29,7 +29,7 @@ const ReviewModal = ({ fk_invoice_id, plantId, phase, modal }) => {
   const [checked, setChecked] = useState('star5');
   const [comment, setComment] = useState('');
 
-  const fk_user_id = userInfoState[0]?.pk_user_id;
+  const fk_user_id = userLoginState.pk_user_id;
   const rating = +checked.slice(-1);
 
   useEffect(() => {

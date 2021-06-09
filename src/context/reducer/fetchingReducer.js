@@ -131,28 +131,30 @@ export const invoiceReducer = (state, action) => {
       return [...action.payload];
 
     case 'FETCH_INVOICE_DETAIL':
-      return [...action.payload];
+      if (action.payload !== undefined) return [...action.payload];
 
     case 'CREATE_INVOICE':
-      return [
-        ...state,
-        {
-          pk_invoice_id: action.payload.pk_invoice_id,
-          no_order: action.payload.no_order,
-          created_at: action.payload.created_at,
-          status: action.payload.status,
-          fk_user_id: action.payload.fk_user_id,
-          fk_contact_id: action.payload.fk_contact_id,
-          fk_bank_id: action.payload.fk_bank_id,
-        },
-      ];
+      if (action.payload !== undefined)
+        return [
+          ...state,
+          {
+            pk_invoice_id: action.payload.pk_invoice_id,
+            no_order: action.payload.no_order,
+            created_at: action.payload.created_at,
+            status: action.payload.status,
+            fk_user_id: action.payload.fk_user_id,
+            fk_contact_id: action.payload.fk_contact_id,
+            fk_bank_id: action.payload.fk_bank_id,
+          },
+        ];
 
     case 'INVOICE_TRANSACTION_DONE':
-      return state.filter((invoice) =>
-        invoice.pk_invoice_id === action.payload.pk_invoice_id
-          ? { ...invoice, status: action.payload.transactionSucces }
-          : invoice
-      );
+      if (action.payload !== undefined)
+        return state.filter((invoice) =>
+          invoice.pk_invoice_id === action.payload.pk_invoice_id
+            ? { ...invoice, status: action.payload.transactionSucces }
+            : invoice
+        );
 
     default:
       return state;

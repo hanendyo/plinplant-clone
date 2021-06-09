@@ -152,7 +152,7 @@ const Profile = () => {
             <h4>Ubah Kontak</h4>
             <Data>
               <li>Email</li>
-              <li>adiwijna@gmail.com</li>
+              <li>{userLoginState.email}</li>
             </Data>
 
             <Data>
