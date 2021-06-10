@@ -6,10 +6,16 @@ import { colors } from '../../constant/style';
 import { Link, useHistory } from 'react-router-dom';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { userLogout } from '../../../context/actions/userLoginAction';
+import { getCarts } from '../../../context/actions/fetchingActions';
 
 const NavbarLandingPage = () => {
-  const { tableArticleState, userLoginState, userLoginDispatch } =
-    useContext(ContextStore);
+  const {
+    tableArticleState,
+    userLoginState,
+    userLoginDispatch,
+    userCartDispatch,
+    userCartState,
+  } = useContext(ContextStore);
 
   const history = useHistory();
 
@@ -20,7 +26,13 @@ const NavbarLandingPage = () => {
 
   const [shadow, setShadow] = useState(false);
 
+  const totalItems = userCartState
+    .map((item) => item.quantity)
+    .reduce((a, b) => a + b, 0);
+
   useEffect(() => {
+    if (userLoginState) userCartDispatch(getCarts(userLoginState));
+
     // ::: NAVBAR INTERACTION :::
     const scrollNav = () => {
       const navbarHeight = 100;
@@ -33,7 +45,9 @@ const NavbarLandingPage = () => {
       window.removeEventListener('scroll', scrollNav);
     };
     // ::: END OF NAVBAR INTERACTION :::
-  }, []);
+  }, [userCartDispatch]);
+
+  console.log('NAVBAR LANDING - CARTTT', totalItems);
 
   const slug = (title) => title?.toLowerCase().split(' ').join('-');
 
@@ -47,6 +61,9 @@ const NavbarLandingPage = () => {
             {userLoginState ? (
               <Link to='/cart'>
                 <FaShoppingCart className='cart' />
+                {totalItems > 0 && (
+                  <span>{!isNaN(totalItems) && totalItems}</span>
+                )}
               </Link>
             ) : (
               <Link to='/login'>

@@ -9,13 +9,15 @@ import { ContextStore } from '../../../context/store/ContextStore';
 import { colors } from '../../constant/style';
 
 const Quantity = ({ quantity, setQuantity, pk_cart_id, shop }) => {
-  const { userCartDispatch, userInfoState } = useContext(ContextStore);
+  const { userCartDispatch } = useContext(ContextStore);
 
   return (
     <>
       {shop ? (
         <Counter shop={shop}>
-          <span onClick={() => setQuantity(quantity === 1 ? 1 : quantity - 1)}>
+          <span
+            onClick={() => (quantity === 1 ? 1 : setQuantity(quantity - 1))}
+          >
             -
           </span>
           <span>{quantity}</span>

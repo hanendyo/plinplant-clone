@@ -23,7 +23,10 @@ const UploadBox = ({ pk_invoice_id, invoice, modal, profile }) => {
     invoiceDispatch(updateStatusTransaction(data));
 
     modalUploadDispatch(closeModalUpload());
-    window.location.reload();
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   return (

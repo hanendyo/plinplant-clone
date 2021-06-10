@@ -14,12 +14,14 @@ export const CheckoutSection = styled.main`
 `;
 
 export const Container = styled(StyledContainer)`
+  position: relative;
+
   & > h2 {
     color: ${colors.white};
     margin-bottom: 30px;
   }
 
-  & > div {
+  & > div:not(:last-of-type) {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;

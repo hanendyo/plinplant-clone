@@ -70,9 +70,9 @@ const Shop = () => {
   const [matureQuantity, setMatureQuantity] = useState(1);
 
   useEffect(() => {
-    if (plantReviewState.length < 4) setScroll(false);
-    if (plantReviewState.length > 3) setScroll(true);
-  }, [plantReviewState]);
+    if (plantReviewState.length < 6) setScroll(false);
+    if (plantReviewState.length > 5) setScroll(true);
+  }, [plantReviewState, userCartDispatch]);
 
   const isIpad = useMediaQuery({ maxWidth: 900 });
   const isPhone = useMediaQuery({ maxWidth: 760 });

@@ -5,6 +5,7 @@ import { openModalPilihAlamat } from '../../../context/actions/modalActions';
 import { ContextStore } from '../../../context/store/ContextStore';
 import PopoutComponent from '../../../dhika/ModalAlamat/PopupComponent/Popout';
 import PopoutPengiriman from '../../../dhika/Pengiriman/PoputPengiriman/PopoutPengiriman';
+import AlertSign from '../../../master/components/additional/AlertSign';
 import Button from '../../../master/components/additional/Button';
 import ScrollSign from '../../../master/components/additional/ScrollSign';
 import ShoppingSummary from '../../../master/components/additional/ShoppingSummary';
@@ -28,6 +29,9 @@ const Checkout = () => {
   const [payment, setPayment] = useState(false);
   const [bankId, setBankId] = useState(0);
   const [placeholder, setPlaceholder] = useState('Bank Transfer');
+
+  // ::: ALERT SIGN :::
+  const [notif, setNotif] = useState(false);
 
   const {
     pk_contact_id,
@@ -140,8 +144,14 @@ const Checkout = () => {
             shipping_price={shipping_price}
             fk_contact_id={pk_contact_id}
             fk_bank_id={bankId}
+            setNotif={setNotif}
           />
         </div>
+
+        <AlertSign
+          text='Tunggu sebentar ya. Sistem sedang memproses belanjaan kamu.'
+          notif={notif}
+        />
       </Container>
 
       <PopoutPengiriman modal={modalPilihAlamatState} />

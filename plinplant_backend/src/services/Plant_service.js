@@ -415,12 +415,15 @@ module.exports = {
   },
 
   contactInputTable: (data, callback) => {
-    const sql = `insert into table_contact (recipient_name, address, phone_number, fk_city_id) values(?, ?, ?, ?)`;
+    const sql = `INSERT INTO table_contact(recipient_name, phone_number, address, zipcode, fk_city_id, fk_user_id)
+    values(?, ?, ?, ?, ?, ?)`;
     const column = [
       data.recipient_name,
-      data.address,
       data.phone_number,
+      data.address,
+      data.zipcode,
       data.fk_city_id,
+      data.fk_user_id,
     ];
     pool.query(sql, column, (err, result, fields) => {
       if (err) {

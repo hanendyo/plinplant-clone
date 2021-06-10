@@ -65,6 +65,7 @@ const Cards = ({
     selectedAddressDispatch,
     userCartDispatch,
     plantIdReviewDispatch,
+    userLoginState,
   } = useContext(ContextStore);
 
   const history = useHistory();
@@ -171,7 +172,11 @@ const Cards = ({
           <p>{text}</p>
 
           <img
-            src={process.env.PUBLIC_URL + `/images/user_image/${img}`}
+            src={
+              !img
+                ? process.env.PUBLIC_URL + `/images/user_image/default.png`
+                : process.env.PUBLIC_URL + `/images/user_image/${img}`
+            }
             alt={name}
           />
 
@@ -183,7 +188,7 @@ const Cards = ({
         <CardCart>
           <img
             src={process.env.PUBLIC_URL + `/images/Plant/${img}`}
-            alt={img}
+            alt={name}
           />
 
           <div>

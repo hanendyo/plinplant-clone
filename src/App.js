@@ -19,12 +19,8 @@ import Loader from './fajariadi/components/Loader';
 import { SignIn, SignUp } from './hanendyo/AuthPages/AuthPages';
 
 const App = () => {
-  const {
-    tablePlantDispatch,
-    tableArticleDispatch,
-    invoiceDispatch,
-    invoiceState,
-  } = useContext(ContextStore);
+  const { tablePlantDispatch, tableArticleDispatch, invoiceDispatch } =
+    useContext(ContextStore);
 
   const [loading, setLoading] = useState(true);
 
@@ -48,7 +44,6 @@ const App = () => {
       setLoading(false);
     }, 1000);
   }, []);
-  console.log('APPP - INVOICEE', invoiceState);
 
   return (
     <>

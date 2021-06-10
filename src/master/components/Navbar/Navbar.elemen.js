@@ -156,13 +156,30 @@ export const LinksContainer = styled.ul`
       }
     }
 
-    & > a > .cart {
-      color: ${colors.lightGreenTransparent};
-      font-size: inherit;
-      cursor: pointer;
+    & > a {
+      position: relative;
 
-      &:hover {
-        color: ${colors.lightGreen};
+      & > .cart {
+        color: ${colors.lightGreenTransparent};
+        font-size: 18px;
+        cursor: pointer;
+        margin-top: 5px;
+
+        &:hover {
+          color: ${colors.lightGreen};
+        }
+      }
+
+      & > span {
+        font-size: 12px;
+        position: absolute;
+        top: -7px;
+        right: 10px;
+        transition: all 0.3s ease;
+        background-color: ${colors.yellow};
+        color: ${colors.green};
+        padding: 0 7px;
+        border-radius: 1000px;
       }
     }
   }

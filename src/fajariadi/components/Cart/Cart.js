@@ -40,7 +40,7 @@ const Cart = () => {
         </div>
       </Container>
 
-      <PopoutComponent modal={modalTambahAlamatState} />
+      <PopoutComponent cart modal={modalTambahAlamatState} />
     </CartSection>
   );
 };

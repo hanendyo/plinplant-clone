@@ -60,7 +60,9 @@ const ReviewModal = ({ fk_invoice_id, plantId, phase, modal }) => {
     setChecked('star5');
     setComment('');
 
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   console.log('RETING VALUEEEEE', checked);

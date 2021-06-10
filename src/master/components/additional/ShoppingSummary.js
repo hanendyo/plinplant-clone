@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import {
   cartCheckout,
   createInvoice,
+  getCarts,
+  incrementCart,
 } from '../../../context/actions/fetchingActions';
 import { openModalTambahAlamat } from '../../../context/actions/modalActions';
 import { ContextStore } from '../../../context/store/ContextStore';
@@ -22,6 +24,7 @@ const ShoppingSummary = ({
   shipping_price,
   fk_contact_id,
   fk_bank_id,
+  setNotif,
 }) => {
   const {
     modalTambahAlamatDispatch,
@@ -51,6 +54,9 @@ const ShoppingSummary = ({
 
   const handleCheckout = () => {
     console.log('CHECKOUT!!');
+
+    setNotif(true);
+
     const fk_user_id = userLoginState.pk_user_id;
 
     const time = new Date();
@@ -80,9 +86,23 @@ const ShoppingSummary = ({
       })
     );
 
-    console.log('HISTORY PUSH CHECKOUT!!');
+    console.log('PROSES CHECKOUT!!');
 
-    history.push(`/invoice/${fk_user_id}/${fk_invoice_id}`);
+    setTimeout(() => {
+      console.log('DONEEE CHECKOUT!!');
+      history.push(`/invoice/${fk_user_id}/${fk_invoice_id}`);
+      setNotif(false);
+    }, 3000);
+  };
+
+  const handleQty = () => {
+    userCartState.forEach((cart) => {
+      const pk_cart_id = cart.pk_cart_id;
+      const quantity = cart.quantity;
+      userCartDispatch(incrementCart({ quantity, pk_cart_id }));
+    });
+
+    history.push('/checkout');
   };
 
   return (
@@ -144,9 +164,13 @@ const ShoppingSummary = ({
               onClick={() => modalTambahAlamatDispatch(openModalTambahAlamat())}
             />
           ) : (
-            <Link to='/checkout'>
-              <Button primary summary text='Beli' bgColor={colors.yellow} />
-            </Link>
+            <Button
+              onClick={handleQty}
+              primary
+              summary
+              text='Beli'
+              bgColor={colors.yellow}
+            />
           )}
         </div>
       )}

@@ -30,6 +30,7 @@ import {
 } from '../reducer/modalReducers';
 import { SignInReducer } from '../reducer/SignInReducer';
 import { SignUpReducer } from '../reducer/SignUpReducer';
+import { getTotalQtyReducer } from '../reducer/totalQtyReducer';
 
 const userInfoFromLocalStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
@@ -161,6 +162,12 @@ export const ContextProvider = ({ children }) => {
   const [modalTambahAlamatState, modalTambahAlamatDispatch] = useReducer(
     modalTambahAlamatReducer,
     false
+  );
+
+  // ::: GET TOTAL QTY :::
+  const [getTotalQtyState, getTotalQtyDispatch] = useReducer(
+    getTotalQtyReducer,
+    0
   );
 
   // !::::::::::::::::::::: FETCHING ::::::::::::::::::::::::
@@ -364,6 +371,9 @@ export const ContextProvider = ({ children }) => {
         // ::: TRANSACTION :::
         transactionState,
         transactionDispatch,
+
+        getTotalQtyState,
+        getTotalQtyDispatch,
       }}
     >
       {children}

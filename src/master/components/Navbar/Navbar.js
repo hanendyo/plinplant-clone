@@ -6,19 +6,37 @@ import { colors } from '../../constant/style';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { Link, useHistory } from 'react-router-dom';
 import { userLogout } from '../../../context/actions/userLoginAction';
+import { getCarts } from '../../../context/actions/fetchingActions';
 
 const Navbar = () => {
-  const { tableArticleState, userLoginState, userLoginDispatch } =
-    useContext(ContextStore);
+  const {
+    tableArticleState,
+    userLoginState,
+    userLoginDispatch,
+    userCartDispatch,
+    userCartState,
+  } = useContext(ContextStore);
 
   const [profile, setProfile] = useState(false);
 
-  // ::: NAVBAR INTERACTION :::
   const [shadow, setShadow] = useState(false);
+
+  const [qty, setQty] = useState(0);
 
   const history = useHistory();
 
+  // setTimeout(() => {
+  //   const totalItems = userCartState
+  //     .map((item) => item.quantity)
+  //     .reduce((a, b) => a + b, 0);
+
+  //   setQty(totalItems);
+  // }, 3000);
+
   useEffect(() => {
+    if (userLoginState) userCartDispatch(getCarts(userLoginState));
+
+    // ::: NAVBAR INTERACTION :::
     const scrollNav = () => {
       const navbarHeight = 100;
       window.pageYOffset > navbarHeight ? setShadow(true) : setShadow(false);
@@ -29,8 +47,17 @@ const Navbar = () => {
     return () => {
       window.removeEventListener('scroll', scrollNav);
     };
-  }, []);
+  }, [userCartDispatch]);
   // ::: END OF NAVBAR INTERACTION :::
+
+  console.log('NAVBAR - STATE', userCartState);
+
+  console.log(
+    'NAVBAR - CART',
+    userCartState.map((cart) => cart.quantity)
+  );
+
+  // console.log('NAVBAR - CARTTT', totalItems);
 
   const slug = (title) => title?.toLowerCase().split(' ').join('-');
 
@@ -49,6 +76,7 @@ const Navbar = () => {
             {userLoginState ? (
               <Link to='/cart'>
                 <FaShoppingCart className='cart' />
+                {/* {qty > 0 && <span>{!isNaN(qty) && qty}</span>} */}
               </Link>
             ) : (
               <Link to='/login'>

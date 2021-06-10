@@ -41,14 +41,14 @@ export const userCartReducer = (state, action) => {
       return [
         ...state,
         {
-          phase_image: action.payload.phase_image,
-          plant_name: action.payload.plant_name,
-          plant_phase: action.payload.plant_phase,
-          price: action.payload.price,
-          quantity: action.payload.quantity,
-          weight: action.payload.weight,
-          fk_plant_id: action.payload.fk_plant_id,
-          fk_user_id: action.payload.fk_user_id,
+          phase_image: action.payload?.phase_image,
+          plant_name: action.payload?.plant_name,
+          plant_phase: action.payload?.plant_phase,
+          price: action.payload?.price,
+          quantity: action.payload?.quantity,
+          weight: action.payload?.weight,
+          fk_plant_id: action.payload?.fk_plant_id,
+          fk_user_id: action.payload?.fk_user_id,
         },
       ];
 
@@ -100,6 +100,19 @@ export const userAddressReducer = (state, action) => {
     case 'FETCH_USER_ADDRESS':
       return [...action.payload];
 
+    case 'CREATE_USER_ADDRESS':
+      return [
+        ...state,
+        {
+          recipient_name: action.payload.name,
+          phone_number: action.payload.phone,
+          address: action.payload.address,
+          zipcode: action.payload.postalCode,
+          fk_city_id: action.payload.fk_city_id,
+          fk_user_id: action.payload.fk_user_id,
+        },
+      ];
+
     default:
       return state;
   }
@@ -131,30 +144,28 @@ export const invoiceReducer = (state, action) => {
       return [...action.payload];
 
     case 'FETCH_INVOICE_DETAIL':
-      if (action.payload !== undefined) return [...action.payload];
+      return [...action.payload];
 
     case 'CREATE_INVOICE':
-      if (action.payload !== undefined)
-        return [
-          ...state,
-          {
-            pk_invoice_id: action.payload.pk_invoice_id,
-            no_order: action.payload.no_order,
-            created_at: action.payload.created_at,
-            status: action.payload.status,
-            fk_user_id: action.payload.fk_user_id,
-            fk_contact_id: action.payload.fk_contact_id,
-            fk_bank_id: action.payload.fk_bank_id,
-          },
-        ];
+      return [
+        ...state,
+        {
+          pk_invoice_id: action.payload.pk_invoice_id,
+          no_order: action.payload.no_order,
+          created_at: action.payload.created_at,
+          status: action.payload.status,
+          fk_user_id: action.payload.fk_user_id,
+          fk_contact_id: action.payload.fk_contact_id,
+          fk_bank_id: action.payload.fk_bank_id,
+        },
+      ];
 
     case 'INVOICE_TRANSACTION_DONE':
-      if (action.payload !== undefined)
-        return state.filter((invoice) =>
-          invoice.pk_invoice_id === action.payload.pk_invoice_id
-            ? { ...invoice, status: action.payload.transactionSucces }
-            : invoice
-        );
+      return state.filter((invoice) =>
+        invoice.pk_invoice_id === action.payload.pk_invoice_id
+          ? { ...invoice, status: action.payload.transactionSucces }
+          : invoice
+      );
 
     default:
       return state;

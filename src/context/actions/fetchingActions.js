@@ -26,7 +26,7 @@ export const getPlantById = (match) => async (dispatch) => {
 };
 
 // ::: CART ACTION :::
-export const addCart = (data, phase, notif) => async (dispatch) => {
+export const addCart = (data, phase, setNotif) => async (dispatch) => {
   const body = new FormData();
 
   if (phase === 'Biji') {
@@ -81,10 +81,10 @@ export const addCart = (data, phase, notif) => async (dispatch) => {
 
   console.log('ADDED TO CART !!!!!', res);
 
-  if (res.status === 200) notif(true);
+  if (res.status === 200) setNotif(true);
 
   setTimeout(() => {
-    notif(false);
+    setNotif(false);
   }, 2000);
 
   dispatch({ type: 'ADD_USER_CART', payload: data });
@@ -94,6 +94,7 @@ export const getCarts = (userLoginState) => async (dispatch) => {
   const res = await axios.get(
     `http://localhost:5000/input/cart/user/${userLoginState.pk_user_id}`
   );
+
   dispatch({ type: 'FETCH_USER_CART', payload: res.data.data });
 };
 
@@ -146,6 +147,31 @@ export const getAddresses = (userLoginState) => async (dispatch) => {
     `http://localhost:5000/input/address/${userLoginState.pk_user_id}`
   );
   dispatch({ type: 'FETCH_USER_ADDRESS', payload: res.data.data });
+};
+
+export const createAddress = (data) => async (dispatch) => {
+  const body = new FormData();
+
+  body.append('recipient_name', data.name);
+  body.append('phone_number', data.phone);
+  body.append('address', data.address);
+  body.append('zipcode', data.postalCode);
+  body.append('fk_city_id', data.fk_city_id);
+  body.append('fk_user_id', data.fk_user_id);
+
+  const res = await axios.post(
+    'http://localhost:5000/input/contact_input',
+    body,
+    {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    }
+  );
+
+  console.log('ADDRESS CREATED !!!!!', res);
+
+  dispatch({ type: 'CREATE_USER_ADDRESS', payload: data });
 };
 
 export const getBanks = () => async (dispatch) => {

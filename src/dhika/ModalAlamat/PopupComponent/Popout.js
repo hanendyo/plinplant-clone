@@ -8,31 +8,75 @@ import {
 } from './Popout.component';
 // import Button from "../../../master/components/additional/Button";
 import { colors } from '../../../master/constant/style';
-import { FaTimes } from 'react-icons/fa';
-import { makeStyles } from '@material-ui/core/styles';
-import { TextField } from '@material-ui/core';
+import {
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormHelperText,
+} from '@material-ui/core';
 import {
   closeModalTambahAlamat,
   openModalPilihAlamat,
 } from '../../../context/actions/modalActions';
 import { ContextStore } from '../../../context/store/ContextStore';
 import Button from '../../../master/components/additional/Button';
+import { createAddress } from '../../../context/actions/fetchingActions';
+import { useHistory } from 'react-router-dom';
 
-const PopoutComponent = ({ modal }) => {
-  const { modalTambahAlamatDispatch, modalPilihAlamatDispatch } =
-    useContext(ContextStore);
+const PopoutComponent = ({ cart, modal }) => {
+  const {
+    modalTambahAlamatDispatch,
+    modalPilihAlamatDispatch,
+    userAddressDispatch,
+    userLoginState,
+  } = useContext(ContextStore);
 
-  const [input, setInput] = useState({
-    penerima: '',
-    handphone: '',
-    kota: '',
-    kodepos: '',
-    alamat: '',
-  });
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [city, setCity] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [address, setAddress] = useState('');
 
-  const HandleSubmit = () => {
-    console.log(input);
-    alert('Alamat berhasil dimasukkan');
+  const history = useHistory();
+
+  const cityFormat = (city) => {
+    if (city.toLocaleLowerCase() === 'jakarta') return 1;
+    if (city.toLocaleLowerCase() === 'bogor') return 2;
+    if (city.toLocaleLowerCase() === 'depok') return 3;
+    if (city.toLocaleLowerCase() === 'tangerang') return 4;
+    if (city.toLocaleLowerCase() === 'bekasi') return 5;
+  };
+
+  const fk_city_id = cityFormat(city);
+  const fk_user_id = userLoginState.pk_user_id;
+
+  // const HandleSubmit = () => {
+  //   console.log(input);
+  //   alert('Alamat berhasil dimasukkan');
+  // };
+
+  const handleCreateAddress = () => {
+    userAddressDispatch(
+      createAddress({
+        name,
+        phone,
+        fk_city_id,
+        postalCode,
+        address,
+        fk_user_id,
+      })
+    );
+
+    setTimeout(() => {
+      if (cart) {
+        modalTambahAlamatDispatch(closeModalTambahAlamat());
+        history.push('/checkout');
+      }
+
+      modalTambahAlamatDispatch(closeModalTambahAlamat());
+    }, 1000);
   };
 
   return (
@@ -48,14 +92,8 @@ const PopoutComponent = ({ modal }) => {
               className='form'
               id='name'
               label='Tulis nama penerima'
-              variant='outlined'
-              value={input.penerima}
-              onChange={(e) =>
-                setInput({
-                  ...input,
-                  penerima: e.target.value,
-                })
-              }
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </InsertData>
 
@@ -66,14 +104,8 @@ const PopoutComponent = ({ modal }) => {
               className='form'
               id='number'
               label='Tulis nomor ponsel'
-              variant='outlined'
-              value={input.handphone}
-              onChange={(e) =>
-                setInput({
-                  ...input,
-                  handphone: e.target.value,
-                })
-              }
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </InsertData>
         </LineData>
@@ -86,14 +118,8 @@ const PopoutComponent = ({ modal }) => {
               className='form'
               id='city'
               label='Tulis kota/kecamatan'
-              variant='outlined'
-              value={input.kota}
-              onChange={(e) =>
-                setInput({
-                  ...input,
-                  kota: e.target.value,
-                })
-              }
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
             />
           </InsertData>
 
@@ -104,14 +130,8 @@ const PopoutComponent = ({ modal }) => {
               className='form'
               id='postalcode'
               label='5 digit kode pos'
-              variant='outlined'
-              value={input.kodepos}
-              onChange={(e) =>
-                setInput({
-                  ...input,
-                  kodepos: e.target.value,
-                })
-              }
+              value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
             />
           </InsertData>
         </LineData>
@@ -124,14 +144,8 @@ const PopoutComponent = ({ modal }) => {
               className='form'
               id='address'
               label='Tulis Detail Alamat'
-              variant='outlined'
-              value={input.alamat}
-              onChange={(e) =>
-                setInput({
-                  ...input,
-                  alamat: e.target.value,
-                })
-              }
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
             />
           </InsertData>
         </LineData>
@@ -147,7 +161,12 @@ const PopoutComponent = ({ modal }) => {
             }}
           />
 
-          <Button primary text='Tambah' bgColor={colors.green} />
+          <Button
+            onClick={handleCreateAddress}
+            primary
+            text='Tambah'
+            bgColor={colors.green}
+          />
         </ButtonContainer>
       </PopupInner>
     </Popup>

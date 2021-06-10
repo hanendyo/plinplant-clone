@@ -689,6 +689,7 @@ module.exports = {
   contact_input: (req, res) => {
     const body = req.body;
     contactInputTable(body, (err, result) => {
+      console.log('CONTACTT POSTT', body);
       if (err) {
         return res.json({
           success: 0,
