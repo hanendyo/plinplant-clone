@@ -107,8 +107,8 @@ module.exports = {
   invoiceDone: (data, callBack) => {
     console.log("PESANAN SELESAI", data);
     pool.query(
-      `update table_invoice set status=? where pk_invoice_id=?`,
-      [data.status, data.pk_invoice_id],
+      `update table_invoice set status=?, payment_image=? where pk_invoice_id=?`,
+      [data.status, data.payment_image, data.pk_invoice_id],
       (error, results, fields) => {
         if (error) return callBack(error);
 
@@ -688,7 +688,7 @@ module.exports = {
 
   plantInputTable: (data, callback) => {
     console.log(`SERVICE DATA: `, data);
-    const sql = `insert into table_plant (plant_name, plant_image, plant_origin, plant_qualities, plant_use, days_to_sprout, matures_in, growth_type, fk_category_id, fk_review_id)values(?,?,?,?,?,?,?,?,?,?)`;
+    const sql = `insert into table_plant (plant_name, plant_image, plant_origin, plant_qualities, plant_use, days_to_sprout, matures_in, growth_type, fk_category_id)values(?,?,?,?,?,?,?,?,?)`;
     const column = [
       data.plant_name,
       data.plant_image,
@@ -699,7 +699,6 @@ module.exports = {
       data.matures_in,
       data.growth_type,
       data.fk_category_id,
-      data.fk_review_id,
     ];
     pool.query(sql, column, (err, result, fields) => {
       if (err) {
@@ -747,7 +746,7 @@ module.exports = {
 
   plantUpdate: (data, callback) => {
     pool.query(
-      `update table_plant set plant_name=?, plant_image=?, plant_origin=?, plant_qualities=?, plant_use=?, days_to_sprout=?, matures_in=?, growth_type=?, fk_category_id=?, fk_review_id=? where pk_plant_id=?`,
+      `update table_plant set plant_name=?, plant_image=?, plant_origin=?, plant_qualities=?, plant_use=?, days_to_sprout=?, matures_in=?, growth_type=?, fk_category_id=? where pk_plant_id=?`,
       [
         data.plant_name,
         data.plant_image,
@@ -758,7 +757,6 @@ module.exports = {
         data.matures_in,
         data.growth_type,
         data.fk_category_id,
-        data.fk_review_id,
         data.pk_plant_id,
       ],
       (error, result, fields) => {

@@ -231,17 +231,19 @@ export const updateStatusTransaction = (data) => async (dispatch) => {
   console.log('DATAAAA', data);
   const status = data.transactionStatus;
   const pk_invoice_id = data.pk_invoice_id;
+  const payment_image = data.payment_image;
 
-  const res = await axios.put('http://localhost:5000/input/invoice', {
+  const res = await axios.put('http://localhost:5000/input/invoice_update', {
     status,
     pk_invoice_id,
+    payment_image
   });
 
   console.log('STATUS UPDATED !!!!!', res);
 
   dispatch({
     type: 'INVOICE_TRANSACTION_DONE',
-    payload: { status, pk_invoice_id },
+    payload: { status, pk_invoice_id, payment_image },
   });
 };
 

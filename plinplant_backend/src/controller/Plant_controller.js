@@ -272,9 +272,10 @@ module.exports = {
 
   invoiceTransactionDone: (req, res) => {
     const body = req.body;
-
+    console.log(`BODY INVOiCE: `, body);
+    console.log(`FILE DOT IMAGE INPUT: `, req.file);
     invoiceDone(body, (err, results) => {
-      console.log('INVOICE TRANSACTION', body);
+      // console.log('INVOICE TRANSACTION', body);
       if (err) {
         console.log(err);
         return res.status(500).json({
@@ -632,6 +633,7 @@ module.exports = {
         console.log(`ERROR!: `, err);
         return;
       }
+      console.log(`result article update: `, result);
       return res.json({
         success: 1,
         message: "article Updated successfully",
@@ -1035,8 +1037,7 @@ module.exports = {
 
   plant_input: (req, res) => {
     const body = req.body;
-    const image = req.file;
-    console.log(`BODY PLANT: `, body);
+    console.log(`BODY PLANT INPUT: `, body);
     plantInputTable(body, (err, result) => {
       if (err) {
         return res.json({

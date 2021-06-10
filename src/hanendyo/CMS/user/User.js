@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   makeStyles,
@@ -7,11 +7,11 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-} from "@material-ui/core";
-import { useContext } from "react";
-import { ContextStore } from "../../../context/store/ContextStore";
-import { cmsAction } from "../../../context/actions/CmsAction";
-import axios from "axios";
+} from '@material-ui/core';
+import { useContext } from 'react';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { cmsAction } from '../../../context/actions/CmsAction';
+import axios from 'axios';
 import {
   TableListPhone,
   ContentBox,
@@ -25,22 +25,22 @@ import {
   ImageBox,
   List,
   ListData,
-} from "../style/Form";
-import { colors } from "../../../master/constant/style";
-import { FaCamera } from "react-icons/fa";
+} from '../style/Form';
+import { colors } from '../../../master/constant/style';
+import { FaCamera } from 'react-icons/fa';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& > *": {
+    '& > *': {
       margin: theme.spacing(1),
-      width: "25ch",
-      display: "flex",
+      width: '25ch',
+      display: 'flex',
     },
     button: {
-      width: "80%",
-      margin: "5px 0",
-      backgroundColor: "rgb(187, 203, 194)",
-      color: "primary",
+      width: '80%',
+      margin: '5px 0',
+      backgroundColor: 'rgb(187, 203, 194)',
+      color: 'primary',
     },
   },
 }));
@@ -56,22 +56,22 @@ const Article = () => {
   // USE STATE
   const [dataUser, setDataUser] = useState([
     {
-      fullname: "",
-      picture: "",
-      email: "",
-      password: "",
-      birth_date: "",
-      phone_number: "",
-      fk_contact_id: "",
-      fk_gender_id: "",
+      fullname: '',
+      picture: '',
+      email: '',
+      password: '',
+      birth_date: '',
+      phone_number: '',
+      fk_contact_id: '',
+      fk_gender_id: '',
     },
   ]);
 
   // USE STATE GENDER DROPDOWN
   const [dataGender, setDataGender] = useState([
     {
-      pk_gender_id: "",
-      type: "",
+      pk_gender_id: '',
+      type: '',
     },
   ]);
 
@@ -87,21 +87,21 @@ const Article = () => {
     console.log(`dataUser: `, dataUser);
   }, []);
 
-  const url = "http://localhost:5000/input/";
-  const endPoint = "user";
+  const url = 'http://localhost:5000/input/';
+  const endPoint = 'user';
   // GENDER DROPDOWN
-  const genderDropdown = "gender";
+  const genderDropdown = 'gender';
 
   // GET
   const getAllDatasAPI = async () => {
     await axios
-      .get(url + endPoint + "_get_all_datas")
+      .get(url + endPoint + '_get_all_datas')
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
           setDataUser(res.data.data);
         } else {
-          console.log("Error");
+          console.log('Error');
         }
       })
       .catch((err) => {
@@ -112,13 +112,13 @@ const Article = () => {
   // GENDER FOR DROPDOWN
   const getGenderData = async () => {
     await axios
-      .get(url + genderDropdown + "_get_all_datas")
+      .get(url + genderDropdown + '_get_all_datas')
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
           setDataGender(res.data.data);
         } else {
-          console.log("Error");
+          console.log('Error');
         }
       })
       .catch((err) => {
@@ -130,19 +130,19 @@ const Article = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append("fullname", form.fullname);
-    data.append("password", form.password);
-    data.append("birth_date", form.birth_date);
-    data.append("email", form.email);
-    data.append("number_phone", form.number_phone);
-    data.append("fk_gender_id", form.fk_gender_id);
-    data.append("picture", form.picture);
-    data.append("picture_upload", imageUpload);
+    data.append('fullname', form.fullname);
+    data.append('password', form.password);
+    data.append('birth_date', form.birth_date);
+    data.append('email', form.email);
+    data.append('number_phone', form.number_phone);
+    data.append('fk_gender_id', form.fk_gender_id);
+    data.append('picture', form.picture);
+    data.append('picture_upload', imageUpload);
 
     axios
       .post(url + endPoint + `_input`, data, {
         headers: {
-          "content-type": "multipart/form-data",
+          'content-type': 'multipart/form-data',
         },
       })
       .then((res) => {
@@ -161,7 +161,7 @@ const Article = () => {
   // DELETE
   const deleteAPI = async (id, index) => {
     await axios
-      .delete(url + endPoint + "_delete/" + id)
+      .delete(url + endPoint + '_delete/' + id)
       .then((deleted) => {
         console.log(`DELETED: `, deleted);
         getAllDatasAPI();
@@ -173,19 +173,19 @@ const Article = () => {
   const updateAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append("fullname", form.fullname);
-    data.append("password", form.password);
-    data.append("birth_date", form.birth_date);
-    data.append("email", form.email);
-    data.append("number_phone", form.number_phone);
-    data.append("fk_gender_id", form.fk_gender_id);
-    data.append("picture", form.picture);
-    data.append("picture_upload", imageUpload);
+    data.append('fullname', form.fullname);
+    data.append('password', form.password);
+    data.append('birth_date', form.birth_date);
+    data.append('email', form.email);
+    data.append('number_phone', form.number_phone);
+    data.append('fk_gender_id', form.fk_gender_id);
+    data.append('picture', form.picture);
+    data.append('picture_upload', imageUpload);
 
     axios
       .put(url + endPoint + `_update`, data, {
         headers: {
-          "content-type": "multipart/form-data",
+          'content-type': 'multipart/form-data',
         },
       })
       .then((res) => {
@@ -199,20 +199,6 @@ const Article = () => {
         console.log(err);
         return err;
       });
-
-    // axios
-    //   .put(url + endPoint + `_update`, data)
-    //   .then((res) => {
-    //     getAllDatasAPI();
-    //     console.log(`User successfuly updated!`);
-    //     console.log(res);
-    //     return res;
-    //   })
-    //   .catch((err) => {
-    //     console.log(`ERROR!`);
-    //     console.log(err);
-    //     return err;
-    //   });
   };
 
   // HANDLE SUBMIT
@@ -253,7 +239,7 @@ const Article = () => {
   const handleUpdate = (data, index) => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
     setIsUpdate(true);
     setIndexUpdate(index);
@@ -277,14 +263,14 @@ const Article = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    userDispatch(cmsAction(`fullname`, ""));
-    userDispatch(cmsAction(`password`, ""));
-    userDispatch(cmsAction(`birth_date`, ""));
-    userDispatch(cmsAction(`email`, ""));
-    userDispatch(cmsAction(`phone_number`, ""));
-    userDispatch(cmsAction(`picture`, ""));
-    userDispatch(cmsAction(`fk_contact_id`, ""));
-    userDispatch(cmsAction(`fk_gender_id`, ""));
+    userDispatch(cmsAction(`fullname`, ''));
+    userDispatch(cmsAction(`password`, ''));
+    userDispatch(cmsAction(`birth_date`, ''));
+    userDispatch(cmsAction(`email`, ''));
+    userDispatch(cmsAction(`phone_number`, ''));
+    userDispatch(cmsAction(`picture`, ''));
+    userDispatch(cmsAction(`fk_contact_id`, ''));
+    userDispatch(cmsAction(`fk_gender_id`, ''));
   };
 
   // FORM CHANGE
@@ -296,7 +282,7 @@ const Article = () => {
     const img = e.target.files[0];
     const imgName = e.target.files[0].name;
     console.log(`IMEJ: `, img);
-    userDispatch(cmsAction("picture", imgName));
+    userDispatch(cmsAction('picture', imgName));
     setReviewImage(URL.createObjectURL(img));
     setImageUpload(img);
   };
@@ -306,62 +292,62 @@ const Article = () => {
       <h4>USER DATA</h4>
       <BoxForm>
         <form
-          encType="multipart/form-data"
+          encType='multipart/form-data'
           className={classes.root}
           onSubmit={(e) => handleSubmit(e)}
           noValidate
-          autoComplete="off"
+          autoComplete='off'
         >
           <TextField
             value={userState.fullname}
-            name="fullname"
+            name='fullname'
             onChange={(e) => formChange(`fullname`, e.target.value)}
-            id="outlined-basic"
-            label="fullname"
-            variant="outlined"
+            id='outlined-basic'
+            label='fullname'
+            variant='outlined'
           />
           <TextField
             value={userState.email}
-            name="email"
+            name='email'
             onChange={(e) => formChange(`email`, e.target.value)}
-            id="outlined-basic"
-            label="email"
-            variant="outlined"
+            id='outlined-basic'
+            label='email'
+            variant='outlined'
           />
           <TextField
             value={userState.password}
-            onChange={(e) => formChange("password", e.target.value)}
-            name="password"
-            id="outlined-basic"
-            label="password"
-            variant="outlined"
+            onChange={(e) => formChange('password', e.target.value)}
+            name='password'
+            id='outlined-basic'
+            label='password'
+            variant='outlined'
           />
           <TextField
             value={userState.birth_date}
-            onChange={(e) => formChange("birth_date", e.target.value)}
-            name="birth_date"
-            id="outlined-static"
-            label="Birth Date"
-            variant="outlined"
-            type="date"
+            onChange={(e) => formChange('birth_date', e.target.value)}
+            name='birth_date'
+            id='outlined-static'
+            label='Birth Date'
+            variant='outlined'
+            type='date'
           />
           <TextField
             value={userState.phone_number}
-            onChange={(e) => formChange("phone_number", e.target.value)}
-            name="phone_number"
-            id="outlined-basic"
-            label="Phone number"
-            variant="outlined"
+            onChange={(e) => formChange('phone_number', e.target.value)}
+            name='phone_number'
+            id='outlined-basic'
+            label='Phone number'
+            variant='outlined'
           />
           <FormControl className={classes.formControl}>
-            <InputLabel id="gender"> Gender ID</InputLabel>
+            <InputLabel id='gender'> Gender ID</InputLabel>
             <Select
               value={userState.fk_gender_id}
-              onChange={(e) => formChange("fk_gender_id", e.target.value)}
-              name="fk_gender_id"
-              labelId="fk_gender_id"
-              id="outlined-basic"
-              variant="outlined"
+              onChange={(e) => formChange('fk_gender_id', e.target.value)}
+              name='fk_gender_id'
+              labelId='fk_gender_id'
+              id='outlined-basic'
+              variant='outlined'
             >
               {dataGender.map((data, index) => (
                 <MenuItem value={data.pk_gender_id} key={index}>
@@ -373,24 +359,24 @@ const Article = () => {
           <ImageBox>
             <SpanImage>
               <h6>Upload Image</h6>
-              <img src={reviewImage} alt="" />
+              <img src={reviewImage} alt='' />
             </SpanImage>
 
             <input
-              accept="image/*"
-              name="picture_upload"
+              accept='image/*'
+              name='picture_upload'
               className={classes.input}
-              id="contained-button-file"
+              id='contained-button-file'
               multiple
-              type="file"
+              type='file'
               onChange={(e) => formImage(e)}
-              style={{ display: "none" }}
+              style={{ display: 'none' }}
             />
-            <label htmlFor="contained-button-file">
+            <label htmlFor='contained-button-file'>
               <Button
-                variant="contained"
-                color="primary"
-                component="span"
+                variant='contained'
+                color='primary'
+                component='span'
                 startIcon={<FaCamera />}
                 style={{ backgroundColor: `${colors.green}` }}
               >
@@ -402,21 +388,21 @@ const Article = () => {
           <ButtonContainer>
             <Button
               className={classes.button}
-              variant="contained"
-              color="primary"
-              type="submit"
+              variant='contained'
+              color='primary'
+              type='submit'
               style={{ backgroundColor: `${colors.green}` }}
             >
-              {isUpdate ? "Update" : "Submit"}
+              {isUpdate ? 'Update' : 'Submit'}
             </Button>
             {isUpdate && (
               <Button
                 className={classes.button}
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 onClick={() => handleCancel()}
                 style={{
-                  marginTop: "20px",
+                  marginTop: '20px',
                   backgroundColor: `${colors.green}`,
                 }}
               >
@@ -454,11 +440,11 @@ const Article = () => {
                 <Button
                   onClick={() => handleUpdate(data, index)}
                   className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="update"
+                  variant='contained'
+                  color='primary'
+                  type='update'
                   style={{
-                    marginBottom: "10px",
+                    marginBottom: '10px',
                     backgroundColor: `${colors.green}`,
                   }}
                 >
@@ -467,9 +453,9 @@ const Article = () => {
                 <Button
                   onClick={() => handleDelete(data.pk_user_id, index)}
                   className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="delete"
+                  variant='contained'
+                  color='primary'
+                  type='delete'
                   style={{ backgroundColor: `${colors.green}` }}
                 >
                   delete

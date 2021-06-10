@@ -34,7 +34,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
 
     // ::: FETCH USER INFO - THUNK :::
     // userInfoDispatch(getUser());
@@ -49,16 +49,16 @@ const App = () => {
     invoiceDispatch(getInvoices());
 
     // ::: LOADING TIME :::
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    // setTimeout(() => {
+    //   setLoading(false);
+    // }, 1000);
   }, []);
 
   return (
     <>
-      {loading ? (
+      {/* {loading ? (
         <Loader loading={loading} />
-      ) : (
+      ) : ( */}
         <Router>
           <Switch>
             <Route exact path='/' component={LandingPage} />
@@ -82,7 +82,7 @@ const App = () => {
             <Route exact path='/login' component={SignIn} />
           </Switch>
         </Router>
-      )}
+      {/* )} */}
     </>
   );
 };

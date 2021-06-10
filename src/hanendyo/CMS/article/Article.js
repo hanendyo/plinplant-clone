@@ -134,11 +134,32 @@ const Article = () => {
   };
 
   // UPDATE
-  const updateAPI = async (data) => {
+  const updateImageAPI = async (form) => {
+    const data = new FormData();
+    data.set('article_image_upload', imageUpload); //--> objectnya/file + upload
     axios
       .put(url + endPoint + `_update`, data)
       .then((res) => {
         getAllDatasAPI();
+        // setReviewImage('')
+        console.log(`DATA UPDATE: `,);
+        console.log(`Article successfuly updated!`);
+        console.log(res);
+        return res;
+      })
+      .catch((err) => {
+        console.log(`ERROR!`);
+        console.log(err);
+        return err;
+      });
+  };
+  const updateAPI = async (form) => {
+    axios
+      .put(url + endPoint + `_update`, form)
+      .then((res) => {
+        getAllDatasAPI();
+        // setReviewImage('')
+        console.log(`DATA UPDATE: `,);
         console.log(`Article successfuly updated!`);
         console.log(res);
         return res;
@@ -154,6 +175,7 @@ const Article = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isUpdate) {
+      updateImageAPI(articleState);
       updateAPI(articleState);
       setIsUpdate(false);
     } else {
@@ -192,6 +214,7 @@ const Article = () => {
     });
     setIsUpdate(true);
     setIndexUpdate(index);
+    articleDispatch(cmsAction(`pk_article_id`, data.pk_article_id));
     articleDispatch(cmsAction(`article_image`, data.article_image));
     articleDispatch(cmsAction(`title`, data.title));
     articleDispatch(cmsAction(`author`, data.author));
@@ -200,7 +223,6 @@ const Article = () => {
     articleDispatch(cmsAction(`source`, data.source));
     articleDispatch(cmsAction(`url`, data.url));
     articleDispatch(cmsAction(`content`, data.content));
-    articleDispatch(cmsAction(`pk_article_id`, data.pk_article_id));
     console.log(`update from articleState: `, articleState);
   };
 
@@ -313,13 +335,6 @@ const Article = () => {
           />
 
           {/* ----- IMAGE ----- */}
-          {/* <span>Pick image:</span>
-        <input
-          name="article_image_upload"
-          type="file"
-          onChange={(e) => formImage(e)}
-        />
-        <img src={reviewImage} alt="" /> */}
           <ImageBox>
             <SpanImage>
               <h6>Upload Image</h6>
@@ -327,7 +342,7 @@ const Article = () => {
             </SpanImage>
 
             <input
-              accept='image/*'
+              // accept='image/*'
               name='article_image_upload'
               className={classes.input}
               id='contained-button-file'
@@ -440,54 +455,6 @@ const Article = () => {
           </ListData>
         ))}
       </BoxTable>
-      {/* <BoxTablePhone>
-        
-      {dataArticle.map((data, index) => (
-        <TableListPhone>
-          <List key={index}>
-            <li>Article ID</li>
-            <li>Author</li>
-            <li>Created at</li>
-            <li>Article Image</li>
-            <li>Title</li>
-            <li>Content</li>
-          </List>
-
-          <List key={index} style={{width:"1000px"}}>
-            <li><span>{data.pk_article_id}</span></li>
-            <li><span>{data.author}</span></li>
-            <li><span>{data.created_at}</span></li>
-            <li><span>{data.article_image}</span></li>
-            <li><span>{data.title}</span></li>
-            <li><ContentBox>{data.content}</ContentBox></li>
-          </List>
-          <ButtonList>
-                <Button 
-                  onClick={() => handleUpdate(data, index)}
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="update"
-                  style={{marginBottom:"10px", backgroundColor:`${colors.green}`}}
-                  >
-                  Update
-                </Button>
-                <Button 
-                  onClick={() => handleDelete(data.pk_article_id, index)}
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="delete"
-                  style={{backgroundColor:`${colors.green}`}}
-                  >
-                  delete
-                </Button>
-            </ButtonList>
-        </TableListPhone>
-          
-        ))}
-        
-      </BoxTablePhone> */}
     </Container>
   );
 };

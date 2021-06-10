@@ -19,7 +19,6 @@ export default {
     matures_in: '',
     growth_type: '',
     fk_category_id: '',
-    fk_review_id: '',
   },
   plant_breeding: {
     seed: '',
