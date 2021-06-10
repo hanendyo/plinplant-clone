@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import avatar from '../../../fajariadi/assets/images/avatar.png';
 import styled from 'styled-components';
 import Button from './Button';
@@ -6,16 +6,21 @@ import { colors } from '../../constant/style';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { closeModalUpload } from '../../../context/actions';
 import { updateStatusTransaction } from '../../../context/actions/fetchingActions';
+import axios from 'axios';
 
 const UploadBox = ({ pk_invoice_id, invoice, modal, profile }) => {
-  const { modalUploadDispatch, invoiceDispatch } = useContext(ContextStore);
+  const { modalUploadDispatch, invoiceDispatch, invoiceState} = useContext(ContextStore);
 
   const inputFile = useRef(null);
+  const [reviewImage, setReviewImage] = useState(null);
+  const [imageUpload, setImageUpload] = useState(null);
+  const [payment_image, setPayment_image] = useState('');
 
   const transactionStatus = 'verif';
 
-  const onButtonClick = () => {
+  const onButtonClick = (e) => {
     // `current` points to the mounted file input element
+    e.preventDefault()
     inputFile.current.click();
   };
 
@@ -23,19 +28,66 @@ const UploadBox = ({ pk_invoice_id, invoice, modal, profile }) => {
     invoiceDispatch(updateStatusTransaction(data));
 
     modalUploadDispatch(closeModalUpload());
-    window.location.reload();
+  
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
+  // API
+  const url = 'http://localhost:5000/input/';
+  const endPoint = 'invoice';
+  
+    const updateImageAPI = async (form) => {
+      const data = new FormData();
+      data.set('payment_image_upload', imageUpload); //--> objectnya/file + upload
+      axios
+        .put(url + endPoint + `_update`, data)
+        .then((res) => {
+          // getAllDatasAPI();
+          console.log(`Proof of payment successfuly updated!`);
+          console.log(res);
+          return res;
+        })
+        .catch((err) => {
+          console.log(`ERROR!`);
+          console.log(err);
+          return err;
+        });
+    };
+
+  const handleSubmit =({ pk_invoice_id, transactionStatus, payment_image}, e)=>{
+    e.preventDefault()
+    handleUpdateStatus({ pk_invoice_id, transactionStatus,payment_image })
+    updateImageAPI()
+  }
+
+  const formImage = (e) => {
+    const img = e.target.files[0];
+    const payment_image = e.target.files[0].name;
+    console.log(`IMEJ: `, img);
+    setPayment_image(payment_image);
+    setReviewImage(URL.createObjectURL(img));
+    setImageUpload(img);
+  };
+
 
   return (
     <>
+     <form
+          encType='multipart/form-data'
+          noValidate
+          autoComplete='off'
+        >
       {profile && (
         <ModalBox profile={profile}>
-          <img src={avatar} alt='' />
+          <img src={reviewImage} alt='' />
 
           <input
+            name='payment_image_upload'
             type='file'
             id='file'
             ref={inputFile}
+            onChange={(e) => formImage(e)}
             style={{ display: 'none' }}
           />
 
@@ -54,12 +106,13 @@ const UploadBox = ({ pk_invoice_id, invoice, modal, profile }) => {
       {invoice && (
         <ModalOverlay modal={modal}>
           <ModalBox>
-            <img src={avatar} alt='' />
+            <img src={reviewImage} alt='' />
 
             <input
               type='file'
               id='file'
               ref={inputFile}
+              onChange={(e) => formImage(e)}
               style={{ display: 'none' }}
             />
 
@@ -87,14 +140,15 @@ const UploadBox = ({ pk_invoice_id, invoice, modal, profile }) => {
                 primary
                 text='Kirim'
                 bgColor={colors.green}
-                onClick={() =>
-                  handleUpdateStatus({ pk_invoice_id, transactionStatus })
+                onClick={(e) =>
+                  handleSubmit({ pk_invoice_id, transactionStatus, payment_image }, e)
                 }
               />
             </div>
           </ModalBox>
         </ModalOverlay>
       )}
+      </form>
     </>
   );
 };

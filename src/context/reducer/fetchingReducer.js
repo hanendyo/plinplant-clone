@@ -150,7 +150,7 @@ export const invoiceReducer = (state, action) => {
     case 'INVOICE_TRANSACTION_DONE':
       return state.filter((invoice) =>
         invoice.pk_invoice_id === action.payload.pk_invoice_id
-          ? { ...invoice, status: action.payload.transactionSucces }
+          ? { ...invoice, status: action.payload.transactionSucces, payment_image: action.payload.payment_image }
           : invoice
       );
 

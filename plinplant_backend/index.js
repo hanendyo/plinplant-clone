@@ -36,10 +36,14 @@ const fileStorage = multer.diskStorage({
     if (fieldName === 'picture_upload') {
       cb(null, '../public/images/user_image');
     }
+
+    if (fieldName === 'payment_image_upload') {
+      cb(null, '../public/images/payment_image');
+    }
     console.log(`FILE DES: `, file);
   },
   filename: (req, file, cb) => {
-    const pathname = req.path;
+    // const pathname = req.path;
     cb(null, file.originalname);
   },
 });
@@ -66,8 +70,6 @@ dotenv.config();
 
 const authRoutes = require('./src/router/Auth_router');
 const plantRoutes = require('./src/router/Plant_router');
-// const AuthValidation = require('./src/middleware/AuthValidation');
-
 // middleware
 app.use(
   cors({

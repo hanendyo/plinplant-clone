@@ -58,6 +58,7 @@ const Article = () => {
     {
       plant_name: "",
       plant_image: "",
+      plant_image_upload: "",
       plant_origin: "",
       plant_qualities: "",
       plant_use: "",
@@ -65,7 +66,6 @@ const Article = () => {
       matures_in: "",
       growth_type: "",
       fk_category_id: "",
-      fk_review_id: "",
     },
   ]);
   // USE STATE FOR DROPDOWN CATEGORY
@@ -116,7 +116,7 @@ const Article = () => {
       .get(url + categoryDropdown + "_get_all_datas")
       .then((res) => {
         if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
+          console.log(`GET RES DATA DATA PLANT: `, res.data.data);
           setDataCategory(res.data.data);
         } else {
           console.log("Error");
@@ -140,7 +140,6 @@ const Article = () => {
     data.append("matures_in", form.matures_in);
     data.append("growth_type", form.growth_type);
     data.append("fk_category_id", form.fk_category_id);
-    data.append("fk_review_id", form.fk_review_id);
     data.append("plant_image_upload", imageUpload);
 
     axios
@@ -151,8 +150,8 @@ const Article = () => {
       })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Article successfuly created!`);
-        console.log(res);
+        console.log(`Plant successfuly created!`);
+        console.log(`RES SUMBIT PLANT INPUT: `,res);
         return res;
       })
       .catch((err) => {
@@ -179,7 +178,7 @@ const Article = () => {
       .put(url + endPoint + `_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Article successfuly updated!`);
+        console.log(`Plant successfuly updated!`);
         console.log(res);
         return res;
       })
@@ -212,13 +211,12 @@ const Article = () => {
         matures_in: plantState.matures_in,
         growth_type: plantState.growth_type,
         fk_category_id: plantState.fk_category_id,
-        fk_review_id: plantState.fk_review_id,
       },
     ]);
 
     clearFormData();
 
-    console.log(`ARTICLE STATE SUBMIT: `, plantState);
+    console.log(`PLANT STATE SUBMIT: `, plantState);
   };
 
   // HANDLE DELETE
@@ -244,7 +242,6 @@ const Article = () => {
     plantDispatch(cmsAction(`matures_in`, data.matures_in));
     plantDispatch(cmsAction(`growth_type`, data.growth_type));
     plantDispatch(cmsAction(`fk_category_id`, data.fk_category_id));
-    plantDispatch(cmsAction(`fk_review_id`, data.fk_review_id));
     console.log(`update from plantState: `, plantState);
   };
 
@@ -265,7 +262,6 @@ const Article = () => {
     plantDispatch(cmsAction(`matures_in`, ""));
     plantDispatch(cmsAction(`growth_type`, ""));
     plantDispatch(cmsAction(`fk_category_id`, ""));
-    plantDispatch(cmsAction(`fk_review_id`, ""));
   };
 
   // FORM CHANGE
@@ -353,7 +349,7 @@ const Article = () => {
             variant="outlined"
           />
           <FormControl className={classes.formControl}>
-            <InputLabel id="Category_ID"> Category</InputLabel>
+            <InputLabel id="Category_ID"> Category </InputLabel>
             <Select
               value={plantState.fk_category_id}
               onChange={(e) => formChange("fk_category_id", e.target.value)}
@@ -369,31 +365,8 @@ const Article = () => {
               ))}
             </Select>
           </FormControl>
-          {/* <TextField
-            value={plantState.fk_category_id}
-            onChange={(e) => formChange("fk_category_id", e.target.value)}
-            name="fk_category_id"
-            id="outlined-static"
-            label="Category_ID"
-            variant="outlined"
-          /> */}
 
-          <TextField
-            value={plantState.fk_review_id}
-            onChange={(e) => formChange("fk_review_id", e.target.value)}
-            name="fk_review_id"
-            id="outlined-static"
-            label="Review_ID"
-            variant="outlined"
-          />
           {/* ----- IMAGE ----- */}
-          {/* <span>Pick image:</span>
-        <input
-          name="plant_image_upload"
-          type="file"
-          onChange={(e) => formImage(e)}
-        />
-        <img src={reviewImage} alt="" /> */}
           <ImageBox>
             <SpanImage>
               <h6>Upload Image</h6>
@@ -401,7 +374,7 @@ const Article = () => {
             </SpanImage>
 
             <input
-              accept="image/*"
+              // accept="image/*"
               name="article_image_upload"
               className={classes.input}
               id="contained-button-file"
@@ -459,13 +432,13 @@ const Article = () => {
           <li>MATURES IN</li>
           <li>GROWTH TYPE</li>
           <li>CATEGORY ID</li>
-          <li>REVIEW ID</li>
           <li>ACTION ID</li>
         </List>
         {dataPlant.map((data, index) => (
+          // console.log(`DATA PLANT: `, data),
           <ListData key={index}>
             <li>{data.pk_plant_id}</li>
-            <li>{data.name}</li>
+            <li>{data.plant_name}</li>
             <li>{data.plant_image}</li>
             <li>{data.plant_origin}</li>
             <li>{data.plant_qualities}</li>
@@ -473,8 +446,7 @@ const Article = () => {
             <li>{data.days_to_sprout}</li>
             <li>{data.matures_in}</li>
             <li>{data.growth_type}</li>
-            <li>{data.fk_category_id}</li>
-            <li>{data.fk_review_id}</li>
+            <li>{data.pk_category_id}</li>
             <ButtonList>
               <Button
                 onClick={() => handleUpdate(data, index)}

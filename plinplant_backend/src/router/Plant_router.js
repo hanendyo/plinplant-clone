@@ -169,7 +169,7 @@ router.get('/address/:id', addressGetByUser);
 router.post('/invoice', upload.none(), invoiceCreated);
 router.get('/invoice/:id/:order', invoiceGetById);
 router.get('/invoice', invoiceGetAll);
-router.put('/invoice', invoiceTransactionDone);
+router.put('/invoice_update', upload.single('payment_image_upload'), invoiceTransactionDone);
 // TRANSACTION
 router.get('/transaction/:id', transactionGetByUser);
 

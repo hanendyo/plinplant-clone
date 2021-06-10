@@ -2,6 +2,8 @@ CREATE DATABASE db_plinplant;
 
 USE db_plinplant;
 
+-- drop database db_plinplant;
+
 -- ::::::: PLANT DATA :::::::
 
 -- ::: PLANT :::
@@ -16,9 +18,9 @@ CREATE TABLE table_plant(
 	matures_in VARCHAR(50),
 	growth_type VARCHAR(50),
 	fk_category_id INT NOT NULL
-	
 );
 SELECT * FROM table_plant;
+truncate table table_plant;
 
 -- ::: PLANT VALUES :::
 INSERT INTO table_plant(plant_name, plant_image, plant_origin, plant_qualities, plant_use, days_to_sprout, matures_in, growth_type, fk_category_id)
@@ -96,6 +98,8 @@ VALUES
 ('Mint', 'mint_mature.jpg', 'Mint telah dirujuk secara luas dalam teks dan cerita lama, yang menyiratkan sejarah panjangnya sebagai tanaman budidaya. Itu direferensikan dalam Alkitab dengan saran-saran itu dianggap sangat berharga. Ada juga cerita dari mitologi kuno yang berbicara tentang mint. Awalnya, mint digunakan untuk aromanya yang menyenangkan dan dioleskan ke berbagai bagian tubuh dan digunakan untuk menyegarkan napas dan memutihkan gigi.', 'Mint memiliki khasiat antimikroba sehingga bagus untuk digunakan dalam produk kesehatan mulut karena berkontribusi pada napas segar, mengunyah daun mint saja sudah sangat menyegarkan. Mint dikenal untuk meningkatkan kewaspadaan dan kesadaran.', 'Mint banyak digunakan dalam minuman, baik itu teh atau mojitos, mint membawa rasa segar. Jangan ragu untuk menambahkannya ke salad juga untuk menyempurnakannya dan menghadirkan rasa pedas dan cerah.', '10 - 21', '60 - 75', 'Merambat', 4),
 
 ('Oregano', 'oregano_mature.jpg', 'Oregano ditemukan dalam masakan Meksiko dan Mediterania. Meski serupa, varietas ini berasal dari keluarga yang berbeda.', 'Selain memasak, oregano digunakan dalam banyak aplikasi medis. Minyak ini dapat digunakan sebagai antiseptik topikal untuk meredakan sakit tenggorokan dan membantu menangkal masuk angin. Ramuan itu sendiri memiliki banyak manfaat bagi kesehatan. Ini kaya akan antioksidan. dan memiliki sifat anti-inflamasi', 'Oregano menambah rasa pada saus, pizza dan sangat bagus untuk bumbu daging. Tambahkan di akhir memasak untuk memaksimalkan rasa.', '7 - 21', '80 - 90', 'Merambat', 4)
+;
+
 
 -- ::: CATEGORY :::
 CREATE TABLE table_category(
@@ -123,8 +127,7 @@ CREATE TABLE table_plant_breeding(
 	tuber_image VARCHAR(255),
 	young_image VARCHAR(255),
 	mature_image VARCHAR(255),
-	fk_plant_id INT NOT NULL,
-
+	fk_plant_id INT NOT NULL
 );
 SELECT * FROM table_plant_breeding;
 
@@ -200,7 +203,7 @@ VALUES
 ('Tabur langsung di awal musim semi segera setelah tanah bisa dikerjakan. Karena benih kecil ini membutuhkan cahaya untuk berkecambah, tanamlah di dekat permukaan tanah. Jaga tanah tetap lembab sampai berkecambah.', 'Jaga agar bibit yang sedang berkembang tetap lembab, dan tipiskan atau beri jarak jika perlu. Tanaman dewasa bisa menjadi invasif; untuk mencegah penyebaran, baik tumbuh sebagai tanaman kontainer atau singkirkan tanaman muda yang berkembang.', 'Jagalah agar tanaman disiram dengan baik selama musim tanam, terutama selama musim kering. Tanaman membutuhkan sekitar 1 inci hujan per minggu selama musim tanam. Gunakan alat pengukur hujan untuk memeriksa apakah Anda perlu menambahkan air. Cara terbaik adalah menyiram dengan sistem tetesan atau tetesan yang mengalirkan air pada tekanan rendah di permukaan tanah. Jika Anda menyiram dengan alat penyiram di atas kepala, sirami di pagi hari agar dedaunan memiliki waktu untuk mengering sebelum malam, untuk meminimalkan masalah penyakit. Jaga tanah tetap lembab tetapi tidak jenuh.', 'Untuk daun mint segar, pilih daun di pagi hari sebelum embun mengering. Kualitas daun paling baik sebelum tanaman berbunga; untuk memperpanjang masa panen, cabut tunas saat mulai berkembang.', 'mint_seed.jpg', 'mint_tuber.jpg', 'mint_young.jpg', 'mint_mature.jpg', 34),
 
 ('Tabur langsung di tanah rata-rata di bawah sinar matahari penuh setelah semua bahaya embun beku ketika suhu tetap di atas 45 derajat F. Singkirkan gulma dan kerjakan bahan organik di atas 6-8 inci tanah; lalu ratakan dan halus. Taburkan benih secara merata dan tutupi dengan tanah halus. Kencangkan tanah dengan ringan dan jaga agar tetap lembab. Bibit akan tumbuh dalam 10-21 hari. Pisahkan tipis hingga 12 inci saat bibit memiliki tiga set daun.', 'Oregano sebenarnya memiliki rasa paling beraroma jika dibiarkan, dengan sedikit penyiraman dan tanpa pemupukan.', 'Jagalah agar tanaman disiram dengan baik selama musim tanam, terutama selama musim kering. Tanaman membutuhkan sekitar 1 inci hujan per minggu selama musim tanam. Gunakan alat pengukur hujan untuk memeriksa apakah Anda perlu menambahkan air. Cara terbaik adalah menyiram dengan sistem tetesan atau tetesan yang mengalirkan air pada tekanan rendah di permukaan tanah. Jika Anda menyiram dengan alat penyiram di atas kepala, sirami di pagi hari agar dedaunan memiliki waktu untuk mengering sebelum malam, untuk meminimalkan masalah penyakit. Jaga tanah tetap lembab tetapi tidak jenuh.', 'Daun segar dapat dipanen segera setelah tanaman mencapai ketinggian 6 ". Waktu terbaik untuk memanen daun adalah pagi hari setelah embun mengering. Panen seluruh batang dengan memotongnya setidaknya 1" di atas tanah untuk memungkinkan tumbuh baru pertumbuhan. Daun segar akan disimpan di lemari es selama sekitar lima hari, tetapi juga bisa dibekukan atau dikeringkan. Karena panas cenderung merusak rasa oregano, oregano harus ditambahkan ke makanan panas segera sebelum disajikan. Tidak seperti kebanyakan herba, daun oregano kering cenderung memiliki rasa yang lebih kuat daripada yang segar.', 'oregano_seed.jpg', 'oregano_tuber.jpg', 'oregano_young.jpg', 'oregano_mature.jpg', 35)
-
+;
 -- ::: WEIGHT :::
 CREATE TABLE table_weight(
 	pk_weight_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -252,6 +255,7 @@ VALUES
 (100, 500, 1500, 2000, 33, 33),
 (100, 500, 1500, 2000, 34, 34),
 (100, 500, 1500, 2000, 35, 35)
+;
 
 -- ::: PRICELIST :::
 CREATE TABLE table_price_list(
@@ -303,6 +307,7 @@ VALUES
 (20000, 50000, 150000, 300000, 33),
 (20000, 50000, 150000, 300000, 34),
 (20000, 50000, 150000, 300000, 35)
+;
 
 -- ::: STOCK :::
 CREATE TABLE table_stock (
@@ -312,7 +317,7 @@ CREATE TABLE table_stock (
 	teen_stock INT,
 	mature_stock INT
 );
-SELECT * FROM table_stock
+SELECT * FROM table_stock;
 
 -- ::: STOCK VALUES :::
 INSERT INTO table_stock(seed_stock, tuber_stock, teen_stock, mature_stock)
@@ -352,6 +357,7 @@ VALUES
 (1000, 1000, 1000, 1000),
 (1000, 1000, 1000, 1000),
 (1000, 1000, 1000, 1000)
+;
 
 -- ::: CREATE VIEW -> PLANT DATA :::
 CREATE VIEW plant_data
@@ -373,10 +379,11 @@ JOIN table_plant_breeding ON fk_plant_id = pk_plant_id
 JOIN table_weight ON fk_plant_breeding_id = pk_plant_breeding_id
 JOIN table_price_list ON fk_price_list_id = pk_price_list_id
 JOIN table_stock ON fk_stock_id = pk_stock_id
+;
 
-SELECT * FROM plant_data
+SELECT * FROM plant_data;
 
-DROP VIEW plant_data
+DROP VIEW plant_data;
 
 -- ::::::: END OF PLANT DATA :::::::
 
@@ -393,8 +400,8 @@ CREATE TABLE table_user(
 	fk_gender_id INT
 );
 SELECT * FROM table_user;
-DROP TABLE table_user
-TRUNCATE TABLE table_user
+DROP TABLE table_user;
+TRUNCATE TABLE table_user;
 
 
 -- ::: USER INITIAL VALUE :::
@@ -403,6 +410,7 @@ VALUES
 ('Fajar Riadi', 'ig.jpg', 'fajariadi.id@gmail.com', 'passwordPlinplant', '085156493801', '4 April 1997', 1),
 ('Dhika Adhiwijna', 'twt.jpg', 'adhika.id@gmail.com', 'passwordTwt', '085156493802', '22 Mei 1997', 1),
 ('Hanendyo Indira', 'default.png', 'hanendyo.id@gmail.com', 'passwordDyo', '085156493803', '27 Juni 1997', 1)
+;
 
 -- ::: GENDER :::
 CREATE TABLE table_gender(
@@ -410,21 +418,21 @@ CREATE TABLE table_gender(
 	TYPE VARCHAR(50)
 );
 SELECT * FROM table_gender;
-DROP TABLE table_gender
+DROP TABLE table_gender;
 
 -- ::: GENDER VALUES :::
 INSERT INTO table_gender(TYPE)
-VALUES('Pria'),('Wanita')
+VALUES('Pria'),('Wanita');
 
 -- ::: CREATE VIEW USER :::
 CREATE VIEW user_info
 AS
 SELECT pk_user_id, fullname, picture, email, `password`, phone_number, birth_date, TYPE
 FROM table_user
-LEFT JOIN table_gender ON fk_gender_id = pk_gender_id
+LEFT JOIN table_gender ON fk_gender_id = pk_gender_id;
 
-SELECT * FROM user_info
-DROP VIEW user_info
+SELECT * FROM user_info;
+DROP VIEW user_info;
 
 -- ::: CITY :::
 CREATE TABLE table_city(
@@ -433,7 +441,7 @@ CREATE TABLE table_city(
 	city_code VARCHAR(50)
 );
 SELECT * FROM table_city;
-DROP TABLE table_city
+DROP TABLE table_city;
 
 -- ::: CITY VALUES :::
 INSERT INTO table_city(city_name, city_code)
@@ -442,7 +450,7 @@ VALUES
 ('Bogor', 'BGR'),
 ('Depok', 'DPK'),
 ('Tangerang', 'TNG'),
-('Bekasi', 'BKS')
+('Bekasi', 'BKS');
 
 -- ::: SHIPPING CHARGE :::
 CREATE TABLE table_shipping_charges(
@@ -450,7 +458,7 @@ CREATE TABLE table_shipping_charges(
 	shipping_price INT,
 	fk_city_id INT
 );
-SELECT * FROM table_shipping_charges
+SELECT * FROM table_shipping_charges;
 	
 -- ::: SHIPPING CHARGE VALUES :::
 INSERT INTO table_shipping_charges(shipping_price, fk_city_id)
@@ -459,7 +467,7 @@ VALUES
 (10000, 2),
 (12000, 3),
 (16000, 4),
-(18000, 5)
+(18000, 5);
 
 -- ::: CONTACT :::
 CREATE TABLE table_contact(
@@ -472,7 +480,7 @@ CREATE TABLE table_contact(
 	fk_user_id INT NOT NULL
 );
 SELECT * FROM table_contact;
-TRUNCATE TABLE table_contact
+TRUNCATE TABLE table_contact;
 
 -- ::: CONTACT INITIAL VALUES :::
 INSERT INTO table_contact(recipient_name, phone_number, address, zipcode, fk_city_id, fk_user_id)
@@ -482,7 +490,7 @@ VALUES
 ('Hanendyo', '085156493803', 'Puncak Gunung Warpat', 15212, 2, 1),
 ('Dyo Haw', '085156493844', 'Karawang - Dekat Stasiun Karawang Lama', 15312, 5, 2),
 ('Yudi Irwanto', '085156493877', 'Alam Sutra, Nawadata Tower Lt. 17', 15442, 4, 2),
-('Vincent', '085156493860', 'Cinere - Patokan Lampu Merah Bermusik', 15552, 4, 2)
+('Vincent', '085156493860', 'Cinere - Patokan Lampu Merah Bermusik', 15552, 4, 2);
 
 -- ::: CREATE VIEW USER ADDRESS :::
 CREATE VIEW user_address
@@ -491,9 +499,9 @@ SELECT pk_contact_id, recipient_name, tco.phone_number, address, zipcode, city_n
 FROM table_user
 JOIN table_contact tco ON fk_user_id = pk_user_id
 JOIN table_city tci ON fk_city_id = pk_city_id
-JOIN table_shipping_charges tsc ON tsc.fk_city_id = tci.pk_city_id
+JOIN table_shipping_charges tsc ON tsc.fk_city_id = tci.pk_city_id;
 
-SELECT * FROM user_address
+SELECT * FROM user_address;
 
 -- ::: REVIEW :::
 CREATE TABLE table_review(
@@ -506,7 +514,7 @@ CREATE TABLE table_review(
 	fk_plant_id INT NOT NULL
 );
 SELECT * FROM table_review;
-DROP TABLE table_review
+DROP TABLE table_review;
 
 -- ::: REVIEW INITIAL VALUES :::
 INSERT INTO table_review(created_at, COMMENT, rating, fk_user_id, fk_plant_id)
@@ -515,7 +523,7 @@ VALUES
 ('5 Mei 2021', 'Bonggolnya Sesuai banget!', 5, 2, 13),
 ('10 Mei 2021', 'Terima kasih PlinPlant', 4, 3, 13),
 ('7 Juni 2021', 'Saya cinta Basil <3', 5, 1, 26),
-('9 Juni 2021', 'Jadi orang italy beneran!!', 4, 1, 31)
+('9 Juni 2021', 'Jadi orang italy beneran!!', 4, 1, 31);
 
 -- ::: CREATE VIEW REVIEW :::
 CREATE VIEW plant_review
@@ -523,10 +531,10 @@ AS
 SELECT pk_review_id, picture, fullname, rating, created_at, COMMENT, fk_plant_id
 FROM table_review
 JOIN table_user ON fk_user_id = pk_user_id
-JOIN table_plant ON fk_plant_id = pk_plant_id
+JOIN table_plant ON fk_plant_id = pk_plant_id;
 
-SELECT * FROM plant_review
-DROP VIEW plant_review
+SELECT * FROM plant_review;
+DROP VIEW plant_review;
 
 -- ::: CART :::
 CREATE TABLE table_cart(
@@ -544,15 +552,15 @@ CREATE TABLE table_cart(
 );
 SELECT * FROM table_cart;
 DROP TABLE table_cart;
-TRUNCATE TABLE table_cart
+TRUNCATE TABLE table_cart;
 
 
 SELECT * FROM table_cart;
 
 -- CONTOH TRANSAKSI 1
-UPDATE table_cart SET fk_invoice_id = 1622764848807 WHERE fk_user_id = 1 AND fk_invoice_id = 0
+UPDATE table_cart SET fk_invoice_id = 1622764848807 WHERE fk_user_id = 1 AND fk_invoice_id = 0;
 -- CONTOH TRANSAKSI 2
-UPDATE table_cart SET fk_invoice_id = 1622774638661 WHERE fk_user_id = 1 AND fk_invoice_id = 0
+UPDATE table_cart SET fk_invoice_id = 1622774638661 WHERE fk_user_id = 1 AND fk_invoice_id = 0;
 
 -- ::: CART INITIAL VALUES :::
 INSERT INTO table_cart(phase_image, plant_name, plant_phase, price, quantity, weight, fk_plant_id, fk_user_id)
@@ -561,7 +569,7 @@ VALUES
 ('bullsblood_mature.jpg', 'Blood Bull', 'Dewasa', 300000, 3, 2000, 18, 1),
 ('basil-tuber.jpg', 'Basil', 'Bonggol', 50000, 1, 500, 26, 1),
 ('aglaonema-juvenil.jpg', 'Aglaonema', 'Muda', 150000, 1, 1500, 1, 2),
-('cherrytomatotuber.jpg', 'Cherry Tomatoes', 'Bonggol', 50000, 1, 500, 11, 2)
+('cherrytomatotuber.jpg', 'Cherry Tomatoes', 'Bonggol', 50000, 1, 500, 11, 2);
 
 
 -- ::: CREATE VIEW USER CART :::
@@ -570,10 +578,10 @@ AS
 SELECT pk_cart_id, phase_image, tc.plant_name, plant_phase, price, quantity, weight, fk_plant_id, fk_user_id, fk_invoice_id
 FROM table_cart tc
 JOIN table_user ON fk_user_id = pk_user_id
-JOIN plant_data ON fk_plant_id = pk_plant_id
+JOIN plant_data ON fk_plant_id = pk_plant_id;
 
-SELECT * FROM user_cart
-DROP VIEW user_cart
+SELECT * FROM user_cart;
+DROP VIEW user_cart;
 
 -- ::: INVOICE :::
 CREATE TABLE table_invoice(
@@ -589,8 +597,8 @@ CREATE TABLE table_invoice(
 	fk_bank_id INT
 );
 SELECT * FROM table_invoice;
-DROP TABLE table_invoice
-TRUNCATE TABLE table_invoice
+DROP TABLE table_invoice;
+TRUNCATE TABLE table_invoice;
 
 
 
@@ -599,7 +607,7 @@ TRUNCATE TABLE table_invoice
 INSERT INTO table_invoice(pk_invoice_id, no_order, created_at, STATUS, review_status, fk_user_id, fk_contact_id, fk_bank_id)
 VALUES
 (1622764848807, '1622764848807', '4 Juni 2021, 07.00 WIB', 'selesai', FALSE, 1, 3, 1),
-(1622774638661, '1622774638661', '4 Juni 2021, 09.43 WIB', 'bayar', FALSE, 1, 1, 2)
+(1622774638661, '1622774638661', '4 Juni 2021, 09.43 WIB', 'bayar', FALSE, 1, 1, 2);
 
 -- ::: CREATE VIEW USER INVOICE :::
 CREATE VIEW user_invoice
@@ -612,10 +620,10 @@ FROM table_invoice ti
 JOIN table_cart tc ON fk_invoice_id = pk_invoice_id 
 JOIN table_user ON ti.fk_user_id = pk_user_id
 JOIN table_bank ON fk_bank_id = pk_bank_id
-JOIN user_address ua ON fk_contact_id = pk_contact_id
+JOIN user_address ua ON fk_contact_id = pk_contact_id;
 
-SELECT * FROM user_invoice
-DROP VIEW user_invoice
+SELECT * FROM user_invoice;
+DROP VIEW user_invoice;
 
 
 -- ::: BANK :::
@@ -624,7 +632,6 @@ CREATE TABLE table_bank(
 	bank_name VARCHAR(50),
 	no_rek VARCHAR(50),
 	OWNER VARCHAR(50)
-	
 );
 SELECT * FROM table_bank;
 
@@ -633,7 +640,7 @@ INSERT INTO table_bank(bank_name, no_rek, OWNER)
 VALUE
 ('BCA', '3603136827', 'PlinPlant, Etc'),
 ('BNI', '360313682789', 'PlinPlant, Etc'),
-('MANDIRI', '36031368271010', 'PlinPlant, Etc')
+('MANDIRI', '36031368271010', 'PlinPlant, Etc');
 
 
 -- ::: ARTIKEL :::
@@ -647,7 +654,6 @@ CREATE TABLE table_article(
 	SOURCE VARCHAR(255),
 	url VARCHAR(255),
 	content  TEXT
-	
 );
 SELECT * FROM table_article;
 TRUNCATE TABLE table_article;
