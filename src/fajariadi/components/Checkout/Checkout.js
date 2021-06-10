@@ -3,7 +3,7 @@ import { FaChevronDown, FaExclamationTriangle } from 'react-icons/fa';
 import { getSelectedAddress } from '../../../context/actions';
 import { openModalPilihAlamat } from '../../../context/actions/modalActions';
 import { ContextStore } from '../../../context/store/ContextStore';
-import PopoutComponent from '../../../dhika/ModalAlamat/PopupComponent/Popout';
+import PopoutComponent from '../../../dhika/Modal/ModalAlamat/PopupComponent/Popout';
 import PopoutPengiriman from '../../../dhika/Pengiriman/PoputPengiriman/PopoutPengiriman';
 import AlertSign from '../../../master/components/additional/AlertSign';
 import Button from '../../../master/components/additional/Button';

@@ -21,6 +21,7 @@ import {
   userAddressReducer,
   invoiceReducer,
   bankReducer,
+  transactionReducer,
 } from '../reducer/fetchingReducer';
 import {
   modalPilihAlamatReducer,
@@ -236,10 +237,10 @@ export const ContextProvider = ({ children }) => {
   const [bankState, bankDispatch] = useThunkReducer(bankReducer, []);
 
   // ::: FETCH TRANSACTION :::
-  // const [transactionState, transactionDispatch] = useThunkReducer(
-  //   transactionReducer,
-  //   []
-  // );
+  const [transactionState, transactionDispatch] = useThunkReducer(
+    transactionReducer,
+    []
+  );
 
   // ::: FETCH INVOICES :::
   const [invoiceState, invoiceDispatch] = useThunkReducer(invoiceReducer, []);
