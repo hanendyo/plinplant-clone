@@ -17,8 +17,7 @@ import Button from "../../../master/components/additional/Button";
 import axios from "axios";
 
 const ModalNama = ({ modal, state }) => {
-  const { modalGantiNamaDispatch, userLoginState, userLoginDispatch } =
-    useContext(ContextStore);
+  const { modalGantiNamaDispatch, userLoginState } = useContext(ContextStore);
 
   // console.log("Halo ini yang ditangkap modal :", state);
   // let userData = JSON.parse(localStorage.getItem("user-data")) || {};
@@ -34,11 +33,13 @@ const ModalNama = ({ modal, state }) => {
   };
 
   const HandleSubmit = async (e) => {
-    console.log(input);
     e.preventDefault();
+    let data = JSON.parse(localStorage.getItem("userInfo"));
+    data.fullname = input.fullname;
+    localStorage.setItem("userInfo", JSON.stringify(data));
     await axios
       .put(
-        `http://localhost:5000/input/user_update_name/${input.fullname}`,
+        `http://localhost:5000/input/user_update_name/${userLoginState.pk_user_id}`,
         input
       )
       .then((response) => console.log("Ini response", response))

@@ -112,6 +112,10 @@ export const Data = styled.ul`
       cursor: ${({ empty }) => (empty ? "pointer" : "auto")};
       display: ${({ empty }) => (empty ? "none" : "block")}; */
     }
+    &:last-of-type {
+      color: ${colors.yellow};
+      cursor: pointer;
+    }
   }
 
   @media (max-width: 1200px) {

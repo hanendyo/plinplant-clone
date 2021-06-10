@@ -17,12 +17,10 @@ import Button from "../../../master/components/additional/Button";
 import axios from "axios";
 
 const ModalPhone = ({ modal, state }) => {
-  const { modalGantiNomorDispatch, userInfoState } = useContext(ContextStore);
-
-  console.log("Halo ini yang ditangkap modal :", state);
+  const { modalGantiNomorDispatch, userLoginState } = useContext(ContextStore);
 
   const [input, setInput] = useState({
-    phone_number: userInfoState[0]?.phone_number,
+    phone_number: userLoginState.phone_number,
   });
 
   useEffect(() => {}, []);
@@ -32,10 +30,16 @@ const ModalPhone = ({ modal, state }) => {
   };
 
   const HandleSubmit = async (e) => {
-    console.log(input);
     e.preventDefault();
+    let data = JSON.parse(localStorage.getItem("userInfo"));
+    console.log(data);
+    data.phone_number = input.phone_number;
+    localStorage.setItem("userInfo", JSON.stringify(data));
     await axios
-      .put("http://localhost:5000/input/user_update_phonenumber/1", input)
+      .put(
+        `http://localhost:5000/input/user_update_phonenumber/${userLoginState.pk_user_id}`,
+        input
+      )
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
 

@@ -19,6 +19,7 @@ import {
   MenuItem,
   FormHelperText,
 } from "@material-ui/core";
+import { userLogin } from "../../../context/actions/userLoginAction";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -31,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ModalGender = ({ modal, state }) => {
-  const { modalGantiGenderDispatch } = useContext(ContextStore);
+  const { modalGantiGenderDispatch, userLoginState } = useContext(ContextStore);
 
   const [input, setInput] = useState({
-    fk_gender_id: 1,
+    fk_gender_id: userLoginState.fk_gender_id,
     // type: userInfoState[0]?.type,
     // birth_date: userInfoState[0]?.birth_date,
     // phone_number: userInfoState[0]?.phone_number,
@@ -48,11 +49,15 @@ const ModalGender = ({ modal, state }) => {
   };
 
   const HandleSubmit = async (e) => {
-    console.log("TYPE:", input);
-
+    let data = JSON.parse(localStorage.getItem("userInfo"));
+    data.fk_gender_id = input.fk_gender_id;
+    localStorage.setItem("userInfo", JSON.stringify(data));
     e.preventDefault();
     await axios
-      .put("http://localhost:5000/input/user_update_gender/1", input)
+      .put(
+        `http://localhost:5000/input/user_update_gender/${userLoginState.pk_user_id}`,
+        input
+      )
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
 

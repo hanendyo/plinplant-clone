@@ -50,29 +50,22 @@ const Profile = () => {
   const [biodata, setBiodata] = useState(true);
   const [address, setAddress] = useState(false);
 
-  // const [empty, setEmpty] = useState(true);
-  // const [selected, setSelected] = useState(false);
-  const [gender, setGender] = useState(true);
+  const [gender, setGender] = useState(userLoginState.fk_gender_id);
+  const [birthDate, setBirthdate] = useState(userLoginState.birth_date);
+  const [nomor, setNomor] = useState(userLoginState.phone_number);
+
   const [scroll, setScroll] = useState(true);
   console.log(userLoginState);
   // let userData = JSON.parse(localStorage.getItem("user-data")) || {};
 
-  // console.log(`USERDATA-LANDINGPAGE: `, userData);
-
   useEffect(() => {
-    // ::: FETCH USER INFO :::
-    const getUserInfo = async () => {
-      const res = await axios.get("http://localhost:5000/input/user/1");
-
-      console.log("INI DATA GET: ", res.data.data);
-    };
-
-    getUserInfo();
     if (userAddressState.length < 3) setScroll(false);
     if (userAddressState.length > 2) setScroll(true);
     console.log("HALO INI USER INFO :", userInfoState);
   }, [userAddressState, userInfoState]);
 
+  console.log("INI USER LOGIN STATE: ", userLoginState.phone_number);
+  console.log("INI Nomor: ", nomor);
   return (
     <StyledProfile>
       {biodata && (
@@ -111,35 +104,54 @@ const Profile = () => {
 
             <Data>
               <li>Tanggal Lahir</li>
-              <li>{userLoginState.birth_date}</li>
-              <li
-                onClick={() => {
-                  setState("tanggal lahir");
-                  modalGantiBirthdateDispatch(openModalGantiBirthdate());
-                }}
-              >
-                Ubah
-              </li>
+              {birthDate === null && (
+                <li
+                  onClick={() => {
+                    modalGantiBirthdateDispatch(openModalGantiBirthdate());
+                    setBirthdate(userLoginState.birth_date);
+                  }}
+                >
+                  Tambah Tanggal lahir
+                </li>
+              )}
+
+              {birthDate !== null && (
+                <>
+                  <li>{userLoginState.birth_date}</li>
+                  <li
+                    onClick={() => {
+                      setState("tanggal lahir");
+                      setBirthdate(userLoginState.birth_date);
+                      modalGantiBirthdateDispatch(openModalGantiBirthdate());
+                    }}
+                  >
+                    Ubah
+                  </li>
+                </>
+              )}
             </Data>
 
             <Data>
               <li>Jenis Kelamin</li>
-              {gender && (
+              {gender === 0 && (
                 <li
                   onClick={() => {
                     modalGantiGenderDispatch(openModalGantiGender());
-                    setGender(false);
+                    setGender(userLoginState.fk_gender_id);
                   }}
                 >
                   Tambah Jenis Kelamin
                 </li>
               )}
-              {gender === false && (
+              {gender !== 0 && (
                 <>
-                  <li>{userLoginState.type}</li>
+                  <li>
+                    {userLoginState.fk_gender_id === 1 ? "Pria" : "Wanita"}
+                  </li>
                   <li
                     onClick={() => {
                       setState("Jenis Kelamin");
+                      setGender(userLoginState.fk_gender_id);
                       modalGantiGenderDispatch(openModalGantiGender());
                     }}
                   >
@@ -157,15 +169,31 @@ const Profile = () => {
 
             <Data>
               <li>Nomor HP</li>
-              <li>{userLoginState.phone_number}</li>
-              <li
-                onClick={() => {
-                  setState("Nomor HP");
-                  modalGantiNomorDispatch(openModalGantiNomor());
-                }}
-              >
-                Ubah
-              </li>
+              {nomor === null && (
+                <li
+                  onClick={() => {
+                    modalGantiNomorDispatch(openModalGantiNomor());
+                    setNomor(userLoginState.phone_number);
+                  }}
+                >
+                  Tambah nomor handphone
+                </li>
+              )}
+
+              {nomor !== null && (
+                <>
+                  <li>{userLoginState.phone_number}</li>
+                  <li
+                    onClick={() => {
+                      setState("nomor HP");
+                      setBirthdate(userLoginState.phone_number);
+                      modalGantiNomorDispatch(openModalGantiNomor());
+                    }}
+                  >
+                    Ubah
+                  </li>
+                </>
+              )}
             </Data>
           </Information>
           <ModalNama modal={modalGantiNamaState} state={state} />

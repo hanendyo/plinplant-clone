@@ -14,13 +14,13 @@ import Button from "../../../master/components/additional/Button";
 import axios from "axios";
 
 const ModalBirthdate = ({ modal, state }) => {
-  const { modalGantiBirthdateDispatch, userInfoState } =
+  const { modalGantiBirthdateDispatch, userLoginState } =
     useContext(ContextStore);
 
   // console.log("Halo ini yang ditangkap modal :", state);
 
   const [input, setInput] = useState({
-    birth_date: userInfoState[0]?.birth_date,
+    birth_date: userLoginState.birth_date,
   });
 
   useEffect(() => {}, []);
@@ -32,8 +32,14 @@ const ModalBirthdate = ({ modal, state }) => {
   const HandleSubmit = async (e) => {
     console.log(input);
     e.preventDefault();
+    let data = JSON.parse(localStorage.getItem("userInfo"));
+    data.birth_date = input.birth_date;
+    localStorage.setItem("userInfo", JSON.stringify(data));
     await axios
-      .put("http://localhost:5000/input/user_update_birthdate/1", input)
+      .put(
+        `http://localhost:5000/input/user_update_birthdate/${userLoginState.pk_user_id}`,
+        input
+      )
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
 
