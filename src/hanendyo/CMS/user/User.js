@@ -199,30 +199,6 @@ const Article = () => {
         console.log(err);
         return err;
       });
-
-
-
-
-
-
-
-
-
-
-
-    // axios
-    //   .put(url + endPoint + `_update`, data)
-    //   .then((res) => {
-    //     getAllDatasAPI();
-    //     console.log(`User successfuly updated!`);
-    //     console.log(res);
-    //     return res;
-    //   })
-    //   .catch((err) => {
-    //     console.log(`ERROR!`);
-    //     console.log(err);
-    //     return err;
-    //   });
   };
 
   // HANDLE SUBMIT
