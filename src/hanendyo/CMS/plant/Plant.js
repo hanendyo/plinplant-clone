@@ -51,7 +51,7 @@ const Article = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { plantState, plantDispatch } = context;
+  const { plantState, plantDispatch, cmsSidebarState } = context;
 
   // USE STATE
   const [dataPlant, setDataPlant] = useState([
@@ -283,7 +283,7 @@ const Article = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>PLANT INPUT</h4>
       <BoxForm>
         <form

@@ -43,7 +43,8 @@ const PlantBreeding = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { plantBreedingState, plantBreedingDispatch } = context;
+  const { plantBreedingState, plantBreedingDispatch, cmsSidebarState } =
+    context;
 
   // USE STATE
   const [dataPlantBreeding, setDataPlantBreeding] = useState([
@@ -248,7 +249,7 @@ const PlantBreeding = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>PLANT BREEDING INPUT</h4>
       <BoxForm>
         <form

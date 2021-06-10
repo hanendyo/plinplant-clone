@@ -42,7 +42,7 @@ const Category = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { cityState, cityDispatch } = context;
+  const { cityState, cityDispatch, cmsSidebarState } = context;
 
   // USE STATE
   const [dataCity, setDataCity] = useState([
@@ -188,7 +188,7 @@ const Category = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>CITY INPUT</h4>
       <BoxForm>
         <form

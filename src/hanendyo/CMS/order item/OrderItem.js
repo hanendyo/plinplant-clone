@@ -42,7 +42,7 @@ const Contact = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { orderItemState, orderItemDispatch } = context;
+  const { orderItemState, orderItemDispatch, cmsSidebarState } = context;
 
   // USE STATE
   const [dataOrderItem, setDataOrderItem] = useState([
@@ -203,7 +203,7 @@ const Contact = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>ORDER ITEM INPUT</h4>
       <BoxForm>
         <form

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Button,
   makeStyles,
@@ -7,11 +7,11 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-} from '@material-ui/core';
-import { useContext } from 'react';
-import { ContextStore } from '../../../context/store/ContextStore';
-import { postAPI, cmsAction } from '../../../context/actions/CmsAction';
-import axios from 'axios';
+} from "@material-ui/core";
+import { useContext } from "react";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
+import axios from "axios";
 import {
   TableListPhone,
   ContentBox,
@@ -25,21 +25,21 @@ import {
   ImageBox,
   List,
   ListData,
-} from '../style/Form';
-import { colors } from '../../../master/constant/style';
+} from "../style/Form";
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
-      width: '25ch',
-      display: 'flex',
+      width: "25ch",
+      display: "flex",
     },
     button: {
-      width: '80%',
-      margin: '5px 0',
+      width: "80%",
+      margin: "5px 0",
       backgroundColor: `"rgb(187, 203, 194)"`,
-      color: 'primary',
+      color: "primary",
     },
   },
 }));
@@ -50,14 +50,14 @@ const Contact = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { orderState, orderDispatch } = context;
+  const { orderState, orderDispatch, cmsSidebarState } = context;
 
   // USE STATE
   const [dataOrder, setDataOrder] = useState([
     {
-      status: '',
-      created_at: '',
-      fk_user_id: '',
+      status: "",
+      created_at: "",
+      fk_user_id: "",
       // fk_city_id: ''
     },
   ]);
@@ -70,8 +70,8 @@ const Contact = () => {
     console.log(`dataOrder: `, dataOrder);
   }, []);
 
-  const url = 'http://localhost:5000/input/';
-  const endPoint = 'order';
+  const url = "http://localhost:5000/input/";
+  const endPoint = "order";
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -81,7 +81,7 @@ const Contact = () => {
           console.log(`GET RES DATA DATA: `, res.data.data);
           setDataOrder(res.data.data);
         } else {
-          console.log('Error');
+          console.log("Error");
         }
       })
       .catch((err) => {
@@ -93,15 +93,15 @@ const Contact = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append('status', form.status);
-    data.append('created_at', form.created_at);
-    data.append('fk_user_id', form.fk_user_id);
+    data.append("status", form.status);
+    data.append("created_at", form.created_at);
+    data.append("fk_user_id", form.fk_user_id);
     // data.append("pk_city_id", form.pk_city_id);
 
     axios
       .post(url + `${endPoint}_input`, data, {
         headers: {
-          'content-type': 'multipart/form-data',
+          "content-type": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -179,7 +179,7 @@ const Contact = () => {
   const handleUpdate = (data, index) => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
     // console.log(`index update: `, index);
     // console.log(`data id update: `, data.pk_order_id);
@@ -200,9 +200,9 @@ const Contact = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    orderDispatch(cmsAction(`status`, ''));
-    orderDispatch(cmsAction(`created_at`, ''));
-    orderDispatch(cmsAction(`fk_user_id`, ''));
+    orderDispatch(cmsAction(`status`, ""));
+    orderDispatch(cmsAction(`created_at`, ""));
+    orderDispatch(cmsAction(`fk_user_id`, ""));
     // orderDispatch(cmsAction(`fk_city_id`, ''));
   };
 
@@ -212,30 +212,30 @@ const Contact = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>ORDER INPUT</h4>
       <BoxForm>
         <form
-          encType='multipart/form-data'
+          encType="multipart/form-data"
           className={classes.root}
           onSubmit={(e) => handleSubmit(e)}
           noValidate
-          autoComplete='off'
+          autoComplete="off"
         >
           <FormControl className={classes.formControl}>
-            <InputLabel id='status'> Order Status</InputLabel>
+            <InputLabel id="status"> Order Status</InputLabel>
             <Select
               value={orderState.status}
-              onChange={(e) => formChange('status', e.target.value)}
-              name='status'
-              labelId='status'
-              id='outlined-basic'
-              variant='outlined'
+              onChange={(e) => formChange("status", e.target.value)}
+              name="status"
+              labelId="status"
+              id="outlined-basic"
+              variant="outlined"
             >
-              <MenuItem value={'bayar'}>{'Menunggu Pembayaran'}</MenuItem>
-              <MenuItem value={'verif'}>{'Verifikasi Pembayaran'}</MenuItem>
-              <MenuItem value={'proses'}>{'Pesanan Dikirim'}</MenuItem>
-              <MenuItem value={'selesai'}>{'Transaksi Selesai'}</MenuItem>
+              <MenuItem value={"bayar"}>{"Menunggu Pembayaran"}</MenuItem>
+              <MenuItem value={"verif"}>{"Verifikasi Pembayaran"}</MenuItem>
+              <MenuItem value={"proses"}>{"Pesanan Dikirim"}</MenuItem>
+              <MenuItem value={"selesai"}>{"Transaksi Selesai"}</MenuItem>
             </Select>
           </FormControl>
           {/* <TextField
@@ -265,20 +265,20 @@ const Contact = () => {
 
           <Button
             className={classes.button}
-            variant='contained'
-            color='primary'
-            type='submit'
+            variant="contained"
+            color="primary"
+            type="submit"
             style={{ backgroundColor: `${colors.green}` }}
           >
-            {isUpdate ? 'Update' : 'Submit'}
+            {isUpdate ? "Update" : "Submit"}
           </Button>
           {isUpdate && (
             <Button
               className={classes.button}
-              variant='contained'
-              color='primary'
+              variant="contained"
+              color="primary"
               onClick={() => handleCancel()}
-              style={{ marginTop: '20px', backgroundColor: `${colors.green}` }}
+              style={{ marginTop: "20px", backgroundColor: `${colors.green}` }}
             >
               Cancel
             </Button>
@@ -307,11 +307,11 @@ const Contact = () => {
                 <Button
                   onClick={() => handleUpdate(data, index)}
                   className={classes.button}
-                  variant='contained'
-                  color='primary'
-                  type='update'
+                  variant="contained"
+                  color="primary"
+                  type="update"
                   style={{
-                    marginBottom: '10px',
+                    marginBottom: "10px",
                     backgroundColor: `${colors.green}`,
                   }}
                 >
@@ -320,9 +320,9 @@ const Contact = () => {
                 <Button
                   onClick={() => handleDelete(data.pk_order_id, index)}
                   className={classes.button}
-                  variant='contained'
-                  color='primary'
-                  type='delete'
+                  variant="contained"
+                  color="primary"
+                  type="delete"
                   style={{ backgroundColor: `${colors.green}` }}
                 >
                   delete

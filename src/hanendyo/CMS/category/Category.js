@@ -49,12 +49,11 @@ const Category = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { categoryState, categoryDispatch } = context;
+  const { categoryState, categoryDispatch, cmsSidebarState } = context;
 
   // USE STATE
   const [dataCategory, setDataCategory] = useState([
     {
-      pk_category_id: "",
       category_name: "",
     },
   ]);
@@ -91,7 +90,7 @@ const Category = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append("pk_category_id", form.pk_category_id);
+    // data.append("pk_category_id", form.pk_category_id);
     data.append("category_name", form.category_name);
 
     axios
@@ -111,14 +110,6 @@ const Category = () => {
         console.log(err);
         return err;
       });
-    // await axios.post(url + endPoint + '_input', form)
-    // .then((res)=>{
-    //   getAllDatasAPI();
-    //   console.log(res);
-    // })
-    // .catch(err=> {
-    //   console.log(err);
-    // })
   };
 
   // DELETE
@@ -208,7 +199,7 @@ const Category = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>CATEGORY INPUT</h4>
       <BoxForm>
         <form
@@ -226,31 +217,6 @@ const Category = () => {
             label="Category name"
             variant="outlined"
           />
-          {/* <TextField
-            value={categoryState.pk_category_id}
-            name="pk_category_id"
-            onChange={(e) => formChange(`pk_category_id`, e.target.value)}
-            id="outlined-basic"
-            label="Category ID (input 1-4)"
-            variant="outlined"
-          />
-           */}
-
-          {/* <Select
-            value={categoryState.pk_category_id}
-            onChange={(e) => formChange(`pk_category_id`, e.target.value)}
-            label="pk_category_id"
-            name="pk_category_id"
-            variant="outlined"
-          >
-            <MenuItem value={1}>1</MenuItem>
-            <MenuItem value={2}>2</MenuItem>
-            <MenuItem value={3}>3</MenuItem>
-            <MenuItem value={4}>4</MenuItem>
-          </Select> */}
-          {/* <p style={{ fontSize: "15px", color: "black" }}>
-            note: ID tidak bisa diedit, edit NAME saja!
-          </p> */}
           <ButtonContainer>
             <Button
               className={classes.button}

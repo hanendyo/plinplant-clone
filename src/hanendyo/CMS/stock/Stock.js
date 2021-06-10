@@ -42,7 +42,7 @@ const Stock = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { stockState, stockDispatch } = context;
+  const { stockState, stockDispatch, cmsSidebarState } = context;
 
   // USE STATE
   const [dataStock, setDataStock] = useState([
@@ -202,7 +202,7 @@ const Stock = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>STOCK INPUT</h4>
       <BoxForm>
         <form

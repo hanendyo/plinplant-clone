@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Button, makeStyles, TextField } from '@material-ui/core';
-import { useContext } from 'react';
-import { ContextStore } from '../../../context/store/ContextStore';
-import { cmsAction } from '../../../context/actions/CmsAction';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Button, makeStyles, TextField } from "@material-ui/core";
+import { useContext } from "react";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { cmsAction } from "../../../context/actions/CmsAction";
+import axios from "axios";
 import {
   TableListPhone,
   ContentBox,
@@ -17,22 +17,23 @@ import {
   ImageBox,
   List,
   ListData,
-} from '../style/Form';
-import { FaCamera } from 'react-icons/fa';
-import { colors } from '../../../master/constant/style';
+} from "../style/Form";
+import { FaCamera } from "react-icons/fa";
+import { colors } from "../../../master/constant/style";
+// import LinesEllipsis from "react-lines-ellipsis";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
-      width: '25ch',
-      display: 'flex',
+      width: "25ch",
+      display: "flex",
     },
     button: {
-      width: '80%',
-      margin: '5px 0',
-      backgroundColor: 'rgb(187, 203, 194)',
-      color: 'primary',
+      width: "80%",
+      margin: "5px 0",
+      backgroundColor: "rgb(187, 203, 194)",
+      color: "primary",
     },
   },
 }));
@@ -43,19 +44,19 @@ const Article = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { articleState, articleDispatch } = context;
+  const { articleState, articleDispatch, cmsSidebarState } = context;
 
   // USE STATE
   const [dataArticle, setDataArticle] = useState([
     {
-      article_image: '',
-      title: '',
-      author: '',
-      created_at: '',
-      duration: '',
-      source: '',
-      url: '',
-      content: '',
+      article_image: "",
+      title: "",
+      author: "",
+      created_at: "",
+      duration: "",
+      source: "",
+      url: "",
+      content: "",
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -69,19 +70,19 @@ const Article = () => {
     console.log(`dataArticle: `, dataArticle);
   }, []);
 
-  const url = 'http://localhost:5000/input/';
-  const endPoint = 'article';
+  const url = "http://localhost:5000/input/";
+  const endPoint = "article";
 
   // GET
   const getAllDatasAPI = async () => {
     await axios
-      .get(url + endPoint + '_get_all_datas')
+      .get(url + endPoint + "_get_all_datas")
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
           setDataArticle(res.data.data);
         } else {
-          console.log('Error');
+          console.log("Error");
         }
       })
       .catch((err) => {
@@ -93,20 +94,20 @@ const Article = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append('article_image', form.article_image);
-    data.append('title', form.title);
-    data.append('author', form.author);
-    data.append('created_at', form.created_at);
-    data.append('duration', form.duration);
-    data.append('source', form.source);
-    data.append('url', form.url);
-    data.append('content', form.content);
-    data.append('article_image_upload', imageUpload);
+    data.append("article_image", form.article_image);
+    data.append("title", form.title);
+    data.append("author", form.author);
+    data.append("created_at", form.created_at);
+    data.append("duration", form.duration);
+    data.append("source", form.source);
+    data.append("url", form.url);
+    data.append("content", form.content);
+    data.append("article_image_upload", imageUpload);
 
     axios
       .post(url + endPoint + `_input`, data, {
         headers: {
-          'content-type': 'multipart/form-data',
+          "content-type": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -125,7 +126,7 @@ const Article = () => {
   // DELETE
   const deleteAPI = async (id, index) => {
     await axios
-      .delete(url + endPoint + '_delete/' + id)
+      .delete(url + endPoint + "_delete/" + id)
       .then((deleted) => {
         console.log(`DELETED: `, deleted);
         getAllDatasAPI();
@@ -188,7 +189,7 @@ const Article = () => {
   const handleUpdate = (data, index) => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
     setIsUpdate(true);
     setIndexUpdate(index);
@@ -213,13 +214,13 @@ const Article = () => {
   // CLEAR FORM
   const clearFormData = () => {
     articleDispatch(cmsAction(`article_image`, null));
-    articleDispatch(cmsAction(`title`, ''));
-    articleDispatch(cmsAction(`author`, ''));
-    articleDispatch(cmsAction(`created_at`, ''));
-    articleDispatch(cmsAction(`duration`, ''));
-    articleDispatch(cmsAction(`source`, ''));
-    articleDispatch(cmsAction(`url`, ''));
-    articleDispatch(cmsAction(`content`, ''));
+    articleDispatch(cmsAction(`title`, ""));
+    articleDispatch(cmsAction(`author`, ""));
+    articleDispatch(cmsAction(`created_at`, ""));
+    articleDispatch(cmsAction(`duration`, ""));
+    articleDispatch(cmsAction(`source`, ""));
+    articleDispatch(cmsAction(`url`, ""));
+    articleDispatch(cmsAction(`content`, ""));
   };
 
   // FORM CHANGE
@@ -231,85 +232,85 @@ const Article = () => {
     const img = e.target.files[0];
     const imgName = e.target.files[0].name;
     console.log(`IMEJ: `, img);
-    articleDispatch(cmsAction('article_image', imgName));
+    articleDispatch(cmsAction("article_image", imgName));
     setReviewImage(URL.createObjectURL(img));
     setImageUpload(img);
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>ARTICLE INPUT</h4>
       <BoxForm>
         <form
-          encType='multipart/form-data'
+          encType="multipart/form-data"
           className={classes.root}
           onSubmit={(e) => handleSubmit(e)}
           noValidate
-          autoComplete='off'
+          autoComplete="off"
         >
           <TextField
             value={articleState.author}
-            name='author'
+            name="author"
             onChange={(e) => formChange(`author`, e.target.value)}
-            id='outlined-basic'
-            label='Author'
-            variant='outlined'
+            id="outlined-basic"
+            label="Author"
+            variant="outlined"
           />
           <TextField
             value={articleState.title}
-            onChange={(e) => formChange('title', e.target.value)}
-            name='title'
-            id='outlined-basic'
-            label='Title'
-            variant='outlined'
+            onChange={(e) => formChange("title", e.target.value)}
+            name="title"
+            id="outlined-basic"
+            label="Title"
+            variant="outlined"
           />
           <TextField
             value={articleState.created_at}
-            onChange={(e) => formChange('created_at', e.target.value)}
-            name='created_at'
-            id='outlined-basic'
+            onChange={(e) => formChange("created_at", e.target.value)}
+            name="created_at"
+            id="outlined-basic"
             // label="Created at"
-            type='date'
-            variant='outlined'
+            type="date"
+            variant="outlined"
           />
 
           <TextField
             value={articleState.source}
-            onChange={(e) => formChange('source', e.target.value)}
-            name='source'
-            id='outlined-basic'
-            label='Article Source'
-            variant='outlined'
+            onChange={(e) => formChange("source", e.target.value)}
+            name="source"
+            id="outlined-basic"
+            label="Article Source"
+            variant="outlined"
           />
 
           <TextField
             value={articleState.url}
-            onChange={(e) => formChange('url', e.target.value)}
-            name='url'
-            id='outlined-basic'
-            label='Article URL'
-            variant='outlined'
+            onChange={(e) => formChange("url", e.target.value)}
+            name="url"
+            id="outlined-basic"
+            label="Article URL"
+            variant="outlined"
           />
 
           <TextField
             value={articleState.duration}
-            onChange={(e) => formChange('duration', e.target.value)}
-            name='duration'
-            id='outlined-basic'
-            label='Read Duration'
-            variant='outlined'
+            onChange={(e) => formChange("duration", e.target.value)}
+            name="duration"
+            id="outlined-basic"
+            label="Read Duration"
+            variant="outlined"
           />
 
           <TextField
             value={articleState.content}
-            onChange={(e) => formChange('content', e.target.value)}
-            name='content'
-            id='outlined-multiline-static'
-            label='Content'
+            onChange={(e) => formChange("content", e.target.value)}
+            name="content"
+            id="outlined-multiline-static"
+            label="Content"
             multiline
             rows={12}
-            variant='outlined'
-            style={{ marginTop: '20px' }}
+            variant="outlined"
+            style={{ marginTop: "20px" }}
           />
 
           {/* ----- IMAGE ----- */}
@@ -323,24 +324,24 @@ const Article = () => {
           <ImageBox>
             <SpanImage>
               <h6>Upload Image</h6>
-              <img src={reviewImage} alt='' />
+              <img src={reviewImage} alt="" />
             </SpanImage>
 
             <input
-              accept='image/*'
-              name='article_image_upload'
+              accept="image/*"
+              name="article_image_upload"
               className={classes.input}
-              id='contained-button-file'
+              id="contained-button-file"
               multiple
-              type='file'
+              type="file"
               onChange={(e) => formImage(e)}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
             />
-            <label htmlFor='contained-button-file'>
+            <label htmlFor="contained-button-file">
               <Button
-                variant='contained'
-                color='primary'
-                component='span'
+                variant="contained"
+                color="primary"
+                component="span"
                 startIcon={<FaCamera />}
                 style={{ backgroundColor: `${colors.green}` }}
               >
@@ -353,21 +354,21 @@ const Article = () => {
           <ButtonContainer>
             <Button
               className={classes.button}
-              variant='contained'
-              color='primary'
-              type='submit'
+              variant="contained"
+              color="primary"
+              type="submit"
               style={{ backgroundColor: `${colors.green}` }}
             >
-              {isUpdate ? 'Update' : 'Submit'}
+              {isUpdate ? "Update" : "Submit"}
             </Button>
             {isUpdate && (
               <Button
                 className={classes.button}
-                variant='contained'
-                color='primary'
+                variant="contained"
+                color="primary"
                 onClick={() => handleCancel()}
                 style={{
-                  marginTop: '20px',
+                  marginTop: "20px",
                   backgroundColor: `${colors.green}`,
                 }}
               >
@@ -391,7 +392,7 @@ const Article = () => {
           <li>DURATION</li>
           <li>SOURCE</li>
           <li>URL</li>
-          <li className='content'>CONTENT</li>
+          <li className="content">CONTENT</li>
           <li>ACTION</li>
         </List>
 
@@ -406,7 +407,7 @@ const Article = () => {
             <li>{data.duration}</li>
             <li>{data.source}</li>
             <li>{data.url}</li>
-            <li className='content'>
+            <li className="content">
               <ContentBox>{data.content}</ContentBox>
             </li>
             {
@@ -414,11 +415,11 @@ const Article = () => {
                 <Button
                   onClick={() => handleUpdate(data, index)}
                   className={classes.button}
-                  variant='contained'
-                  color='primary'
-                  type='update'
+                  variant="contained"
+                  color="primary"
+                  type="update"
                   style={{
-                    marginBottom: '10px',
+                    marginBottom: "10px",
                     backgroundColor: `${colors.green}`,
                   }}
                 >
@@ -427,9 +428,9 @@ const Article = () => {
                 <Button
                   onClick={() => handleDelete(data.pk_article_id, index)}
                   className={classes.button}
-                  variant='contained'
-                  color='primary'
-                  type='delete'
+                  variant="contained"
+                  color="primary"
+                  type="delete"
                   style={{ backgroundColor: `${colors.green}` }}
                 >
                   delete

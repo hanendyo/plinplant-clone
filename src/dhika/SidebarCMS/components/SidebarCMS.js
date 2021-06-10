@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
@@ -9,21 +9,33 @@ import SubMenu from "./SubMenu";
 import { ContextStore } from "../../../context/store/ContextStore";
 import { useHistory } from "react-router-dom";
 import { userLogout } from "../../../context/actions/userLoginAction";
+import {
+  openSidebar,
+  closeSidebar,
+} from "../../../context/actions/cmsSidebarAction";
+import { cmsSidebarReducer } from "../../../context/reducer";
 
 const SidebarCMS = () => {
-  const { userLoginState, userLoginDispatch } = useContext(ContextStore);
-  const [sidebar, setSidebar] = useState(false);
+  const {
+    userLoginState,
+    userLoginDispatch,
+    cmsSidebarState,
+    cmsSidebarDispatch,
+  } = useContext(ContextStore);
+
   const history = useHistory();
 
-  const showSidebar = () => {
-    setSidebar(!sidebar);
-  };
+  console.log("Sidebar State : ", cmsSidebarState);
 
   return (
     <Container>
-      <Nav>
+      <Nav sidebar={cmsSidebarState}>
         <NavIcon>
-          <FaIcons.FaBars onClick={showSidebar} style={{ cursor: "pointer" }} />
+          <FaIcons.FaBars
+            onClick={() => cmsSidebarDispatch(openSidebar())}
+            style={{ cursor: "pointer" }}
+          />
+
           <div style={{ display: "flex" }}>
             <Logo className="logo-center">PlinPlant</Logo>
             <h3 style={{ color: "#fff", padding: "2px", marginLeft: "10px" }}>
@@ -34,10 +46,13 @@ const SidebarCMS = () => {
             Hello, {userLoginState.fullname.split(" ")[0]}
           </h5>
         </NavIcon>
-        <SidebarNav sidebar={sidebar}>
+        <SidebarNav sidebar={cmsSidebarState}>
           <SidebarWrap>
             <NavTimes>
-              <FaTimes onClick={showSidebar} style={{ cursor: "pointer" }} />
+              <FaTimes
+                onClick={() => cmsSidebarDispatch(closeSidebar())}
+                style={{ cursor: "pointer" }}
+              />
             </NavTimes>
             {SidebarData.map((item, index) => {
               return <SubMenu item={item} key={index} />;
@@ -63,24 +78,26 @@ const SidebarCMS = () => {
 export default SidebarCMS;
 
 const Container = styled.div`
-  background: #fff;
   width: 100%;
   height: 100%;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 0;
+  background-color: #fff;
 `;
 
 const Nav = styled.div`
   background: ${colors.green};
   height: 80px;
-  width: 100%;
-  min-width: 375px;
+  width: ${({ sidebar }) => (sidebar ? "83%" : "100%")};
+  /* min-width: 375px; */
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  position: sticky;
+  position: relative;
   top: 0;
+  left: ${({ sidebar }) => (sidebar ? "17%" : "0%")};
+  transition: 100ms;
   z-index: 99;
 `;
 
@@ -118,7 +135,7 @@ const SidebarNav = styled.nav`
   position: fixed;
   top: 0;
   left: ${({ sidebar }) => (sidebar ? "0" : "-100%")};
-  transition: 350ms;
+  transition: 10ms;
   z-index: 10;
   overflow-x: hidden;
 

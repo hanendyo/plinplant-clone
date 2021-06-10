@@ -51,7 +51,7 @@ const Article = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { userState, userDispatch } = context;
+  const { userState, userDispatch, cmsSidebarState } = context;
 
   // USE STATE
   const [dataUser, setDataUser] = useState([
@@ -302,7 +302,7 @@ const Article = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>USER DATA</h4>
       <BoxForm>
         <form

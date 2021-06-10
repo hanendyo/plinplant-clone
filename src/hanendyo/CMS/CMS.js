@@ -1,38 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
 import { ContextProvider } from "../../context/store/ContextStore";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { Article, Category, City, Contact, Gender, Order, OrderItem, Plant, PlantBreeding, PriceList, Review, ShippingCharges, Stock, User, Weight } from "./cmsPages";
-import './CMS.css'
-import Navigation from "./navigation/Navigation";
+import {
+  Article,
+  Category,
+  City,
+  Contact,
+  Gender,
+  Order,
+  OrderItem,
+  Plant,
+  PlantBreeding,
+  PriceList,
+  Review,
+  ShippingCharges,
+  Stock,
+  User,
+  Weight,
+} from "./cmsPages";
+import "./CMS.css";
 import SidebarCMS from "../../dhika/SidebarCMS/components/SidebarCMS";
 
 const CMS = () => {
   return (
-    <div className='cmsBody'>    
+    <div className="cmsBody">
       <ContextProvider>
         <Router>
-            <SidebarCMS/>
-            <Switch>
-                <Route exact path='/cms/article_input' component={Article}></Route>
-                <Route exact path='/cms/category_input' component={Category}></Route>
-                <Route exact path='/cms/city_input' component={City}></Route>
-                <Route exact path='/cms/contact_input' component={Contact}></Route>
-                <Route exact path='/cms/gender_input' component={Gender}></Route>
-                <Route exact path='/cms/order_input' component={Order}></Route>
-                <Route exact path='/cms/order_item_input' component={OrderItem}></Route>
-                <Route exact path='/cms/plant_input' component={Plant}></Route>
-                <Route exact path='/cms/plant_breeding_input' component={PlantBreeding}></Route>
-                <Route exact path='/cms/price_list_input' component={PriceList}></Route>
-                <Route exact path='/cms/review_input' component={Review}></Route>
-                <Route exact path='/cms/shipping_charges_input' component={ShippingCharges}></Route>
-                <Route exact path='/cms/stock_input' component={Stock}></Route>
-                <Route exact path='/cms/user_input' component={User}></Route>
-                <Route exact path='/cms/weight_input' component={Weight}></Route>
-            </Switch>
+          <SidebarCMS />
+          <Switch>
+            <Route exact path="/cms/article_input" component={Article}></Route>
+            <Route
+              exact
+              path="/cms/category_input"
+              component={Category}
+            ></Route>
+            <Route exact path="/cms/city_input" component={City}></Route>
+            <Route exact path="/cms/contact_input" component={Contact}></Route>
+            <Route exact path="/cms/gender_input" component={Gender}></Route>
+            <Route exact path="/cms/order_input" component={Order}></Route>
+            <Route
+              exact
+              path="/cms/order_item_input"
+              component={OrderItem}
+            ></Route>
+            <Route exact path="/cms/plant_input" component={Plant}></Route>
+            <Route
+              exact
+              path="/cms/plant_breeding_input"
+              component={PlantBreeding}
+            ></Route>
+            <Route
+              exact
+              path="/cms/price_list_input"
+              component={PriceList}
+            ></Route>
+            <Route exact path="/cms/review_input" component={Review}></Route>
+            <Route
+              exact
+              path="/cms/shipping_charges_input"
+              component={ShippingCharges}
+            ></Route>
+            <Route exact path="/cms/stock_input" component={Stock}></Route>
+            <Route exact path="/cms/user_input" component={User}></Route>
+            <Route exact path="/cms/weight_input" component={Weight}></Route>
+          </Switch>
         </Router>
       </ContextProvider>
     </div>
-
   );
 };
 
