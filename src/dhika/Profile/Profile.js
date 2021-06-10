@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from 'react';
 import {
   StyledProfile,
   ProfileContainer,
@@ -6,27 +6,27 @@ import {
   Information,
   Data,
   RightArea,
-} from "./Profile.component";
-import axios from "axios";
-import UploadBox from "../../master/components/additional/UploadBox";
-import ProductsContainer from "../../fajariadi/components/Main/components/Product/ProductsContainer";
-import { addresses } from "../../master/constant/data/dummy-data";
-import ScrollSign from "../../master/components/additional/ScrollSign";
-import { ContextStore } from "../../context/store/ContextStore";
-import PopoutComponent from "../Modal/ModalAlamat/PopupComponent/Popout";
-import Button from "../../master/components/additional/Button";
-import { colors } from "../../master/constant/style";
-import ModalNama from "../Modal/ModalNama/ModalNama";
+} from './Profile.component';
+import axios from 'axios';
+import UploadBox from '../../master/components/additional/UploadBox';
+import ProductsContainer from '../../fajariadi/components/Main/components/Product/ProductsContainer';
+import { addresses } from '../../master/constant/data/dummy-data';
+import ScrollSign from '../../master/components/additional/ScrollSign';
+import { ContextStore } from '../../context/store/ContextStore';
+import PopoutComponent from '../Modal/ModalAlamat/PopupComponent/Popout';
+import Button from '../../master/components/additional/Button';
+import { colors } from '../../master/constant/style';
+import ModalNama from '../Modal/ModalNama/ModalNama';
 import {
   openModalTambahAlamat,
   openModalGantiNama,
   openModalGantiBirthdate,
   openModalGantiGender,
   openModalGantiNomor,
-} from "../../context/actions/modalActions";
-import ModalBirthdate from "../Modal/ModalBirthdate/ModalBirthdate";
-import ModalGender from "../Modal/ModalGender/ModalGender";
-import ModalPhone from "../Modal/ModalPhone/ModalPhone";
+} from '../../context/actions/modalActions';
+import ModalBirthdate from '../Modal/ModalBirthdate/ModalBirthdate';
+import ModalGender from '../Modal/ModalGender/ModalGender';
+import ModalPhone from '../Modal/ModalPhone/ModalPhone';
 
 const Profile = () => {
   const {
@@ -46,7 +46,7 @@ const Profile = () => {
     userLoginDispatch,
   } = useContext(ContextStore);
 
-  const [state, setState] = useState("");
+  const [state, setState] = useState('');
   const [biodata, setBiodata] = useState(true);
   const [address, setAddress] = useState(false);
 
@@ -61,16 +61,15 @@ const Profile = () => {
   useEffect(() => {
     if (userAddressState.length < 3) setScroll(false);
     if (userAddressState.length > 2) setScroll(true);
-    console.log("HALO INI USER INFO :", userInfoState);
-  }, [userAddressState, userInfoState]);
+  }, [userAddressState]);
 
-  console.log("INI USER LOGIN STATE: ", userLoginState.phone_number);
-  console.log("INI Nomor: ", nomor);
+  console.log('INI USER LOGIN STATE: ', userLoginState.phone_number);
+  console.log('INI Nomor: ', nomor);
   return (
     <StyledProfile>
       {biodata && (
         <ProfileContainer>
-          <div className="valueChoose">
+          <div className='valueChoose'>
             <TextBox biodata={biodata}>
               <p>Biodata Diri</p>
             </TextBox>
@@ -94,7 +93,7 @@ const Profile = () => {
               <li>{userLoginState.fullname}</li>
               <li
                 onClick={() => {
-                  setState("name");
+                  setState('name');
                   modalGantiNamaDispatch(openModalGantiNama());
                 }}
               >
@@ -120,7 +119,7 @@ const Profile = () => {
                   <li>{userLoginState.birth_date}</li>
                   <li
                     onClick={() => {
-                      setState("tanggal lahir");
+                      setState('tanggal lahir');
                       setBirthdate(userLoginState.birth_date);
                       modalGantiBirthdateDispatch(openModalGantiBirthdate());
                     }}
@@ -146,11 +145,11 @@ const Profile = () => {
               {gender !== 0 && (
                 <>
                   <li>
-                    {userLoginState.fk_gender_id === 1 ? "Pria" : "Wanita"}
+                    {userLoginState.fk_gender_id === 1 ? 'Pria' : 'Wanita'}
                   </li>
                   <li
                     onClick={() => {
-                      setState("Jenis Kelamin");
+                      setState('Jenis Kelamin');
                       setGender(userLoginState.fk_gender_id);
                       modalGantiGenderDispatch(openModalGantiGender());
                     }}
@@ -185,7 +184,7 @@ const Profile = () => {
                   <li>{userLoginState.phone_number}</li>
                   <li
                     onClick={() => {
-                      setState("nomor HP");
+                      setState('nomor HP');
                       setBirthdate(userLoginState.phone_number);
                       modalGantiNomorDispatch(openModalGantiNomor());
                     }}
@@ -205,7 +204,7 @@ const Profile = () => {
 
       {address && (
         <ProfileContainer>
-          <div className="valueChoose">
+          <div className='valueChoose'>
             <TextBox
               onClick={() => {
                 setBiodata(!biodata);
@@ -224,7 +223,7 @@ const Profile = () => {
             <Button
               primary
               address
-              text="Tambah Alamat Baru"
+              text='Tambah Alamat Baru'
               bgColor={colors.yellow}
               onClick={() => modalTambahAlamatDispatch(openModalTambahAlamat())}
             />

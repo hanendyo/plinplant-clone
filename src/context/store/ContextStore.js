@@ -151,10 +151,10 @@ export const ContextProvider = ({ children }) => {
     false
   );
 
-  // const [plantIdReviewState, plantIdReviewDispatch] = useThunkReducer(
-  //   plantIdReviewReducer,
-  //   { id: 1, phase: "Biji", cartId: 1 }
-  // );
+  const [plantIdReviewState, plantIdReviewDispatch] = useThunkReducer(
+    plantIdReviewReducer,
+    { id: 1, phase: 'Biji', cartId: 1 }
+  );
 
   // ::: MODAL PILIH ALAMAT :::
   const [modalPilihAlamatState, modalPilihAlamatDispatch] = useReducer(
@@ -342,8 +342,9 @@ export const ContextProvider = ({ children }) => {
         // ::: MODAL REVIEW :::
         modalReviewState,
         modalReviewDispatch,
-        // plantIdReviewState,
-        // plantIdReviewDispatch,
+
+        plantIdReviewState,
+        plantIdReviewDispatch,
 
         // ::: MODAL PILIH ALAMAT :::
         modalPilihAlamatState,
