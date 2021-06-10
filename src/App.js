@@ -10,7 +10,12 @@ import {
   ArticlePage,
   ProfilePage,
 } from './fajariadi/pages';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import CMS from './hanendyo/CMS/CMS';
 import { ContextStore } from './context/store/ContextStore';
 import { getPlants } from './context/actions';
@@ -19,8 +24,12 @@ import Loader from './fajariadi/components/Loader';
 import { SignIn, SignUp } from './hanendyo/AuthPages/AuthPages';
 
 const App = () => {
-  const { tablePlantDispatch, tableArticleDispatch, invoiceDispatch } =
-    useContext(ContextStore);
+  const {
+    tablePlantDispatch,
+    tableArticleDispatch,
+    invoiceDispatch,
+    userLoginState,
+  } = useContext(ContextStore);
 
   const [loading, setLoading] = useState(true);
 
@@ -61,7 +70,14 @@ const App = () => {
             <Route path='/:id/transaction' component={TransactionPage} />
             <Route path='/article/:id/:title' component={ArticlePage} />
             <Route path='/profile' component={ProfilePage} />
-            <Route path='/cms' component={CMS} />
+            <Route path='/cms' component={CMS}>
+              {' '}
+              {userLoginState ? (
+                <Route path='/cms/' component={CMS} />
+              ) : (
+                <Redirect to={'/login'} />
+              )}{' '}
+            </Route>
             <Route exact path='/register' component={SignUp} />
             <Route exact path='/login' component={SignIn} />
           </Switch>

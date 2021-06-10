@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { colors, StyledContainer } from '../../master/constant/style/index';
+import styled from "styled-components";
+import { colors, StyledContainer } from "../../master/constant/style/index";
 
 export const StyledProfile = styled.main`
   min-height: 100vh;
@@ -52,15 +52,15 @@ export const TextBox = styled.div`
   transition: all 0.3s;
 
   padding-left: ${({ biodata, address }) =>
-    biodata || address ? '10px' : '12px'};
+    biodata || address ? "10px" : "12px"};
 
   background: ${({ biodata, address }) =>
-    biodata || address ? colors.lightGreenTransparent : 'unset'};
+    biodata || address ? colors.lightGreenTransparent : "unset"};
 
   border-left: ${({ biodata, address }) =>
     biodata || address
-      ? '4px solid white'
-      : '2px solid rgba(255, 255, 255, 0.3)'};
+      ? "4px solid white"
+      : "2px solid rgba(255, 255, 255, 0.3)"};
 
   &:hover {
     background: rgba(255, 255, 255, 0.3);
@@ -88,7 +88,7 @@ export const Information = styled.div`
 
 export const Data = styled.ul`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 100%;
   margin-bottom: 30px;
 
@@ -101,16 +101,20 @@ export const Data = styled.ul`
     &:nth-of-type(2) {
       flex: 1;
       margin-left: 20px;
+      color: ${({ empty }) => (null ? colors.yellow : "auto")};
+      cursor: ${({ empty }) => (null ? "pointer" : "auto")};
     }
 
     &:nth-of-type(3) {
       color: ${colors.yellow};
       cursor: pointer;
+      /* color: ${({ empty }) => (empty ? colors.yellow : "auto")};
+      cursor: ${({ empty }) => (empty ? "pointer" : "auto")};
+      display: ${({ empty }) => (empty ? "none" : "block")}; */
     }
-
     &:last-of-type {
-      color: ${({ empty }) => (empty ? colors.yellow : 'auto')};
-      cursor: ${({ empty }) => (empty ? 'pointer' : 'auto')};
+      color: ${colors.yellow};
+      cursor: pointer;
     }
   }
 

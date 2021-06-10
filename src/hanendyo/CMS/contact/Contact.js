@@ -281,7 +281,7 @@ const Contact = () => {
             <InputLabel id="City_ID"> City Name</InputLabel>
             <Select
               value={contactState.fk_city_id}
-              onChange={(e) => formChange("fk_city_id", e.target.value)}
+              onChange={(e) => formChange(`fk_city_id`, e.target.value)}
               name="fk_city_id"
               labelId="City_ID"
               id="outlined-basic"

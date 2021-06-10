@@ -21,11 +21,14 @@ import {
   userAddressReducer,
   invoiceReducer,
   bankReducer,
-  transactionReducer,
 } from '../reducer/fetchingReducer';
 import {
   modalPilihAlamatReducer,
   modalTambahAlamatReducer,
+  modalGantiNamaReducer,
+  modalGantiGenderReducer,
+  modalGantiNomorReducer,
+  modalGantiBirthdateReducer,
   plantIdReviewReducer,
 } from '../reducer/modalReducers';
 import { SignInReducer } from '../reducer/SignInReducer';
@@ -147,10 +150,10 @@ export const ContextProvider = ({ children }) => {
     false
   );
 
-  const [plantIdReviewState, plantIdReviewDispatch] = useThunkReducer(
-    plantIdReviewReducer,
-    { id: 1, phase: 'Biji', cartId: 1 }
-  );
+  // const [plantIdReviewState, plantIdReviewDispatch] = useThunkReducer(
+  //   plantIdReviewReducer,
+  //   { id: 1, phase: "Biji", cartId: 1 }
+  // );
 
   // ::: MODAL PILIH ALAMAT :::
   const [modalPilihAlamatState, modalPilihAlamatDispatch] = useReducer(
@@ -171,6 +174,31 @@ export const ContextProvider = ({ children }) => {
   );
 
   // !::::::::::::::::::::: FETCHING ::::::::::::::::::::::::
+  // ::: MODAL GANTI NAMA :::
+  const [modalGantiNamaState, modalGantiNamaDispatch] = useReducer(
+    modalGantiNamaReducer,
+    false
+  );
+
+  // ::: MODAL GANTI GENDER :::
+  const [modalGantiGenderState, modalGantiGenderDispatch] = useReducer(
+    modalGantiGenderReducer,
+    false
+  );
+
+  // ::: MODAL GANTI NOMOR HP :::
+  const [modalGantiNomorState, modalGantiNomorDispatch] = useReducer(
+    modalGantiNomorReducer,
+    false
+  );
+
+  // ::: MODAL GANTI BIRTH DATE :::
+  const [modalGantiBirthdateState, modalGantiBirthdateDispatch] = useReducer(
+    modalGantiBirthdateReducer,
+    false
+  );
+
+  // !::: FETCHING :::
   // ::: FETCH USER INFO ::: DUMMY :::
   const [userInfoState, userInfoDispatch] = useThunkReducer(
     userInfoReducer,
@@ -208,10 +236,10 @@ export const ContextProvider = ({ children }) => {
   const [bankState, bankDispatch] = useThunkReducer(bankReducer, []);
 
   // ::: FETCH TRANSACTION :::
-  const [transactionState, transactionDispatch] = useThunkReducer(
-    transactionReducer,
-    []
-  );
+  // const [transactionState, transactionDispatch] = useThunkReducer(
+  //   transactionReducer,
+  //   []
+  // );
 
   // ::: FETCH INVOICES :::
   const [invoiceState, invoiceDispatch] = useThunkReducer(invoiceReducer, []);
@@ -313,8 +341,8 @@ export const ContextProvider = ({ children }) => {
         // ::: MODAL REVIEW :::
         modalReviewState,
         modalReviewDispatch,
-        plantIdReviewState,
-        plantIdReviewDispatch,
+        // plantIdReviewState,
+        // plantIdReviewDispatch,
 
         // ::: MODAL PILIH ALAMAT :::
         modalPilihAlamatState,
@@ -323,6 +351,22 @@ export const ContextProvider = ({ children }) => {
         // ::: MODAL TAMBAH ALAMAT :::
         modalTambahAlamatState,
         modalTambahAlamatDispatch,
+
+        // ::: MODAL GANTI NAMA :::
+        modalGantiNamaState,
+        modalGantiNamaDispatch,
+
+        // ::: MODAL GANTI GENDER :::
+        modalGantiGenderState,
+        modalGantiGenderDispatch,
+
+        // ::: MODAL GANTI NOMOR :::
+        modalGantiNomorState,
+        modalGantiNomorDispatch,
+
+        // ::: MODAL GANTI BIRTHDATE :::
+        modalGantiBirthdateState,
+        modalGantiBirthdateDispatch,
 
         // ::: FETCH TABLE PLANT :::
         tablePlantState,

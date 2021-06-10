@@ -200,16 +200,6 @@ const Article = () => {
         return err;
       });
 
-
-
-
-
-
-
-
-
-
-
     // axios
     //   .put(url + endPoint + `_update`, data)
     //   .then((res) => {
@@ -353,6 +343,7 @@ const Article = () => {
             id="outlined-static"
             label="Birth Date"
             variant="outlined"
+            type="date"
           />
           <TextField
             value={userState.phone_number}
@@ -379,22 +370,6 @@ const Article = () => {
               ))}
             </Select>
           </FormControl>
-          {/* <TextField
-            value={userState.fk_gender_id}
-            onChange={(e) => formChange("fk_gender_id", e.target.value)}
-            name="fk_gender_id"
-            id="outlined-basic"
-            label="Gender_ID"
-            variant="outlined"
-          /> */}
-          {/* ----- IMAGE ----- */}
-          {/* <span>Pick image:</span>
-        <input
-          name="picture_upload"
-          type="file"
-          onChange={(e) => formImage(e)}
-        />
-        <img src={reviewImage} alt="" /> */}
           <ImageBox>
             <SpanImage>
               <h6>Upload Image</h6>
@@ -462,7 +437,6 @@ const Article = () => {
           <li>PASSWORD</li>
           <li>BIRTH DATE</li>
           <li>PICTURE</li>
-          <li>CONTACT ID</li>
           <li>GENDER ID</li>
           <li>ACTION</li>
         </List>
@@ -473,7 +447,7 @@ const Article = () => {
             <li>{data.email}</li>
             <li>{data.password}</li>
             <li>{data.birth_date}</li>
-            <li>{data.fk_contact_id}</li>
+            <li>{data.picture}</li>
             <li>{data.fk_gender_id}</li>
             {
               <ButtonList>

@@ -1,4 +1,4 @@
-const pool = require('../database/Database');
+const pool = require("../database/Database");
 
 module.exports = {
   // ::: QUERY TO GET USER INFO ::: DUMMY :::
@@ -15,6 +15,19 @@ module.exports = {
   },
   // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
 
+  // ::: QUERY TO UPDATE USER INFO ::: DUMMY :::
+
+  updateUsernameID: (body, id, callback) => {
+    pool.query(
+      `UPDATE table_user SET fullname=? where pk_user_id = ?`,
+      [body.fullname, id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
   // :: INVOICE ::
   invoiceGetId: (id, callBack) => {
     pool.query(
@@ -28,6 +41,40 @@ module.exports = {
     );
   },
 
+  updateBirthdateID: (body, id, callback) => {
+    pool.query(
+      `UPDATE table_user SET birth_date=? where pk_user_id = ?`,
+      [body.birth_date, id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+  updateGenderID: (body, id, callback) => {
+    pool.query(
+      `UPDATE table_user SET fk_gender_id=? where pk_user_id = ?`,
+      [body.fk_gender_id, id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+  updatePhoneNumberID: (body, id, callback) => {
+    pool.query(
+      `UPDATE table_user SET phone_number=? where pk_user_id = ?`,
+      [body.phone_number, id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
+  // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
   invoiceGetAllDatas: (callback) => {
     pool.query(`Select * from user_invoice`, [], (error, results, fields) => {
       if (error) {
@@ -58,7 +105,7 @@ module.exports = {
   },
 
   invoiceDone: (data, callBack) => {
-    console.log('PESANAN SELESAI', data);
+    console.log("PESANAN SELESAI", data);
     pool.query(
       `update table_invoice set status=? where pk_invoice_id=?`,
       [data.status, data.pk_invoice_id],
@@ -117,7 +164,7 @@ module.exports = {
   },
 
   cartAdd: (data, callBack) => {
-    console.log('CART ADD', data);
+    console.log("CART ADD", data);
     pool.query(
       `INSERT INTO table_cart(phase_image, plant_name, plant_phase, price, quantity, weight, fk_plant_id, fk_user_id) values(?, ?, ?, ?, ?, ?, ?, ?)`,
       [
