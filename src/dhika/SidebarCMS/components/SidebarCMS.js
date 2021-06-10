@@ -82,7 +82,7 @@ const Container = styled.div`
   height: 100%;
   position: sticky;
   top: 0;
-  z-index: 0;
+  z-index: 100;
   background-color: #fff;
 `;
 
@@ -94,7 +94,7 @@ const Nav = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  position: relative;
+  position: sticky;
   top: 0;
   left: ${({ sidebar }) => (sidebar ? "17%" : "0%")};
   transition: 100ms;
@@ -136,7 +136,7 @@ const SidebarNav = styled.nav`
   top: 0;
   left: ${({ sidebar }) => (sidebar ? "0" : "-100%")};
   transition: 10ms;
-  z-index: 10;
+  z-index: 100;
   overflow-x: hidden;
 
   &::-webkit-scrollbar {
