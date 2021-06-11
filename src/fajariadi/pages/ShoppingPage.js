@@ -25,9 +25,9 @@ const ShoppingPage = ({ match }) => {
   useEffect(() => {
     setLoading(true);
 
-    plantIdDispatch(getPlantById(match));
+    plantIdDispatch(getPlantById(match.params.id));
 
-    plantReviewDispatch(getReviews(match));
+    plantReviewDispatch(getReviews(match.params.id));
 
     if (userLoginState) userCartDispatch(getCarts(userLoginState));
 
@@ -36,10 +36,8 @@ const ShoppingPage = ({ match }) => {
     // ::: LOADING TIME :::
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 300);
   }, [match.params.id, userCartDispatch]);
-
-  console.log('SHOPP STATE', userCartState);
 
   return (
     <>

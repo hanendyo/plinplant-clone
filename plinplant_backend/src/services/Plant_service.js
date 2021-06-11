@@ -252,7 +252,7 @@ module.exports = {
 
   addressGetByUserId: (id, callback) => {
     pool.query(
-      `Select * from user_address where fk_user_id = ?`,
+      `Select * from user_address where fk_user_id = ? order by pk_contact_id`,
       [id],
       (error, results, fields) => {
         if (error) return callback(error);

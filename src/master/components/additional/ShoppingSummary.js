@@ -33,6 +33,7 @@ const ShoppingSummary = ({
     userAddressState,
     userLoginState,
     invoiceDispatch,
+    tablePlantState,
   } = useContext(ContextStore);
 
   const history = useHistory();
@@ -105,6 +106,9 @@ const ShoppingSummary = ({
 
     history.push('/checkout');
   };
+
+  console.log('USER CARTTT', userCartState);
+  console.log('PLANNNNNNTTT', tablePlantState);
 
   return (
     <SummarySection>

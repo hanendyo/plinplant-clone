@@ -20,36 +20,40 @@ import {
   closeModalTambahAlamat,
   openModalPilihAlamat,
 } from '../../../../context/actions/modalActions';
-import { createAddress } from '../../../../context/actions/fetchingActions';
+import {
+  createAddress,
+  getAddresses,
+} from '../../../../context/actions/fetchingActions';
 import Button from '../../../../master/components/additional/Button';
 import { colors } from '../../../../master/constant/style';
 import { ContextStore } from '../../../../context/store/ContextStore';
 
-const PopoutComponent = ({ cart, modal }) => {
+const PopoutComponent = ({ cart, modal, checkout, profile }) => {
   const {
     modalTambahAlamatDispatch,
     modalPilihAlamatDispatch,
     userAddressDispatch,
     userLoginState,
+    cityState,
   } = useContext(ContextStore);
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState(0);
   const [postalCode, setPostalCode] = useState('');
   const [address, setAddress] = useState('');
 
   const history = useHistory();
 
-  const cityFormat = (city) => {
-    if (city.toLocaleLowerCase() === 'jakarta') return 1;
-    if (city.toLocaleLowerCase() === 'bogor') return 2;
-    if (city.toLocaleLowerCase() === 'depok') return 3;
-    if (city.toLocaleLowerCase() === 'tangerang') return 4;
-    if (city.toLocaleLowerCase() === 'bekasi') return 5;
-  };
+  // const cityFormat = (city) => {
+  //   if (city.toLocaleLowerCase() === 'jakarta') return 1;
+  //   if (city.toLocaleLowerCase() === 'bogor') return 2;
+  //   if (city.toLocaleLowerCase() === 'depok') return 3;
+  //   if (city.toLocaleLowerCase() === 'tangerang') return 4;
+  //   if (city.toLocaleLowerCase() === 'bekasi') return 5;
+  // };
 
-  const fk_city_id = cityFormat(city);
+  const fk_city_id = city;
   const fk_user_id = userLoginState.pk_user_id;
 
   // const HandleSubmit = () => {
@@ -70,11 +74,28 @@ const PopoutComponent = ({ cart, modal }) => {
     );
 
     setTimeout(() => {
+      if (checkout) {
+        userAddressDispatch(getAddresses(userLoginState));
+        modalTambahAlamatDispatch(closeModalTambahAlamat());
+        modalPilihAlamatDispatch(openModalPilihAlamat());
+      }
+
+      if (profile) {
+        userAddressDispatch(getAddresses(userLoginState));
+        modalTambahAlamatDispatch(closeModalTambahAlamat());
+      }
+
       if (cart) {
         modalTambahAlamatDispatch(closeModalTambahAlamat());
         history.push('/checkout');
       }
     }, 1000);
+
+    setName('');
+    setPhone('');
+    setCity('');
+    setPostalCode('');
+    setAddress('');
   };
 
   return (
@@ -112,13 +133,31 @@ const PopoutComponent = ({ cart, modal }) => {
           <InsertData>
             <label>Kota atau Kecamatan</label>
 
-            <TextField
+            {/* <TextField
               className='form'
               id='city'
               label='Tulis kota/kecamatan'
               value={city}
               onChange={(e) => setCity(e.target.value)}
-            />
+            /> */}
+
+            <FormControl className='form'>
+              <InputLabel id='demo-controlled-open-select-label'>
+                Pilih Kota Tujuan
+              </InputLabel>
+              <Select
+                labelId='demo-controlled-open-select-label'
+                id='demo-controlled-open-select'
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              >
+                <MenuItem value={1}>Jakarta</MenuItem>
+                <MenuItem value={2}>Bogor</MenuItem>
+                <MenuItem value={3}>Depok</MenuItem>
+                <MenuItem value={4}>Tangerang</MenuItem>
+                <MenuItem value={5}>Bekasi</MenuItem>
+              </Select>
+            </FormControl>
           </InsertData>
 
           <InsertData>

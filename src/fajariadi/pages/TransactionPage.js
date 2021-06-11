@@ -23,7 +23,7 @@ const TransactionPage = ({ match }) => {
     // ::: LOADING TIME :::
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 300);
   }, []);
 
   console.log('TRANSACTION', invoiceState);

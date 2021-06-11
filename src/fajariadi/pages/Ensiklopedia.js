@@ -17,14 +17,14 @@ const Ensiklopedia = ({ match }) => {
   useEffect(() => {
     setLoading(true);
 
-    plantIdDispatch(getPlantById(match));
+    plantIdDispatch(getPlantById(match.params.id));
 
     window.scrollTo({ top: 0 });
 
     // ::: LOADING TIME :::
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 300);
   }, [match.params.id]);
 
   return (

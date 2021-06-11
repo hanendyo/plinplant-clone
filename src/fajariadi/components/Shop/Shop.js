@@ -19,7 +19,7 @@ import { useMediaQuery } from 'react-responsive';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { Link, useHistory } from 'react-router-dom';
 import { priceFormat } from '../../../master/constant/constantVariables';
-import { addCart } from '../../../context/actions/fetchingActions';
+import { addCart, getCarts } from '../../../context/actions/fetchingActions';
 import AlertSign from '../../../master/components/additional/AlertSign';
 
 const Shop = () => {
@@ -162,9 +162,11 @@ const Shop = () => {
     setTuberQuantity(1);
     setYoungQuantity(1);
     setMatureQuantity(1);
-  };
 
-  console.log('NOTIFFF', notif);
+    setTimeout(() => {
+      userCartDispatch(getCarts(userLoginState));
+    }, 100);
+  };
 
   return (
     <main
@@ -283,10 +285,10 @@ const Shop = () => {
                     {ratingAvg === 0 ? 0 : ratingAvg.toFixed(1)}
                   </span>
 
-                  {highlight === 'Biji' && <span>Stok {seed_stock}</span>}
-                  {highlight === 'Bonggol' && <span>Stok {tuber_stock}</span>}
-                  {highlight === 'Muda' && <span>Stok {teen_stock}</span>}
-                  {highlight === 'Dewasa' && <span>Stok {mature_stock}</span>}
+                  {/* {highlight === 'Biji' && <span>Stok {seed_stock}</span>} */}
+                  {/* {highlight === 'Bonggol' && <span>Stok {tuber_stock}</span>} */}
+                  {/* {highlight === 'Muda' && <span>Stok {teen_stock}</span>} */}
+                  {/* {highlight === 'Dewasa' && <span>Stok {mature_stock}</span>} */}
                 </div>
 
                 {highlight === 'Biji' && (

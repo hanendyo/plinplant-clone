@@ -2,8 +2,6 @@ CREATE DATABASE db_plinplant;
 
 USE db_plinplant;
 
--- drop database db_plinplant;
-
 -- ::::::: PLANT DATA :::::::
 
 -- ::: PLANT :::
@@ -18,9 +16,9 @@ CREATE TABLE table_plant(
 	matures_in VARCHAR(50),
 	growth_type VARCHAR(50),
 	fk_category_id INT NOT NULL
+	
 );
 SELECT * FROM table_plant;
-truncate table table_plant;
 
 -- ::: PLANT VALUES :::
 INSERT INTO table_plant(plant_name, plant_image, plant_origin, plant_qualities, plant_use, days_to_sprout, matures_in, growth_type, fk_category_id)
@@ -98,8 +96,6 @@ VALUES
 ('Mint', 'mint_mature.jpg', 'Mint telah dirujuk secara luas dalam teks dan cerita lama, yang menyiratkan sejarah panjangnya sebagai tanaman budidaya. Itu direferensikan dalam Alkitab dengan saran-saran itu dianggap sangat berharga. Ada juga cerita dari mitologi kuno yang berbicara tentang mint. Awalnya, mint digunakan untuk aromanya yang menyenangkan dan dioleskan ke berbagai bagian tubuh dan digunakan untuk menyegarkan napas dan memutihkan gigi.', 'Mint memiliki khasiat antimikroba sehingga bagus untuk digunakan dalam produk kesehatan mulut karena berkontribusi pada napas segar, mengunyah daun mint saja sudah sangat menyegarkan. Mint dikenal untuk meningkatkan kewaspadaan dan kesadaran.', 'Mint banyak digunakan dalam minuman, baik itu teh atau mojitos, mint membawa rasa segar. Jangan ragu untuk menambahkannya ke salad juga untuk menyempurnakannya dan menghadirkan rasa pedas dan cerah.', '10 - 21', '60 - 75', 'Merambat', 4),
 
 ('Oregano', 'oregano_mature.jpg', 'Oregano ditemukan dalam masakan Meksiko dan Mediterania. Meski serupa, varietas ini berasal dari keluarga yang berbeda.', 'Selain memasak, oregano digunakan dalam banyak aplikasi medis. Minyak ini dapat digunakan sebagai antiseptik topikal untuk meredakan sakit tenggorokan dan membantu menangkal masuk angin. Ramuan itu sendiri memiliki banyak manfaat bagi kesehatan. Ini kaya akan antioksidan. dan memiliki sifat anti-inflamasi', 'Oregano menambah rasa pada saus, pizza dan sangat bagus untuk bumbu daging. Tambahkan di akhir memasak untuk memaksimalkan rasa.', '7 - 21', '80 - 90', 'Merambat', 4)
-;
-
 
 -- ::: CATEGORY :::
 CREATE TABLE table_category(
@@ -127,7 +123,8 @@ CREATE TABLE table_plant_breeding(
 	tuber_image VARCHAR(255),
 	young_image VARCHAR(255),
 	mature_image VARCHAR(255),
-	fk_plant_id INT NOT NULL
+	fk_plant_id INT NOT NULL,
+
 );
 SELECT * FROM table_plant_breeding;
 
@@ -203,7 +200,7 @@ VALUES
 ('Tabur langsung di awal musim semi segera setelah tanah bisa dikerjakan. Karena benih kecil ini membutuhkan cahaya untuk berkecambah, tanamlah di dekat permukaan tanah. Jaga tanah tetap lembab sampai berkecambah.', 'Jaga agar bibit yang sedang berkembang tetap lembab, dan tipiskan atau beri jarak jika perlu. Tanaman dewasa bisa menjadi invasif; untuk mencegah penyebaran, baik tumbuh sebagai tanaman kontainer atau singkirkan tanaman muda yang berkembang.', 'Jagalah agar tanaman disiram dengan baik selama musim tanam, terutama selama musim kering. Tanaman membutuhkan sekitar 1 inci hujan per minggu selama musim tanam. Gunakan alat pengukur hujan untuk memeriksa apakah Anda perlu menambahkan air. Cara terbaik adalah menyiram dengan sistem tetesan atau tetesan yang mengalirkan air pada tekanan rendah di permukaan tanah. Jika Anda menyiram dengan alat penyiram di atas kepala, sirami di pagi hari agar dedaunan memiliki waktu untuk mengering sebelum malam, untuk meminimalkan masalah penyakit. Jaga tanah tetap lembab tetapi tidak jenuh.', 'Untuk daun mint segar, pilih daun di pagi hari sebelum embun mengering. Kualitas daun paling baik sebelum tanaman berbunga; untuk memperpanjang masa panen, cabut tunas saat mulai berkembang.', 'mint_seed.jpg', 'mint_tuber.jpg', 'mint_young.jpg', 'mint_mature.jpg', 34),
 
 ('Tabur langsung di tanah rata-rata di bawah sinar matahari penuh setelah semua bahaya embun beku ketika suhu tetap di atas 45 derajat F. Singkirkan gulma dan kerjakan bahan organik di atas 6-8 inci tanah; lalu ratakan dan halus. Taburkan benih secara merata dan tutupi dengan tanah halus. Kencangkan tanah dengan ringan dan jaga agar tetap lembab. Bibit akan tumbuh dalam 10-21 hari. Pisahkan tipis hingga 12 inci saat bibit memiliki tiga set daun.', 'Oregano sebenarnya memiliki rasa paling beraroma jika dibiarkan, dengan sedikit penyiraman dan tanpa pemupukan.', 'Jagalah agar tanaman disiram dengan baik selama musim tanam, terutama selama musim kering. Tanaman membutuhkan sekitar 1 inci hujan per minggu selama musim tanam. Gunakan alat pengukur hujan untuk memeriksa apakah Anda perlu menambahkan air. Cara terbaik adalah menyiram dengan sistem tetesan atau tetesan yang mengalirkan air pada tekanan rendah di permukaan tanah. Jika Anda menyiram dengan alat penyiram di atas kepala, sirami di pagi hari agar dedaunan memiliki waktu untuk mengering sebelum malam, untuk meminimalkan masalah penyakit. Jaga tanah tetap lembab tetapi tidak jenuh.', 'Daun segar dapat dipanen segera setelah tanaman mencapai ketinggian 6 ". Waktu terbaik untuk memanen daun adalah pagi hari setelah embun mengering. Panen seluruh batang dengan memotongnya setidaknya 1" di atas tanah untuk memungkinkan tumbuh baru pertumbuhan. Daun segar akan disimpan di lemari es selama sekitar lima hari, tetapi juga bisa dibekukan atau dikeringkan. Karena panas cenderung merusak rasa oregano, oregano harus ditambahkan ke makanan panas segera sebelum disajikan. Tidak seperti kebanyakan herba, daun oregano kering cenderung memiliki rasa yang lebih kuat daripada yang segar.', 'oregano_seed.jpg', 'oregano_tuber.jpg', 'oregano_young.jpg', 'oregano_mature.jpg', 35)
-;
+
 -- ::: WEIGHT :::
 CREATE TABLE table_weight(
 	pk_weight_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -212,14 +209,14 @@ CREATE TABLE table_weight(
 	young_weight INT,
 	mature_weight INT,
 	
-	fk_plant_breeding_id INT NOT NULL,
+	fk_plant_breeding_id int not null,
 	fk_price_list_id INT NOT NULL
 );
-SELECT * FROM table_weight;
+select * from table_weight;
 
 -- ::: WEIGHT VALUES :::
-INSERT INTO table_weight(seed_weight, tuber_weight, young_weight, mature_weight, fk_plant_breeding_id, fk_price_list_id)
-VALUES
+insert into table_weight(seed_weight, tuber_weight, young_weight, mature_weight, fk_plant_breeding_id, fk_price_list_id)
+values
 (100, 500, 1500, 2000, 1, 1),
 (100, 500, 1500, 2000, 2, 2),
 (100, 500, 1500, 2000, 3, 3),
@@ -255,7 +252,6 @@ VALUES
 (100, 500, 1500, 2000, 33, 33),
 (100, 500, 1500, 2000, 34, 34),
 (100, 500, 1500, 2000, 35, 35)
-;
 
 -- ::: PRICELIST :::
 CREATE TABLE table_price_list(
@@ -307,7 +303,6 @@ VALUES
 (20000, 50000, 150000, 300000, 33),
 (20000, 50000, 150000, 300000, 34),
 (20000, 50000, 150000, 300000, 35)
-;
 
 -- ::: STOCK :::
 CREATE TABLE table_stock (
@@ -317,7 +312,7 @@ CREATE TABLE table_stock (
 	teen_stock INT,
 	mature_stock INT
 );
-SELECT * FROM table_stock;
+SELECT * FROM table_stock
 
 -- ::: STOCK VALUES :::
 INSERT INTO table_stock(seed_stock, tuber_stock, teen_stock, mature_stock)
@@ -357,7 +352,6 @@ VALUES
 (1000, 1000, 1000, 1000),
 (1000, 1000, 1000, 1000),
 (1000, 1000, 1000, 1000)
-;
 
 -- ::: CREATE VIEW -> PLANT DATA :::
 CREATE VIEW plant_data
@@ -376,14 +370,13 @@ seed_stock, tuber_stock, teen_stock, mature_stock
 FROM table_plant
 JOIN table_category ON fk_category_id = pk_category_id
 JOIN table_plant_breeding ON fk_plant_id = pk_plant_id
-JOIN table_weight ON fk_plant_breeding_id = pk_plant_breeding_id
+join table_weight on fk_plant_breeding_id = pk_plant_breeding_id
 JOIN table_price_list ON fk_price_list_id = pk_price_list_id
 JOIN table_stock ON fk_stock_id = pk_stock_id
-;
 
-SELECT * FROM plant_data;
+SELECT * FROM plant_data
 
-DROP VIEW plant_data;
+drop view plant_data
 
 -- ::::::: END OF PLANT DATA :::::::
 
@@ -393,46 +386,45 @@ CREATE TABLE table_user(
 	pk_user_id INT AUTO_INCREMENT PRIMARY KEY,
 	fullname VARCHAR(50),
 	picture VARCHAR(255),
-	email VARCHAR(50) UNIQUE,
+	email VARCHAR(50) unique,
 	`password` VARCHAR(255),
 	phone_number VARCHAR(50),
 	birth_date VARCHAR(50),
-	fk_gender_id INT
+	fk_gender_id INT not null default 0
 );
 SELECT * FROM table_user;
-DROP TABLE table_user;
-TRUNCATE TABLE table_user;
+DROP TABLE table_user
+truncate table table_user
 
+update table_user set password = '$2b$10$SOj8mugj0MuT96XKRzZK5uer5f1kmoNJLD3Zq.shRneZgShe5w.7W' where pk_user_id = 1
 
 -- ::: USER INITIAL VALUE :::
 INSERT INTO table_user(fullname, picture, email, `password`, phone_number, birth_date, fk_gender_id)
 VALUES
-('Fajar Riadi', 'ig.jpg', 'fajariadi.id@gmail.com', 'passwordPlinplant', '085156493801', '4 April 1997', 1),
-('Dhika Adhiwijna', 'twt.jpg', 'adhika.id@gmail.com', 'passwordTwt', '085156493802', '22 Mei 1997', 1),
-('Hanendyo Indira', 'default.png', 'hanendyo.id@gmail.com', 'passwordDyo', '085156493803', '27 Juni 1997', 1)
-;
+('Fajar Riadi', 'ig.jpg', 'fajariadi.id@gmail.com', 'passwordTwt', '085156493801', '4 April 1997', 1)
+
 
 -- ::: GENDER :::
 CREATE TABLE table_gender(
-	pk_gender_id INT AUTO_INCREMENT PRIMARY KEY,
-	TYPE VARCHAR(50)
+	pk_gender_id INT PRIMARY KEY,
+	type VARCHAR(50)
 );
 SELECT * FROM table_gender;
-DROP TABLE table_gender;
+drop table table_gender
 
 -- ::: GENDER VALUES :::
-INSERT INTO table_gender(TYPE)
-VALUES('Pria'),('Wanita');
+insert into table_gender
+values(0, 'Gender'),(1, 'Pria'),(2, 'Wanita')
 
 -- ::: CREATE VIEW USER :::
-CREATE VIEW user_info
-AS
-SELECT pk_user_id, fullname, picture, email, `password`, phone_number, birth_date, TYPE
-FROM table_user
-LEFT JOIN table_gender ON fk_gender_id = pk_gender_id;
+create view user_info
+as
+select pk_user_id, fullname, picture, email, `password`, phone_number, birth_date, type
+from table_user
+left join table_gender on fk_gender_id = pk_gender_id
 
-SELECT * FROM user_info;
-DROP VIEW user_info;
+select * from user_info
+drop view user_info
 
 -- ::: CITY :::
 CREATE TABLE table_city(
@@ -441,7 +433,7 @@ CREATE TABLE table_city(
 	city_code VARCHAR(50)
 );
 SELECT * FROM table_city;
-DROP TABLE table_city;
+DROP TABLE table_city
 
 -- ::: CITY VALUES :::
 INSERT INTO table_city(city_name, city_code)
@@ -450,7 +442,7 @@ VALUES
 ('Bogor', 'BGR'),
 ('Depok', 'DPK'),
 ('Tangerang', 'TNG'),
-('Bekasi', 'BKS');
+('Bekasi', 'BKS')
 
 -- ::: SHIPPING CHARGE :::
 CREATE TABLE table_shipping_charges(
@@ -458,7 +450,7 @@ CREATE TABLE table_shipping_charges(
 	shipping_price INT,
 	fk_city_id INT
 );
-SELECT * FROM table_shipping_charges;
+SELECT * FROM table_shipping_charges
 	
 -- ::: SHIPPING CHARGE VALUES :::
 INSERT INTO table_shipping_charges(shipping_price, fk_city_id)
@@ -467,7 +459,7 @@ VALUES
 (10000, 2),
 (12000, 3),
 (16000, 4),
-(18000, 5);
+(18000, 5)
 
 -- ::: CONTACT :::
 CREATE TABLE table_contact(
@@ -475,66 +467,68 @@ CREATE TABLE table_contact(
 	recipient_name VARCHAR(50),
 	phone_number VARCHAR(50),
 	address VARCHAR(50),
-	zipcode INT,	
-	fk_city_id INT NOT NULL,
-	fk_user_id INT NOT NULL
+	zipcode int,	
+	fk_city_id INT not null,
+	fk_user_id int not null
 );
 SELECT * FROM table_contact;
-TRUNCATE TABLE table_contact;
+truncate table table_contact
+
+
 
 -- ::: CONTACT INITIAL VALUES :::
-INSERT INTO table_contact(recipient_name, phone_number, address, zipcode, fk_city_id, fk_user_id)
-VALUES
+insert into table_contact(recipient_name, phone_number, address, zipcode, fk_city_id, fk_user_id)
+values
 ('Fajar Riadi', '085156493801', 'Bakso Zahra Salembaran', 15213, 4, 1),
 ('Dhika Adhiwijna', '085156493802', 'GBK Bung Karni', 15222, 1, 1),
 ('Hanendyo', '085156493803', 'Puncak Gunung Warpat', 15212, 2, 1),
-('Dyo Haw', '085156493844', 'Karawang - Dekat Stasiun Karawang Lama', 15312, 5, 2),
-('Yudi Irwanto', '085156493877', 'Alam Sutra, Nawadata Tower Lt. 17', 15442, 4, 2),
-('Vincent', '085156493860', 'Cinere - Patokan Lampu Merah Bermusik', 15552, 4, 2);
+('Dyo Haw', '085156493844', 'Karawang - Dekat Stasiun Karawang Lama', 15312, 5, 1)
+
 
 -- ::: CREATE VIEW USER ADDRESS :::
 CREATE VIEW user_address
-AS
-SELECT pk_contact_id, recipient_name, tco.phone_number, address, zipcode, city_name, city_code, shipping_price, fk_user_id
-FROM table_user
-JOIN table_contact tco ON fk_user_id = pk_user_id
-JOIN table_city tci ON fk_city_id = pk_city_id
-JOIN table_shipping_charges tsc ON tsc.fk_city_id = tci.pk_city_id;
+as
+select pk_contact_id, recipient_name, tco.phone_number, address, zipcode, city_name, city_code, shipping_price, fk_user_id
+from table_user
+join table_contact tco on fk_user_id = pk_user_id
+join table_city tci on fk_city_id = pk_city_id
+join table_shipping_charges tsc ON tsc.fk_city_id = tci.pk_city_id
 
-SELECT * FROM user_address;
+select * from user_address
 
 -- ::: REVIEW :::
 CREATE TABLE table_review(
 	pk_review_id INT AUTO_INCREMENT PRIMARY KEY,
-	created_at VARCHAR(255),
-	COMMENT VARCHAR(255),
+	created_at varchar(255),
+	comment VARCHAR(255),
 	rating INT,
 	
 	fk_user_id INT NOT NULL,
 	fk_plant_id INT NOT NULL
 );
 SELECT * FROM table_review;
-DROP TABLE table_review;
+drop table table_review
+truncate table_review
 
 -- ::: REVIEW INITIAL VALUES :::
-INSERT INTO table_review(created_at, COMMENT, rating, fk_user_id, fk_plant_id)
-VALUES
+insert into table_review(created_at, comment, rating, fk_user_id, fk_plant_id)
+values
 ('2 Mei 2021', 'Saya suka!!!', 4, 1, 13),
 ('5 Mei 2021', 'Bonggolnya Sesuai banget!', 5, 2, 13),
 ('10 Mei 2021', 'Terima kasih PlinPlant', 4, 3, 13),
 ('7 Juni 2021', 'Saya cinta Basil <3', 5, 1, 26),
-('9 Juni 2021', 'Jadi orang italy beneran!!', 4, 1, 31);
+('9 Juni 2021', 'Jadi orang italy beneran!!', 4, 1, 31)
 
 -- ::: CREATE VIEW REVIEW :::
 CREATE VIEW plant_review
-AS
-SELECT pk_review_id, picture, fullname, rating, created_at, COMMENT, fk_plant_id
-FROM table_review
-JOIN table_user ON fk_user_id = pk_user_id
-JOIN table_plant ON fk_plant_id = pk_plant_id;
+as
+select pk_review_id, picture, fullname, rating, created_at, comment, fk_plant_id
+from table_review
+join table_user on fk_user_id = pk_user_id
+join table_plant on fk_plant_id = pk_plant_id
 
-SELECT * FROM plant_review;
-DROP VIEW plant_review;
+select * from plant_review
+drop view plant_review
 
 -- ::: CART :::
 CREATE TABLE table_cart(
@@ -544,23 +538,26 @@ CREATE TABLE table_cart(
 	plant_phase VARCHAR(50),
 	price INT,	
 	quantity INT,
-	weight INT,
+	weight int,
+	reviewed int not null default 0,
 	
-	fk_plant_id INT,
+	fk_plant_id int,
 	fk_user_id INT NOT NULL,
-	fk_invoice_id BIGINT NOT NULL
+	fk_invoice_id bigINT NOT NULL
 );
 SELECT * FROM table_cart;
 DROP TABLE table_cart;
-TRUNCATE TABLE table_cart;
+TRUNCATE TABLE table_cart
 
 
-SELECT * FROM table_cart;
 
 -- CONTOH TRANSAKSI 1
-UPDATE table_cart SET fk_invoice_id = 1622764848807 WHERE fk_user_id = 1 AND fk_invoice_id = 0;
+update table_cart set fk_invoice_id = 1622764848807 where fk_user_id = 1 and fk_invoice_id = 0
 -- CONTOH TRANSAKSI 2
-UPDATE table_cart SET fk_invoice_id = 1622774638661 WHERE fk_user_id = 1 AND fk_invoice_id = 0;
+UPDATE table_cart SET fk_invoice_id = 1622774638661 WHERE fk_user_id = 1 AND fk_invoice_id = 0
+
+-- CONTOH REVIEWED
+update table_cart set reviewed = 4 where pk_cart_id = 2 and fk_invoice_id = 1623221611427
 
 -- ::: CART INITIAL VALUES :::
 INSERT INTO table_cart(phase_image, plant_name, plant_phase, price, quantity, weight, fk_plant_id, fk_user_id)
@@ -569,94 +566,111 @@ VALUES
 ('bullsblood_mature.jpg', 'Blood Bull', 'Dewasa', 300000, 3, 2000, 18, 1),
 ('basil-tuber.jpg', 'Basil', 'Bonggol', 50000, 1, 500, 26, 1),
 ('aglaonema-juvenil.jpg', 'Aglaonema', 'Muda', 150000, 1, 1500, 1, 2),
-('cherrytomatotuber.jpg', 'Cherry Tomatoes', 'Bonggol', 50000, 1, 500, 11, 2);
+('cherrytomatotuber.jpg', 'Cherry Tomatoes', 'Bonggol', 50000, 1, 500, 11, 2)
 
 
 -- ::: CREATE VIEW USER CART :::
 CREATE VIEW user_cart
-AS
-SELECT pk_cart_id, phase_image, tc.plant_name, plant_phase, price, quantity, weight, fk_plant_id, fk_user_id, fk_invoice_id
+as
+SELECT pk_cart_id, phase_image, tc.plant_name, plant_phase, price, quantity, weight, reviewed, fk_plant_id, fk_user_id, fk_invoice_id
 FROM table_cart tc
 JOIN table_user ON fk_user_id = pk_user_id
-JOIN plant_data ON fk_plant_id = pk_plant_id;
+JOIN plant_data ON fk_plant_id = pk_plant_id
 
-SELECT * FROM user_cart;
-DROP VIEW user_cart;
+select * from user_cart
+drop view user_cart
 
 -- ::: INVOICE :::
 CREATE TABLE table_invoice(
-	pk_invoice_id BIGINT PRIMARY KEY,
+	pk_invoice_id bigINT PRIMARY KEY,
 	no_order VARCHAR(50),
 	created_at VARCHAR(50),
-	STATUS VARCHAR(50),
-	payment_image VARCHAR(50) NOT NULL DEFAULT '',
-	review_status BOOLEAN ,
-	
+	status VARCHAR(50),
+	payment_image VARCHAR(50) not null default '',
+		
 	fk_user_id INT,
-	fk_contact_id INT, 
+	fk_contact_id int, 
 	fk_bank_id INT
 );
 SELECT * FROM table_invoice;
-DROP TABLE table_invoice;
-TRUNCATE TABLE table_invoice;
+drop table table_invoice
+truncate table table_invoice
 
 
 
 
 -- ::: INVOICE INITIAL VALUES :::
-INSERT INTO table_invoice(pk_invoice_id, no_order, created_at, STATUS, review_status, fk_user_id, fk_contact_id, fk_bank_id)
-VALUES
-(1622764848807, '1622764848807', '4 Juni 2021, 07.00 WIB', 'selesai', FALSE, 1, 3, 1),
-(1622774638661, '1622774638661', '4 Juni 2021, 09.43 WIB', 'bayar', FALSE, 1, 1, 2);
+insert into table_invoice(pk_invoice_id, no_order, created_at, status, fk_user_id, fk_contact_id, fk_bank_id)
+values
+(1622764848807, '1622764848807', '4 Juni 2021, 07.00 WIB', 'selesai',  1, 3, 1),
+(1622774638661, '1622774638661', '4 Juni 2021, 09.43 WIB', 'bayar',  1, 1, 2)
 
 -- ::: CREATE VIEW USER INVOICE :::
 CREATE VIEW user_invoice
-AS
-SELECT
-pk_invoice_id, no_order, created_at, STATUS, payment_image, review_status, bank_name, no_rek, OWNER,
+as
+select
+pk_invoice_id, tu.fullname, pk_cart_id, no_order, created_at, status, payment_image, reviewed, bank_name, no_rek, owner,
 phase_image, plant_name, plant_phase, price, quantity, weight, fk_plant_id, ti.fk_user_id,
 recipient_name, ua.phone_number, address, zipcode, city_name, shipping_price
-FROM table_invoice ti
-JOIN table_cart tc ON fk_invoice_id = pk_invoice_id 
-JOIN table_user ON ti.fk_user_id = pk_user_id
-JOIN table_bank ON fk_bank_id = pk_bank_id
-JOIN user_address ua ON fk_contact_id = pk_contact_id;
+from table_invoice ti
+join table_cart tc on fk_invoice_id = pk_invoice_id 
+join table_user tu on ti.fk_user_id = pk_user_id
+join table_bank on fk_bank_id = pk_bank_id
+join user_address ua on fk_contact_id = pk_contact_id;
 
-SELECT * FROM user_invoice;
-DROP VIEW user_invoice;
+select * from user_invoice;
+DROP VIEW user_invoice
+
+
+
+
+
+-- :: CREATE VIEW LIST TRANSACTION ::
+create view list_transaction
+as
+select
+pk_invoice_id, fk_user_id, created_at, no_order, status, phase_image, plant_name, plant_phase, quantity, price,
+fullname, payment_image, bank_name,
+count(pk_invoice_id) as total_products,  SUM(price*quantity) + ceil(sum(weight*quantity)/1000) * shipping_price  as total_price
+from user_invoice
+group by pk_invoice_id;
+
+select * from list_transaction
+drop view list_transaction
+
 
 
 -- ::: BANK :::
 CREATE TABLE table_bank(
-	pk_bank_id INT AUTO_INCREMENT PRIMARY KEY,
+	pk_bank_id INT auto_increment PRIMARY KEY,
 	bank_name VARCHAR(50),
 	no_rek VARCHAR(50),
-	OWNER VARCHAR(50)
+	owner VARCHAR(50)
+	
 );
 SELECT * FROM table_bank;
 
 -- ::: BANK VALUES :::
-INSERT INTO table_bank(bank_name, no_rek, OWNER)
-VALUE
+insert into table_bank(bank_name, no_rek, owner)
+value
 ('BCA', '3603136827', 'PlinPlant, Etc'),
 ('BNI', '360313682789', 'PlinPlant, Etc'),
-('MANDIRI', '36031368271010', 'PlinPlant, Etc');
+('MANDIRI', '36031368271010', 'PlinPlant, Etc')
 
 
 -- ::: ARTIKEL :::
 CREATE TABLE table_article(
 	pk_article_id INT AUTO_INCREMENT PRIMARY KEY,
-	article_image VARCHAR(255),
-	title VARCHAR(255),
-	author VARCHAR(255),
-	created_at VARCHAR(255),
-	duration VARCHAR(255),
-	SOURCE VARCHAR(255),
-	url VARCHAR(255),
-	content  TEXT
+	article_image varchar(255),
+	title varchar(255),
+	author varchar(255),
+	created_at varchar(255),
+	duration varchar(255),
+	source varchar(255),
+	url varchar(255),
+	content  text
+	
 );
 SELECT * FROM table_article;
 TRUNCATE TABLE table_article;
 DROP TABLE table_article;
-
-

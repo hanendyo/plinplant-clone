@@ -69,7 +69,9 @@ const Contact = () => {
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(-1);
+
+  console.log('ACTIVE ORDERRRR', active);
 
   // USE EFFECT
   useEffect(() => {
@@ -177,8 +179,9 @@ const Contact = () => {
 
     clearFormData();
 
-    console.log(`CONTACT STATE SUBMIT: `, orderState);
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
   };
 
   // HANDLE DELETE
@@ -317,15 +320,17 @@ const Contact = () => {
             <li>{priceFormat.format(data.total_price)}</li>
             <li>{data.bank_name}</li>
             <li onClick={() => setActive(index)}>
-              <span>Double klik pada gambar untuk menutup.</span>
-              <img
-                src={
-                  process.env.PUBLIC_URL +
-                  `/images/payment_image/${data.payment_image}`
-                }
-                alt=''
-                onDoubleClick={() => setActive(-1)}
-              />
+              <div>
+                <span>Double klik pada gambar untuk menutup.</span>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    `/images/payment_image/${data.payment_image}`
+                  }
+                  alt=''
+                  onDoubleClick={() => setActive(-1)}
+                />
+              </div>
             </li>
             <li>{data.status}</li>
             <li>{data.created_at}</li>

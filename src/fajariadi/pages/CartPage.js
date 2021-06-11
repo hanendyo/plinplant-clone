@@ -22,7 +22,7 @@ const CartPage = () => {
     // ::: LOADING TIME :::
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 300);
   }, [userCartDispatch]);
 
   return (

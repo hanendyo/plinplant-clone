@@ -155,7 +155,7 @@ const Checkout = () => {
       </Container>
 
       <PopoutPengiriman modal={modalPilihAlamatState} />
-      <PopoutComponent modal={modalTambahAlamatState} />
+      <PopoutComponent checkout modal={modalTambahAlamatState} />
     </CheckoutSection>
   );
 };

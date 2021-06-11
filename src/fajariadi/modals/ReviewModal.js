@@ -12,6 +12,8 @@ import { review_created } from '../../master/constant/constantVariables';
 import axios from 'axios';
 import {
   cartUpdateReviewBtn,
+  getCarts,
+  getReviews,
   invoiceUpdateReviewBtn,
   reviewPost,
 } from '../../context/actions/fetchingActions';
@@ -61,6 +63,8 @@ const ReviewModal = ({ fk_invoice_id, plantId, phase, modal }) => {
     setComment('');
 
     setTimeout(() => {
+      // plantReviewDispatch(getReviews(plantId));
+      // userCartDispatch(getCarts(userLoginState));
       window.location.reload();
     }, 1000);
   };
@@ -133,6 +137,9 @@ const ReviewModal = ({ fk_invoice_id, plantId, phase, modal }) => {
 
 const ReviewOverlay = styled(ModalOverlay)`
   /* display: block; */
+  @media (max-width: 576px) {
+    padding: 0 10px;
+  }
 `;
 
 const ModalReview = styled.div`
@@ -197,6 +204,15 @@ const ModalReview = styled.div`
       & > button {
         margin-left: 5px;
       }
+    }
+  }
+
+  @media (max-width: 576px) {
+    flex-wrap: wrap;
+    justify-content: center;
+
+    & > img {
+      margin-right: unset;
     }
   }
 `;

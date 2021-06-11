@@ -1,12 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Home, Logo, Nav, LinksContainer, Container } from './Navbar.elemen';
-import { FaChevronLeft, FaShoppingCart } from 'react-icons/fa';
+import {
+  FaChevronLeft,
+  FaShoppingCart,
+  FaSignInAlt,
+  FaUserPlus,
+} from 'react-icons/fa';
 import Button from '../additional/Button';
 import { colors } from '../../constant/style';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { Link, useHistory } from 'react-router-dom';
 import { userLogout } from '../../../context/actions/userLoginAction';
 import { getCarts } from '../../../context/actions/fetchingActions';
+import { useMediaQuery } from 'react-responsive';
 
 const Navbar = () => {
   const {
@@ -26,9 +32,6 @@ const Navbar = () => {
   useEffect(() => {
     if (userLoginState) userCartDispatch(getCarts(userLoginState));
 
-    
-
-
     // ::: NAVBAR INTERACTION :::
     const scrollNav = () => {
       const navbarHeight = 100;
@@ -46,16 +49,19 @@ const Navbar = () => {
   // console.log('NAVBAR - CARTTT', totalItems);
 
   const slug = (title) => title?.toLowerCase().split(' ').join('-');
+
   const totalItems = userCartState
-      .map((item) => item.quantity)
-      .reduce((a, b) => a + b, 0);
+    .map((item) => item.quantity)
+    .reduce((a, b) => a + b, 0);
+
+  const isIpad = useMediaQuery({ maxWidth: 768 });
 
   return (
     <Nav shadow={shadow}>
       <Container shadow={shadow}>
         <Home to='/'>
           <FaChevronLeft className='icon' />
-          <p>Home</p>
+          <p>Halaman Utama</p>
         </Home>
 
         <Logo className='logo-center'>PlinPlant</Logo>
@@ -65,7 +71,9 @@ const Navbar = () => {
             {userLoginState ? (
               <Link to='/cart'>
                 <FaShoppingCart className='cart' />
-                {totalItems > 0 && <span>{!isNaN(totalItems) && totalItems}</span>}
+                {totalItems > 0 && (
+                  <span>{!isNaN(totalItems) && totalItems}</span>
+                )}
               </Link>
             ) : (
               <Link to='/login'>
@@ -141,17 +149,31 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Button
-                  text='Masuk'
-                  bgColor={colors.white}
-                  onClick={() => history.push('/login')}
-                />
-                <Button
-                  primary
-                  text='Daftar'
-                  bgColor={colors.lightGreenTransparent}
-                  onClick={() => history.push('/register')}
-                />
+                {isIpad ? (
+                  <>
+                    <FaUserPlus size={20} color={colors.lightGreen} />
+
+                    <FaSignInAlt
+                      size={20}
+                      color={colors.lightGreenTransparent}
+                      style={{ marginLeft: 15, marginTop: 5 }}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      text='Masuk'
+                      bgColor={colors.white}
+                      onClick={() => history.push('/login')}
+                    />
+                    <Button
+                      primary
+                      text='Daftar'
+                      bgColor={colors.lightGreenTransparent}
+                      onClick={() => history.push('/register')}
+                    />
+                  </>
+                )}
               </>
             )}
           </li>

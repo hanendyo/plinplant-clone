@@ -122,6 +122,7 @@ export const LinksContainer = styled.ul`
             height: 50px;
             border-radius: 50%;
             margin-right: 10px;
+            object-fit: cover;
           }
 
           & > div {

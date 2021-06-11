@@ -10,7 +10,7 @@ import {
   FormControl,
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import bgImage from '../../image/signup_bg.png';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { signUpAction } from '../../../context/actions/SignUpAction';
@@ -19,6 +19,7 @@ import axios from 'axios';
 import { Container, FormRegister } from './SignUp.elemen';
 import { colors } from '../../../master/constant/style';
 import { Link } from 'react-router-dom';
+import AlertSign from '../../../master/components/additional/AlertSign';
 
 function Copyright() {
   return (
@@ -35,6 +36,9 @@ const SignUp = () => {
   const context = useContext(ContextStore);
 
   const { signUpState, signUpDispatch } = context;
+
+  const [notif, setNotif] = useState(false);
+  const [error, setError] = useState('');
 
   // ::: MATERIAL UI TEMPLATE SETUP :::
   const [values, setValues] = React.useState({
@@ -78,11 +82,41 @@ const SignUp = () => {
     e.preventDefault();
     // POST TO API
     console.log(`sign up data: `, signUpState);
-    registerAPI(signUpState).then((res) => {
-      if (res.status === 201) {
-        history.push('/login');
+
+    if (
+      !signUpState.fullname ||
+      !signUpState.email ||
+      !signUpState.password ||
+      !signUpState.password_verify
+    ) {
+      setError('empty');
+      setNotif(true);
+    } else {
+      if (!signUpState.email.includes('@')) {
+        setError('email');
+        setNotif(true);
+      } else if (signUpState.password.length < 6) {
+        setError('password');
+        setNotif(true);
+      } else if (signUpState.password !== signUpState.password_verify) {
+        setError('password_verify');
+        setNotif(true);
+      } else {
+        registerAPI(signUpState).then((res) => {
+          if (res.status === 201) {
+            history.push('/login');
+          } else {
+            setError('invalid');
+            setNotif(true);
+          }
+        });
       }
-    });
+    }
+
+    setTimeout(() => {
+      setError('');
+      setNotif(false);
+    }, 5000);
   };
 
   return (
@@ -236,7 +270,7 @@ const SignUp = () => {
             </form>
 
             <p>
-              Sudah punya akun PlinPlant? <Link to='/login'>Log In</Link>{' '}
+              Sudah punya akun PlinPlant? <Link to='/login'>Masuk</Link>{' '}
             </p>
           </FormRegister>
 
@@ -246,6 +280,8 @@ const SignUp = () => {
         <Box mt={5}>
           <Copyright />
         </Box>
+
+        <AlertSign auth error={error} notif={notif} />
       </Container>
     </main>
   );

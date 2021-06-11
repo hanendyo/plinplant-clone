@@ -51,12 +51,13 @@ const Invoice = () => {
     no_rek,
     owner,
     shipping_price,
+    payment_image,
   } = invoiceState[0];
 
   const [scroll, setScroll] = useState(true);
   const transactionStatus = 'selesai';
 
-  const [payment_image, setPayment_image] = useState('');
+  const [payment, setPayment] = useState(payment_image);
 
   useEffect(() => {
     if (invoiceState.length < 5) setScroll(false);
@@ -85,6 +86,8 @@ const Invoice = () => {
       window.location.reload();
     }, 1000);
   };
+
+  console.log('PAYMENTR IMEHHHH', payment);
 
   return (
     <InvoiceSection>
@@ -186,7 +189,7 @@ const Invoice = () => {
                   handleUpdateStatus({
                     transactionStatus,
                     pk_invoice_id,
-                    payment_image,
+                    payment,
                   })
                 }
               />
@@ -210,8 +213,8 @@ const Invoice = () => {
         pk_invoice_id={pk_invoice_id}
         invoice
         modal={modalUploadState}
-        payment_image={payment_image}
-        setPayment_image={setPayment_image}
+        payment={payment}
+        setPayment={setPayment}
       />
 
       <ReviewModal

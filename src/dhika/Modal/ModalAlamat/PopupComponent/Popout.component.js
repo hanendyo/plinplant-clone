@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { colors } from "../../../../master/constant/style/index";
+import styled from 'styled-components';
+import { colors } from '../../../../master/constant/style/index';
 
 export const Popup = styled.div`
   position: fixed;
@@ -12,7 +12,7 @@ export const Popup = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 999;
-  display: ${({ modal }) => (modal ? "auto" : "none")};
+  display: ${({ modal }) => (modal ? 'auto' : 'none')};
 `;
 
 export const PopupInner = styled.div`
@@ -90,6 +90,9 @@ export const InsertData = styled.div`
 
   & > .form {
     width: 100%;
+    & > option {
+      background-color: red;
+    }
   }
 
   @media (max-width: 760px) {

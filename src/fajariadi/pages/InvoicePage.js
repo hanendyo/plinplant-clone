@@ -20,7 +20,7 @@ const InvoicePage = ({ match }) => {
     // ::: LOADING TIME :::
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 300);
   }, []);
 
   return (

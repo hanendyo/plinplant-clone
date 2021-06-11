@@ -27,7 +27,7 @@ export const getPlants = () => async (dispatch) => {
 
 export const getPlantById = (match) => async (dispatch) => {
   const res = await axios.get(
-    `http://localhost:5000/input/plant_get_by_id/${match.params.id}`
+    `http://localhost:5000/input/plant_get_by_id/${match}`
   );
 
   dispatch({ type: 'FETCH_PLANT_ID', payload: res.data.data[0] });
@@ -243,7 +243,7 @@ export const updateStatusTransaction = (data) => async (dispatch) => {
   console.log('DATAAAA', data);
   const status = data.transactionStatus;
   const pk_invoice_id = data.pk_invoice_id;
-  const payment_image = data.payment_image;
+  const payment_image = data.payment;
 
   const res = await axios.put('http://localhost:5000/input/invoice_update', {
     status,
@@ -260,9 +260,7 @@ export const updateStatusTransaction = (data) => async (dispatch) => {
 };
 
 export const getReviews = (match) => async (dispatch) => {
-  const res = await axios.get(
-    `http://localhost:5000/input/review/${match.params.id}`
-  );
+  const res = await axios.get(`http://localhost:5000/input/review/${match}`);
 
   dispatch({ type: 'FETCH_PLANT_REVIEW', payload: res.data.data });
 };

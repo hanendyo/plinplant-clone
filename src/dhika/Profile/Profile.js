@@ -232,7 +232,7 @@ const Profile = () => {
             {scroll && <ScrollSign center />}
           </RightArea>
 
-          <PopoutComponent modal={modalTambahAlamatState} />
+          <PopoutComponent profile modal={modalTambahAlamatState} />
         </ProfileContainer>
       )}
     </StyledProfile>

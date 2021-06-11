@@ -563,6 +563,16 @@ const CardReview = styled.div`
 
     & > h6 {
       color: ${colors.white};
+      width: 100%;
+      max-width: 140px;
+
+      @media (max-width: 1200px) {
+        max-width: 100%;
+      }
+
+      @media (max-width: 576px) {
+        max-width: 170px;
+      }
     }
 
     & > span {
@@ -584,6 +594,7 @@ const CardReview = styled.div`
     top: -8px;
     left: -8px;
     box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.2);
+    object-fit: cover;
   }
 `;
 

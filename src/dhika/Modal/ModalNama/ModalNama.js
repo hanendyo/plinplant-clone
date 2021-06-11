@@ -45,7 +45,6 @@ const ModalNama = ({ modal, state }) => {
       .then((response) => console.log('Ini response', response))
       .catch((err) => console.log(err));
 
-    console.log();
     modalGantiNamaDispatch(closeModalGantiNama());
     refreshPage();
   };

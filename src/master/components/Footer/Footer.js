@@ -22,17 +22,17 @@ const Footer = ({ colored }) => {
 
         <div>
           <ul>
-            <li>About Us</li>
-            <li>References</li>
-            <li>Developer</li>
+            <li>Tentang Kami</li>
+            <li>Referensi</li>
+            <li>Kontak Kami</li>
           </ul>
         </div>
 
         <div>
           <ul>
-            <li>About Us</li>
-            <li>References</li>
-            <li>Developer</li>
+            <li>Tentang Kami</li>
+            <li>Referensi</li>
+            <li>Kontak Kami</li>
           </ul>
         </div>
 

@@ -15,8 +15,8 @@ const UploadBox = ({
   invoice,
   modal,
   profile,
-  payment_image,
-  setPayment_image,
+  payment,
+  setPayment,
 }) => {
   const {
     modalUploadDispatch,
@@ -101,11 +101,11 @@ const UploadBox = ({
   };
 
   const handleSubmitInvoice = (
-    { pk_invoice_id, transactionStatus, payment_image },
+    { pk_invoice_id, transactionStatus, payment },
     e
   ) => {
     e.preventDefault();
-    handleUpdateStatus({ pk_invoice_id, transactionStatus, payment_image });
+    handleUpdateStatus({ pk_invoice_id, transactionStatus, payment });
     updateImageInvoiceAPI();
   };
 
@@ -127,9 +127,9 @@ const UploadBox = ({
 
   const formImageInvoice = (e) => {
     const img = e.target.files[0];
-    const payment_image = e.target.files[0].name;
+    const imgName = e.target.files[0].name;
     console.log(`IMEJ: `, img);
-    setPayment_image(payment_image);
+    setPayment(imgName);
     setReviewImageInvoice(URL.createObjectURL(img));
     setImageUploadInvoice(img);
   };
@@ -235,7 +235,7 @@ const UploadBox = ({
                   bgColor={colors.green}
                   onClick={(e) =>
                     handleSubmitInvoice(
-                      { pk_invoice_id, transactionStatus, payment_image },
+                      { pk_invoice_id, transactionStatus, payment },
                       e
                     )
                   }

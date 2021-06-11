@@ -1,11 +1,11 @@
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { getAddresses } from "../../context/actions/fetchingActions";
-import { ContextStore } from "../../context/store/ContextStore";
-import Profile from "../../dhika/Profile/Profile";
-import Footer from "../../master/components/Footer/Footer";
-import Navbar from "../../master/components/Navbar/Navbar";
-import Loader from "../components/Loader";
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
+import { getAddresses } from '../../context/actions/fetchingActions';
+import { ContextStore } from '../../context/store/ContextStore';
+import Profile from '../../dhika/Profile/Profile';
+import Footer from '../../master/components/Footer/Footer';
+import Navbar from '../../master/components/Navbar/Navbar';
+import Loader from '../components/Loader';
 
 const ProfilePage = () => {
   const { userAddressDispatch, userAddressState, userLoginState } =
@@ -21,10 +21,10 @@ const ProfilePage = () => {
     // ::: LOADING TIME :::
     setTimeout(() => {
       setLoading(false);
-    }, 50);
+    }, 10);
   }, [userAddressDispatch]);
 
-  console.log("PROFILEEEEE", userAddressState);
+  console.log('PROFILEEEEE', userAddressState);
 
   return (
     <>
