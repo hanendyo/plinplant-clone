@@ -61,30 +61,6 @@ const SignIn = () => {
   //! axios crendentials
   axios.defaults.withCredentials = true;
 
-  // useEffect(() => {
-  //   getDataSignInAPI();
-  // }, []);
-
-  // const getDataSignInAPI = async () => {
-  //   try {
-  //     await axios.get(`http://localhost:5000/auth/login`).then((response) => {
-  //       signInDispatch(signInAction("loginStatus", response.data));
-  //       setLocal(...local, signInState.loginStatus.user);
-  //       console.log(`SET LOCAL: `, local);
-  //       console.log(`RESPONSE GET DATA LOGIN API: `, response);
-  //       localStorage.setItem(
-  //         "user-data",
-  //         JSON.stringify(signInState.loginStatus)
-  //       );
-
-  //       return response;
-  //     });
-  //   } catch (err) {
-  //     console.log(`login error`, err);
-  //     return err;
-  //   }
-  // };
-
   const signInAPI = async (form) => {
     const data = new FormData();
     data.append('email', form.email);
@@ -102,17 +78,6 @@ const SignIn = () => {
     } catch (err) {
       console.log(`ERROR!`);
       console.log(err);
-      return err;
-    }
-  };
-
-  const logOutAPI = async () => {
-    try {
-      let res = await axios.get(`http://localhost:5000/auth/logout`);
-      console.log(`logout success`);
-      return res;
-    } catch (err) {
-      console.log(`logout error`, err);
       return err;
     }
   };
@@ -178,20 +143,6 @@ const SignIn = () => {
                 }
                 variant='outlined'
               />
-
-              {/* Password input */}
-              {/* <TextField
-                className='form-field'
-                required
-                placeholder='Masukkan Password'
-                id='outlined-basic'
-                label='Password'
-                value={signInState.password}
-                onChange={(e) =>
-                  signInDispatch(signInAction('password', e.target.value))
-                }
-                variant='outlined'
-              /> */}
               <FormControl className='form-field' variant='outlined'>
                 <InputLabel htmlFor='outlined-adornment-password'>
                   Password
@@ -236,13 +187,6 @@ const SignIn = () => {
                 Sign In
               </Button>
             </form>
-
-            {/* forgot password */}
-            {/* <p>
-              <a href=''>Forgot password?</a>
-            </p> */}
-
-            {/* dont have account */}
             <p>
               Belum punya akun PlinPlant? <Link to='/register'>Daftar</Link>
             </p>

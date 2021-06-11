@@ -82,10 +82,12 @@ const {
   updateBirthdateByID,
   updateGenderByID,
   updatePhoneNumberByID,
+  user_update_by_Id,
 } = require('../controller/Plant_controller');
 const router = require('express').Router();
 const upload = require('../..');
 
+// ::::::::::::: CMS :::::::::::::
 // POST
 router.post(
   '/article_input',
@@ -240,11 +242,53 @@ router.put('/shipping_charges_update', shipping_charges_update);
 router.put('/stock_update', stock_update);
 router.put('/user_update', upload.single('picture_upload'), user_update);
 router.put('/user_update/filename', updateUserPictureById);
+router.put(
+  '/user_update/:id',
+  upload.single('picture_upload'),
+  user_update_by_Id
+);
 router.put('/weight_update', weight_update);
 // POST USER BY ID
 router.put('/user_update_name/:id', updateUsernameByID);
 router.put('/user_update_birthdate/:id', updateBirthdateByID);
 router.put('/user_update_gender/:id', updateGenderByID);
 router.put('/user_update_phonenumber/:id', updatePhoneNumberByID);
+
+// ::::::::::::: OTHER PAGES :::::::::::::
+
+// ::: CART ROUTER :::
+router.post('/cart', upload.none(), cartAddItem);
+router.get('/cart/user/:id', cartGetByUser);
+router.put('/cart/update', cartUpdateQty);
+router.put('/cart/checkout', cartCheckoutProses);
+router.put('/cart/reviewed', cartUpdateReviewedBtn);
+router.delete('/cart/delete/:id', cartDeleteById);
+// ::: END OF CART ROUTER :::
+
+// :: BANK ::
+router.get('/bank', bankGetAllData);
+
+// GET USER - DUMMY
+router.get('/user/:id', getUser);
+
+// GET BY ID
+router.get('/plant_get_by_id/:id', plantGetById);
+router.get('/article_get_by_id/:id', articleGetById);
+// REVIEW
+router.get('/review/:id', reviewGetByPlant);
+router.post('/review', upload.none(), reviewPostByPlant);
+// ADDRESS
+router.get('/address/:id', addressGetByUser);
+// INVOICE
+router.post('/invoice', upload.none(), invoiceCreated);
+router.get('/invoice/:id/:order', invoiceGetById);
+router.get('/invoice', invoiceGetAll);
+router.put(
+  '/invoice_update',
+  upload.single('payment_image_upload'),
+  invoiceTransactionDone
+);
+// TRANSACTION
+router.get('/transaction/:id', transactionGetByUser);
 
 module.exports = router;

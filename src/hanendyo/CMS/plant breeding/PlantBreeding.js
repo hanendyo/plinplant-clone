@@ -61,7 +61,6 @@ const PlantBreeding = () => {
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
-  const [indexUpdate, setIndexUpdate] = useState(0);
   const [fileImage, setFileImage] = useState([]);
   const [imageUpload, setImageUpload] = useState([]);
 
@@ -76,7 +75,7 @@ const PlantBreeding = () => {
   // GET
   const getAllDatasAPI = async () => {
     await axios
-      .get(url + `${endPoint}_get_all_datas`)
+      .get(url + endPoint + `_get_all_datas`)
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
@@ -92,7 +91,6 @@ const PlantBreeding = () => {
 
   // POST
   const postAPI = async (form) => {
-    console.log(`DATA POST: `, form);
     const data = new FormData();
     console.log(`formdata:`, form);
     data.append("seed", form.seed);
@@ -100,16 +98,16 @@ const PlantBreeding = () => {
     data.append("young", form.young);
     data.append("mature", form.mature);
     data.append("seed_image", form.seed_image);
-    data.append("seed_image_upload", imageUpload[0]);
     data.append("tuber_image", form.tuber_image);
-    data.append("tuber_image_upload", imageUpload[1]);
     data.append("young_image", form.young_image);
-    data.append("young_image_upload", imageUpload[2]);
     data.append("mature_image", form.mature_image);
+    data.append('fk_plant_id', form.fk_plant_id);
+    data.append("seed_image_upload", imageUpload[0]);
+    data.append("tuber_image_upload", imageUpload[1]);
+    data.append("young_image_upload", imageUpload[2]);
     data.append("mature_image_upload", imageUpload[3]);
-
-    axios
-      .post(url + `${endPoint}_input`, data, {
+    await axios
+      .post(url + endPoint + `_input`, data, {
         headers: {
           "content-type": "multipart/form-data",
         },
@@ -141,7 +139,7 @@ const PlantBreeding = () => {
   // UPDATE
   const updateAPI = async (data) => {
     axios
-      .put(url + `${endPoint}_update`, data)
+      .put(url + endPoint +`_update`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`Plant breeding successfuly updated!`);
@@ -154,12 +152,40 @@ const PlantBreeding = () => {
         return err;
       });
   };
+  const updateImageAPI = async (form) => {
+    const data = new FormData();
+    console.log(`formdata:`, form);
+    data.set("seed_image_upload", imageUpload[0]);
+    data.set("tuber_image_upload", imageUpload[1]);
+    data.set("young_image_upload", imageUpload[2]);
+    data.set("mature_image_upload", imageUpload[3]);
+
+    axios
+      .put(url + endPoint + `_update`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        getAllDatasAPI();
+        console.log(`Plant breeding successfuly updated!`);
+        console.log(res);
+        return res;
+      })
+      .catch((err) => {
+        console.log(`ERROR!`);
+        console.log(err);
+        return err;
+      });
+  };
+  
 
   // HANDLE SUBMIT
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isUpdate) {
       updateAPI(plantBreedingState);
+      updateImageAPI(plantBreedingState)
       setIsUpdate(false);
     } else {
       postAPI(plantBreedingState);
@@ -197,7 +223,6 @@ const PlantBreeding = () => {
       behavior: "smooth",
     });
     setIsUpdate(true);
-    setIndexUpdate(index);
     plantBreedingDispatch(cmsAction(`seed`, data.seed));
     plantBreedingDispatch(cmsAction(`tuber`, data.tuber));
     plantBreedingDispatch(cmsAction(`young`, data.young));
@@ -231,6 +256,7 @@ const PlantBreeding = () => {
     plantBreedingDispatch(cmsAction(`young_image`, ""));
     plantBreedingDispatch(cmsAction(`mature_image`, ""));
     plantBreedingDispatch(cmsAction(`fk_plant_id`, ""));
+    setFileImage([])
   };
 
   // FORM CHANGE
@@ -241,7 +267,8 @@ const PlantBreeding = () => {
   const formImage = async (e) => {
     const img = e.target.files[0];
     const imgName = e.target.files[0].name;
-    const name = e.target.name;
+    const name = e.target.id;
+    console.log(`NAME: `, name);
     await setFileImage((fileImage) => [...fileImage, URL.createObjectURL(img)]);
     await setImageUpload((imageUpload) => [...imageUpload, img]);
     plantBreedingDispatch(cmsAction(name, imgName));
@@ -299,16 +326,16 @@ const PlantBreeding = () => {
             </SpanImage>
 
             <input
-              accept="image/*"
-              name="seed_image"
+              // accept="image/*"
+              name="seed_image_upload"
               className={classes.input}
-              id="seed-file"
+              id="seed_image"
               multiple
               type="file"
               onChange={(e) => formImage(e)}
               style={{ display: "none" }}
             />
-            <label htmlFor="seed-file">
+            <label htmlFor="seed_image">
               <Button
                 variant="contained"
                 color="primary"
@@ -329,16 +356,16 @@ const PlantBreeding = () => {
             </SpanImage>
 
             <input
-              accept="image/*"
-              name="tuber_image"
+              // accept="image/*"
+              name="tuber_image_upload"
               className={classes.input}
-              id="tuber-file"
+              id="tuber_image"
               multiple
               type="file"
               onChange={(e) => formImage(e)}
               style={{ display: "none" }}
             />
-            <label htmlFor="tuber-file">
+            <label htmlFor="tuber_image">
               <Button
                 variant="contained"
                 color="primary"
@@ -359,16 +386,16 @@ const PlantBreeding = () => {
             </SpanImage>
 
             <input
-              accept="image/*"
-              name="young"
+              // accept="image/*"
+              name="young_image_upload"
               className={classes.input}
-              id="juvenil-file"
+              id="young_image"
               multiple
               type="file"
               onChange={(e) => formImage(e)}
               style={{ display: "none" }}
             />
-            <label htmlFor="juvenil-file">
+            <label htmlFor="young_image">
               <Button
                 variant="contained"
                 color="primary"
@@ -389,16 +416,16 @@ const PlantBreeding = () => {
             </SpanImage>
 
             <input
-              accept="image/*"
-              name="mature_image"
+              // accept="image/*"
+              name="mature_image_upload"
               className={classes.input}
-              id="mature-file"
+              id="mature_image"
               multiple
               type="file"
               onChange={(e) => formImage(e)}
               style={{ display: "none" }}
             />
-            <label htmlFor="mature-file">
+            <label htmlFor="mature_image">
               <Button
                 variant="contained"
                 color="primary"
@@ -504,6 +531,7 @@ const PlantBreeding = () => {
             }
           </ListData>
         ))}
+        {console.log(`img upload: `, imageUpload)}
       </BoxTable>
     </Container>
   );

@@ -160,7 +160,6 @@ const Article = () => {
       .then((res) => {
         getAllDatasAPI();
         // setReviewImage('')
-        console.log(`DATA UPDATE: `);
         console.log(`Article successfuly updated!`);
         console.log(res);
         return res;
@@ -243,6 +242,7 @@ const Article = () => {
     articleDispatch(cmsAction(`source`, ''));
     articleDispatch(cmsAction(`url`, ''));
     articleDispatch(cmsAction(`content`, ''));
+    setReviewImage('');
   };
 
   // FORM CHANGE
@@ -339,7 +339,7 @@ const Article = () => {
           <ImageBox>
             <SpanImage>
               <h6>Upload Image</h6>
-              <img src={reviewImage} alt='' />
+              <img src={reviewImage ? reviewImage : null} alt='' />
             </SpanImage>
 
             <input

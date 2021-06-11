@@ -47,7 +47,12 @@ const Weight = () => {
   // USE STATE
   const [dataWeight, setDataWeight] = useState([
     {
-      weight: "",
+      seed_weight: '',
+      tuber_weight: '',
+      young_weight: '',
+      mature_weight: '', 
+      fk_plant_breeding_id: '', 
+      fk_price_list_id: ''
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -81,11 +86,16 @@ const Weight = () => {
   // POST
   const postAPI = async (form) => {
     const data = new FormData();
-    data.append(`weight`, form.weight);
+    data.append(`seed_weight`, form.seed_weight);
+    data.append(`tuber_weight`, form.tuber_weight);
+    data.append(`young_weight`, form.young_weight);
+    data.append(`mature_weight`, form.mature_weight);
+    data.append(`fk_plant_breeding_id`, form.fk_plant_breeding_id);
+    data.append(`fk_price_list_id`, form.fk_price_list_id);
     axios
       .post(url + `${endPoint}_input`, data, {
         headers: {
-          "content-weight": "multipart/form-data",
+          "content-type": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -142,7 +152,12 @@ const Weight = () => {
     setDataWeight([
       {
         ...dataWeight,
-        weight: weightState.weight,
+        seed_weight: weightState.seed_weight,
+        tuber_weight: weightState.tuber_weight,
+        young_weight: weightState.young_weight,
+        mature_weight: weightState.mature_weight,
+        fk_plant_breeding_id: weightState.fk_plant_breeding_id,
+        fk_price_list_id: weightState.fk_price_list_id,
       },
     ]);
 
@@ -164,7 +179,12 @@ const Weight = () => {
     });
     setIsUpdate(true);
     setIndexUpdate(index);
-    weightDispatch(cmsAction(`weight`, data.weight));
+    weightDispatch(cmsAction(`seed_weight`, data.seed_weight));
+    weightDispatch(cmsAction(`tuber_weight`, data.tuber_weight));
+    weightDispatch(cmsAction(`young_weight`, data.young_weight));
+    weightDispatch(cmsAction(`mature_weight`, data.mature_weight));
+    weightDispatch(cmsAction(`fk_plant_breeding_id`, data.fk_plant_breeding_id));
+    weightDispatch(cmsAction(`fk_price_list_id`, data.fk_price_list_id));
     weightDispatch(cmsAction(`pk_weight_id`, data.pk_weight_id));
 
     console.log(`update from weightState: `, weightState);
@@ -178,7 +198,12 @@ const Weight = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    weightDispatch(cmsAction(`weight`, ""));
+    weightDispatch(cmsAction(`seed_weight`, ''));
+    weightDispatch(cmsAction(`tuber_weight`, ''));
+    weightDispatch(cmsAction(`young_weight`, ''));
+    weightDispatch(cmsAction(`mature_weight`, ''));
+    weightDispatch(cmsAction(`fk_plant_breeding_id`, ''));
+    weightDispatch(cmsAction(`fk_price_list_id`, ''));
   };
 
   // FORM CHANGE
@@ -198,11 +223,51 @@ const Weight = () => {
           autoComplete="off"
         >
           <TextField
-            value={weightState.weight}
-            name="weight"
-            onChange={(e) => formChange(`weight`, e.target.value)}
+            value={weightState.seed_weight}
+            name="seed_weight"
+            onChange={(e) => formChange(`seed_weight`, e.target.value)}
             id="outlined-basic"
-            label="Weight"
+            label="seed_Weight"
+            variant="outlined"
+          />
+          <TextField
+            value={weightState.tuber_weight}
+            name="tuber_weight"
+            onChange={(e) => formChange(`tuber_weight`, e.target.value)}
+            id="outlined-basic"
+            label="tuber_Weight"
+            variant="outlined"
+          />
+          <TextField
+            value={weightState.young_weight}
+            name="young_weight"
+            onChange={(e) => formChange(`young_weight`, e.target.value)}
+            id="outlined-basic"
+            label="young_Weight"
+            variant="outlined"
+          />
+          <TextField
+            value={weightState.mature_weight}
+            name="mature_weight"
+            onChange={(e) => formChange(`mature_weight`, e.target.value)}
+            id="outlined-basic"
+            label="mature_Weight"
+            variant="outlined"
+          />
+          <TextField
+            value={weightState.fk_plant_breeding_id}
+            name="fk_plant_breeding_id"
+            onChange={(e) => formChange(`fk_plant_breeding_id`, e.target.value)}
+            id="outlined-basic"
+            label="fk_plant_breeding_id"
+            variant="outlined"
+          />
+          <TextField
+            value={weightState.fk_price_list_id}
+            name="fk_price_list_id"
+            onChange={(e) => formChange(`fk_price_list_id`, e.target.value)}
+            id="outlined-basic"
+            label="fk_price_list_id"
             variant="outlined"
           />
           <ButtonContainer>
@@ -237,13 +302,23 @@ const Weight = () => {
       <BoxTable>
         <List>
           <li>WEIGHT ID</li>
-          <li>PLANT WEIGHT</li>
+          <li>SEED WEIGHT</li>
+          <li>TUBER WEIGHT</li>
+          <li>YOUNG WEIGHT</li>
+          <li>MATURE WEIGHT</li>
+          <li>PLANT BREEDING ID</li>
+          <li>PRICE LIST ID</li>
           <li>ACTION</li>
         </List>
         {dataWeight.map((data, index) => (
           <ListData key={index}>
             <li>{data.pk_weight_id}</li>
-            <li>{data.weight}</li>
+            <li>{data.seed_weight}</li>
+            <li>{data.tuber_weight}</li>
+            <li>{data.young_weight}</li>
+            <li>{data.mature_weight}</li>
+            <li>{data.fk_plant_breeding_id}</li>
+            <li>{data.fk_price_list_id}</li>
             <ButtonList>
               <Button
                 onClick={() => handleUpdate(data, index)}
@@ -259,7 +334,7 @@ const Weight = () => {
                 Update
               </Button>
               <Button
-                onClick={() => handleDelete(data.pk_article_id, index)}
+                onClick={() => handleDelete(data.pk_weight_id, index)}
                 className={classes.button}
                 variant="contained"
                 color="primary"

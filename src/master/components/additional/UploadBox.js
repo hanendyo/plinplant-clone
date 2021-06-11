@@ -83,11 +83,15 @@ const UploadBox = ({
     data.append('picture_upload', imageUploadUser);
 
     axios
-      .put(url + endPointUser + `_update`, data, {
-        headers: {
-          'content-type': 'multipart/form-data',
-        },
-      })
+      .put(
+        url + endPointUser + `_update` + `/${userLoginState.pk_user_id}`,
+        data,
+        {
+          headers: {
+            'content-type': 'multipart/form-data',
+          },
+        }
+      )
       .then((res) => {
         console.log(`User profile picture successfuly Updated!`);
         console.log(res);

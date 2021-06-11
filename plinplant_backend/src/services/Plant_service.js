@@ -427,8 +427,8 @@ module.exports = {
   },
 
   cityInputTable: (data, callback) => {
-    const sql = `insert into table_city (city_name) values(?)`;
-    const column = [data.city_name];
+    const sql = `insert into table_city (city_name, city_code) values(?,?)`;
+    const column = [data.city_name, data.city_code];
     pool.query(sql, column, (err, result, fields) => {
       if (err) {
         return callback(err);
@@ -463,8 +463,8 @@ module.exports = {
 
   cityUpdate: (data, callback) => {
     pool.query(
-      `update table_city set city_name=? where pk_city_id=?`,
-      [data.city_name, data.pk_city_id],
+      `update table_city set city_name=?, city_code=? where pk_city_id=?`,
+      [data.city_name, data.city_code, data.pk_city_id],
       (error, result, fields) => {
         if (error) {
           console.log(`ERROR: `, error);
@@ -521,12 +521,14 @@ module.exports = {
 
   contactUpdate: (data, callback) => {
     pool.query(
-      `update table_contact set recipient_name=?, address=?, phone_number=?, fk_city_id=? where pk_contact_id=?`,
+      `update table_contact set recipient_name=?, phone_number=?, address=?, zipcode=?, fk_city_id=?, fk_user_id=?  where pk_contact_id=?`,
       [
         data.recipient_name,
-        data.address,
         data.phone_number,
+        data.address,
+        data.zipcode,
         data.fk_city_id,
+        data.fk_user_id,
         data.pk_contact_id,
       ],
       (error, result, fields) => {
@@ -648,8 +650,26 @@ module.exports = {
   },
 
   orderItemInputTable: (data, callback) => {
-    const sql = `insert into table_order_item (quantity, fk_price_list_id) values(?,?)`;
-    const column = [data.quantity, data.fk_price_list_id];
+    const sql = `insert into table_cart (phase_image,
+    plant_name,
+    plant_phase,
+    price,	
+    quantity,
+    weight,
+    fk_plant_id,
+    fk_user_id,
+    fk_invoice_id) values(?,?,?,?,?,?,?,?,?,?)`;
+    const column = [
+      data.phase_image,
+      data.plant_name,
+      data.plant_phase,
+      data.price,
+      data.quantity,
+      data.weight,
+      data.fk_plant_id,
+      data.fk_user_id,
+      data.fk_invoice_id,
+    ];
     pool.query(sql, column, (err, result, fields) => {
       if (err) {
         return callback(err);
@@ -659,21 +679,17 @@ module.exports = {
   },
 
   orderItemGetAllDatas: (callback) => {
-    pool.query(
-      `Select * from table_order_item`,
-      [],
-      (error, results, fields) => {
-        if (error) {
-          return callback(error);
-        }
-        return callback(null, results);
+    pool.query(`Select * from table_cart`, [], (error, results, fields) => {
+      if (error) {
+        return callback(error);
       }
-    );
+      return callback(null, results);
+    });
   },
 
   orderItemDelete: (id, callback) => {
     pool.query(
-      `delete from table_order_item where pk_order_item_id = ?`,
+      `delete from table_cart where pk_cart_id = ?`,
       [id],
       (error, result, fields) => {
         if (error) {
@@ -687,18 +703,36 @@ module.exports = {
   },
 
   orderItemUpdate: (data, callback) => {
-    pool.query(
-      `update table_order_item set quantity=?, fk_price_list_id=? where pk_order_item_id=?`,
-      [data.quantity, data.fk_price_list_id, data.pk_order_item_id],
-      (error, result, fields) => {
-        if (error) {
-          console.log(`ERROR: `, error);
-          return callback(error);
-        }
-        console.log(`RESULT: `, result);
-        return callback(null, result);
+    const sql = `update table_cart set phase_image=?,
+      plant_name=?,
+      plant_phase=?,
+      price=?,	
+      quantity=?,
+      weight=?,
+      fk_plant_id=?,
+      fk_user_id=?,
+      fk_invoice_id= ?
+      where pk_cart_id=?`;
+    const column = [
+      data.phase_image,
+      data.plant_name,
+      data.plant_phase,
+      data.price,
+      data.quantity,
+      data.weight,
+      data.fk_plant_id,
+      data.fk_user_id,
+      data.fk_invoice_id,
+      data.pk_cart_id,
+    ];
+    pool.query(sql, column, (error, result, fields) => {
+      if (error) {
+        console.log(`ERROR: `, error);
+        return callback(error);
       }
-    );
+      console.log(`RESULT: `, result);
+      return callback(null, result);
+    });
   },
 
   plantInputTable: (data, callback) => {
@@ -864,13 +898,12 @@ module.exports = {
   priceListInputTable: (data, callback) => {
     console.log(`DATA PRICELIST SERVICE: `, data);
     pool.query(
-      `insert into table_price_list (seed_price, tuber_price, young_price, mature_price, fk_plant_breeding_id, fk_stock_id) values(?, ?, ?, ?, ?, ?)`,
+      `insert into table_price_list (seed_price, tuber_price, young_price, mature_price, fk_stock_id) values(?, ?, ?, ?, ?)`,
       [
         data.seed_price,
         data.tuber_price,
         data.young_price,
         data.mature_price,
-        data.fk_plant_breeding_id,
         data.fk_stock_id,
       ],
       (err, result, fields) => {
@@ -912,13 +945,12 @@ module.exports = {
 
   priceListUpdate: (data, callback) => {
     pool.query(
-      `update table_price_list set seed_price=?, tuber_price=?, young_price=?, mature_price=?, fk_plant_breeding_id=?, fk_stock_id=? where pk_price_list_id=?`,
+      `update table_price_list set seed_price=?, tuber_price=?, young_price=?, mature_price=?, fk_stock_id=? where pk_price_list_id=?`,
       [
         data.seed_price,
         data.tuber_price,
         data.young_price,
         data.mature_price,
-        data.fk_plant_breeding_id,
         data.fk_stock_id,
         data.pk_price_list_id,
       ],
@@ -935,8 +967,9 @@ module.exports = {
 
   reviewInputTable: (data, callback) => {
     console.log(`DATA REVIEW SERVICE`, data);
-    const sql = `insert into table_review (comment, rating, fk_user_id , fk_plant_id) values(?,?,?,?)`;
+    const sql = `insert into table_review (created_at, comment, rating, fk_user_id , fk_plant_id) values(?,?,?,?,?)`;
     const column = [
+      data.created_at,
       data.comment,
       data.rating,
       data.fk_user_id,
@@ -976,8 +1009,9 @@ module.exports = {
 
   reviewUpdate: (data, callback) => {
     pool.query(
-      `update table_review set comment=?, rating=?, fk_user_id=?, fk_plant_id=? where pk_review_id=?`,
+      `update table_review set created_at=?, comment=?, rating=?, fk_user_id=?, fk_plant_id=? where pk_review_id=?`,
       [
+        data.created_at,
         data.comment,
         data.rating,
         data.fk_user_id,
@@ -1178,10 +1212,31 @@ module.exports = {
       }
     );
   },
+  userUpdateById: (data, callback) => {
+    pool.query(
+      `update table_user set picture=? where pk_user_id=?`,
+      [data.picture, data.pk_user_id],
+      (error, result, fields) => {
+        if (error) {
+          console.log(`ERROR: `, error);
+          return callback(error);
+        }
+        console.log(`RESULT: `, result);
+        return callback(null, result);
+      }
+    );
+  },
 
   weightInputTable: (data, callback) => {
-    const sql = `insert into table_weight (weight) values(?)`;
-    const column = [data.weight];
+    const sql = `insert into table_weight (seed_weight,tuber_weight,young_weight,mature_weight, fk_plant_breeding_id, fk_price_list_id) values(?,?,?,?,?,?)`;
+    const column = [
+      data.seed_weight,
+      data.tuber_weight,
+      data.young_weight,
+      data.mature_weight,
+      data.fk_plant_breeding_id,
+      data.fk_price_list_id,
+    ];
     pool.query(sql, column, (err, result, fields) => {
       if (err) {
         return callback(err);
@@ -1216,8 +1271,16 @@ module.exports = {
 
   weightUpdate: (data, callback) => {
     pool.query(
-      `update table_weight set weight=? where pk_weight_id=?`,
-      [data.weight, data.pk_weight_id],
+      `update table_weight set seed_weight=?,tuber_weight=?,young_weight=?,mature_weight=?, fk_plant_breeding_id=?, fk_price_list_id=? where pk_weight_id=?`,
+      [
+        data.seed_weight,
+        data.tuber_weight,
+        data.young_weight,
+        data.mature_weight,
+        data.fk_plant_breeding_id,
+        data.fk_price_list_id,
+        data.pk_weight_id,
+      ],
       (error, result, fields) => {
         if (error) {
           console.log(`ERROR: `, error);

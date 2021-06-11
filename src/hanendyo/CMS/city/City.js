@@ -48,6 +48,7 @@ const Category = () => {
   const [dataCity, setDataCity] = useState([
     {
       city_name: "",
+      city_code: '',
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -79,11 +80,11 @@ const Category = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    // data.append("pk_city_id", form.pk_city_id);
     data.append("city_name", form.city_name);
+    data.append("city_code", form.city_code);
 
     axios
-      .post(url + `${endPoint}_input`, data, {
+      .post(url + endPoint +`_input`, data, {
         headers: {
           "content-type": "multipart/form-data",
         },
@@ -115,7 +116,7 @@ const Category = () => {
   // UPDATE
   const updateAPI = async (data) => {
     axios
-      .put(url + `${endPoint}_update`, data)
+      .put(url + endPoint +`_update`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`City successfuly updated!`);
@@ -142,8 +143,8 @@ const Category = () => {
     setDataCity([
       {
         ...dataCity,
-        // pk_city_id: cityState.pk_city_id,
         city_name: cityState.city_name,
+        city_code: cityState.city_code,
       },
     ]);
 
@@ -166,7 +167,7 @@ const Category = () => {
     setIsUpdate(true);
     setIndexUpdate(index);
     cityDispatch(cmsAction(`city_name`, data.city_name));
-    cityDispatch(cmsAction(`pk_city_id`, data.pk_city_id));
+    cityDispatch(cmsAction(`city_code`, data.city_code));
     console.log(`update from cityState: `, cityState);
   };
 
@@ -179,7 +180,7 @@ const Category = () => {
   // CLEAR FORM
   const clearFormData = () => {
     cityDispatch(cmsAction(`city_name`, ""));
-    cityDispatch(cmsAction(`pk_city_id`, ""));
+    cityDispatch(cmsAction(`city_code`, ""));
   };
 
   // FORM CHANGE
@@ -204,6 +205,14 @@ const Category = () => {
             onChange={(e) => formChange(`city_name`, e.target.value)}
             id="outlined-basic"
             label="City name"
+            variant="outlined"
+          />
+          <TextField
+            value={cityState.city_code}
+            name="city_code"
+            onChange={(e) => formChange(`city_code`, e.target.value)}
+            id="outlined-basic"
+            label="City code"
             variant="outlined"
           />
           <ButtonContainer>
@@ -238,13 +247,15 @@ const Category = () => {
       <BoxTable>
         <List>
           <li>CITY ID</li>
-          <li>NAME</li>
+          <li>CITY NAME</li>
+          <li>CITY CODE</li>
           <li>ACTION</li>
         </List>
         {dataCity.map((data, index) => (
           <ListData key={index}>
             <li>{data.pk_city_id}</li>
             <li>{data.city_name}</li>
+            <li>{data.city_code}</li>
             {
               <ButtonList>
                 <Button
@@ -273,25 +284,6 @@ const Category = () => {
               </ButtonList>
             }
           </ListData>
-
-          // <ul className='map' key={index}>
-          //   <li>CATEGORY NAME: <span>{data.city_name}</span></li>
-          //   <li>CATEGORY ID: <span>{data.pk_city_id}</span></li>
-          //   {
-          //     <div>
-          //       <button
-          //         onClick={() => handleDelete(data.pk_city_id, index)}
-          //       >
-          //         delete
-          //       </button>
-          //       <button onClick={() => handleUpdate(data, index)}>
-          //         Update
-          //       </button>
-          //       <br />
-          //     </div>
-          //   }
-          //   <br/>
-          // </ul>
         ))}
       </BoxTable>
     </Container>
