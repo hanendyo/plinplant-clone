@@ -58,7 +58,9 @@ const Contact = () => {
       recipient_name: "",
       address: "",
       phone_number: "",
+      zipcode: '',
       fk_city_id: "",
+      fk_user_id: "",
     },
   ]);
   // USE STATE CITY DROPDOWN
@@ -85,7 +87,7 @@ const Contact = () => {
   // GET
   const getAllDatasAPI = async () => {
     await axios
-      .get(url + `${endPoint}_get_all_datas`)
+      .get(url + endPoint + `_get_all_datas`)
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
@@ -122,15 +124,13 @@ const Contact = () => {
     console.log(`formdata:`, form);
     data.append("recipient_name", form.recipient_name);
     data.append("address", form.address);
+    data.append("zipcode", form.zipcode);
     data.append("phone_number", form.phone_number);
-    data.append("pk_city_id", form.pk_city_id);
+    data.append("fk_city_id", form.fk_city_id);
+    data.append("fk_user_id", form.fk_user_id);
 
     axios
-      .post(url + `${endPoint}_input`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .post(url + endPoint + `_input`, data)
       .then((res) => {
         getAllDatasAPI();
         console.log(`Category successfuly created!`);
@@ -188,7 +188,9 @@ const Contact = () => {
         recipient_name: contactState.recipient_name,
         address: contactState.address,
         phone_number: contactState.phone_number,
+        zipcode: contactState.zipcode,
         fk_city_id: contactState.fk_city_id,
+        fk_user_id: contactState.fk_user_id,
       },
     ]);
 
@@ -216,10 +218,9 @@ const Contact = () => {
     contactDispatch(cmsAction(`recipient_name`, data.recipient_name));
     contactDispatch(cmsAction(`address`, data.address));
     contactDispatch(cmsAction(`phone_number`, data.phone_number));
+    contactDispatch(cmsAction(`zipcode`, data.zipcode));
     contactDispatch(cmsAction(`fk_city_id`, data.fk_city_id));
-
-    // console.log(`update from dataContact: `, dataContact[index]);
-    // console.log(`update from dataContact: `, dataContact[index]);
+    contactDispatch(cmsAction(`fk_user_id`, data.fk_user_id));
     console.log(`update from contactState: `, contactState);
   };
 
@@ -231,10 +232,12 @@ const Contact = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    contactDispatch(cmsAction(`recipient_name`, ""));
-    contactDispatch(cmsAction(`address`, ""));
-    contactDispatch(cmsAction(`phone_number`, ""));
-    contactDispatch(cmsAction(`fk_city_id`, ""));
+    contactDispatch(cmsAction(`recipient_name`, ''));
+    contactDispatch(cmsAction(`address`, ''));
+    contactDispatch(cmsAction(`phone_number`, ''));
+    contactDispatch(cmsAction(`zipcode`, ''));
+    contactDispatch(cmsAction(`fk_city_id`, ''));
+    contactDispatch(cmsAction(`fk_user_id`, ''));
   };
 
   // FORM CHANGE
@@ -294,14 +297,22 @@ const Contact = () => {
               ))}
             </Select>
           </FormControl>
-          {/* <TextField
-            value={contactState.fk_city_id}
-            name="fk_city_id"
-            onChange={(e) => formChange(`fk_city_id`, e.target.value)}
+          <TextField
+            value={contactState.zipcode}
+            name="zipcode"
+            onChange={(e) => formChange(`zipcode`, e.target.value)}
             id="outlined-basic"
-            label="City ID"
+            label="Zip Code"
             variant="outlined"
-          /> */}
+          />
+          <TextField
+            value={contactState.fk_user_id}
+            name="fk_user_id"
+            onChange={(e) => formChange(`fk_user_id`, e.target.value)}
+            id="outlined-basic"
+            label="Zip Code"
+            variant="outlined"
+          />
           <ButtonContainer>
             <Button
               className={classes.button}
@@ -338,7 +349,9 @@ const Contact = () => {
           <li>NAME</li>
           <li>ADDRESS</li>
           <li>PHONE NUMBER</li>
+          <li>ZIP CODE</li>
           <li>FK CITY ID</li>
+          <li>FK USER ID</li>
           <li>ACTION</li>
         </List>
 
@@ -348,7 +361,9 @@ const Contact = () => {
             <li>{data.recipient_name}</li>
             <li>{data.address}</li>
             <li>{data.phone_number}</li>
+            <li>{data.zipcode}</li>
             <li>{data.fk_city_id}</li>
+            <li>{data.fk_user_id}</li>
             {
               <ButtonList>
                 <Button

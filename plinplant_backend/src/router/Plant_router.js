@@ -77,11 +77,12 @@ const {
   weight_get_all_datas,
   weight_delete,
   weight_update,
+  user_update_by_Id,
 } = require('../controller/Plant_controller');
 const router = require('express').Router();
 const upload = require('../..');
-// const AuthValidation = require('../middleware/AuthValidation');
 
+// ::::::::::::: CMS :::::::::::::
 // POST
 router.post(
   '/article_input',
@@ -133,7 +134,7 @@ router.get('/contact_get_all_datas', contact_get_all_datas);
 router.get('/gender_get_all_datas', gender_get_all_datas);
 router.get('/order_get_all_datas', order_get_all_datas);
 router.get('/order_item_get_all_datas', order_item_get_all_datas);
-router.get('/plant_get_all_datas' ,plant_get_all_datas);
+router.get('/plant_get_all_datas', plant_get_all_datas);
 router.get('/plant_breeding_get_all_datas', plant_breeding_get_all_datas);
 router.get('/price_list_get_all_datas', price_list_get_all_datas);
 router.get('/review_get_all_datas', review_get_all_datas);
@@ -142,36 +143,6 @@ router.get('/stock_get_all_datas', stock_get_all_datas);
 router.get('/user_get_all_datas', user_get_all_datas);
 router.get('/weight_get_all_datas', weight_get_all_datas);
 
-// ::: CART ROUTER :::
-router.post('/cart', upload.none(), cartAddItem);
-router.get('/cart/user/:id', cartGetByUser);
-router.put('/cart/update', cartUpdateQty);
-router.put('/cart/checkout', cartCheckoutProses);
-router.put('/cart/reviewed', cartUpdateReviewedBtn);
-router.delete('/cart/delete/:id', cartDeleteById);
-// ::: END OF CART ROUTER :::
-
-// :: BANK ::
-router.get('/bank', bankGetAllData);
-
-// GET USER - DUMMY
-router.get('/user/:id', getUser);
-
-// GET BY ID
-router.get('/plant_get_by_id/:id', plantGetById);
-router.get('/article_get_by_id/:id', articleGetById);
-// REVIEW
-router.get('/review/:id', reviewGetByPlant);
-router.post('/review', upload.none(), reviewPostByPlant);
-// ADDRESS
-router.get('/address/:id', addressGetByUser);
-// INVOICE
-router.post('/invoice', upload.none(), invoiceCreated);
-router.get('/invoice/:id/:order', invoiceGetById);
-router.get('/invoice', invoiceGetAll);
-router.put('/invoice_update', upload.single('payment_image_upload'), invoiceTransactionDone);
-// TRANSACTION
-router.get('/transaction/:id', transactionGetByUser);
 
 // DELETE
 router.delete('/article_delete/:id', article_delete);
@@ -229,7 +200,44 @@ router.put('/price_list_update', price_list_update);
 router.put('/review_update', review_update);
 router.put('/shipping_charges_update', shipping_charges_update);
 router.put('/stock_update', stock_update);
-router.put('/user_update', upload.single('picture_upload'),user_update);
+router.put('/user_update', upload.single('picture_upload'), user_update);
+router.put('/user_update/:id', upload.single('picture_upload'), user_update_by_Id);
 router.put('/weight_update', weight_update);
+
+
+
+// ::::::::::::: OTHER PAGES :::::::::::::
+
+// ::: CART ROUTER :::
+router.post('/cart', upload.none(), cartAddItem);
+router.get('/cart/user/:id', cartGetByUser);
+router.put('/cart/update', cartUpdateQty);
+router.put('/cart/checkout', cartCheckoutProses);
+router.put('/cart/reviewed', cartUpdateReviewedBtn);
+router.delete('/cart/delete/:id', cartDeleteById);
+// ::: END OF CART ROUTER :::
+
+// :: BANK ::
+router.get('/bank', bankGetAllData);
+
+// GET USER - DUMMY
+router.get('/user/:id', getUser);
+
+// GET BY ID
+router.get('/plant_get_by_id/:id', plantGetById);
+router.get('/article_get_by_id/:id', articleGetById);
+// REVIEW
+router.get('/review/:id', reviewGetByPlant);
+router.post('/review', upload.none(), reviewPostByPlant);
+// ADDRESS
+router.get('/address/:id', addressGetByUser);
+// INVOICE
+router.post('/invoice', upload.none(), invoiceCreated);
+router.get('/invoice/:id/:order', invoiceGetById);
+router.get('/invoice', invoiceGetAll);
+router.put('/invoice_update', upload.single('payment_image_upload'), invoiceTransactionDone);
+// TRANSACTION
+router.get('/transaction/:id', transactionGetByUser);
+
 
 module.exports = router;

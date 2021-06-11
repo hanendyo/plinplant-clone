@@ -99,6 +99,7 @@ const {
   weightGetAllDatas,
   weightDelete,
   weightUpdate,
+  userUpdateById,
 } = require('../services/Plant_service');
 
 module.exports = {
@@ -555,6 +556,24 @@ module.exports = {
       });
     });
   },
+  article_update: (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+    console.log(`ARTICLE CONTROLLER BODY: `, body);
+    console.log(`ARTICLE CONTROLLER ID: `, id);
+    articleUpdate(body, (err, result) => {
+      if (err) {
+        console.log(`ERROR!: `, err);
+        return;
+      }
+      console.log(`result article update: `, result);
+      return res.json({
+        success: 1,
+        message: 'article Updated successfully',
+        data: result,
+      });
+    });
+  },
 
   category_input: (req, res) => {
     const body = req.body;
@@ -690,6 +709,7 @@ module.exports = {
 
   contact_input: (req, res) => {
     const body = req.body;
+    console.log(`BODY CONTACT: `, body);
     contactInputTable(body, (err, result) => {
       if (err) {
         return res.json({
@@ -1419,6 +1439,23 @@ module.exports = {
     console.log(`BE BODY: `, body);
     console.log(`BE ID: `, id);
     userUpdate(body, (err, result) => {
+      if (err) {
+        console.log(`ERROR!: `, err);
+        return;
+      }
+      return res.json({
+        success: 1,
+        message: 'User Updated successfully',
+        data: result,
+      });
+    });
+  },
+  user_update_by_Id: (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+    console.log(`BE BODY: `, body);
+    console.log(`BE ID: `, id);
+    userUpdateById(body, (err, result) => {
       if (err) {
         console.log(`ERROR!: `, err);
         return;

@@ -62,11 +62,18 @@ const UploadBox = ({ pk_invoice_id, invoice, modal, profile }) => {
   };
   const updateImageUserAPI = async (form) => {
     const data = new FormData();
+    data.append("pk_user_id", userLoginState.pk_user_id);
+    data.append("fullname", userLoginState.fullname);
+    data.append("password", userLoginState.password);
+    data.append("birth_date", userLoginState.birth_date);
+    data.append("email", userLoginState.email);
+    data.append("number_phone", userLoginState.number_phone);
+    data.append("fk_gender_id", userLoginState.fk_gender_id);
     data.append("picture", form.picture);
     data.append("picture_upload", imageUploadUser);
 
     axios
-      .put(url + endPointUser + `_update`, data, {
+      .put(url + endPointUser + `_update`+ `/${userLoginState.pk_user_id}`, data, {
         headers: {
           "content-type": "multipart/form-data",
         },
@@ -199,6 +206,7 @@ const UploadBox = ({ pk_invoice_id, invoice, modal, profile }) => {
             </ModalBox>
           </ModalOverlay>
         )}
+        {console.log(`USERSTATE: `, userLoginState)}
       </form>
     </>
   );

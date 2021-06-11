@@ -55,6 +55,7 @@ const Review = () => {
   // USE STATE
   const [dataReview, setDataReview] = useState([
     {
+      created_at: '',
       comment: '',
       rating: '',
       fk_user_id: '',
@@ -93,6 +94,7 @@ const Review = () => {
   // POST
   const postAPI = async (form) => {
     const data = new FormData();
+    data.append('created_at', form.created_at);
     data.append('comment', form.comment);
     data.append('rating', form.rating);
     data.append('fk_user_id', form.fk_user_id);
@@ -155,6 +157,7 @@ const Review = () => {
     setDataReview([
       {
         ...dataReview,
+        created_at: reviewState.created_at,
         comment: reviewState.comment,
         rating: reviewState.rating,
         fk_user_id: reviewState.fk_user_id,
@@ -180,6 +183,7 @@ const Review = () => {
     });
     setIsUpdate(true);
     setIndexUpdate(index);
+    reviewDispatch(cmsAction(`created_at`, data.created_at));
     reviewDispatch(cmsAction(`comment`, data.comment));
     reviewDispatch(cmsAction(`rating`, data.rating));
     reviewDispatch(cmsAction(`fk_user_id`, data.fk_user_id));
@@ -196,8 +200,11 @@ const Review = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
+    reviewDispatch(cmsAction(`created_at`, ''));
     reviewDispatch(cmsAction(`comment`, ''));
     reviewDispatch(cmsAction(`rating`, ''));
+    reviewDispatch(cmsAction(`fk_user_id`, ''));
+    reviewDispatch(cmsAction(`fk_plant_id`, ''));
   };
 
   // FORM CHANGE
@@ -216,14 +223,7 @@ const Review = () => {
           noValidate
           autoComplete='off'
         >
-          {/* <TextField
-            value={reviewState.rating}
-            onChange={(e) => formChange("rating", e.target.value)}
-            name="rating"
-            id="outlined-basic"
-            label="Rating (input 1-5)"
-            variant="outlined"
-          /> */}
+
           <FormControl className={classes.formControl}>
             <InputLabel id='rating'> Rating (input 1 - 5)</InputLabel>
             <Select
@@ -242,6 +242,14 @@ const Review = () => {
             </Select>
           </FormControl>
 
+          <TextField
+            value={reviewState.created_at}
+            name='created_at'
+            onChange={(e) => formChange(`created_at`, e.target.value)}
+            id='outlined-basic'
+            label='Created at'
+            variant='outlined'
+          />
           <TextField
             value={reviewState.comment}
             name='comment'
@@ -299,6 +307,7 @@ const Review = () => {
       <BoxTable>
         <List>
           <li>REVIEW ID</li>
+          <li>CREATED AT</li>
           <li>COMMENT</li>
           <li>RATING</li>
           <li>USER ID</li>
@@ -308,6 +317,7 @@ const Review = () => {
         {dataReview.map((data, index) => (
           <ListData key={index}>
             <li>{data.pk_review_id}</li>
+            <li>{data.created_at}</li>
             <li>{data.comment}</li>
             <li>{data.rating}</li>
             <li>{data.fk_user_id}</li>
@@ -341,30 +351,6 @@ const Review = () => {
               </ButtonList>
             }
           </ListData>
-          // <ul className="map" key={index}>
-          //     <li>
-          //         NO: <span>{index + 1}</span>
-          //     </li>
-          //     <li>
-          //         comment: <span>{data.comment}</span>
-          //     </li>
-          //     <li>
-          //         PRICE_LIST_ID: <span>{data.rating}</span>
-          //     </li>
-          //     {
-          //         <div>
-          //             <button
-          //                 onClick={() => handleDelete(data.pk_review_id, index)}
-          //             >
-          //                 delete
-          //             </button>
-          //             <button onClick={() => handleUpdate(data, index)}>
-          //                 Update
-          //             </button>
-          //             <br />
-          //         </div>
-          //     }
-          // </ul>
         ))}
       </BoxTable>
     </Container>

@@ -170,27 +170,29 @@ const Article = () => {
   };
 
   // UPDATE
-  const updateAPI = async (form) => {
+  const updateImageAPI = async (form) => {
     const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("fullname", form.fullname);
-    data.append("password", form.password);
-    data.append("birth_date", form.birth_date);
-    data.append("email", form.email);
-    data.append("number_phone", form.number_phone);
-    data.append("fk_gender_id", form.fk_gender_id);
-    data.append("picture", form.picture);
-    data.append("picture_upload", imageUpload);
-
+    data.set("picture_upload", imageUpload);
     axios
-      .put(url + endPoint + `_update`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+      .put(url + endPoint + `_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`User successfuly created!`);
+        console.log(`User successfuly updated!`);
+        console.log(res);
+        return res;
+      })
+      .catch((err) => {
+        console.log(`ERROR!`);
+        console.log(err);
+        return err;
+      });
+  };
+  const updateAPI = async (form) => {
+    axios
+      .put(url + endPoint + `_update`, form)
+      .then((res) => {
+        getAllDatasAPI();
+        console.log(`User successfuly updated!`);
         console.log(res);
         return res;
       })
@@ -205,6 +207,7 @@ const Article = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isUpdate) {
+      updateImageAPI(userState)
       updateAPI(userState);
       setIsUpdate(false);
     } else {
@@ -220,7 +223,6 @@ const Article = () => {
         password: userState.password,
         birth_date: userState.birth_date,
         phone_number: userState.phone_number,
-        fk_contact_id: userState.fk_contact_id,
         fk_gender_id: userState.fk_gender_id,
       },
     ]);
@@ -249,7 +251,6 @@ const Article = () => {
     userDispatch(cmsAction(`email`, data.email));
     userDispatch(cmsAction(`phone_number`, data.phone_number));
     userDispatch(cmsAction(`picture`, data.picture));
-    userDispatch(cmsAction(`picture_upload`, data.picture_upload));
     userDispatch(cmsAction(`fk_gender_id`, data.fk_gender_id));
     userDispatch(cmsAction(`pk_user_id`, data.pk_user_id));
     console.log(`update from userState: `, userState);
@@ -269,8 +270,8 @@ const Article = () => {
     userDispatch(cmsAction(`email`, ""));
     userDispatch(cmsAction(`phone_number`, ""));
     userDispatch(cmsAction(`picture`, ""));
-    userDispatch(cmsAction(`fk_contact_id`, ""));
     userDispatch(cmsAction(`fk_gender_id`, ""));
+    setReviewImage('');
   };
 
   // FORM CHANGE
@@ -355,30 +356,14 @@ const Article = () => {
               ))}
             </Select>
           </FormControl>
-          {/* <TextField
-            value={userState.fk_gender_id}
-            onChange={(e) => formChange("fk_gender_id", e.target.value)}
-            name="fk_gender_id"
-            id="outlined-basic"
-            label="Gender_ID"
-            variant="outlined"
-          /> */}
           {/* ----- IMAGE ----- */}
-          {/* <span>Pick image:</span>
-        <input
-          name="picture_upload"
-          type="file"
-          onChange={(e) => formImage(e)}
-        />
-        <img src={reviewImage} alt="" /> */}
           <ImageBox>
             <SpanImage>
               <h6>Upload Image</h6>
-              <img src={reviewImage} alt="" />
+              <img src={reviewImage ? reviewImage : null} alt="" />
             </SpanImage>
-
             <input
-              accept="image/*"
+              // accept="image/*"
               name="picture_upload"
               className={classes.input}
               id="contained-button-file"
@@ -387,6 +372,7 @@ const Article = () => {
               onChange={(e) => formImage(e)}
               style={{ display: "none" }}
             />
+            {/* ----- IMAGE ----- */}
             <label htmlFor="contained-button-file">
               <Button
                 variant="contained"
@@ -399,7 +385,6 @@ const Article = () => {
               </Button>
             </label>
           </ImageBox>
-          {/* ----- IMAGE ----- */}
           <ButtonContainer>
             <Button
               className={classes.button}
@@ -438,18 +423,20 @@ const Article = () => {
           <li>PASSWORD</li>
           <li>BIRTH DATE</li>
           <li>PICTURE</li>
-          <li>CONTACT ID</li>
+          <li>PHONE NUMBER</li>
           <li>GENDER ID</li>
           <li>ACTION</li>
         </List>
         {dataUser.map((data, index) => (
+          console.log(`DATA USER MAP: `, data),
           <ListData key={index}>
             <li>{data.pk_user_id}</li>
             <li>{data.fullname}</li>
             <li>{data.email}</li>
             <li>{data.password}</li>
             <li>{data.birth_date}</li>
-            <li>{data.fk_contact_id}</li>
+            <li>{data.picture}</li>
+            <li>{data.phone_number}</li>
             <li>{data.fk_gender_id}</li>
             {
               <ButtonList>
@@ -480,46 +467,6 @@ const Article = () => {
               </ButtonList>
             }
           </ListData>
-          // <ul key={index}>
-          //   <li>
-          //     NO: <span>{index + 1}</span>
-          //   </li>
-          //   <li>
-          //     USER ID: <span>{data.pk_user_id}</span>
-          //   </li>
-          //   <li>
-          //     PICTURE: <span>{data.picture}</span>
-          //   </li>
-          //   <li>
-          //     FULLNAME: <span>{data.fullname}</span>
-          //   </li>
-          //   <li>
-          //     EMAIL: <span>{data.email}</span>
-          //   </li>
-          //   <li>
-          //     PASSWORD: <span>{data.password}</span>
-          //   </li>
-          //   <li>
-          //     BIRTH DATE: <span>{data.birth_date}</span>
-          //   </li>
-          //   <li>
-          //     CONTACT_ID: <span>{data.fk_contact_id}</span>
-          //   </li>
-          //   <li>
-          //     GENDER_ID: <span>{data.fk_gender_id}</span>
-          //   </li>
-          //   {
-          //     <div>
-          //       <button onClick={() => handleDelete(data.pk_user_id, index)}>
-          //         delete
-          //       </button>
-          //       <button onClick={() => handleUpdate(data, index)}>
-          //         Update
-          //       </button>
-          //       <br />
-          //     </div>
-          //   }
-          // </ul>
         ))}
       </BoxTable>
     </Container>
