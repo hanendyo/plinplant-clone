@@ -13,7 +13,6 @@ export const Container = styled.div`
   width: ${({ sidebar }) => (sidebar ? "83%" : "100%")};
   transition: 90ms;
   z-index: 0;
-  background-color: red;
 `;
 
 export const BoxForm = styled.div`
