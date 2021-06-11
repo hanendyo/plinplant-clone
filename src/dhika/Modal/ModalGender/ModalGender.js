@@ -1,25 +1,25 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from 'react';
 import {
   Popup,
   PopupInner,
   LineData,
   InsertData,
   ButtonContainer,
-} from "./ModalGender.component";
-import { colors } from "../../../master/constant/style/index";
+} from './ModalGender.component';
+import { colors } from '../../../master/constant/style/index';
 // import { TextField } from "@material-ui/core";
-import { closeModalGantiGender } from "../../../context/actions/modalActions";
-import { ContextStore } from "../../../context/store/ContextStore";
-import Button from "../../../master/components/additional/Button";
-import axios from "axios";
+import { closeModalGantiGender } from '../../../context/actions/modalActions';
+import { ContextStore } from '../../../context/store/ContextStore';
+import Button from '../../../master/components/additional/Button';
+import axios from 'axios';
 import {
   makeStyles,
   FormControl,
   Select,
   MenuItem,
   FormHelperText,
-} from "@material-ui/core";
-import { userLogin } from "../../../context/actions/userLoginAction";
+} from '@material-ui/core';
+import { userLogin } from '../../../context/actions/userLoginAction';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -49,9 +49,9 @@ const ModalGender = ({ modal, state }) => {
   };
 
   const HandleSubmit = async (e) => {
-    let data = JSON.parse(localStorage.getItem("userInfo"));
+    let data = JSON.parse(localStorage.getItem('userInfo'));
     data.fk_gender_id = input.fk_gender_id;
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    localStorage.setItem('userInfo', JSON.stringify(data));
     e.preventDefault();
     await axios
       .put(
@@ -68,19 +68,19 @@ const ModalGender = ({ modal, state }) => {
   return (
     <Popup modal={modal}>
       <PopupInner>
-        <h4>Ubah {state.charAt(0).toUpperCase() + state.slice(1)}</h4>
-        <p>Kamu dapat mengubah {state} mu disini</p>
-        <p>Pastikan {state} yang kamu ubah sudah benar</p>)
+        <h4>Ubah {state}</h4>
+        <p>Kamu dapat mengubah {state.toLowerCase()} mu disini</p>
+        <p>Pastikan {state.toLowerCase()} yang kamu ubah sudah benar</p>)
         <LineData>
           <InsertData>
-            <label>{state.charAt(0).toUpperCase() + state.slice(1)}</label>
+            <label>{state}</label>
 
-            <FormControl variant="filled" className={classes.formControl}>
+            <FormControl variant='filled' className={classes.formControl}>
               {/* <InputLabel id="gender-label">Jenis Kelamin</InputLabel> */}
               <Select
-                labelId="gender-label"
-                variant="outlined"
-                id="gender-label"
+                labelId='gender-label'
+                variant='outlined'
+                id='gender-label'
                 value={input.fk_gender_id}
                 onChange={(e) =>
                   setInput({
@@ -101,8 +101,8 @@ const ModalGender = ({ modal, state }) => {
         <ButtonContainer>
           <Button
             primary
-            text="Batal"
-            bgColor="#2222224d"
+            text='Batal'
+            bgColor='#2222224d'
             onClick={() => {
               modalGantiGenderDispatch(closeModalGantiGender());
             }}
@@ -110,9 +110,9 @@ const ModalGender = ({ modal, state }) => {
 
           <Button
             primary
-            text="Ubah"
+            text='Ubah'
             bgColor={colors.green}
-            type="submit"
+            type='submit'
             onClick={(e) => {
               HandleSubmit(e);
             }}

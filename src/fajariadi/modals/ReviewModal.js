@@ -65,8 +65,8 @@ const ReviewModal = ({ fk_invoice_id, plantId, phase, modal }) => {
     }, 1000);
   };
 
-  console.log('RETING VALUEEEEE', checked);
-  console.log('COMENNNN', comment);
+  // console.log('RETING VALUEEEEE', checked);
+  // console.log('COMENNNN', comment);
 
   return (
     <ReviewOverlay modal={modal}>

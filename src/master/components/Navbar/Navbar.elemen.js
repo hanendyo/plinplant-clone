@@ -88,6 +88,7 @@ export const LinksContainer = styled.ul`
           height: 30px;
           border-radius: 50%;
           margin-right: 5px;
+          object-fit: cover;
         }
       }
 

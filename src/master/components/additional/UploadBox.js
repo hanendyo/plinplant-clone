@@ -8,14 +8,23 @@ import { closeModalUpload } from '../../../context/actions';
 import { updateStatusTransaction } from '../../../context/actions/fetchingActions';
 import axios from 'axios';
 import { cmsAction } from '../../../context/actions/CmsAction';
+import { userPictureUpdate } from '../../../context/actions/userLoginAction';
 
-const UploadBox = ({ pk_invoice_id, invoice, modal, profile }) => {
+const UploadBox = ({
+  pk_invoice_id,
+  invoice,
+  modal,
+  profile,
+  payment_image,
+  setPayment_image,
+}) => {
   const {
     modalUploadDispatch,
     invoiceDispatch,
     userState,
     userDispatch,
     userLoginState,
+    userLoginDispatch,
   } = useContext(ContextStore);
 
   const inputFile = useRef(null);
@@ -23,12 +32,12 @@ const UploadBox = ({ pk_invoice_id, invoice, modal, profile }) => {
   const [reviewImageUser, setReviewImageUser] = useState(null);
   const [imageUploadInvoice, setImageUploadInvoice] = useState(null);
   const [imageUploadUser, setImageUploadUser] = useState(null);
-  const [payment_image, setPayment_image] = useState('');
+  const [picture, setPicture] = useState('');
 
   const transactionStatus = 'verif';
 
   const userData = JSON.parse(localStorage.getItem('userInfo'));
-  console.log(`USERDATA UPLOAD BOX: `, userData.picture);
+  // console.log(`USERDATA UPLOAD BOX: `, userData.picture);
 
   const onButtonClick = (e) => {
     // `current` points to the mounted file input element
@@ -49,6 +58,7 @@ const UploadBox = ({ pk_invoice_id, invoice, modal, profile }) => {
   const url = 'http://localhost:5000/input/';
   const endPointInvoice = 'invoice';
   const endPointUser = 'user';
+
   const updateImageInvoiceAPI = async (form) => {
     const data = new FormData();
     data.set('payment_image_upload', imageUploadInvoice); //--> objectnya/file + upload
@@ -66,6 +76,7 @@ const UploadBox = ({ pk_invoice_id, invoice, modal, profile }) => {
         return err;
       });
   };
+
   const updateImageUserAPI = async (form) => {
     const data = new FormData();
     data.append('picture', form.picture);
@@ -99,10 +110,19 @@ const UploadBox = ({ pk_invoice_id, invoice, modal, profile }) => {
   };
 
   userData[`picture`] = userState.picture;
-  const handleSubmitUser = async (e) => {
+  const handleSubmitUser = (e) => {
     e.preventDefault();
     updateImageUserAPI(userState);
-    await localStorage.setItem(`userInfo`, JSON.stringify(userData));
+
+    const pk_user_id = userLoginState.pk_user_id;
+
+    userLoginDispatch(userPictureUpdate({ picture, pk_user_id }));
+
+    localStorage.setItem(`userInfo`, JSON.stringify(userData));
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
   };
 
   const formImageInvoice = (e) => {
@@ -119,60 +139,69 @@ const UploadBox = ({ pk_invoice_id, invoice, modal, profile }) => {
     const imgName = e.target.files[0].name;
     console.log(`IMEJ: `, img);
     userDispatch(cmsAction('picture', imgName));
+    setPicture(imgName);
     setReviewImageUser(URL.createObjectURL(img));
     setImageUploadUser(img);
   };
 
   return (
     <>
-      <form encType='multipart/form-data' noValidate autoComplete='off'>
-        {profile && (
-          <ModalBox profile={profile}>
-            <img
-              src={
-                reviewImageUser === null
-                  ? process.env.PUBLIC_URL +
-                    `/images/user_image/${userLoginState.picture}`
-                  : reviewImageUser
-              }
-              alt=''
-            />
+      {profile && (
+        <ModalBox
+          profile={profile}
+          encType='multipart/form-data'
+          noValidate
+          autoComplete='off'
+        >
+          <img
+            src={
+              reviewImageUser !== null
+                ? reviewImageUser
+                : userLoginState.picture === null
+                ? process.env.PUBLIC_URL + `/images/user_image/default.png`
+                : process.env.PUBLIC_URL +
+                  `/images/user_image/${userLoginState.picture}`
+            }
+            alt=''
+          />
 
-            <input
-              name='payment_image_upload'
-              type='file'
-              id='file'
-              ref={inputFile}
-              onChange={(e) => formImageUser(e)}
-              style={{ display: 'none' }}
-            />
+          <input
+            name='picture_upload'
+            type='file'
+            id='file'
+            ref={inputFile}
+            onChange={(e) => formImageUser(e)}
+            style={{ display: 'none' }}
+          />
 
-            <Button
-              primary
-              summary
-              text='Pilih Foto'
-              bgColor={colors.green}
-              onClick={onButtonClick}
-            />
+          <Button
+            primary
+            summary
+            text='Pilih Foto'
+            bgColor={colors.green}
+            onClick={onButtonClick}
+          />
 
-            <Button
-              primary
-              summary
-              text='Upload'
-              bgColor={colors.green}
-              onClick={handleSubmitUser}
-            />
+          <Button
+            primary
+            summary
+            text='Upload'
+            bgColor={colors.green}
+            onClick={handleSubmitUser}
+          />
 
-            <p>Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG</p>
-          </ModalBox>
-        )}
+          <p>Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG</p>
+        </ModalBox>
+      )}
 
-        {invoice && (
-          <ModalOverlay modal={modal}>
+      {invoice && (
+        <ModalOverlay modal={modal}>
+          <form encType='multipart/form-data' noValidate autoComplete='off'>
             <ModalBox>
               <img src={reviewImageInvoice} alt='' />
 
               <input
+                name='payment_image_upload'
                 type='file'
                 id='file'
                 ref={inputFile}
@@ -213,9 +242,9 @@ const UploadBox = ({ pk_invoice_id, invoice, modal, profile }) => {
                 />
               </div>
             </ModalBox>
-          </ModalOverlay>
-        )}
-      </form>
+          </form>
+        </ModalOverlay>
+      )}
     </>
   );
 };
@@ -233,7 +262,7 @@ export const ModalOverlay = styled.div`
   display: ${({ modal }) => (modal ? 'auto' : 'none')};
 `;
 
-const ModalBox = styled.div`
+const ModalBox = styled.form`
   width: 100%;
   max-width: 340px;
   height: fit-content;

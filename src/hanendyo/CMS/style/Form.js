@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { colors } from "../../../master/constant/style";
+import styled from 'styled-components';
+import { colors } from '../../../master/constant/style';
 
 export const Container = styled.div`
   position: relative;
@@ -37,6 +37,7 @@ export const BoxTable = styled.div`
   border-radius: 5px;
   background: #fff;
   box-shadow: 10px 10px 40px #bebebe;
+  position: relative;
 
   /* @media (max-width: 900px) {
     display: none;
@@ -154,6 +155,32 @@ export const ListData = styled.ul`
   padding: 10px 0;
   border-radius: 2px;
   transition: all 0.2s ease-in;
+
+  & > li:nth-of-type(5) {
+    & > span {
+      position: ${({ active, index }) =>
+        active === index ? 'absolute' : 'auto'};
+      display: ${({ active, index }) => (active === index ? 'block' : 'none')};
+      top: ${({ active, index }) => (active === index ? '-75px' : 'unset')};
+      left: ${({ active, index }) => (active === index ? '50%' : 'unset')};
+      transform: ${({ active, index }) =>
+        active === index ? 'translateX(-50%)' : 'unset'};
+      z-index: 999;
+    }
+    & > img {
+      position: ${({ active, index }) =>
+        active === index ? 'absolute' : 'auto'};
+      top: ${({ active, index }) => (active === index ? '-50px' : 'unset')};
+      left: ${({ active, index }) => (active === index ? '50%' : 'unset')};
+      width: ${({ active, index }) => (active === index ? '700px' : 'auto')};
+      border-radius: ${({ active, index }) =>
+        active === index ? '20px' : '3px'};
+      transform: ${({ active, index }) =>
+        active === index ? 'translateX(-50%)' : 'unset'};
+      z-index: 99;
+      cursor: pointer;
+    }
+  }
 
   &:hover {
     background: ${colors.lightGreenTransparent};

@@ -27,7 +27,9 @@ const Quantity = ({ quantity, setQuantity, pk_cart_id, shop }) => {
         <Counter>
           <span
             onClick={() =>
-              userCartDispatch(decrementCart({ quantity, pk_cart_id }))
+              quantity === 1
+                ? 1
+                : userCartDispatch(decrementCart({ quantity, pk_cart_id }))
             }
           >
             -

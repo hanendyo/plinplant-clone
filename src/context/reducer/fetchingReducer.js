@@ -11,6 +11,15 @@ export const userInfoReducer = (state, action) => {
 };
 
 // ::: END OF USER INFO REDUCER ::: DUMMY :::
+export const transactionCmsReducer = (state, action) => {
+  switch (action.type) {
+    case 'FETCH_CMS_TRANSACTION':
+      return [...action.payload];
+
+    default:
+      return state;
+  }
+};
 
 export const tablePlantReducer = (state, action) => {
   switch (action.type) {
@@ -41,14 +50,14 @@ export const userCartReducer = (state, action) => {
       return [
         ...state,
         {
-          phase_image: action.payload?.phase_image,
-          plant_name: action.payload?.plant_name,
-          plant_phase: action.payload?.plant_phase,
-          price: action.payload?.price,
-          quantity: action.payload?.quantity,
-          weight: action.payload?.weight,
-          fk_plant_id: action.payload?.fk_plant_id,
-          fk_user_id: action.payload?.fk_user_id,
+          phase_image: action.payload.phase_image,
+          plant_name: action.payload.plant_name,
+          plant_phase: action.payload.plant_phase,
+          price: action.payload.price,
+          quantity: action.payload.quantity,
+          weight: action.payload.weight,
+          fk_plant_id: action.payload.fk_plant_id,
+          fk_user_id: action.payload.fk_user_id,
         },
       ];
 
@@ -104,12 +113,12 @@ export const userAddressReducer = (state, action) => {
       return [
         ...state,
         {
-          recipient_name: action.payload.name,
-          phone_number: action.payload.phone,
-          address: action.payload.address,
-          zipcode: action.payload.postalCode,
-          fk_city_id: action.payload.fk_city_id,
-          fk_user_id: action.payload.fk_user_id,
+          recipient_name: action.payload?.name,
+          phone_number: action.payload?.phone,
+          address: action.payload?.address,
+          zipcode: action.payload?.postalCode,
+          fk_city_id: action.payload?.fk_city_id,
+          fk_user_id: action.payload?.fk_user_id,
         },
       ];
 
@@ -163,7 +172,11 @@ export const invoiceReducer = (state, action) => {
     case 'INVOICE_TRANSACTION_DONE':
       return state.filter((invoice) =>
         invoice.pk_invoice_id === action.payload.pk_invoice_id
-          ? { ...invoice, status: action.payload.transactionSucces, payment_image: action.payload.payment_image }
+          ? {
+              ...invoice,
+              status: action.payload.transactionSucces,
+              payment_image: action.payload.payment_image,
+            }
           : invoice
       );
 

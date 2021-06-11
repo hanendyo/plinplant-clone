@@ -19,9 +19,6 @@ const NavbarLandingPage = () => {
 
   const history = useHistory();
 
-  // [{...}] -> userInfoState[0] -> fullname.split(' ') -> ['Fajar', 'Riadi'] -> index 0
-  // const greet = userInfoState[0]?.fullname.split(' ')[0];
-
   const [profile, setProfile] = useState(false);
 
   const [shadow, setShadow] = useState(false);

@@ -7,10 +7,8 @@ import {
   Data,
   RightArea,
 } from './Profile.component';
-import axios from 'axios';
 import UploadBox from '../../master/components/additional/UploadBox';
 import ProductsContainer from '../../fajariadi/components/Main/components/Product/ProductsContainer';
-import { addresses } from '../../master/constant/data/dummy-data';
 import ScrollSign from '../../master/components/additional/ScrollSign';
 import { ContextStore } from '../../context/store/ContextStore';
 import PopoutComponent from '../Modal/ModalAlamat/PopupComponent/Popout';
@@ -55,8 +53,6 @@ const Profile = () => {
   const [nomor, setNomor] = useState(userLoginState.phone_number);
 
   const [scroll, setScroll] = useState(true);
-  console.log(userLoginState);
-  // let userData = JSON.parse(localStorage.getItem("user-data")) || {};
 
   useEffect(() => {
     if (userAddressState.length < 3) setScroll(false);
@@ -93,7 +89,7 @@ const Profile = () => {
               <li>{userLoginState.fullname}</li>
               <li
                 onClick={() => {
-                  setState('name');
+                  setState('Nama');
                   modalGantiNamaDispatch(openModalGantiNama());
                 }}
               >
@@ -106,6 +102,7 @@ const Profile = () => {
               {birthDate === null && (
                 <li
                   onClick={() => {
+                    setState('Tanggal Lahir');
                     modalGantiBirthdateDispatch(openModalGantiBirthdate());
                     setBirthdate(userLoginState.birth_date);
                   }}
@@ -119,7 +116,7 @@ const Profile = () => {
                   <li>{userLoginState.birth_date}</li>
                   <li
                     onClick={() => {
-                      setState('tanggal lahir');
+                      setState('Tanggal Lahir');
                       setBirthdate(userLoginState.birth_date);
                       modalGantiBirthdateDispatch(openModalGantiBirthdate());
                     }}
@@ -135,6 +132,7 @@ const Profile = () => {
               {gender === 0 && (
                 <li
                   onClick={() => {
+                    setState('Jenis Kelamin');
                     modalGantiGenderDispatch(openModalGantiGender());
                     setGender(userLoginState.fk_gender_id);
                   }}
@@ -171,6 +169,7 @@ const Profile = () => {
               {nomor === null && (
                 <li
                   onClick={() => {
+                    setState('Nomor HP');
                     modalGantiNomorDispatch(openModalGantiNomor());
                     setNomor(userLoginState.phone_number);
                   }}
@@ -184,7 +183,7 @@ const Profile = () => {
                   <li>{userLoginState.phone_number}</li>
                   <li
                     onClick={() => {
-                      setState('nomor HP');
+                      setState('Nomor HP');
                       setBirthdate(userLoginState.phone_number);
                       modalGantiNomorDispatch(openModalGantiNomor());
                     }}

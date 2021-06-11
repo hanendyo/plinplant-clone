@@ -34,8 +34,8 @@ const Invoice = () => {
     plantIdReviewState,
   } = useContext(ContextStore);
 
-  console.log('STATE INVOICEEE', invoiceState);
-  console.log('PLANT IDD REVIEWWWW', plantIdReviewState);
+  // console.log('STATE INVOICEEE', invoiceState);
+  // console.log('PLANT IDD REVIEWWWW', plantIdReviewState);
 
   const {
     pk_invoice_id,
@@ -55,6 +55,8 @@ const Invoice = () => {
 
   const [scroll, setScroll] = useState(true);
   const transactionStatus = 'selesai';
+
+  const [payment_image, setPayment_image] = useState('');
 
   useEffect(() => {
     if (invoiceState.length < 5) setScroll(false);
@@ -76,15 +78,13 @@ const Invoice = () => {
 
   const totalShippingPrice = Math.ceil(totalWeight / 1000) * shipping_price;
 
-  const uniqueCode = Math.floor(Math.random() * 99);
-
   const handleUpdateStatus = (data) => {
     invoiceDispatch(updateStatusTransaction(data));
 
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
-
-
 
   return (
     <InvoiceSection>
@@ -151,22 +151,17 @@ const Invoice = () => {
 
               <div>
                 <p>Total Tagihan</p>
-                <h6>
-                  {priceFormat.format(
-                    totalShippingPrice + totalPrice + uniqueCode
-                  )}{' '}
-                  *
-                </h6>
+                <h6>{priceFormat.format(totalShippingPrice + totalPrice)}</h6>
               </div>
 
               <div>
                 <p>
                   Metode Pembayaran <br />
-                  <span>
+                  {/* <span>
                     * Dimohon untuk transfer sesuai{' '}
                     <strong>Total Tagihan</strong> agar proses verifikasi lebih
                     cepat.
-                  </span>
+                  </span> */}
                 </p>
 
                 <h6>
@@ -188,7 +183,11 @@ const Invoice = () => {
                 text='Pesanan Diterima'
                 bgColor={colors.yellow}
                 onClick={() =>
-                  handleUpdateStatus({ transactionStatus, pk_invoice_id })
+                  handleUpdateStatus({
+                    transactionStatus,
+                    pk_invoice_id,
+                    payment_image,
+                  })
                 }
               />
             </div>
@@ -211,6 +210,8 @@ const Invoice = () => {
         pk_invoice_id={pk_invoice_id}
         invoice
         modal={modalUploadState}
+        payment_image={payment_image}
+        setPayment_image={setPayment_image}
       />
 
       <ReviewModal

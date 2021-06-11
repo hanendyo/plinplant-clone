@@ -1,4 +1,5 @@
 const {
+  updateUserPictureById,
   getUser,
   reviewGetByPlant,
   reviewPostByPlant,
@@ -237,7 +238,8 @@ router.put('/price_list_update', price_list_update);
 router.put('/review_update', review_update);
 router.put('/shipping_charges_update', shipping_charges_update);
 router.put('/stock_update', stock_update);
-router.put('/user_update', user_update);
+router.put('/user_update', upload.single('picture_upload'), user_update);
+router.put('/user_update/filename', updateUserPictureById);
 router.put('/weight_update', weight_update);
 // POST USER BY ID
 router.put('/user_update_name/:id', updateUsernameByID);

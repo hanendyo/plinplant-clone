@@ -21,20 +21,13 @@ const Navbar = () => {
 
   const [shadow, setShadow] = useState(false);
 
-  const [qty, setQty] = useState(0);
-
   const history = useHistory();
-
-  // setTimeout(() => {
-  //   const totalItems = userCartState
-  //     .map((item) => item.quantity)
-  //     .reduce((a, b) => a + b, 0);
-
-  //   setQty(totalItems);
-  // }, 3000);
 
   useEffect(() => {
     if (userLoginState) userCartDispatch(getCarts(userLoginState));
+
+    
+
 
     // ::: NAVBAR INTERACTION :::
     const scrollNav = () => {
@@ -50,16 +43,12 @@ const Navbar = () => {
   }, [userCartDispatch]);
   // ::: END OF NAVBAR INTERACTION :::
 
-  console.log('NAVBAR - STATE', userCartState);
-
-  console.log(
-    'NAVBAR - CART',
-    userCartState.map((cart) => cart.quantity)
-  );
-
   // console.log('NAVBAR - CARTTT', totalItems);
 
   const slug = (title) => title?.toLowerCase().split(' ').join('-');
+  const totalItems = userCartState
+      .map((item) => item.quantity)
+      .reduce((a, b) => a + b, 0);
 
   return (
     <Nav shadow={shadow}>
@@ -76,7 +65,7 @@ const Navbar = () => {
             {userLoginState ? (
               <Link to='/cart'>
                 <FaShoppingCart className='cart' />
-                {/* {qty > 0 && <span>{!isNaN(qty) && qty}</span>} */}
+                {totalItems > 0 && <span>{!isNaN(totalItems) && totalItems}</span>}
               </Link>
             ) : (
               <Link to='/login'>

@@ -1,4 +1,4 @@
-const pool = require("../database/Database");
+const pool = require('../database/Database');
 
 module.exports = {
   // ::: QUERY TO GET USER INFO ::: DUMMY :::
@@ -16,6 +16,18 @@ module.exports = {
   // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
 
   // ::: QUERY TO UPDATE USER INFO ::: DUMMY :::
+
+  updateUserPicture: (data, callback) => {
+    pool.query(
+      `UPDATE table_user SET picture=? where pk_user_id = ?`,
+      [data.picture, data.pk_user_id],
+      (error, results, fields) => {
+        if (error) return callback(error);
+
+        return callback(null, results); // result[0]
+      }
+    );
+  },
 
   updateUsernameID: (body, id, callback) => {
     pool.query(
@@ -52,6 +64,7 @@ module.exports = {
       }
     );
   },
+
   updateGenderID: (body, id, callback) => {
     pool.query(
       `UPDATE table_user SET fk_gender_id=? where pk_user_id = ?`,
@@ -63,6 +76,7 @@ module.exports = {
       }
     );
   },
+
   updatePhoneNumberID: (body, id, callback) => {
     pool.query(
       `UPDATE table_user SET phone_number=? where pk_user_id = ?`,
@@ -74,6 +88,7 @@ module.exports = {
       }
     );
   },
+
   // ::: END OF QUERY TO GET USER INFO ::: DUMMY :::
   invoiceGetAllDatas: (callback) => {
     pool.query(`Select * from user_invoice`, [], (error, results, fields) => {
@@ -105,7 +120,7 @@ module.exports = {
   },
 
   invoiceDone: (data, callBack) => {
-    console.log("PESANAN SELESAI", data);
+    console.log('PESANAN SELESAI', data);
     pool.query(
       `update table_invoice set status=?, payment_image=? where pk_invoice_id=?`,
       [data.status, data.payment_image, data.pk_invoice_id],
@@ -153,7 +168,7 @@ module.exports = {
   // :: CART SERVICE :::
   cartGetByUserId: (id, callback) => {
     pool.query(
-      `Select * from user_cart where fk_user_id = ? and fk_invoice_id = 0 order by pk_cart_id `,
+      `Select * from table_cart where fk_user_id = ? and fk_invoice_id = 0 order by pk_cart_id `,
       [id],
       (error, results, fields) => {
         if (error) return callback(error);
@@ -164,7 +179,7 @@ module.exports = {
   },
 
   cartAdd: (data, callBack) => {
-    console.log("CART ADD", data);
+    console.log('CART ADD', data);
     pool.query(
       `INSERT INTO table_cart(phase_image, plant_name, plant_phase, price, quantity, weight, fk_plant_id, fk_user_id) values(?, ?, ?, ?, ?, ?, ?, ?)`,
       [
@@ -591,7 +606,7 @@ module.exports = {
 
   orderGetAllDatas: (callback) => {
     pool.query(
-      `Select * from table_invoice order by pk_invoice_id desc`,
+      `Select * from list_transaction order by pk_invoice_id desc`,
       [],
       (error, results, fields) => {
         if (error) {

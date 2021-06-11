@@ -22,6 +22,7 @@ import {
   invoiceReducer,
   bankReducer,
   transactionReducer,
+  transactionCmsReducer,
 } from '../reducer/fetchingReducer';
 import {
   modalPilihAlamatReducer,
@@ -242,6 +243,12 @@ export const ContextProvider = ({ children }) => {
     []
   );
 
+  // ::: FETCH CMS TRANSACTION :::
+  const [transactionCmsState, transactionCmsDispatch] = useThunkReducer(
+    transactionCmsReducer,
+    []
+  );
+
   // ::: FETCH INVOICES :::
   const [invoiceState, invoiceDispatch] = useThunkReducer(invoiceReducer, []);
 
@@ -420,6 +427,9 @@ export const ContextProvider = ({ children }) => {
 
         getTotalQtyState,
         getTotalQtyDispatch,
+
+        transactionCmsState,
+        transactionCmsDispatch,
       }}
     >
       {children}

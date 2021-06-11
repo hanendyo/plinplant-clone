@@ -70,6 +70,7 @@ const ShoppingSummary = ({
     const created_at = `${date} ${months[month]} ${year}, ${
       hour < 10 ? `0${hour}` : hour
     }:${min < 10 ? `0${min}` : min} WIB`;
+
     const status = 'bayar';
 
     userCartDispatch(cartCheckout({ fk_invoice_id, fk_user_id }));

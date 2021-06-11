@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
 
-
 // config
 const app = express();
 

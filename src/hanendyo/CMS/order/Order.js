@@ -27,6 +27,8 @@ import {
   ListData,
 } from '../style/Form';
 import { colors } from '../../../master/constant/style';
+import { getCmsTransactions } from '../../../context/actions/fetchingActions';
+import { priceFormat } from '../../../master/constant/constantVariables';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,8 +51,12 @@ const Contact = () => {
   const classes = useStyles();
 
   // USE CONTEXT
-  const context = useContext(ContextStore);
-  const { orderState, orderDispatch } = context;
+  const {
+    orderState,
+    orderDispatch,
+    transactionCmsState,
+    transactionCmsDispatch,
+  } = useContext(ContextStore);
 
   // USE STATE
   const [dataOrder, setDataOrder] = useState([
@@ -63,10 +69,14 @@ const Contact = () => {
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
+  const [active, setActive] = useState(0);
 
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
+
+    transactionCmsDispatch(getCmsTransactions());
+
     console.log(`dataOrder: `, dataOrder);
   }, []);
 
@@ -168,6 +178,7 @@ const Contact = () => {
     clearFormData();
 
     console.log(`CONTACT STATE SUBMIT: `, orderState);
+    window.location.reload();
   };
 
   // HANDLE DELETE
@@ -223,7 +234,7 @@ const Contact = () => {
           autoComplete='off'
         >
           <FormControl className={classes.formControl}>
-            <InputLabel id='status'> Order Status</InputLabel>
+            <InputLabel id='status'>Order Status</InputLabel>
             <Select
               value={orderState.status}
               onChange={(e) => formChange('status', e.target.value)}
@@ -290,18 +301,34 @@ const Contact = () => {
       <BoxTable>
         <List>
           <li>ORDER ID</li>
+          <li>USER NAME</li>
+          <li>TOTAL PRICE</li>
+          <li>BANK</li>
+          <li>PAYMENT</li>
           <li>STATUS</li>
           <li>CREATED AT</li>
-          <li>USER ID</li>
           <li>ACTION</li>
         </List>
 
-        {dataOrder.map((data, index) => (
-          <ListData key={index}>
-            <li>{data.pk_order_id}</li>
+        {transactionCmsState.map((data, index) => (
+          <ListData active={active} index={index} key={index}>
+            <li>{data.pk_invoice_id}</li>
+            <li>{data.fullname}</li>
+            <li>{priceFormat.format(data.total_price)}</li>
+            <li>{data.bank_name}</li>
+            <li onClick={() => setActive(index)}>
+              <span>Double klik pada gambar untuk menutup.</span>
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  `/images/payment_image/${data.payment_image}`
+                }
+                alt=''
+                onDoubleClick={() => setActive(-1)}
+              />
+            </li>
             <li>{data.status}</li>
             <li>{data.created_at}</li>
-            <li>{data.fk_user_id}</li>
             {
               <ButtonList>
                 <Button

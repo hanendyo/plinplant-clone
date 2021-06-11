@@ -74,8 +74,6 @@ const PopoutComponent = ({ cart, modal }) => {
         modalTambahAlamatDispatch(closeModalTambahAlamat());
         history.push('/checkout');
       }
-
-      modalTambahAlamatDispatch(closeModalTambahAlamat());
     }, 1000);
   };
 

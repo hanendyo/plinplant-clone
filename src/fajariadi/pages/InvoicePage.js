@@ -21,7 +21,7 @@ const InvoicePage = ({ match }) => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, [invoiceDispatch]);
+  }, []);
 
   return (
     <>

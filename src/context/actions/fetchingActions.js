@@ -9,6 +9,14 @@ export const getUser = () => async (dispatch) => {
 
 // ::: END OF USER INFO REDUCER ::: DUMMY :::
 
+export const getCmsTransactions = () => async (dispatch) => {
+  const res = await axios.get(
+    'http://localhost:5000/input/order_get_all_datas'
+  );
+
+  dispatch({ type: 'FETCH_CMS_TRANSACTION', payload: res.data.data });
+};
+
 export const getPlants = () => async (dispatch) => {
   const res = await axios.get(
     'http://localhost:5000/input/plant_get_all_datas'
@@ -94,7 +102,6 @@ export const getCarts = (userLoginState) => async (dispatch) => {
   const res = await axios.get(
     `http://localhost:5000/input/cart/user/${userLoginState.pk_user_id}`
   );
-
   dispatch({ type: 'FETCH_USER_CART', payload: res.data.data });
 };
 
@@ -193,16 +200,21 @@ export const getTransactions = (match) => async (dispatch) => {
 export const getInvoices = () => async (dispatch) => {
   const res = await axios.get('http://localhost:5000/input/invoice');
 
+  console.log('KENAAAAAAAA', res);
+
   dispatch({ type: 'FETCH_INVOICE_ALL', payload: res.data.data });
 };
 
 export const getInvoiceDetails = (match) => async (dispatch) => {
-  const res = await axios.get(
-    `http://localhost:5000/input/invoice/${match.params.id}/${match.params.order}`
-  );
-
-  console.log('NOT ITERABLE', res);
-  dispatch({ type: 'FETCH_INVOICE_DETAIL', payload: res.data.data });
+  try {
+    const res = await axios.get(
+      `http://localhost:5000/input/invoice/${match.params.id}/${match.params.order}`
+    );
+    console.log('NOT ITERABLE', res);
+    dispatch({ type: 'FETCH_INVOICE_DETAIL', payload: res.data.data });
+  } catch (error) {
+    console.log('ERR NOT ITERABLE', error);
+  }
 };
 
 export const createInvoice = (data) => async (dispatch) => {
@@ -236,7 +248,7 @@ export const updateStatusTransaction = (data) => async (dispatch) => {
   const res = await axios.put('http://localhost:5000/input/invoice_update', {
     status,
     pk_invoice_id,
-    payment_image
+    payment_image,
   });
 
   console.log('STATUS UPDATED !!!!!', res);
