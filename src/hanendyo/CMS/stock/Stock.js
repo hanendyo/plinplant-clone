@@ -42,7 +42,7 @@ const Stock = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { stockState, stockDispatch } = context;
+  const { stockState, stockDispatch, cmsSidebarState } = context;
 
   // USE STATE
   const [dataStock, setDataStock] = useState([
@@ -151,7 +151,7 @@ const Stock = () => {
         ...dataStock,
         seed_stock: stockState.seed_stock,
         tuber_stock: stockState.tuber_stock,
-        young_stock: stockState.young_stock,
+        teen_stock: stockState.young_stock,
         mature_stock: stockState.mature_stock,
       },
     ]);
@@ -176,7 +176,7 @@ const Stock = () => {
     setIndexUpdate(index);
     stockDispatch(cmsAction(`seed_stock`, data.seed_stock));
     stockDispatch(cmsAction(`mature_stock`, data.mature_stock));
-    stockDispatch(cmsAction(`young_stock`, data.young_stock));
+    stockDispatch(cmsAction(`young_stock`, data.teen_stock));
     stockDispatch(cmsAction(`tuber_stock`, data.tuber_stock));
     stockDispatch(cmsAction(`pk_stock_id`, data.pk_stock_id));
     console.log(`update from stockState: `, stockState);
@@ -202,7 +202,7 @@ const Stock = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>STOCK INPUT</h4>
       <BoxForm>
         <form
@@ -231,7 +231,7 @@ const Stock = () => {
           />
 
           <TextField
-            value={stockState.young_stock}
+            value={stockState.teen_stock}
             onChange={(e) => formChange("young_stock", e.target.value)}
             name="young_stock"
             id="outlined-basic"
@@ -290,7 +290,7 @@ const Stock = () => {
             <li>{data.pk_stock_id}</li>
             <li>{data.seed_stock}</li>
             <li>{data.tuber_stock}</li>
-            <li>{data.young_stock}</li>
+            <li>{data.teen_stock}</li>
             <li>{data.mature_stock}</li>
             {
               <ButtonList>

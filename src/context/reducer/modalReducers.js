@@ -1,3 +1,16 @@
+export const cmsSidebarReducer = (state, action) => {
+  switch (action.type) {
+    case "OPEN_SIDEBAR":
+      return !state;
+
+    case "CLOSE_SIDEBAR":
+      return !state;
+
+    default:
+      return state;
+  }
+};
+
 export const modalUploadReducer = (state, action) => {
   switch (action.type) {
     case "OPEN_MODAL_UPLOAD":
@@ -26,7 +39,7 @@ export const modalReviewReducer = (state, action) => {
 
 export const plantIdReviewReducer = (state, action) => {
   switch (action.type) {
-    case 'GET_PLANT_ID':
+    case "GET_PLANT_ID":
       return {
         id: action.payload.plant,
         phase: action.payload.phase,

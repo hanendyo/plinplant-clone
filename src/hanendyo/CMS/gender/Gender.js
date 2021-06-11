@@ -42,12 +42,11 @@ const Category = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { genderState, genderDispatch } = context;
+  const { genderState, genderDispatch, cmsSidebarState } = context;
 
   // USE STATE
   const [dataGender, setDataGender] = useState([
     {
-      pk_gender_id: "",
       type: "",
     },
   ]);
@@ -155,7 +154,6 @@ const Category = () => {
     setDataGender([
       {
         ...dataGender,
-        pk_gender_id: genderState.pk_gender_id,
         type: genderState.type,
       },
     ]);
@@ -179,7 +177,7 @@ const Category = () => {
     setIsUpdate(true);
     setIndexUpdate(index);
     genderDispatch(cmsAction(`type`, data.type));
-    genderDispatch(cmsAction(`pk_gender_id`, data.pk_gender_id));
+    // genderDispatch(cmsAction(`pk_gender_id`, data.pk_gender_id));
     console.log(`update from genderState: `, genderState);
   };
 
@@ -192,7 +190,7 @@ const Category = () => {
   // CLEAR FORM
   const clearFormData = () => {
     genderDispatch(cmsAction(`type`, ""));
-    genderDispatch(cmsAction(`pk_gender_id`, ""));
+    // genderDispatch(cmsAction(`pk_gender_id`, ""));
   };
 
   // FORM CHANGE
@@ -201,7 +199,7 @@ const Category = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>GENDER INPUT</h4>
       <BoxForm>
         <form

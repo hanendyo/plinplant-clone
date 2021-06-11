@@ -50,7 +50,7 @@ const Contact = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { contactState, contactDispatch } = context;
+  const { contactState, contactDispatch, cmsSidebarState } = context;
 
   // USE STATE
   const [dataContact, setDataContact] = useState([
@@ -243,7 +243,7 @@ const Contact = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>Contact input</h4>
       <BoxForm>
         <form

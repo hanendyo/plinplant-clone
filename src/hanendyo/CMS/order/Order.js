@@ -56,6 +56,7 @@ const Contact = () => {
     orderDispatch,
     transactionCmsState,
     transactionCmsDispatch,
+    cmsSidebarState,
   } = useContext(ContextStore);
 
   // USE STATE
@@ -226,7 +227,7 @@ const Contact = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>ORDER INPUT</h4>
       <BoxForm>
         <form

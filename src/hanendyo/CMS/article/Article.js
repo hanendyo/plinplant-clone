@@ -20,6 +20,7 @@ import {
 } from '../style/Form';
 import { FaCamera } from 'react-icons/fa';
 import { colors } from '../../../master/constant/style';
+// import LinesEllipsis from "react-lines-ellipsis";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,7 +44,7 @@ const Article = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { articleState, articleDispatch } = context;
+  const { articleState, articleDispatch, cmsSidebarState } = context;
 
   // USE STATE
   const [dataArticle, setDataArticle] = useState([
@@ -142,7 +143,7 @@ const Article = () => {
       .then((res) => {
         getAllDatasAPI();
         // setReviewImage('')
-        console.log(`DATA UPDATE: `,);
+        console.log(`DATA UPDATE: `);
         console.log(`Article successfuly updated!`);
         console.log(res);
         return res;
@@ -159,7 +160,7 @@ const Article = () => {
       .then((res) => {
         getAllDatasAPI();
         // setReviewImage('')
-        console.log(`DATA UPDATE: `,);
+        console.log(`DATA UPDATE: `);
         console.log(`Article successfuly updated!`);
         console.log(res);
         return res;
@@ -259,7 +260,7 @@ const Article = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>ARTICLE INPUT</h4>
       <BoxForm>
         <form
@@ -342,7 +343,7 @@ const Article = () => {
             </SpanImage>
 
             <input
-              // accept='image/*'
+              accept='image/*'
               name='article_image_upload'
               className={classes.input}
               id='contained-button-file'

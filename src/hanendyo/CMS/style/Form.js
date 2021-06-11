@@ -7,7 +7,12 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 15px;
+  padding-top: 20px;
+  background-color: #fff;
+  left: ${({ sidebar }) => (sidebar ? "300px" : "0px")};
+  width: ${({ sidebar }) => (sidebar ? "83%" : "100%")};
+  transition: 90ms;
+  z-index: 0;
 `;
 
 export const BoxForm = styled.div`

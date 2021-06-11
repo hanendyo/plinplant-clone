@@ -54,7 +54,8 @@ const ShippingCharges = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { shippingChargesState, shippingChargesDispatch } = context;
+  const { shippingChargesState, shippingChargesDispatch, cmsSidebarState } =
+    context;
 
   // USE STATE
   const [dataShippingCharges, setDataShippingCharges] = useState([
@@ -235,7 +236,7 @@ const ShippingCharges = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>Shipping charges input</h4>
       <BoxForm>
         <form

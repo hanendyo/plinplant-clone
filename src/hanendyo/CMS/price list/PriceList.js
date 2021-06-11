@@ -43,7 +43,7 @@ const PriceList = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { priceListState, priceListDispatch } = context;
+  const { priceListState, priceListDispatch, cmsSidebarState } = context;
 
   // USE STATE
   const [priceList, setPriceList] = useState([
@@ -213,7 +213,7 @@ const PriceList = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>PRICE LIST INPUT</h4>
       <BoxForm>
         <form

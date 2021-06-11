@@ -1,10 +1,14 @@
-import { modalUploadReducer, modalReviewReducer } from './modalReducers';
+import {
+  modalUploadReducer,
+  modalReviewReducer,
+  cmsSidebarReducer,
+} from "./modalReducers";
 import {
   tablePlantReducer,
   plantIdReducer,
   invoiceReducer,
-} from './fetchingReducer';
-import { selectedAddressReducer } from './selectedAddress';
+} from "./fetchingReducer";
+import { selectedAddressReducer } from "./selectedAddress";
 
 export {
   modalUploadReducer,
@@ -13,4 +17,5 @@ export {
   plantIdReducer,
   selectedAddressReducer,
   invoiceReducer,
+  cmsSidebarReducer,
 };

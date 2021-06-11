@@ -42,7 +42,7 @@ const Weight = () => {
 
   // USE CONTEXT
   const context = useContext(ContextStore);
-  const { weightState, weightDispatch } = context;
+  const { weightState, weightDispatch, cmsSidebarState } = context;
 
   // USE STATE
   const [dataWeight, setDataWeight] = useState([
@@ -187,7 +187,7 @@ const Weight = () => {
   };
 
   return (
-    <Container>
+    <Container sidebar={cmsSidebarState}>
       <h4>WEIGHT INPUT</h4>
       <BoxForm>
         <form

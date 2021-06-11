@@ -25,6 +25,7 @@ import {
   transactionCmsReducer,
 } from '../reducer/fetchingReducer';
 import {
+  cmsSidebarReducer,
   modalPilihAlamatReducer,
   modalTambahAlamatReducer,
   modalGantiNamaReducer,
@@ -44,6 +45,7 @@ const userInfoFromLocalStorage = localStorage.getItem('userInfo')
 export const ContextStore = createContext();
 
 export const ContextProvider = ({ children }) => {
+  //
   //! AUTH
   // SIGNUP
   const [signUpState, signUpDispatch] = useReducer(
@@ -270,9 +272,17 @@ export const ContextProvider = ({ children }) => {
     {}
   );
 
+  const [cmsSidebarState, cmsSidebarDispatch] = useReducer(
+    cmsSidebarReducer,
+    false
+  );
+
   return (
     <ContextStore.Provider
       value={{
+        //sidebarCMS
+        cmsSidebarState,
+        cmsSidebarDispatch,
         // signup
         signUpState,
         signUpDispatch,

@@ -15,6 +15,7 @@
     "react-hook-thunk-reducer": "^0.2.4",
     "react-icons": "^4.2.0",
     "react-items-carousel": "^2.8.0",
+    "react-lines-ellipsis": "^0.15.0",
     "react-responsive": "^8.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
