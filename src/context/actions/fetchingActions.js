@@ -221,7 +221,7 @@ export const createInvoice = (data) => async (dispatch) => {
   const body = new FormData();
 
   body.append('pk_invoice_id', data.fk_invoice_id);
-  body.append('no_order', data.fk_invoice_id);
+  body.append('no_order', data.no_order);
   body.append('created_at', data.created_at);
   body.append('status', data.status);
   body.append('fk_user_id', data.fk_user_id);

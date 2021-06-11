@@ -13,16 +13,11 @@ import { ContextStore } from '../../../context/store/ContextStore';
 import { cmsAction } from '../../../context/actions/CmsAction';
 import axios from 'axios';
 import {
-  TableListPhone,
-  ContentBox,
   ButtonList,
   Container,
   BoxForm,
   BoxTable,
-  BoxTablePhone,
-  SpanImage,
   ButtonContainer,
-  ImageBox,
   List,
   ListData,
 } from '../style/Form';
@@ -63,7 +58,6 @@ const Review = () => {
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
-  const [indexUpdate, setIndexUpdate] = useState(0);
 
   // USE EFFECT
   useEffect(() => {
@@ -182,7 +176,6 @@ const Review = () => {
       behavior: 'smooth',
     });
     setIsUpdate(true);
-    setIndexUpdate(index);
     reviewDispatch(cmsAction(`created_at`, data.created_at));
     reviewDispatch(cmsAction(`comment`, data.comment));
     reviewDispatch(cmsAction(`rating`, data.rating));

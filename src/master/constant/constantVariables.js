@@ -28,8 +28,6 @@ const time = new Date();
 const date = time.getDate();
 const month = time.getMonth();
 const year = time.getFullYear();
-const hour = time.getHours();
-const min = time.getMinutes();
 
 export const review_created = `${date} ${months[month]} ${year}`;
 

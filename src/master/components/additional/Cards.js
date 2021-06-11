@@ -65,7 +65,6 @@ const Cards = ({
     selectedAddressDispatch,
     userCartDispatch,
     plantIdReviewDispatch,
-    userLoginState,
   } = useContext(ContextStore);
 
   const history = useHistory();

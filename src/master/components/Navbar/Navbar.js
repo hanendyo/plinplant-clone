@@ -43,7 +43,7 @@ const Navbar = () => {
     return () => {
       window.removeEventListener('scroll', scrollNav);
     };
-  }, [userCartDispatch]);
+  }, [userCartDispatch, userLoginState]);
   // ::: END OF NAVBAR INTERACTION :::
 
   // console.log('NAVBAR - CARTTT', totalItems);

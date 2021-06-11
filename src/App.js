@@ -26,7 +26,6 @@ import { SignIn, SignUp } from './hanendyo/AuthPages/AuthPages';
 const App = () => {
   const {
     tablePlantDispatch,
-    tablePlantState,
     tableArticleDispatch,
     invoiceDispatch,
     userLoginState,
@@ -53,7 +52,7 @@ const App = () => {
     setTimeout(() => {
       setLoading(false);
     }, 300);
-  }, []);
+  }, [tablePlantDispatch, tableArticleDispatch, invoiceDispatch]);
 
   return (
     <>

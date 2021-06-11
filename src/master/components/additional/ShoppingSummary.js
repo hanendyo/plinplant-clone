@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import { FaLongArrowAltRight } from 'react-icons/fa';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   cartCheckout,
   createInvoice,
-  getCarts,
   incrementCart,
 } from '../../../context/actions/fetchingActions';
 import { openModalTambahAlamat } from '../../../context/actions/modalActions';
@@ -74,12 +73,14 @@ const ShoppingSummary = ({
 
     const status = 'bayar';
 
+    const no_order = fk_invoice_id;
+
     userCartDispatch(cartCheckout({ fk_invoice_id, fk_user_id }));
 
     invoiceDispatch(
       createInvoice({
         fk_invoice_id,
-        fk_invoice_id,
+        no_order,
         created_at,
         status,
         fk_user_id,

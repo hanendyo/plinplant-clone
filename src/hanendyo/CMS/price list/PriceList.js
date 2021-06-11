@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Button, makeStyles, TextField } from "@material-ui/core";
-import { useContext } from "react";
-import { ContextStore } from "../../../context/store/ContextStore";
-import { cmsAction } from "../../../context/actions/CmsAction";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { Button, makeStyles, TextField } from '@material-ui/core';
+import { useContext } from 'react';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { cmsAction } from '../../../context/actions/CmsAction';
+import axios from 'axios';
 import {
   TableListPhone,
   ContentBox,
@@ -17,22 +17,22 @@ import {
   ImageBox,
   List,
   ListData,
-} from "../style/Form";
-import { FaCamera } from "react-icons/fa";
-import { colors } from "../../../master/constant/style";
+} from '../style/Form';
+import { FaCamera } from 'react-icons/fa';
+import { colors } from '../../../master/constant/style';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& > *": {
+    '& > *': {
       margin: theme.spacing(1),
-      width: "25ch",
-      display: "flex",
+      width: '25ch',
+      display: 'flex',
     },
     button: {
-      width: "80%",
-      margin: "5px 0",
-      backgroundColor: "rgb(187, 203, 194)",
-      color: "primary",
+      width: '80%',
+      margin: '5px 0',
+      backgroundColor: 'rgb(187, 203, 194)',
+      color: 'primary',
     },
   },
 }));
@@ -48,11 +48,11 @@ const PriceList = () => {
   // USE STATE
   const [priceList, setPriceList] = useState([
     {
-      seed_price: "",
-      tuber_price: "",
-      young_price: "",
-      mature_price: "",
-      fk_stock_id: "",
+      seed_price: '',
+      tuber_price: '',
+      young_price: '',
+      mature_price: '',
+      fk_stock_id: '',
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -64,19 +64,19 @@ const PriceList = () => {
     console.log(`priceList: `, priceList);
   }, []);
 
-  const url = "http://localhost:5000/input/";
-  const endPoint = "price_list";
+  const url = 'http://localhost:5000/input/';
+  const endPoint = 'price_list';
 
   // GET
   const getAllDataAPI = async () => {
     await axios
-      .get(url + endPoint + "_get_all_datas")
+      .get(url + endPoint + '_get_all_datas')
       .then((res) => {
         if (res.status === 200) {
           console.log(`GET RES DATA DATA: `, res.data.data);
           setPriceList(res.data.data);
         } else {
-          console.log("Error");
+          console.log('Error');
         }
       })
       .catch((err) => {
@@ -88,11 +88,11 @@ const PriceList = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     console.log(`formdata:`, form);
-    data.append("seed_price", form.seed_price);
-    data.append("tuber_price", form.tuber_price);
-    data.append("young_price", form.young_price);
-    data.append("mature_price", form.mature_price);
-    data.append("fk_stock_id", form.fk_stock_id);
+    data.append('seed_price', form.seed_price);
+    data.append('tuber_price', form.tuber_price);
+    data.append('young_price', form.young_price);
+    data.append('mature_price', form.mature_price);
+    data.append('fk_stock_id', form.fk_stock_id);
     axios
       .post(url + endPoint + `_input`, data)
       .then((res) => {
@@ -111,7 +111,7 @@ const PriceList = () => {
   // DELETE
   const deleleAPI = async (id, index) => {
     await axios
-      .delete(url + endPoint + "_delete/" + id)
+      .delete(url + endPoint + '_delete/' + id)
       .then((deleted) => {
         console.log(`DELETED: `, deleted);
         getAllDataAPI();
@@ -172,7 +172,7 @@ const PriceList = () => {
   const handleUpdate = (data, index) => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
     setIsUpdate(true);
     setIndexUpdate(index);
@@ -193,11 +193,11 @@ const PriceList = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    priceListDispatch(cmsAction(`seed_price`, ""));
-    priceListDispatch(cmsAction(`tuber_price`, ""));
-    priceListDispatch(cmsAction(`mature_price`, ""));
-    priceListDispatch(cmsAction(`young_price`, ""));
-    priceListDispatch(cmsAction(`fk_stock_id`, ""));
+    priceListDispatch(cmsAction(`seed_price`, ''));
+    priceListDispatch(cmsAction(`tuber_price`, ''));
+    priceListDispatch(cmsAction(`mature_price`, ''));
+    priceListDispatch(cmsAction(`young_price`, ''));
+    priceListDispatch(cmsAction(`fk_stock_id`, ''));
   };
 
   // FORM CHANGE
@@ -210,74 +210,74 @@ const PriceList = () => {
       <h4>PRICE LIST INPUT</h4>
       <BoxForm>
         <form
-          encType="multipart/form-data"
+          encType='multipart/form-data'
           className={classes.root}
           onSubmit={(e) => handleSubmit(e)}
           noValidate
-          autoComplete="off"
+          autoComplete='off'
         >
           <TextField
             value={priceListState.seed_price}
-            name="seed_price"
+            name='seed_price'
             onChange={(e) => formChange(`seed_price`, e.target.value)}
-            id="outlined-basic"
-            label="Seed price"
-            variant="outlined"
+            id='outlined-basic'
+            label='Seed price'
+            variant='outlined'
           />
 
           <TextField
             value={priceListState.tuber_price}
-            onChange={(e) => formChange("tuber_price", e.target.value)}
-            name="tuber_price"
-            id="outlined-basic"
-            label="Tuber price"
-            variant="outlined"
+            onChange={(e) => formChange('tuber_price', e.target.value)}
+            name='tuber_price'
+            id='outlined-basic'
+            label='Tuber price'
+            variant='outlined'
           />
 
           <TextField
             value={priceListState.young_price}
-            onChange={(e) => formChange("young_price", e.target.value)}
-            name="young_price"
-            id="outlined-basic"
-            label="Young price"
-            variant="outlined"
+            onChange={(e) => formChange('young_price', e.target.value)}
+            name='young_price'
+            id='outlined-basic'
+            label='Young price'
+            variant='outlined'
           />
 
           <TextField
             value={priceListState.mature_price}
-            onChange={(e) => formChange("mature_price", e.target.value)}
-            name="mature_price"
-            id="outlined-basic"
-            label="Mature price"
-            variant="outlined"
+            onChange={(e) => formChange('mature_price', e.target.value)}
+            name='mature_price'
+            id='outlined-basic'
+            label='Mature price'
+            variant='outlined'
           />
 
           <TextField
             value={priceListState.fk_stock_id}
-            onChange={(e) => formChange("fk_stock_id", e.target.value)}
-            name="fk_stock_id"
-            id="outlined-basic"
-            label="Stock_id"
-            variant="outlined"
+            onChange={(e) => formChange('fk_stock_id', e.target.value)}
+            name='fk_stock_id'
+            id='outlined-basic'
+            label='Stock_id'
+            variant='outlined'
           />
           <ButtonContainer>
             <Button
               className={classes.button}
-              variant="contained"
-              color="primary"
-              type="submit"
+              variant='contained'
+              color='primary'
+              type='submit'
               style={{ backgroundColor: `${colors.green}` }}
             >
-              {isUpdate ? "Update" : "Submit"}
+              {isUpdate ? 'Update' : 'Submit'}
             </Button>
             {isUpdate && (
               <Button
                 className={classes.button}
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 onClick={() => handleCancel()}
                 style={{
-                  marginTop: "20px",
+                  marginTop: '20px',
                   backgroundColor: `${colors.green}`,
                 }}
               >
@@ -311,11 +311,11 @@ const PriceList = () => {
               <Button
                 onClick={() => handleUpdate(data, index)}
                 className={classes.button}
-                variant="contained"
-                color="primary"
-                type="update"
+                variant='contained'
+                color='primary'
+                type='update'
                 style={{
-                  marginBottom: "10px",
+                  marginBottom: '10px',
                   backgroundColor: `${colors.green}`,
                 }}
               >
@@ -324,9 +324,9 @@ const PriceList = () => {
               <Button
                 onClick={() => handleDelete(data.pk_price_list_id, index)}
                 className={classes.button}
-                variant="contained"
-                color="primary"
-                type="delete"
+                variant='contained'
+                color='primary'
+                type='delete'
                 style={{ backgroundColor: `${colors.green}` }}
               >
                 delete

@@ -42,7 +42,7 @@ const NavbarLandingPage = () => {
       window.removeEventListener('scroll', scrollNav);
     };
     // ::: END OF NAVBAR INTERACTION :::
-  }, [userCartDispatch]);
+  }, [userCartDispatch, userLoginState]);
 
   console.log('NAVBAR LANDING - CARTTT', totalItems);
 

@@ -13,13 +13,10 @@ import { ContextStore } from '../../../context/store/ContextStore';
 import { cmsAction } from '../../../context/actions/CmsAction';
 import axios from 'axios';
 import {
-  TableListPhone,
-  ContentBox,
   ButtonList,
   Container,
   BoxForm,
   BoxTable,
-  BoxTablePhone,
   SpanImage,
   ButtonContainer,
   ImageBox,
@@ -76,7 +73,7 @@ const Article = () => {
   ]);
 
   const [isUpdate, setIsUpdate] = useState(false);
-  const [indexUpdate, setIndexUpdate] = useState(0);
+  // const [indexUpdate, setIndexUpdate] = useState(0);
   const [reviewImage, setReviewImage] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
 
@@ -84,7 +81,7 @@ const Article = () => {
   useEffect(() => {
     getAllDatasAPI();
     getGenderData();
-    console.log(`dataUser: `, dataUser);
+    // console.log(`dataUser: `, dataUser);
   }, []);
 
   const url = 'http://localhost:5000/input/';
@@ -244,7 +241,7 @@ const Article = () => {
       behavior: 'smooth',
     });
     setIsUpdate(true);
-    setIndexUpdate(index);
+    // setIndexUpdate(index);
     userDispatch(cmsAction(`fullname`, data.fullname));
     userDispatch(cmsAction(`password`, data.password));
     userDispatch(cmsAction(`birth_date`, data.birth_date));
@@ -428,51 +425,47 @@ const Article = () => {
           <li>GENDER ID</li>
           <li>ACTION</li>
         </List>
-        {dataUser.map(
-          (data, index) => (
-            console.log(`DATA USER MAP: `, data),
-            (
-              <ListData key={index}>
-                <li>{data.pk_user_id}</li>
-                <li>{data.fullname}</li>
-                <li>{data.email}</li>
-                <li>{data.password}</li>
-                <li>{data.birth_date}</li>
-                <li>{data.picture}</li>
-                <li>{data.phone_number}</li>
-                <li>{data.fk_gender_id}</li>
-                {
-                  <ButtonList>
-                    <Button
-                      onClick={() => handleUpdate(data, index)}
-                      className={classes.button}
-                      variant='contained'
-                      color='primary'
-                      type='update'
-                      style={{
-                        marginBottom: '10px',
-                        backgroundColor: `${colors.green}`,
-                      }}
-                    >
-                      Update
-                    </Button>
-                    <Button
-                      onClick={() => handleDelete(data.pk_user_id, index)}
-                      className={classes.button}
-                      variant='contained'
-                      color='primary'
-                      type='delete'
-                      style={{ backgroundColor: `${colors.green}` }}
-                    >
-                      delete
-                    </Button>
-                    <br />
-                  </ButtonList>
-                }
-              </ListData>
-            )
-          )
-        )}
+        {dataUser.map((data, index) => (
+          // console.log(`DATA USER MAP: `, data),
+          <ListData key={index}>
+            <li>{data.pk_user_id}</li>
+            <li>{data.fullname}</li>
+            <li>{data.email}</li>
+            <li>{data.password}</li>
+            <li>{data.birth_date}</li>
+            <li>{data.picture}</li>
+            <li>{data.phone_number}</li>
+            <li>{data.fk_gender_id}</li>
+            {
+              <ButtonList>
+                <Button
+                  onClick={() => handleUpdate(data, index)}
+                  className={classes.button}
+                  variant='contained'
+                  color='primary'
+                  type='update'
+                  style={{
+                    marginBottom: '10px',
+                    backgroundColor: `${colors.green}`,
+                  }}
+                >
+                  Update
+                </Button>
+                <Button
+                  onClick={() => handleDelete(data.pk_user_id, index)}
+                  className={classes.button}
+                  variant='contained'
+                  color='primary'
+                  type='delete'
+                  style={{ backgroundColor: `${colors.green}` }}
+                >
+                  delete
+                </Button>
+                <br />
+              </ButtonList>
+            }
+          </ListData>
+        ))}
       </BoxTable>
     </Container>
   );

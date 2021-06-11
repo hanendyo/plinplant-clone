@@ -7,16 +7,16 @@ const RatingInput = ({ checked, setChecked }) => {
   const [level, setLevel] = useState('Sangat Baik');
 
   useEffect(() => {
+    const dynamicLevel = () => {
+      if (checked === 'star5') setLevel('Sangat Baik');
+      if (checked === 'star4') setLevel('Baik');
+      if (checked === 'star3') setLevel('Cukup');
+      if (checked === 'star2') setLevel('Buruk');
+      if (checked === 'star1') setLevel('Sangat Buruk');
+    };
+
     dynamicLevel();
   }, [checked]);
-
-  const dynamicLevel = () => {
-    if (checked === 'star5') setLevel('Sangat Baik');
-    if (checked === 'star4') setLevel('Baik');
-    if (checked === 'star3') setLevel('Cukup');
-    if (checked === 'star2') setLevel('Buruk');
-    if (checked === 'star1') setLevel('Sangat Buruk');
-  };
 
   // ::: COMPONENT RADIO BUTTON :::
   const Radio = ({ value, checked, onChange }) => {
