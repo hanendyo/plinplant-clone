@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Container, LinksContainer, Logo, Nav } from './Navbar.elemen';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
 import Button from '../additional/Button';
 import { colors } from '../../constant/style';
 import { Link, useHistory } from 'react-router-dom';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { userLogout } from '../../../context/actions/userLoginAction';
 import { getCarts } from '../../../context/actions/fetchingActions';
+import { useMediaQuery } from 'react-responsive';
 
 const NavbarLandingPage = () => {
   const {
@@ -47,6 +48,8 @@ const NavbarLandingPage = () => {
   console.log('NAVBAR LANDING - CARTTT', totalItems);
 
   const slug = (title) => title?.toLowerCase().split(' ').join('-');
+
+  const isIpad = useMediaQuery({ maxWidth: 768 });
 
   return (
     <Nav shadow={shadow}>
@@ -136,17 +139,31 @@ const NavbarLandingPage = () => {
               </>
             ) : (
               <>
-                <Button
-                  text='Masuk'
-                  bgColor={colors.white}
-                  onClick={() => history.push('/login')}
-                />
-                <Button
-                  primary
-                  text='Daftar'
-                  bgColor={colors.lightGreenTransparent}
-                  onClick={() => history.push('/register')}
-                />
+                {isIpad ? (
+                  <>
+                    <FaUserPlus size={20} color={colors.lightGreen} />
+
+                    <FaSignInAlt
+                      size={20}
+                      color={colors.lightGreenTransparent}
+                      style={{ marginLeft: 15, marginTop: 5 }}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      text='Masuk'
+                      bgColor={colors.white}
+                      onClick={() => history.push('/login')}
+                    />
+                    <Button
+                      primary
+                      text='Daftar'
+                      bgColor={colors.lightGreenTransparent}
+                      onClick={() => history.push('/register')}
+                    />
+                  </>
+                )}
               </>
             )}
           </li>
