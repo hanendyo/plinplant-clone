@@ -15,6 +15,7 @@ import {
   Switch,
   Route,
   Redirect,
+  HashRouter,
 } from 'react-router-dom';
 import CMS from './hanendyo/CMS/CMS';
 import { ContextStore } from './context/store/ContextStore';
@@ -59,7 +60,7 @@ const App = () => {
       {loading ? (
         <Loader loading={loading} />
       ) : (
-        <Router>
+        <HashRouter basename='/'>
           <Switch>
             <Route exact path='/' component={LandingPage} />
             <Route path='/ensiklopedia/:id/:name' component={Ensiklopedia} />
@@ -73,7 +74,7 @@ const App = () => {
             <Route path='/cms' component={CMS}>
               {' '}
               {userLoginState ? (
-                <Route path='/cms/' component={CMS} />
+                <Route path='/cms' component={CMS} />
               ) : (
                 <Redirect to={'/login'} />
               )}{' '}
@@ -81,7 +82,7 @@ const App = () => {
             <Route exact path='/register' component={SignUp} />
             <Route exact path='/login' component={SignIn} />
           </Switch>
-        </Router>
+        </HashRouter>
       )}
     </>
   );

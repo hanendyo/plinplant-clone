@@ -20,7 +20,7 @@ const fileStorage = multer.diskStorage({
     console.log(`REQ MULTER USER: `, req.file);
 
     if (fieldName === 'article_image_upload') {
-      cb(null, '../public/images/article_image');
+      cb(null, '../build/images/article_image');
     }
     if (
       fieldName === 'plant_image_upload' ||
@@ -29,15 +29,15 @@ const fileStorage = multer.diskStorage({
       fieldName === 'young_image_upload' ||
       fieldName === 'mature_image_upload'
     ) {
-      cb(null, '../public/images/Plant');
+      cb(null, '../build/images/Plant');
     }
 
     if (fieldName === 'picture_upload') {
-      cb(null, '../public/images/user_image');
+      cb(null, '../build/images/user_image');
     }
 
     if (fieldName === 'payment_image_upload') {
-      cb(null, '../public/images/payment_image');
+      cb(null, '../build/images/payment_image');
     }
     console.log(`FILE DES: `, file);
   },
@@ -72,11 +72,13 @@ const plantRoutes = require('./src/router/Plant_router');
 // middleware
 app.use(
   cors({
-    origin: ['http://localhost:5000'],
+    origin: ['http://www.plinplant.com'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   })
 );
+app.options('*', cors());
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
