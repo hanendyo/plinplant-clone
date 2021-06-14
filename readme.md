@@ -5,16 +5,17 @@
 git clone git@gitlab.com:fajariadi-id/plinplant.git
 cd plinplant
 
-## 2. Copy query di backend
+## 2. Restore query di backend
+
+Buka folder query di plinplant_backend
+plinplant -> plinplant_backend -> src -> query -> db_plinplant_backup.sql
+
+## 3. Update custom query untuk membuat VIEW
 
 Buka folder query di plinplant_backend
 plinplant -> plinplant_backend -> src -> query -> db_plinplant.sql
 
-## 3. Paste-kan query di db_plinplant.sql ke dalam my SQL
-
 ## 4. Jalankan semua query
-
-create semua tabel dan view
 
 ## 5. Sambungkan mySQL dengan program
 
