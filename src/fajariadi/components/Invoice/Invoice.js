@@ -111,6 +111,8 @@ const Invoice = () => {
             {status === 'verif' && <StatusOrder status='verif' />}
             {status === 'proses' && <StatusOrder status='proses' />}
             {status === 'selesai' && <StatusOrder status='selesai' />}
+            {status === 'gagal' && <StatusOrder status='gagal' />}
+            {status === 'diantar' && <StatusOrder status='diantar' />}
           </div>
         </HeaderInfo>
 
@@ -177,7 +179,7 @@ const Invoice = () => {
             </Payment>
           </div>
 
-          {status === 'proses' ? (
+          {status === 'diantar' ? (
             <div>
               <Button
                 primary

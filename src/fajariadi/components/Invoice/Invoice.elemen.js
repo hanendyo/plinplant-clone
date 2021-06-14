@@ -78,7 +78,10 @@ export const ShoppingDetail = styled.section`
     top: 20px;
     right: 30px;
 
-    display: ${({ status }) => (status === 'selesai' ? 'none' : 'block')};
+    display: ${({ status }) =>
+      status === 'selesai' || status === 'verif' || status === 'proses'
+        ? 'none'
+        : 'block'};
   }
 
   @media (max-width: 1200px) {

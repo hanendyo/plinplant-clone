@@ -249,8 +249,12 @@ const Contact = () => {
             >
               <MenuItem value={'bayar'}>{'Menunggu Pembayaran'}</MenuItem>
               <MenuItem value={'verif'}>{'Verifikasi Pembayaran'}</MenuItem>
-              <MenuItem value={'proses'}>{'Pesanan Dikirim'}</MenuItem>
+              <MenuItem value={'proses'}>{'Pesanan Diproses'}</MenuItem>
+              <MenuItem value={'diantar'}>{'Pesanan Dikirim'}</MenuItem>
               <MenuItem value={'selesai'}>{'Transaksi Selesai'}</MenuItem>
+              <MenuItem value={'gagal'}>
+                {'Verifikasi Pembayaran Gagal'}
+              </MenuItem>
             </Select>
           </FormControl>
           {/* <TextField

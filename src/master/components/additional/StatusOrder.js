@@ -6,8 +6,10 @@ const StatusOrder = ({ status }) => {
   const formatStatus = (status) => {
     if (status === 'bayar') return 'Menunggu Pembayaran';
     if (status === 'verif') return 'Verifikasi Pembayaran';
-    if (status === 'proses') return 'Pesanan Diantar';
+    if (status === 'proses') return 'Pesanan Diproses';
     if (status === 'selesai') return 'Transaksi Selesai';
+    if (status === 'gagal') return 'Verifikasi Pembayaran Gagal';
+    if (status === 'diantar') return 'Pesanan Diantar';
   };
 
   return <Status status={status}>{formatStatus(status)}</Status>;
@@ -15,16 +17,18 @@ const StatusOrder = ({ status }) => {
 
 const bgColor = (status) => {
   if (status === 'bayar') return `${colors.yellowTransparent}`;
-  if (status === 'verif' || status === 'proses')
+  if (status === 'verif' || status === 'diantar' || status === 'proses')
     return `${colors.lightGreenTransparent}`;
   if (status === 'selesai') return '#00FF704D';
+  if (status === 'gagal') return '#ff6b6b53';
 };
 
 const color = (status) => {
   if (status === 'bayar') return `${colors.yellow}`;
   if (status === 'verif') return `${colors.lightGreen}`;
-  if (status === 'proses') return `${colors.white}`;
+  if (status === 'proses' || status === 'diantar') return `${colors.white}`;
   if (status === 'selesai') return '#00FF70';
+  if (status === 'gagal') return '#ff0000';
 };
 
 const Status = styled.span`
