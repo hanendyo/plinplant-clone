@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   makeStyles,
@@ -6,11 +6,11 @@ import {
   InputLabel,
   Select,
   MenuItem,
-} from "@material-ui/core";
-import { useContext } from "react";
-import { ContextStore } from "../../../context/store/ContextStore";
-import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
-import axios from "axios";
+} from '@material-ui/core';
+import { useContext } from 'react';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { postAPI, cmsAction } from '../../../context/actions/CmsAction';
+import axios from 'axios';
 import {
   TableListPhone,
   ContentBox,
@@ -24,21 +24,21 @@ import {
   ImageBox,
   List,
   ListData,
-} from "../style/Form";
-import { colors } from "../../../master/constant/style";
+} from '../style/Form';
+import { colors } from '../../../master/constant/style';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& > *": {
+    '& > *': {
       margin: theme.spacing(1),
-      width: "25ch",
-      display: "flex",
+      width: '25ch',
+      display: 'flex',
     },
     button: {
-      width: "80%",
-      margin: "5px 0",
-      backgroundColor: "rgb(187, 203, 194)",
-      color: "primary",
+      width: '80%',
+      margin: '5px 0',
+      backgroundColor: 'rgb(187, 203, 194)',
+      color: 'primary',
     },
   },
 }));
@@ -54,7 +54,7 @@ const Category = () => {
   // USE STATE
   const [dataCategory, setDataCategory] = useState([
     {
-      category_name: "",
+      category_name: '',
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -63,51 +63,51 @@ const Category = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
-    console.log(`dataCategory: `, dataCategory);
+    // console.log(`dataCategory: `, dataCategory);
   }, []);
 
-  const url = "http://localhost:5000/input/";
-  const endPoint = "category";
+  const url = 'http://localhost:5000/input/';
+  const endPoint = 'category';
 
   // GET
   const getAllDatasAPI = async () => {
     await axios
-      .get(url + endPoint + "_get_all_datas")
+      .get(url + endPoint + '_get_all_datas')
       .then((res) => {
-        console.log(`GET RES DATA DATA: `, res.data.data);
+        // console.log(`GET RES DATA DATA: `, res.data.data);
         setDataCategory(res.data.data);
         // if (res.status === 200) {
         // } else {
-        //   console.log("Error");
+        // console.log("Error");
         // }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
   // POST
   const postAPI = async (form) => {
     const data = new FormData();
-    console.log(`formdata:`, form);
+    // console.log(`formdata:`, form);
     // data.append("pk_category_id", form.pk_category_id);
-    data.append("category_name", form.category_name);
+    data.append('category_name', form.category_name);
 
     axios
       .post(url + `${endPoint}_input`, data, {
         headers: {
-          "content-type": "multipart/form-data",
+          'content-type': 'multipart/form-data',
         },
       })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Category successfuly created!`);
-        console.log(res);
+        // console.log(`Category successfuly created!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -115,9 +115,9 @@ const Category = () => {
   // DELETE
   const deleteAPI = async (id, index) => {
     await axios
-      .delete(url + endPoint + "_delete/" + id)
+      .delete(url + endPoint + '_delete/' + id)
       .then((deleted) => {
-        console.log(`DELETED: `, deleted);
+        // console.log(`DELETED: `, deleted);
         getAllDatasAPI();
       })
       .catch((err) => err);
@@ -129,13 +129,13 @@ const Category = () => {
       .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Category successfuly updated!`);
-        console.log(res);
+        // console.log(`Category successfuly updated!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -160,7 +160,7 @@ const Category = () => {
 
     clearFormData();
 
-    console.log(`CATEGORY STATE SUBMIT: `, categoryState);
+    // console.log(`CATEGORY STATE SUBMIT: `, categoryState);
   };
 
   // HANDLE DELETE
@@ -172,13 +172,13 @@ const Category = () => {
   const handleUpdate = (data, index) => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
     setIsUpdate(true);
     setIndexUpdate(index);
     categoryDispatch(cmsAction(`category_name`, data.category_name));
     categoryDispatch(cmsAction(`pk_category_id`, data.pk_category_id));
-    console.log(`update from categoryState: `, categoryState);
+    // console.log(`update from categoryState: `, categoryState);
   };
 
   // HANDLE CANCEL
@@ -189,8 +189,8 @@ const Category = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    categoryDispatch(cmsAction(`category_name`, ""));
-    categoryDispatch(cmsAction(`pk_category_id`, ""));
+    categoryDispatch(cmsAction(`category_name`, ''));
+    categoryDispatch(cmsAction(`pk_category_id`, ''));
   };
 
   // FORM CHANGE
@@ -203,38 +203,38 @@ const Category = () => {
       <h4>CATEGORY INPUT</h4>
       <BoxForm>
         <form
-          encType="multipart/form-data"
+          encType='multipart/form-data'
           className={classes.root}
           onSubmit={(e) => handleSubmit(e)}
           noValidate
-          autoComplete="off"
+          autoComplete='off'
         >
           <TextField
             value={categoryState.category_name}
-            name="category_name"
+            name='category_name'
             onChange={(e) => formChange(`category_name`, e.target.value)}
-            id="outlined-basic"
-            label="Category name"
-            variant="outlined"
+            id='outlined-basic'
+            label='Category name'
+            variant='outlined'
           />
           <ButtonContainer>
             <Button
               className={classes.button}
-              variant="contained"
-              color="primary"
-              type="submit"
+              variant='contained'
+              color='primary'
+              type='submit'
               style={{ backgroundColor: `${colors.green}` }}
             >
-              {isUpdate ? "Update" : "Submit"}
+              {isUpdate ? 'Update' : 'Submit'}
             </Button>
             {isUpdate && (
               <Button
                 className={classes.button}
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 onClick={() => handleCancel()}
                 style={{
-                  marginTop: "20px",
+                  marginTop: '20px',
                   backgroundColor: `${colors.green}`,
                 }}
               >
@@ -261,11 +261,11 @@ const Category = () => {
                 <Button
                   onClick={() => handleUpdate(data, index)}
                   className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="update"
+                  variant='contained'
+                  color='primary'
+                  type='update'
                   style={{
-                    marginBottom: "10px",
+                    marginBottom: '10px',
                     backgroundColor: `${colors.green}`,
                   }}
                 >
@@ -274,9 +274,9 @@ const Category = () => {
                 <Button
                   onClick={() => handleDelete(data.pk_category_id, index)}
                   className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="delete"
+                  variant='contained'
+                  color='primary'
+                  type='delete'
                   style={{ backgroundColor: `${colors.green}` }}
                 >
                   delete

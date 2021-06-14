@@ -336,7 +336,7 @@ const Cards = ({
                     text='Beri Ulasan'
                     bgColor={colors.lightGreenTransparent}
                     onClick={() => {
-                      console.log('CARTTTT IDDD', cartId);
+                      // console.log('CARTTTT IDDD', cartId);
                       plantIdReviewDispatch(
                         getPlantId({ plant, phase, cartId })
                       );

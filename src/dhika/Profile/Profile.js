@@ -59,8 +59,8 @@ const Profile = () => {
     if (userAddressState.length > 2) setScroll(true);
   }, [userAddressState]);
 
-  console.log('INI USER LOGIN STATE: ', userLoginState.phone_number);
-  console.log('INI Nomor: ', nomor);
+  // console.log('INI USER LOGIN STATE: ', userLoginState.phone_number);
+  // console.log('INI Nomor: ', nomor);
   return (
     <StyledProfile>
       {biodata && (

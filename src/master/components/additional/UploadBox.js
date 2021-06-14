@@ -65,13 +65,13 @@ const UploadBox = ({
       .put(url + endPointInvoice + `_update`, data)
       .then((res) => {
         // getAllDatasAPI();
-        console.log(`Proof of payment successfuly updated!`);
-        console.log(res);
+        // console.log(`Proof of payment successfuly updated!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -88,13 +88,13 @@ const UploadBox = ({
         },
       })
       .then((res) => {
-        console.log(`User profile picture successfuly Updated!`);
-        console.log(res);
+        // console.log(`User profile picture successfuly Updated!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -127,7 +127,7 @@ const UploadBox = ({
   const formImageInvoice = (e) => {
     const img = e.target.files[0];
     const imgName = e.target.files[0].name;
-    console.log(`IMEJ: `, img);
+    // console.log(`IMEJ: `, img);
     setPayment(imgName);
     setReviewImageInvoice(URL.createObjectURL(img));
     setImageUploadInvoice(img);
@@ -136,7 +136,7 @@ const UploadBox = ({
   const formImageUser = (e) => {
     const img = e.target.files[0];
     const imgName = e.target.files[0].name;
-    console.log(`IMEJ: `, img);
+    // console.log(`IMEJ: `, img);
     userDispatch(cmsAction('picture', imgName));
     setPicture(imgName);
     setReviewImageUser(URL.createObjectURL(img));

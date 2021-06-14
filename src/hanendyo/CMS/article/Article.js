@@ -67,7 +67,7 @@ const Article = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
-    console.log(`dataArticle: `, dataArticle);
+    // console.log(`dataArticle: `, dataArticle);
   }, []);
 
   const url = 'http://localhost:5000/input/';
@@ -79,21 +79,21 @@ const Article = () => {
       .get(url + endPoint + '_get_all_datas')
       .then((res) => {
         if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
+          // console.log(`GET RES DATA DATA: `, res.data.data);
           setDataArticle(res.data.data);
         } else {
-          console.log('Error');
+          // console.log('Error');
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
   // POST
   const postAPI = async (form) => {
     const data = new FormData();
-    console.log(`formdata:`, form);
+    // console.log(`formdata:`, form);
     data.append('article_image', form.article_image);
     data.append('title', form.title);
     data.append('author', form.author);
@@ -112,13 +112,13 @@ const Article = () => {
       })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Article successfuly created!`);
-        console.log(res);
+        // console.log(`Article successfuly created!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -128,7 +128,7 @@ const Article = () => {
     await axios
       .delete(url + endPoint + '_delete/' + id)
       .then((deleted) => {
-        console.log(`DELETED: `, deleted);
+        // console.log(`DELETED: `, deleted);
         getAllDatasAPI();
       })
       .catch((err) => err);
@@ -143,14 +143,14 @@ const Article = () => {
       .then((res) => {
         getAllDatasAPI();
         // setReviewImage('')
-        console.log(`DATA UPDATE: `);
-        console.log(`Article successfuly updated!`);
-        console.log(res);
+        // console.log(`DATA UPDATE: `);
+        // console.log(`Article successfuly updated!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -160,13 +160,13 @@ const Article = () => {
       .then((res) => {
         getAllDatasAPI();
         // setReviewImage('')
-        console.log(`Article successfuly updated!`);
-        console.log(res);
+        // console.log(`Article successfuly updated!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -198,7 +198,7 @@ const Article = () => {
 
     clearFormData();
 
-    console.log(`ARTICLE STATE SUBMIT: `, articleState);
+    // console.log(`ARTICLE STATE SUBMIT: `, articleState);
   };
 
   // HANDLE DELETE
@@ -223,7 +223,7 @@ const Article = () => {
     articleDispatch(cmsAction(`source`, data.source));
     articleDispatch(cmsAction(`url`, data.url));
     articleDispatch(cmsAction(`content`, data.content));
-    console.log(`update from articleState: `, articleState);
+    // console.log(`update from articleState: `, articleState);
   };
 
   // HANDLE CANCEL
@@ -253,7 +253,7 @@ const Article = () => {
   const formImage = (e) => {
     const img = e.target.files[0];
     const imgName = e.target.files[0].name;
-    console.log(`IMEJ: `, img);
+    // console.log(`IMEJ: `, img);
     articleDispatch(cmsAction('article_image', imgName));
     setReviewImage(URL.createObjectURL(img));
     setImageUpload(img);

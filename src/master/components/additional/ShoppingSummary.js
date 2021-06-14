@@ -53,7 +53,7 @@ const ShoppingSummary = ({
   const totalShippingPrice = Math.ceil(totalWeight / 1000) * shipping_price;
 
   const handleCheckout = () => {
-    console.log('CHECKOUT!!');
+    // console.log('CHECKOUT!!');
 
     setNotif(true);
 
@@ -89,10 +89,10 @@ const ShoppingSummary = ({
       })
     );
 
-    console.log('PROSES CHECKOUT!!');
+    // console.log('PROSES CHECKOUT!!');
 
     setTimeout(() => {
-      console.log('DONEEE CHECKOUT!!');
+      // console.log('DONEEE CHECKOUT!!');
       history.push(`/invoice/${fk_user_id}/${fk_invoice_id}`);
       setNotif(false);
     }, 3000);
@@ -108,8 +108,8 @@ const ShoppingSummary = ({
     history.push('/checkout');
   };
 
-  console.log('USER CARTTT', userCartState);
-  console.log('PLANNNNNNTTT', tablePlantState);
+  // console.log('USER CARTTT', userCartState);
+  // console.log('PLANNNNNNTTT', tablePlantState);
 
   return (
     <SummarySection>

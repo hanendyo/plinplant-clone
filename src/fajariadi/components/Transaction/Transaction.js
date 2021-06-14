@@ -11,12 +11,12 @@ const Transaction = () => {
   const [scroll, setScroll] = useState(true);
 
   // !::: STACK OVERFLOW SOURCE -> https://stackoverflow.com/questions/15125920/how-to-get-distinct-values-from-an-array-of-objects-in-javascript :::
-  const key = 'pk_invoice_id';
-  const uniqueTransaction = [
-    ...new Map(invoiceState.map((item) => [item[key], item])).values(),
-  ];
+  // const key = 'pk_invoice_id';
+  // const uniqueTransaction = [
+  //   ...new Map(invoiceState.map((item) => [item[key], item])).values(),
+  // ];
 
-  console.log('LISTTTTT', transactionState);
+  // console.log('LISTTTTT', transactionState);
 
   useEffect(() => {
     if (transactionState.length < 3) setScroll(false);

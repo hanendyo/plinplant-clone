@@ -62,7 +62,7 @@ const Review = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDataAPI();
-    console.log(`dataReview: `, dataReview);
+    // console.log(`dataReview: `, dataReview);
   }, []);
 
   const url = 'http://localhost:5000/input/';
@@ -74,14 +74,14 @@ const Review = () => {
       .get(url + endPoint + '_get_all_datas')
       .then((res) => {
         if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
+          // console.log(`GET RES DATA DATA: `, res.data.data);
           setDataReview(res.data.data);
         } else {
-          console.log('Error');
+          // console.log('Error');
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -98,13 +98,13 @@ const Review = () => {
       .post(url + endPoint + `_input`, data)
       .then((res) => {
         getAllDataAPI();
-        console.log(`Review successfuly created!`);
-        console.log(res);
+        // console.log(`Review successfuly created!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -114,7 +114,7 @@ const Review = () => {
     await axios
       .delete(url + endPoint + '_delete/' + id)
       .then((deleted) => {
-        console.log(`DELETED: `, deleted);
+        // console.log(`DELETED: `, deleted);
         getAllDataAPI();
       })
       .catch((err) => err);
@@ -122,18 +122,18 @@ const Review = () => {
 
   // UPDATE
   const updateAPI = async (data) => {
-    console.log(`DATA UPDATE: `, data);
+    // console.log(`DATA UPDATE: `, data);
     axios
       .put(url + endPoint + `_update`, data)
       .then((res) => {
         getAllDataAPI();
-        console.log(`Review successfuly updated!`);
-        console.log(res);
+        // console.log(`Review successfuly updated!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -161,7 +161,7 @@ const Review = () => {
 
     clearFormData();
 
-    console.log(`REVIEW STATE SUBMIT: `, reviewState);
+    // console.log(`REVIEW STATE SUBMIT: `, reviewState);
   };
 
   // HANDLE DELETE
@@ -182,7 +182,7 @@ const Review = () => {
     reviewDispatch(cmsAction(`fk_user_id`, data.fk_user_id));
     reviewDispatch(cmsAction(`fk_plant_id`, data.fk_plant_id));
     reviewDispatch(cmsAction(`pk_review_id`, data.pk_review_id));
-    console.log(`update from reviewState: `, reviewState);
+    // console.log(`update from reviewState: `, reviewState);
   };
 
   // HANDLE CANCEL

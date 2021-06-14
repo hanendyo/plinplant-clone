@@ -73,11 +73,11 @@ const SignIn = () => {
         },
       });
       // getDataSignInAPI();
-      console.log(`SIGNIN API RES: `, res);
+      // console.log(`SIGNIN API RES: `, res);
       return res;
     } catch (err) {
-      console.log(`ERROR!`);
-      console.log(err);
+      // console.log(`ERROR!`);
+      // console.log(err);
       return err;
     }
   };
@@ -85,7 +85,7 @@ const SignIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // POST TO API
-    console.log(`sign in data: `, signInState);
+    // console.log(`sign in data: `, signInState);
 
     if (!signInState.email || !signInState.password) {
       setError('empty');
@@ -93,7 +93,7 @@ const SignIn = () => {
     } else {
       signInAPI(signInState).then((res) => {
         // getDataSignInAPI();
-        console.log(`SUBMIT RES: `, res);
+        // console.log(`SUBMIT RES: `, res);
 
         userLoginDispatch(userLogin(res.data));
 
@@ -105,7 +105,7 @@ const SignIn = () => {
           setNotif(true);
         }
 
-        console.log(`res submit: `, res);
+        // console.log(`res submit: `, res);
       });
     }
 

@@ -26,7 +26,7 @@ const TransactionPage = ({ match }) => {
     }, 300);
   }, []);
 
-  console.log('TRANSACTION', invoiceState);
+  // console.log('TRANSACTION', invoiceState);
   return (
     <>
       {loading ? (

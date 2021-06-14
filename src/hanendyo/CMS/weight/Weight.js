@@ -67,14 +67,14 @@ const Weight = () => {
       .get(url + `${endPoint}_get_all_datas`)
       .then((res) => {
         if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
+          // console.log(`GET RES DATA DATA: `, res.data.data);
           setDataWeight(res.data.data);
         } else {
-          console.log('Error');
+          // console.log('Error');
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -95,13 +95,13 @@ const Weight = () => {
       })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Weight successfuly created!`);
-        console.log(res);
+        // console.log(`Weight successfuly created!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -111,7 +111,7 @@ const Weight = () => {
     await axios
       .delete(url + `${endPoint}_delete/` + id)
       .then((deleted) => {
-        console.log(`DELETED: `, deleted);
+        // console.log(`DELETED: `, deleted);
         getAllDatasAPI();
       })
       .catch((err) => err);
@@ -123,13 +123,13 @@ const Weight = () => {
       .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Weight successfuly created!`);
-        console.log(res);
+        // console.log(`Weight successfuly created!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -158,7 +158,7 @@ const Weight = () => {
 
     clearFormData();
 
-    console.log(`WEIGHT STATE SUBMIT: `, weightState);
+    // console.log(`WEIGHT STATE SUBMIT: `, weightState);
   };
 
   // HANDLE DELETE
@@ -184,7 +184,7 @@ const Weight = () => {
     weightDispatch(cmsAction(`fk_price_list_id`, data.fk_price_list_id));
     weightDispatch(cmsAction(`pk_weight_id`, data.pk_weight_id));
 
-    console.log(`update from weightState: `, weightState);
+    // console.log(`update from weightState: `, weightState);
   };
 
   // HANDLE CANCEL

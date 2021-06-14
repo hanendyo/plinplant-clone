@@ -95,14 +95,14 @@ const Article = () => {
       .get(url + endPoint + '_get_all_datas')
       .then((res) => {
         if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
+          // console.log(`GET RES DATA DATA: `, res.data.data);
           setDataUser(res.data.data);
         } else {
-          console.log('Error');
+          // console.log('Error');
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -112,21 +112,21 @@ const Article = () => {
       .get(url + genderDropdown + '_get_all_datas')
       .then((res) => {
         if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
+          // console.log(`GET RES DATA DATA: `, res.data.data);
           setDataGender(res.data.data);
         } else {
-          console.log('Error');
+          // console.log('Error');
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
   // POST
   const postAPI = async (form) => {
     const data = new FormData();
-    console.log(`formdata:`, form);
+    // console.log(`formdata:`, form);
     data.append('fullname', form.fullname);
     data.append('password', form.password);
     data.append('birth_date', form.birth_date);
@@ -144,13 +144,13 @@ const Article = () => {
       })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`User successfuly created!`);
-        console.log(res);
+        // console.log(`User successfuly created!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -160,7 +160,7 @@ const Article = () => {
     await axios
       .delete(url + endPoint + '_delete/' + id)
       .then((deleted) => {
-        console.log(`DELETED: `, deleted);
+        // console.log(`DELETED: `, deleted);
         getAllDatasAPI();
       })
       .catch((err) => err);
@@ -174,13 +174,13 @@ const Article = () => {
       .put(url + endPoint + `_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`User successfuly updated!`);
-        console.log(res);
+        // console.log(`User successfuly updated!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -189,13 +189,13 @@ const Article = () => {
       .put(url + endPoint + `_update`, form)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`User successfuly updated!`);
-        console.log(res);
+        // console.log(`User successfuly updated!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -226,7 +226,7 @@ const Article = () => {
 
     clearFormData();
 
-    console.log(`ARTICLE STATE SUBMIT: `, userState);
+    // console.log(`ARTICLE STATE SUBMIT: `, userState);
   };
 
   // HANDLE DELETE
@@ -250,7 +250,7 @@ const Article = () => {
     userDispatch(cmsAction(`picture`, data.picture));
     userDispatch(cmsAction(`fk_gender_id`, data.fk_gender_id));
     userDispatch(cmsAction(`pk_user_id`, data.pk_user_id));
-    console.log(`update from userState: `, userState);
+    // console.log(`update from userState: `, userState);
   };
 
   // HANDLE CANCEL
@@ -279,7 +279,7 @@ const Article = () => {
   const formImage = (e) => {
     const img = e.target.files[0];
     const imgName = e.target.files[0].name;
-    console.log(`IMEJ: `, img);
+    // console.log(`IMEJ: `, img);
     userDispatch(cmsAction('picture', imgName));
     setReviewImage(URL.createObjectURL(img));
     setImageUpload(img);

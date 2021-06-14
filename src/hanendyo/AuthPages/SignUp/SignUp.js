@@ -70,10 +70,10 @@ const SignUp = () => {
   const registerAPI = async (form) => {
     try {
       let res = await axios.post(`http://localhost:5000/auth/register`, form);
-      console.log(`register success`);
+      // console.log(`register success`);
       return res;
     } catch (err) {
-      console.log(`register error`, err);
+      // console.log(`register error`, err);
       return err;
     }
   };
@@ -81,7 +81,7 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // POST TO API
-    console.log(`sign up data: `, signUpState);
+    // console.log(`sign up data: `, signUpState);
 
     if (
       !signUpState.fullname ||

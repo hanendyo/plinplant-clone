@@ -88,14 +88,14 @@ const ShippingCharges = () => {
       .get(url + endPoint + '_get_all_datas')
       .then((res) => {
         if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
+          // console.log(`GET RES DATA DATA: `, res.data.data);
           setDataShippingCharges(res.data.data);
         } else {
-          console.log('Error');
+          // console.log('Error');
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -105,14 +105,14 @@ const ShippingCharges = () => {
       .get(url + cityDropdown + '_get_all_datas')
       .then((res) => {
         if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
+          // console.log(`GET RES DATA DATA: `, res.data.data);
           setDataCity(res.data.data);
         } else {
-          console.log('Error');
+          // console.log('Error');
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -129,13 +129,13 @@ const ShippingCharges = () => {
       })
       .then((res) => {
         getAllDataAPI();
-        console.log(`Shipping charges successfuly created!`);
-        console.log(res);
+        // console.log(`Shipping charges successfuly created!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -145,7 +145,7 @@ const ShippingCharges = () => {
     await axios
       .delete(url + endPoint + '_delete/' + id)
       .then((deleted) => {
-        console.log(`DELETED: `, deleted);
+        // console.log(`DELETED: `, deleted);
         getAllDataAPI();
       })
       .catch((err) => err);
@@ -153,18 +153,18 @@ const ShippingCharges = () => {
 
   // UPDATE
   const updateAPI = async (data) => {
-    console.log(`DATA UPDATE: `, data);
+    // console.log(`DATA UPDATE: `, data);
     axios
       .put(url + endPoint + `_update`, data)
       .then((res) => {
         getAllDataAPI();
-        console.log(`Shipping charges successfuly updated!`);
-        console.log(res);
+        // console.log(`Shipping charges successfuly updated!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -189,7 +189,7 @@ const ShippingCharges = () => {
 
     clearFormData();
 
-    console.log(`SHIPPING CHARGES STATE SUBMIT: `, shippingChargesState);
+    // console.log(`SHIPPING CHARGES STATE SUBMIT: `, shippingChargesState);
   };
 
   // HANDLE DELETE
@@ -210,7 +210,7 @@ const ShippingCharges = () => {
     shippingChargesDispatch(
       cmsAction(`pk_shipping_charges_id`, data.pk_shipping_charges_id)
     );
-    console.log(`update from shippingChargesState: `, shippingChargesState);
+    // console.log(`update from shippingChargesState: `, shippingChargesState);
   };
 
   // HANDLE CANCEL

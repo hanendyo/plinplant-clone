@@ -73,6 +73,7 @@ const plantRoutes = require('./src/router/Plant_router');
 app.use(
   cors({
     origin: ['http://www.plinplant.com'],
+    origin: ['http://localhost:3000'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   })

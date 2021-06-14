@@ -24,7 +24,7 @@ const ProfilePage = () => {
     }, 10);
   }, [userAddressDispatch]);
 
-  console.log('PROFILEEEEE', userAddressState);
+  // console.log('PROFILEEEEE', userAddressState);
 
   return (
     <>

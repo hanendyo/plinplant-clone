@@ -45,7 +45,7 @@ const NavbarLandingPage = () => {
     // ::: END OF NAVBAR INTERACTION :::
   }, [userCartDispatch, userLoginState]);
 
-  console.log('NAVBAR LANDING - CARTTT', totalItems);
+  // console.log('NAVBAR LANDING - CARTTT', totalItems);
 
   const slug = (title) => title?.toLowerCase().split(' ').join('-');
 

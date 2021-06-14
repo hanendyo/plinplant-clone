@@ -61,7 +61,7 @@ const PriceList = () => {
   // USE EFFECT
   useEffect(() => {
     getAllDataAPI();
-    console.log(`priceList: `, priceList);
+    // console.log(`priceList: `, priceList);
   }, []);
 
   const url = 'http://localhost:5000/input/';
@@ -73,21 +73,21 @@ const PriceList = () => {
       .get(url + endPoint + '_get_all_datas')
       .then((res) => {
         if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
+          // console.log(`GET RES DATA DATA: `, res.data.data);
           setPriceList(res.data.data);
         } else {
-          console.log('Error');
+          // console.log('Error');
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
   // POST
   const postAPI = async (form) => {
     const data = new FormData();
-    console.log(`formdata:`, form);
+    // console.log(`formdata:`, form);
     data.append('seed_price', form.seed_price);
     data.append('tuber_price', form.tuber_price);
     data.append('young_price', form.young_price);
@@ -97,13 +97,13 @@ const PriceList = () => {
       .post(url + endPoint + `_input`, data)
       .then((res) => {
         getAllDataAPI();
-        console.log(`Price list successfuly created!`);
-        console.log(res);
+        // console.log(`Price list successfuly created!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -113,7 +113,7 @@ const PriceList = () => {
     await axios
       .delete(url + endPoint + '_delete/' + id)
       .then((deleted) => {
-        console.log(`DELETED: `, deleted);
+        // console.log(`DELETED: `, deleted);
         getAllDataAPI();
       })
       .catch((err) => err);
@@ -121,18 +121,18 @@ const PriceList = () => {
 
   // UPDATE
   const updateAPI = async (data) => {
-    console.log(`DATA UPDATE: `, data);
+    // console.log(`DATA UPDATE: `, data);
     axios
       .put(url + endPoint + `_update`, data)
       .then((res) => {
         getAllDataAPI();
-        console.log(`Article successfuly updated!`);
-        console.log(res);
+        // console.log(`Article successfuly updated!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -160,7 +160,7 @@ const PriceList = () => {
 
     clearFormData();
 
-    console.log(`ARTICLE STATE SUBMIT: `, priceListState);
+    // console.log(`ARTICLE STATE SUBMIT: `, priceListState);
   };
 
   // HANDLE DELETE
@@ -182,7 +182,7 @@ const PriceList = () => {
     priceListDispatch(cmsAction(`tuber_price`, data.tuber_price));
     priceListDispatch(cmsAction(`fk_stock_id`, data.fk_stock_id));
     priceListDispatch(cmsAction(`pk_price_list_id`, data.pk_price_list_id));
-    console.log(`update from priceListState: `, priceListState);
+    // console.log(`update from priceListState: `, priceListState);
   };
 
   // HANDLE CANCEL

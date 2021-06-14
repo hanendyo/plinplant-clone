@@ -25,7 +25,7 @@ const ArticlePage = ({ match }) => {
     }, 1000);
   }, [match.params.id]);
 
-  console.log('ARTICLE SATUU', articleIdState);
+  // console.log('ARTICLE SATUU', articleIdState);
 
   return (
     <>

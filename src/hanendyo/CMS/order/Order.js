@@ -72,7 +72,7 @@ const Contact = () => {
   const [indexUpdate, setIndexUpdate] = useState(0);
   const [active, setActive] = useState(-1);
 
-  console.log('ACTIVE ORDERRRR', active);
+  // console.log('ACTIVE ORDERRRR', active);
 
   // USE EFFECT
   useEffect(() => {
@@ -80,7 +80,7 @@ const Contact = () => {
 
     transactionCmsDispatch(getCmsTransactions());
 
-    console.log(`dataOrder: `, dataOrder);
+    // console.log(`dataOrder: `, dataOrder);
   }, []);
 
   const url = 'http://localhost:5000/input/';
@@ -91,21 +91,21 @@ const Contact = () => {
       .get(url + `${endPoint}_get_all_datas`)
       .then((res) => {
         if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
+          // console.log(`GET RES DATA DATA: `, res.data.data);
           setDataOrder(res.data.data);
         } else {
-          console.log('Error');
+          // console.log('Error');
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
   // POST
   const postAPI = async (form) => {
     const data = new FormData();
-    console.log(`formdata:`, form);
+    // console.log(`formdata:`, form);
     data.append('status', form.status);
     data.append('created_at', form.created_at);
     data.append('fk_user_id', form.fk_user_id);
@@ -119,13 +119,13 @@ const Contact = () => {
       })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Category successfuly created!`);
-        console.log(res);
+        // console.log(`Category successfuly created!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -135,7 +135,7 @@ const Contact = () => {
     await axios
       .delete(url + `${endPoint}_delete/` + id)
       .then((deleted) => {
-        console.log(`DELETED: `, deleted);
+        // console.log(`DELETED: `, deleted);
         getAllDatasAPI();
       })
       .catch((err) => err);
@@ -147,13 +147,13 @@ const Contact = () => {
       .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Contact successfuly updated!`);
-        console.log(res);
+        // console.log(`Contact successfuly updated!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -204,7 +204,7 @@ const Contact = () => {
     orderDispatch(cmsAction(`status`, data.status));
     // // orderDispatch(cmsAction(`fk_city_id`, data.fk_city_id));
 
-    console.log(`update from orderState: `, orderState);
+    // console.log(`update from orderState: `, orderState);
   };
 
   // HANDLE CANCEL

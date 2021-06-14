@@ -66,14 +66,14 @@ const Stock = () => {
       .get(url + endPoint + '_get_all_datas')
       .then((res) => {
         if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
+          // console.log(`GET RES DATA DATA: `, res.data.data);
           setDataStock(res.data.data);
         } else {
-          console.log('Error');
+          // console.log('Error');
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -92,13 +92,13 @@ const Stock = () => {
       })
       .then((res) => {
         getAllDataAPI();
-        console.log(`Stock successfuly created!`);
-        console.log(res);
+        // console.log(`Stock successfuly created!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -108,7 +108,7 @@ const Stock = () => {
     await axios
       .delete(url + endPoint + '_delete/' + id)
       .then((deleted) => {
-        console.log(`DELETED: `, deleted);
+        // console.log(`DELETED: `, deleted);
         getAllDataAPI();
       })
       .catch((err) => err);
@@ -120,13 +120,13 @@ const Stock = () => {
       .put(url + endPoint + `_update`, data)
       .then((res) => {
         getAllDataAPI();
-        console.log(`Stock successfuly updated!`);
-        console.log(res);
+        // console.log(`Stock successfuly updated!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -153,7 +153,7 @@ const Stock = () => {
 
     clearFormData();
 
-    console.log(`STOCK STATE SUBMIT: `, stockState);
+    // console.log(`STOCK STATE SUBMIT: `, stockState);
   };
 
   // HANDLE DELETE
@@ -174,7 +174,7 @@ const Stock = () => {
     stockDispatch(cmsAction(`young_stock`, data.teen_stock));
     stockDispatch(cmsAction(`tuber_stock`, data.tuber_stock));
     stockDispatch(cmsAction(`pk_stock_id`, data.pk_stock_id));
-    console.log(`update from stockState: `, stockState);
+    // console.log(`update from stockState: `, stockState);
   };
 
   // HANDLE CANCEL

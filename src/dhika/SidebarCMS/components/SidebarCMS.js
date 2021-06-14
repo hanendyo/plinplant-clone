@@ -1,19 +1,19 @@
-import React, { useState, useContext } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import * as FaIcons from "react-icons/fa";
-import { FaTimes, FaSignOutAlt } from "react-icons/fa";
-import { colors } from "../../../master/constant/style/index";
-import { SidebarData } from "./SidebarList";
-import SubMenu from "./SubMenu";
-import { ContextStore } from "../../../context/store/ContextStore";
-import { useHistory } from "react-router-dom";
-import { userLogout } from "../../../context/actions/userLoginAction";
+import React, { useState, useContext } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import * as FaIcons from 'react-icons/fa';
+import { FaTimes, FaSignOutAlt } from 'react-icons/fa';
+import { colors } from '../../../master/constant/style/index';
+import { SidebarData } from './SidebarList';
+import SubMenu from './SubMenu';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { useHistory } from 'react-router-dom';
+import { userLogout } from '../../../context/actions/userLoginAction';
 import {
   openSidebar,
   closeSidebar,
-} from "../../../context/actions/cmsSidebarAction";
-import { cmsSidebarReducer } from "../../../context/reducer";
+} from '../../../context/actions/cmsSidebarAction';
+import { cmsSidebarReducer } from '../../../context/reducer';
 
 const SidebarCMS = () => {
   const {
@@ -25,7 +25,7 @@ const SidebarCMS = () => {
 
   const history = useHistory();
 
-  console.log("Sidebar State : ", cmsSidebarState);
+  // console.log("Sidebar State : ", cmsSidebarState);
 
   return (
     <Container>
@@ -33,17 +33,17 @@ const SidebarCMS = () => {
         <NavIcon>
           <FaIcons.FaBars
             onClick={() => cmsSidebarDispatch(openSidebar())}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: 'pointer' }}
           />
 
-          <div style={{ display: "flex" }}>
-            <Logo className="logo-center">PlinPlant</Logo>
-            <h3 style={{ color: "#fff", padding: "2px", marginLeft: "10px" }}>
+          <div style={{ display: 'flex' }}>
+            <Logo className='logo-center'>PlinPlant</Logo>
+            <h3 style={{ color: '#fff', padding: '2px', marginLeft: '10px' }}>
               CMS
             </h3>
           </div>
-          <h5 style={{ marginRight: "15px" }}>
-            Hello, {userLoginState.fullname.split(" ")[0]}
+          <h5 style={{ marginRight: '15px' }}>
+            Hello, {userLoginState.fullname.split(' ')[0]}
           </h5>
         </NavIcon>
         <SidebarNav sidebar={cmsSidebarState}>
@@ -51,7 +51,7 @@ const SidebarCMS = () => {
             <NavTimes>
               <FaTimes
                 onClick={() => cmsSidebarDispatch(closeSidebar())}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
               />
             </NavTimes>
             {SidebarData.map((item, index) => {
@@ -60,7 +60,7 @@ const SidebarCMS = () => {
             <NavOut
               onClick={() => {
                 userLoginDispatch(userLogout());
-                history.push("/");
+                history.push('/');
                 window.location.reload();
               }}
             >
@@ -89,14 +89,14 @@ const Container = styled.div`
 const Nav = styled.div`
   background: ${colors.green};
   height: 80px;
-  width: ${({ sidebar }) => (sidebar ? "83%" : "100%")};
+  width: ${({ sidebar }) => (sidebar ? '83%' : '100%')};
   /* min-width: 375px; */
   display: flex;
   justify-content: flex-start;
   align-items: center;
   position: sticky;
   top: 0;
-  left: ${({ sidebar }) => (sidebar ? "17%" : "0%")};
+  left: ${({ sidebar }) => (sidebar ? '17%' : '0%')};
   transition: 100ms;
   z-index: 99;
 `;
@@ -134,7 +134,7 @@ const SidebarNav = styled.nav`
   justify-content: center;
   position: fixed;
   top: 0;
-  left: ${({ sidebar }) => (sidebar ? "0" : "-100%")};
+  left: ${({ sidebar }) => (sidebar ? '0' : '-100%')};
   transition: 10ms;
   z-index: 100;
   overflow-x: hidden;
@@ -163,7 +163,7 @@ const SidebarWrap = styled.div`
 `;
 const Logo = styled.h1`
   font-size: 36px;
-  font-family: "Elsie Swash Caps", sans-serif;
+  font-family: 'Elsie Swash Caps', sans-serif;
   color: ${colors.white};
   margin-left: 100px;
 `;

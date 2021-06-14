@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   makeStyles,
@@ -7,11 +7,11 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-} from "@material-ui/core";
-import { useContext } from "react";
-import { ContextStore } from "../../../context/store/ContextStore";
-import { cmsAction } from "../../../context/actions/CmsAction";
-import axios from "axios";
+} from '@material-ui/core';
+import { useContext } from 'react';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { cmsAction } from '../../../context/actions/CmsAction';
+import axios from 'axios';
 import {
   TableListPhone,
   ContentBox,
@@ -25,22 +25,22 @@ import {
   ImageBox,
   List,
   ListData,
-} from "../style/Form";
-import { colors } from "../../../master/constant/style";
-import { FaCamera } from "react-icons/fa";
+} from '../style/Form';
+import { colors } from '../../../master/constant/style';
+import { FaCamera } from 'react-icons/fa';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& > *": {
+    '& > *': {
       margin: theme.spacing(1),
-      width: "25ch",
-      display: "flex",
+      width: '25ch',
+      display: 'flex',
     },
     button: {
-      width: "80%",
-      margin: "5px 0",
-      backgroundColor: "rgb(187, 203, 194)",
-      color: "primary",
+      width: '80%',
+      margin: '5px 0',
+      backgroundColor: 'rgb(187, 203, 194)',
+      color: 'primary',
     },
   },
 }));
@@ -56,23 +56,23 @@ const Article = () => {
   // USE STATE
   const [dataPlant, setDataPlant] = useState([
     {
-      plant_name: "",
-      plant_image: "",
-      plant_image_upload: "",
-      plant_origin: "",
-      plant_qualities: "",
-      plant_use: "",
-      days_to_sprout: "",
-      matures_in: "",
-      growth_type: "",
-      fk_category_id: "",
+      plant_name: '',
+      plant_image: '',
+      plant_image_upload: '',
+      plant_origin: '',
+      plant_qualities: '',
+      plant_use: '',
+      days_to_sprout: '',
+      matures_in: '',
+      growth_type: '',
+      fk_category_id: '',
     },
   ]);
   // USE STATE FOR DROPDOWN CATEGORY
   const [dataCategory, setDataCategory] = useState([
     {
-      pk_category_id: "",
-      category_name: "",
+      pk_category_id: '',
+      category_name: '',
     },
   ]);
 
@@ -85,78 +85,78 @@ const Article = () => {
   useEffect(() => {
     getAllDatasAPI();
     getCategoryData();
-    console.log(`dataPlant: `, dataPlant);
+    // console.log(`dataPlant: `, dataPlant);
   }, []);
 
-  const url = "http://localhost:5000/input/";
-  const endPoint = "plant";
+  const url = 'http://localhost:5000/input/';
+  const endPoint = 'plant';
   // CATEGORY DROPDOWN
-  const categoryDropdown = "category";
+  const categoryDropdown = 'category';
 
   // GET
   const getAllDatasAPI = async () => {
     await axios
-      .get(url + endPoint + "_get_all_datas")
+      .get(url + endPoint + '_get_all_datas')
       .then((res) => {
         if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
+          // console.log(`GET RES DATA DATA: `, res.data.data);
           setDataPlant(res.data.data);
         } else {
-          console.log("Error");
+          // console.log("Error");
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
   // CATEGORY FOR DROPDOWN
   const getCategoryData = async () => {
     await axios
-      .get(url + categoryDropdown + "_get_all_datas")
+      .get(url + categoryDropdown + '_get_all_datas')
       .then((res) => {
         if (res.status === 200) {
-          console.log(`GET RES DATA DATA PLANT: `, res.data.data);
+          // console.log(`GET RES DATA DATA PLANT: `, res.data.data);
           setDataCategory(res.data.data);
         } else {
-          console.log("Error");
+          // console.log("Error");
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
   // POST
   const postAPI = async (form) => {
     const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("plant_name", form.plant_name);
-    data.append("plant_image", form.plant_image);
-    data.append("plant_origin", form.plant_origin);
-    data.append("plant_qualities", form.plant_qualities);
-    data.append("plant_use", form.plant_use);
-    data.append("days_to_sprout", form.days_to_sprout);
-    data.append("matures_in", form.matures_in);
-    data.append("growth_type", form.growth_type);
-    data.append("fk_category_id", form.fk_category_id);
-    data.append("plant_image_upload", imageUpload);
+    // console.log(`formdata:`, form);
+    data.append('plant_name', form.plant_name);
+    data.append('plant_image', form.plant_image);
+    data.append('plant_origin', form.plant_origin);
+    data.append('plant_qualities', form.plant_qualities);
+    data.append('plant_use', form.plant_use);
+    data.append('days_to_sprout', form.days_to_sprout);
+    data.append('matures_in', form.matures_in);
+    data.append('growth_type', form.growth_type);
+    data.append('fk_category_id', form.fk_category_id);
+    data.append('plant_image_upload', imageUpload);
 
     axios
       .post(url + endPoint + `_input`, data, {
         headers: {
-          "content-type": "multipart/form-data",
+          'content-type': 'multipart/form-data',
         },
       })
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Plant successfuly created!`);
-        console.log(`RES SUMBIT PLANT INPUT: `,res);
+        // console.log(`Plant successfuly created!`);
+        // console.log(`RES SUMBIT PLANT INPUT: `,res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -164,9 +164,9 @@ const Article = () => {
   // DELETE
   const deleteAPI = async (id, index) => {
     await axios
-      .delete(url + endPoint + "_delete/" + id)
+      .delete(url + endPoint + '_delete/' + id)
       .then((deleted) => {
-        console.log(`DELETED: `, deleted);
+        // console.log(`DELETED: `, deleted);
         getAllDatasAPI();
       })
       .catch((err) => err);
@@ -178,13 +178,13 @@ const Article = () => {
       .put(url + endPoint + `_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Plant successfuly updated!`);
-        console.log(res);
+        // console.log(`Plant successfuly updated!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -216,7 +216,7 @@ const Article = () => {
 
     clearFormData();
 
-    console.log(`PLANT STATE SUBMIT: `, plantState);
+    // console.log(`PLANT STATE SUBMIT: `, plantState);
   };
 
   // HANDLE DELETE
@@ -228,7 +228,7 @@ const Article = () => {
   const handleUpdate = (data, index) => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
     setIsUpdate(true);
     setIndexUpdate(index);
@@ -242,7 +242,7 @@ const Article = () => {
     plantDispatch(cmsAction(`matures_in`, data.matures_in));
     plantDispatch(cmsAction(`growth_type`, data.growth_type));
     plantDispatch(cmsAction(`fk_category_id`, data.fk_category_id));
-    console.log(`update from plantState: `, plantState);
+    // console.log(`update from plantState: `, plantState);
   };
 
   // HANDLE CANCEL
@@ -253,15 +253,15 @@ const Article = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    plantDispatch(cmsAction(`plant_name`, ""));
-    plantDispatch(cmsAction(`plant_image`, ""));
-    plantDispatch(cmsAction(`plant_origin`, ""));
-    plantDispatch(cmsAction(`plant_qualities`, ""));
-    plantDispatch(cmsAction(`plant_use`, ""));
-    plantDispatch(cmsAction(`days_to_sprout`, ""));
-    plantDispatch(cmsAction(`matures_in`, ""));
-    plantDispatch(cmsAction(`growth_type`, ""));
-    plantDispatch(cmsAction(`fk_category_id`, ""));
+    plantDispatch(cmsAction(`plant_name`, ''));
+    plantDispatch(cmsAction(`plant_image`, ''));
+    plantDispatch(cmsAction(`plant_origin`, ''));
+    plantDispatch(cmsAction(`plant_qualities`, ''));
+    plantDispatch(cmsAction(`plant_use`, ''));
+    plantDispatch(cmsAction(`days_to_sprout`, ''));
+    plantDispatch(cmsAction(`matures_in`, ''));
+    plantDispatch(cmsAction(`growth_type`, ''));
+    plantDispatch(cmsAction(`fk_category_id`, ''));
   };
 
   // FORM CHANGE
@@ -272,8 +272,8 @@ const Article = () => {
   const formImage = (e) => {
     const img = e.target.files[0];
     const imgName = e.target.files[0].name;
-    console.log(`IMEJ: `, img);
-    plantDispatch(cmsAction("plant_image", imgName));
+    // console.log(`IMEJ: `, img);
+    plantDispatch(cmsAction('plant_image', imgName));
     setReviewImage(URL.createObjectURL(img));
     setImageUpload(img);
   };
@@ -283,80 +283,80 @@ const Article = () => {
       <h4>PLANT INPUT</h4>
       <BoxForm>
         <form
-          encType="multipart/form-data"
+          encType='multipart/form-data'
           className={classes.root}
           onSubmit={(e) => handleSubmit(e)}
           noValidate
-          autoComplete="off"
+          autoComplete='off'
         >
           <TextField
             value={plantState.plant_name}
-            name="plant_name"
+            name='plant_name'
             onChange={(e) => formChange(`plant_name`, e.target.value)}
-            id="outlined-basic"
-            label="Plant name"
-            variant="outlined"
+            id='outlined-basic'
+            label='Plant name'
+            variant='outlined'
           />
           <TextField
             value={plantState.plant_origin}
-            onChange={(e) => formChange("plant_origin", e.target.value)}
-            name="plant_origin"
-            id="outlined-basic"
-            label="Plant origin"
-            variant="outlined"
+            onChange={(e) => formChange('plant_origin', e.target.value)}
+            name='plant_origin'
+            id='outlined-basic'
+            label='Plant origin'
+            variant='outlined'
           />
 
           <TextField
             value={plantState.plant_qualities}
-            onChange={(e) => formChange("plant_qualities", e.target.value)}
-            name="plant_qualities"
-            id="outlined-basic"
-            label="Plant Qualities"
-            variant="outlined"
+            onChange={(e) => formChange('plant_qualities', e.target.value)}
+            name='plant_qualities'
+            id='outlined-basic'
+            label='Plant Qualities'
+            variant='outlined'
           />
 
           <TextField
             value={plantState.plant_use}
-            onChange={(e) => formChange("plant_use", e.target.value)}
-            name="plant_use"
-            id="outlined-static"
-            label="Plant use"
-            variant="outlined"
+            onChange={(e) => formChange('plant_use', e.target.value)}
+            name='plant_use'
+            id='outlined-static'
+            label='Plant use'
+            variant='outlined'
           />
           <TextField
             value={plantState.days_to_sprout}
-            onChange={(e) => formChange("days_to_sprout", e.target.value)}
-            name="days_to_sprout"
-            id="outlined-static"
-            label="Days to sprout"
-            variant="outlined"
+            onChange={(e) => formChange('days_to_sprout', e.target.value)}
+            name='days_to_sprout'
+            id='outlined-static'
+            label='Days to sprout'
+            variant='outlined'
           />
 
           <TextField
             value={plantState.growth_type}
-            onChange={(e) => formChange("growth_type", e.target.value)}
-            name="growth_type"
-            id="outlined-static"
-            label="Growth type"
-            variant="outlined"
+            onChange={(e) => formChange('growth_type', e.target.value)}
+            name='growth_type'
+            id='outlined-static'
+            label='Growth type'
+            variant='outlined'
           />
           <TextField
             value={plantState.matures_in}
-            onChange={(e) => formChange("matures_in", e.target.value)}
-            name="matures_in"
-            id="outlined-static"
-            label="Matures in"
-            variant="outlined"
+            onChange={(e) => formChange('matures_in', e.target.value)}
+            name='matures_in'
+            id='outlined-static'
+            label='Matures in'
+            variant='outlined'
           />
           <FormControl className={classes.formControl}>
-            <InputLabel id="Category_ID"> Category </InputLabel>
+            <InputLabel id='Category_ID'> Category </InputLabel>
             <Select
               value={plantState.fk_category_id}
-              onChange={(e) => formChange("fk_category_id", e.target.value)}
-              name="fk_category_id"
-              labelId="Category_ID"
-              id="outlined-basic"
-              variant="outlined"
+              onChange={(e) => formChange('fk_category_id', e.target.value)}
+              name='fk_category_id'
+              labelId='Category_ID'
+              id='outlined-basic'
+              variant='outlined'
             >
               {dataCategory.map((data, index) => (
                 <MenuItem value={data.pk_category_id} key={index}>
@@ -370,24 +370,24 @@ const Article = () => {
           <ImageBox>
             <SpanImage>
               <h6>Upload Image</h6>
-              <img src={reviewImage} alt="" />
+              <img src={reviewImage} alt='' />
             </SpanImage>
 
             <input
               // accept="image/*"
-              name="article_image_upload"
+              name='article_image_upload'
               className={classes.input}
-              id="contained-button-file"
+              id='contained-button-file'
               multiple
-              type="file"
+              type='file'
               onChange={(e) => formImage(e)}
-              style={{ display: "none" }}
+              style={{ display: 'none' }}
             />
-            <label htmlFor="contained-button-file">
+            <label htmlFor='contained-button-file'>
               <Button
-                variant="contained"
-                color="primary"
-                component="span"
+                variant='contained'
+                color='primary'
+                component='span'
                 startIcon={<FaCamera />}
                 style={{ backgroundColor: `${colors.green}` }}
               >
@@ -398,20 +398,20 @@ const Article = () => {
           {/* ----- IMAGE ----- */}
           <Button
             className={classes.button}
-            variant="contained"
-            color="primary"
-            type="submit"
-            style={{ marginTop: "20px", backgroundColor: `${colors.green}` }}
+            variant='contained'
+            color='primary'
+            type='submit'
+            style={{ marginTop: '20px', backgroundColor: `${colors.green}` }}
           >
-            {isUpdate ? "Update" : "Submit"}
+            {isUpdate ? 'Update' : 'Submit'}
           </Button>
           {isUpdate && (
             <Button
               className={classes.button}
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               onClick={() => handleCancel()}
-              style={{ marginTop: "20px", backgroundColor: `${colors.green}` }}
+              style={{ marginTop: '20px', backgroundColor: `${colors.green}` }}
             >
               Cancel
             </Button>
@@ -451,11 +451,11 @@ const Article = () => {
               <Button
                 onClick={() => handleUpdate(data, index)}
                 className={classes.button}
-                variant="contained"
-                color="primary"
-                type="update"
+                variant='contained'
+                color='primary'
+                type='update'
                 style={{
-                  marginBottom: "10px",
+                  marginBottom: '10px',
                   backgroundColor: `${colors.green}`,
                 }}
               >
@@ -464,9 +464,9 @@ const Article = () => {
               <Button
                 onClick={() => handleDelete(data.pk_plant_id, index)}
                 className={classes.button}
-                variant="contained"
-                color="primary"
-                type="delete"
+                variant='contained'
+                color='primary'
+                type='delete'
                 style={{ backgroundColor: `${colors.green}` }}
               >
                 delete

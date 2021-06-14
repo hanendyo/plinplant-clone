@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   makeStyles,
@@ -7,11 +7,11 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-} from "@material-ui/core";
-import { useContext } from "react";
-import { ContextStore } from "../../../context/store/ContextStore";
-import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
-import axios from "axios";
+} from '@material-ui/core';
+import { useContext } from 'react';
+import { ContextStore } from '../../../context/store/ContextStore';
+import { postAPI, cmsAction } from '../../../context/actions/CmsAction';
+import axios from 'axios';
 import {
   TableListPhone,
   ContentBox,
@@ -25,21 +25,21 @@ import {
   ImageBox,
   List,
   ListData,
-} from "../style/Form";
-import { colors } from "../../../master/constant/style";
+} from '../style/Form';
+import { colors } from '../../../master/constant/style';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& > *": {
+    '& > *': {
       margin: theme.spacing(1),
-      width: "25ch",
-      display: "flex",
+      width: '25ch',
+      display: 'flex',
     },
     button: {
-      width: "80%",
-      margin: "5px 0",
-      backgroundColor: "rgb(187, 203, 194)",
-      color: "primary",
+      width: '80%',
+      margin: '5px 0',
+      backgroundColor: 'rgb(187, 203, 194)',
+      color: 'primary',
     },
   },
 }));
@@ -55,91 +55,91 @@ const Contact = () => {
   // USE STATE
   const [dataContact, setDataContact] = useState([
     {
-      recipient_name: "",
-      address: "",
-      phone_number: "",
+      recipient_name: '',
+      address: '',
+      phone_number: '',
       zipcode: '',
-      fk_city_id: "",
-      fk_user_id: "",
+      fk_city_id: '',
+      fk_user_id: '',
     },
   ]);
   // USE STATE CITY DROPDOWN
   const [dataCity, setDataCity] = useState([
     {
-      city_name: "",
+      city_name: '',
     },
   ]);
 
   const [isUpdate, setIsUpdate] = useState(false);
   const [indexUpdate, setIndexUpdate] = useState(0);
   // CITY DROPDOWN
-  const cityDropdown = "city";
+  const cityDropdown = 'city';
 
   // USE EFFECT
   useEffect(() => {
     getAllDatasAPI();
     getCityData();
-    console.log(`dataContact: `, dataContact);
+    // console.log(`dataContact: `, dataContact);
   }, []);
 
-  const url = "http://localhost:5000/input/";
-  const endPoint = "contact";
+  const url = 'http://localhost:5000/input/';
+  const endPoint = 'contact';
   // GET
   const getAllDatasAPI = async () => {
     await axios
       .get(url + endPoint + `_get_all_datas`)
       .then((res) => {
         if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
+          // console.log(`GET RES DATA DATA: `, res.data.data);
           setDataContact(res.data.data);
         } else {
-          console.log("Error");
+          // console.log("Error");
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
   // GET CITY FOR DROPDOWN
   const getCityData = async () => {
     await axios
-      .get(url + cityDropdown + "_get_all_datas")
+      .get(url + cityDropdown + '_get_all_datas')
       .then((res) => {
         if (res.status === 200) {
-          console.log(`GET RES DATA DATA: `, res.data.data);
+          // console.log(`GET RES DATA DATA: `, res.data.data);
           setDataCity(res.data.data);
         } else {
-          console.log("Error");
+          // console.log("Error");
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
   // POST
   const postAPI = async (form) => {
     const data = new FormData();
-    console.log(`formdata:`, form);
-    data.append("recipient_name", form.recipient_name);
-    data.append("address", form.address);
-    data.append("zipcode", form.zipcode);
-    data.append("phone_number", form.phone_number);
-    data.append("fk_city_id", form.fk_city_id);
-    data.append("fk_user_id", form.fk_user_id);
+    // console.log(`formdata:`, form);
+    data.append('recipient_name', form.recipient_name);
+    data.append('address', form.address);
+    data.append('zipcode', form.zipcode);
+    data.append('phone_number', form.phone_number);
+    data.append('fk_city_id', form.fk_city_id);
+    data.append('fk_user_id', form.fk_user_id);
 
     axios
       .post(url + endPoint + `_input`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Category successfuly created!`);
-        console.log(res);
+        // console.log(`Category successfuly created!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -149,7 +149,7 @@ const Contact = () => {
     await axios
       .delete(url + `${endPoint}_delete/` + id)
       .then((deleted) => {
-        console.log(`DELETED: `, deleted);
+        // console.log(`DELETED: `, deleted);
         getAllDatasAPI();
       })
       .catch((err) => err);
@@ -161,13 +161,13 @@ const Contact = () => {
       .put(url + `${endPoint}_update`, data)
       .then((res) => {
         getAllDatasAPI();
-        console.log(`Contact successfuly updated!`);
-        console.log(res);
+        // console.log(`Contact successfuly updated!`);
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log(`ERROR!`);
-        console.log(err);
+        // console.log(`ERROR!`);
+        // console.log(err);
         return err;
       });
   };
@@ -196,7 +196,7 @@ const Contact = () => {
 
     clearFormData();
 
-    console.log(`CONTACT STATE SUBMIT: `, contactState);
+    // console.log(`CONTACT STATE SUBMIT: `, contactState);
   };
 
   // HANDLE DELETE
@@ -208,10 +208,10 @@ const Contact = () => {
   const handleUpdate = (data, index) => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
-    // console.log(`index update: `, index);
-    console.log(`data id update: `, data.pk_contact_id);
+    console.log(`index update: `, index);
+    // console.log(`data id update: `, data.pk_contact_id);
     setIsUpdate(true);
     setIndexUpdate(index);
     contactDispatch(cmsAction(`pk_contact_id`, data.pk_contact_id));
@@ -221,7 +221,7 @@ const Contact = () => {
     contactDispatch(cmsAction(`zipcode`, data.zipcode));
     contactDispatch(cmsAction(`fk_city_id`, data.fk_city_id));
     contactDispatch(cmsAction(`fk_user_id`, data.fk_user_id));
-    console.log(`update from contactState: `, contactState);
+    // console.log(`update from contactState: `, contactState);
   };
 
   // HANDLE CANCEL
@@ -250,45 +250,45 @@ const Contact = () => {
       <h4>Contact input</h4>
       <BoxForm>
         <form
-          encType="multipart/form-data"
+          encType='multipart/form-data'
           className={classes.root}
           onSubmit={(e) => handleSubmit(e)}
           noValidate
-          autoComplete="off"
+          autoComplete='off'
         >
           <TextField
             value={contactState.recipient_name}
-            name="recipient_name"
+            name='recipient_name'
             onChange={(e) => formChange(`recipient_name`, e.target.value)}
-            id="outlined-basic"
-            label="Recipient name"
-            variant="outlined"
+            id='outlined-basic'
+            label='Recipient name'
+            variant='outlined'
           />
           <TextField
             value={contactState.address}
-            name="address"
+            name='address'
             onChange={(e) => formChange(`address`, e.target.value)}
-            id="outlined-basic"
-            label="Address"
-            variant="outlined"
+            id='outlined-basic'
+            label='Address'
+            variant='outlined'
           />
           <TextField
             value={contactState.phone_number}
-            name="phone_number"
+            name='phone_number'
             onChange={(e) => formChange(`phone_number`, e.target.value)}
-            id="outlined-basic"
-            label="Phone Number"
-            variant="outlined"
+            id='outlined-basic'
+            label='Phone Number'
+            variant='outlined'
           />
           <FormControl className={classes.formControl}>
-            <InputLabel id="City_ID"> City Name</InputLabel>
+            <InputLabel id='City_ID'> City Name</InputLabel>
             <Select
               value={contactState.fk_city_id}
               onChange={(e) => formChange(`fk_city_id`, e.target.value)}
-              name="fk_city_id"
-              labelId="City_ID"
-              id="outlined-basic"
-              variant="outlined"
+              name='fk_city_id'
+              labelId='City_ID'
+              id='outlined-basic'
+              variant='outlined'
             >
               {dataCity.map((data, index) => (
                 <MenuItem value={data.pk_city_id} key={index}>
@@ -299,38 +299,38 @@ const Contact = () => {
           </FormControl>
           <TextField
             value={contactState.zipcode}
-            name="zipcode"
+            name='zipcode'
             onChange={(e) => formChange(`zipcode`, e.target.value)}
-            id="outlined-basic"
-            label="Zip Code"
-            variant="outlined"
+            id='outlined-basic'
+            label='Zip Code'
+            variant='outlined'
           />
           <TextField
             value={contactState.fk_user_id}
-            name="fk_user_id"
+            name='fk_user_id'
             onChange={(e) => formChange(`fk_user_id`, e.target.value)}
-            id="outlined-basic"
-            label="Zip Code"
-            variant="outlined"
+            id='outlined-basic'
+            label='Zip Code'
+            variant='outlined'
           />
           <ButtonContainer>
             <Button
               className={classes.button}
-              variant="contained"
-              color="primary"
-              type="submit"
+              variant='contained'
+              color='primary'
+              type='submit'
               style={{ backgroundColor: `${colors.green}` }}
             >
-              {isUpdate ? "Update" : "Submit"}
+              {isUpdate ? 'Update' : 'Submit'}
             </Button>
             {isUpdate && (
               <Button
                 className={classes.button}
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 onClick={() => handleCancel()}
                 style={{
-                  marginTop: "20px",
+                  marginTop: '20px',
                   backgroundColor: `${colors.green}`,
                 }}
               >
@@ -369,11 +369,11 @@ const Contact = () => {
                 <Button
                   onClick={() => handleUpdate(data, index)}
                   className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="update"
+                  variant='contained'
+                  color='primary'
+                  type='update'
                   style={{
-                    marginBottom: "10px",
+                    marginBottom: '10px',
                     backgroundColor: `${colors.green}`,
                   }}
                 >
@@ -382,9 +382,9 @@ const Contact = () => {
                 <Button
                   onClick={() => handleDelete(data.pk_contact_id, index)}
                   className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="delete"
+                  variant='contained'
+                  color='primary'
+                  type='delete'
                   style={{ backgroundColor: `${colors.green}` }}
                 >
                   delete
@@ -395,7 +395,7 @@ const Contact = () => {
         ))}
         {/* {dataContact.map(
           (data, index) => (
-            console.log(`data contact map: `, dataContact),
+            // console.log(`data contact map: `, dataContact),
             (
               <ul className='map' key={index}>
                 <li>CONTACT ID: <span>{data.pk_contact_id}</span></li>

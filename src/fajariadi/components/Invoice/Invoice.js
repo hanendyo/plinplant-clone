@@ -87,7 +87,7 @@ const Invoice = () => {
     }, 1000);
   };
 
-  console.log('PAYMENTR IMEHHHH', payment);
+  // console.log('PAYMENTR IMEHHHH', payment);
 
   return (
     <InvoiceSection>
