@@ -120,7 +120,7 @@ module.exports = {
   },
 
   invoiceDone: (data, callBack) => {
-    console.log('PESANAN SELESAI', data);
+    // console.log('PESANAN SELESAI', data);
     pool.query(
       `update table_invoice set status=?, payment_image=? where pk_invoice_id=?`,
       [data.status, data.payment_image, data.pk_invoice_id],
@@ -147,7 +147,7 @@ module.exports = {
   },
 
   reviewPost: (data, callBack) => {
-    console.log('REVIEW DATAAA', data);
+    // console.log('REVIEW DATAAA', data);
     pool.query(
       `INSERT INTO table_review(created_at, comment, rating, fk_user_id, fk_plant_id) VALUES(?, ?, ?, ?, ?)`,
       [
@@ -179,7 +179,7 @@ module.exports = {
   },
 
   cartAdd: (data, callBack) => {
-    console.log('CART ADD', data);
+    // console.log('CART ADD', data);
     pool.query(
       `INSERT INTO table_cart(phase_image, plant_name, plant_phase, price, quantity, weight, fk_plant_id, fk_user_id) values(?, ?, ?, ?, ?, ?, ?, ?)`,
       [
@@ -237,7 +237,7 @@ module.exports = {
   },
 
   cartUpdateReviewed: (data, callBack) => {
-    console.log('CART UPDATE REVIEWED', data);
+    // console.log('CART UPDATE REVIEWED', data);
     pool.query(
       `update table_cart set reviewed = ? where pk_cart_id = ? and fk_invoice_id = ?`,
       [data.rating, data.pk_cart_id, data.fk_invoice_id],
@@ -289,7 +289,7 @@ module.exports = {
   // :: END OF TRANSACTION ::
 
   articleInputTable: (body, callback) => {
-    console.log(`bdy: `, body);
+    // console.log(`bdy: `, body);
 
     const sql = `insert into table_article (article_image, title, author, created_at, duration, source, url, content) values(?, ?, ?, ?, ?, ?, ?, ?)`;
     const column = [
@@ -303,8 +303,8 @@ module.exports = {
       body.content,
     ];
 
-    console.log(`BODY ARTICLE IMAGE: `, body.article_image);
-    console.log(`BODY AUTHOR: `, body.author);
+    // console.log(`BODY ARTICLE IMAGE: `, body.article_image);
+    // console.log(`BODY AUTHOR: `, body.author);
 
     pool.query(sql, column, (err, result, fields) => {
       if (err) {
@@ -341,17 +341,17 @@ module.exports = {
       [id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
   },
 
   articleUpdate: (data, callback) => {
-    console.log(`DATA ARTICLE UPDATE: `, data);
+    // console.log(`DATA ARTICLE UPDATE: `, data);
     pool.query(
       `update table_article set article_image=?, title=?, author=?, created_at=?, duration=?, source=?, url=?, content=? where pk_article_id=?`,
       [
@@ -367,10 +367,10 @@ module.exports = {
       ],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR ARTICLE UPDATE: `, error);
+          // console.log(`ERROR ARTICLE UPDATE: `, error);
           return callback(error);
         }
-        console.log(`SUCCESS ARTICLE RESULT: `, result);
+        // console.log(`SUCCESS ARTICLE RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -402,10 +402,10 @@ module.exports = {
       [id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -417,10 +417,10 @@ module.exports = {
       [data.category_name, data.pk_category_id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -452,10 +452,10 @@ module.exports = {
       [id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -467,10 +467,10 @@ module.exports = {
       [data.city_name, data.city_code, data.pk_city_id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -510,10 +510,10 @@ module.exports = {
       [id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -533,10 +533,10 @@ module.exports = {
       ],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -547,7 +547,7 @@ module.exports = {
     const column = [data.type];
     pool.query(sql, column, (err, result, fields) => {
       if (err) {
-        console.log(`ERROR: `, error);
+        // console.log(`ERROR: `, error);
         return callback(err);
       }
       return callback(null, result);
@@ -557,7 +557,7 @@ module.exports = {
   genderGetAllDatas: (callback) => {
     pool.query(`Select * from table_gender`, [], (error, results, fields) => {
       if (error) {
-        console.log(`ERROR: `, error);
+        // console.log(`ERROR: `, error);
         return callback(error);
       }
       return callback(null, results);
@@ -570,26 +570,26 @@ module.exports = {
       [id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
   },
 
   genderUpdate: (data, callback) => {
-    console.log(`gender data upadteL: `, data);
+    // console.log(`gender data upadteL: `, data);
     pool.query(
       `update table_gender set type=? where pk_gender_id=?`,
       [data.type, data.pk_gender_id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -625,10 +625,10 @@ module.exports = {
       [id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -640,10 +640,10 @@ module.exports = {
       [data.status, data.pk_invoice_id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -693,10 +693,10 @@ module.exports = {
       [id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -727,16 +727,16 @@ module.exports = {
     ];
     pool.query(sql, column, (error, result, fields) => {
       if (error) {
-        console.log(`ERROR: `, error);
+        // console.log(`ERROR: `, error);
         return callback(error);
       }
-      console.log(`RESULT: `, result);
+      // console.log(`RESULT: `, result);
       return callback(null, result);
     });
   },
 
   plantInputTable: (data, callback) => {
-    console.log(`SERVICE DATA: `, data);
+    // console.log(`SERVICE DATA: `, data);
     const sql = `insert into table_plant (plant_name, plant_image, plant_origin, plant_qualities, plant_use, days_to_sprout, matures_in, growth_type, fk_category_id)values(?,?,?,?,?,?,?,?,?)`;
     const column = [
       data.plant_name,
@@ -784,10 +784,10 @@ module.exports = {
       [id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -810,10 +810,10 @@ module.exports = {
       ],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -834,7 +834,7 @@ module.exports = {
     ];
     pool.query(sql, column, (err, result, fields) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return callback(err);
       }
       return callback(null, result);
@@ -860,10 +860,10 @@ module.exports = {
       [id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -886,17 +886,17 @@ module.exports = {
       ],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
   },
 
   priceListInputTable: (data, callback) => {
-    console.log(`DATA PRICELIST SERVICE: `, data);
+    // console.log(`DATA PRICELIST SERVICE: `, data);
     pool.query(
       `insert into table_price_list (seed_price, tuber_price, young_price, mature_price, fk_stock_id) values(?, ?, ?, ?, ?)`,
       [
@@ -934,10 +934,10 @@ module.exports = {
       [id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -956,17 +956,17 @@ module.exports = {
       ],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
   },
 
   reviewInputTable: (data, callback) => {
-    console.log(`DATA REVIEW SERVICE`, data);
+    // console.log(`DATA REVIEW SERVICE`, data);
     const sql = `insert into table_review (created_at, comment, rating, fk_user_id , fk_plant_id) values(?,?,?,?,?)`;
     const column = [
       data.created_at,
@@ -998,10 +998,10 @@ module.exports = {
       [id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -1020,10 +1020,10 @@ module.exports = {
       ],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -1059,10 +1059,10 @@ module.exports = {
       [id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -1074,10 +1074,10 @@ module.exports = {
       [data.shipping_price, data.fk_city_id, data.pk_shipping_charges_id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -1114,10 +1114,10 @@ module.exports = {
       [id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -1135,10 +1135,10 @@ module.exports = {
       ],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -1157,10 +1157,10 @@ module.exports = {
     ];
     pool.query(sql, column, (err, result, fields) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return callback(err);
       }
-      console.log(`RESULT!: `, result);
+      // console.log(`RESULT!: `, result);
       return callback(null, result);
     });
   },
@@ -1180,10 +1180,10 @@ module.exports = {
       [id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -1204,10 +1204,10 @@ module.exports = {
       ],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -1218,10 +1218,10 @@ module.exports = {
       [data.picture, data.pk_user_id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -1260,10 +1260,10 @@ module.exports = {
       [id],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );
@@ -1283,10 +1283,10 @@ module.exports = {
       ],
       (error, result, fields) => {
         if (error) {
-          console.log(`ERROR: `, error);
+          // console.log(`ERROR: `, error);
           return callback(error);
         }
-        console.log(`RESULT: `, result);
+        // console.log(`RESULT: `, result);
         return callback(null, result);
       }
     );

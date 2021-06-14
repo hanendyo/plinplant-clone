@@ -8,7 +8,7 @@ export const userPictureUpdate = (data) => async (dispatch) => {
     data
   );
 
-  console.log('USER FILENAME UPDATED !!!', res);
+  // console.log('USER FILENAME UPDATED !!!', res);
 
   dispatch({ type: 'USER_UPDATE_FILEIMG', payload: data });
 };

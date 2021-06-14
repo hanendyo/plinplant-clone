@@ -116,7 +116,7 @@ module.exports = {
 
     getUserInfo(id, (err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -140,7 +140,7 @@ module.exports = {
 
     updateUsernameID(body, id, (err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -159,7 +159,7 @@ module.exports = {
 
     updateBirthdateID(body, id, (err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -178,7 +178,7 @@ module.exports = {
 
     updateGenderID(body, id, (err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -197,7 +197,7 @@ module.exports = {
 
     updatePhoneNumberID(body, id, (err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -217,9 +217,9 @@ module.exports = {
     const body = req.body;
 
     updateUserPicture(body, (err, results) => {
-      console.log('PICTUREE', body);
+      // console.log('PICTUREE', body);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -247,9 +247,9 @@ module.exports = {
     const order = req.params.order;
 
     invoiceGetId({ id, order }, (err, results) => {
-      console.log('CONTROLLER CREATE INVOICE', { id, order });
+      // console.log('CONTROLLER CREATE INVOICE', { id, order });
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -272,7 +272,7 @@ module.exports = {
   invoiceGetAll: (req, res) => {
     invoiceGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -287,7 +287,7 @@ module.exports = {
 
     invoiceCreate(body, (err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -303,12 +303,12 @@ module.exports = {
 
   invoiceTransactionDone: (req, res) => {
     const body = req.body;
-    console.log(`BODY INVOiCE: `, body);
-    console.log(`FILE DOT IMAGE INPUT: `, req.file);
+    // console.log(`BODY INVOiCE: `, body);
+    // console.log(`FILE DOT IMAGE INPUT: `, req.file);
     invoiceDone(body, (err, results) => {
-      // console.log('INVOICE TRANSACTION', body);
+      console.log('INVOICE TRANSACTION', body);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -329,7 +329,7 @@ module.exports = {
 
     reviewGetPlantId(id, (err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -347,9 +347,9 @@ module.exports = {
     const body = req.body;
 
     reviewPost(body, (err, results) => {
-      console.log('REVIEW BODYYYY', body);
+      // console.log('REVIEW BODYYYY', body);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -369,7 +369,7 @@ module.exports = {
 
     cartGetByUserId(id, (err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -387,9 +387,9 @@ module.exports = {
     const body = req.body;
 
     cartAdd(body, (err, results) => {
-      console.log('CART ADD', body);
+      // console.log('CART ADD', body);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -408,7 +408,7 @@ module.exports = {
 
     cartDelete(id, (err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -433,9 +433,9 @@ module.exports = {
     const body = req.body;
 
     cartUpdate(body, (err, results) => {
-      console.log('CART UPDATE BUGSS', body);
+      // console.log('CART UPDATE BUGSS', body);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -461,9 +461,9 @@ module.exports = {
     const body = req.body;
 
     cartCheckout(body, (err, results) => {
-      console.log('CHECKOUT PROSESSS', body);
+      // console.log('CHECKOUT PROSESSS', body);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -489,9 +489,9 @@ module.exports = {
     const body = req.body;
 
     cartUpdateReviewed(body, (err, results) => {
-      console.log('BTN REVIEW UPDATE', body);
+      // console.log('BTN REVIEW UPDATE', body);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -519,7 +519,7 @@ module.exports = {
   bankGetAllData: (req, res) => {
     bankGetAll((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -537,7 +537,7 @@ module.exports = {
 
     transactionGet(id, (err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -556,7 +556,7 @@ module.exports = {
 
     addressGetByUserId(id, (err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -572,12 +572,12 @@ module.exports = {
 
   article_input: (req, res) => {
     const body = req.body;
-    console.log(`ARTICLE INPUT BODY: `, body);
-    console.log(`FILE DOT IMAGE INPUT: `, req.file);
+    // console.log(`ARTICLE INPUT BODY: `, body);
+    // console.log(`FILE DOT IMAGE INPUT: `, req.file);
 
     articleInputTable(body, (err, result) => {
-      console.log(`ARTICLE ERR:`, err);
-      console.log(`ARTICLE RESULT:`, result);
+      // console.log(`ARTICLE ERR:`, err);
+      // console.log(`ARTICLE RESULT:`, result);
       if (err) {
         return res.json({
           success: 0,
@@ -604,7 +604,7 @@ module.exports = {
 
     articleGetId(id, (err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -627,7 +627,7 @@ module.exports = {
   article_get_all_datas: (req, res) => {
     articleGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -639,11 +639,11 @@ module.exports = {
 
   article_delete: (req, res) => {
     const id = req.params.id;
-    console.log(`ID: `, id);
+    // console.log(`ID: `, id);
     articleDelete(id, (err, result) => {
-      console.log(`DELETE RESULT: `, result);
+      // console.log(`DELETE RESULT: `, result);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -657,14 +657,14 @@ module.exports = {
   article_update: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`ARTICLE CONTROLLER BODY: `, body);
-    console.log(`ARTICLE CONTROLLER ID: `, id);
+    // console.log(`ARTICLE CONTROLLER BODY: `, body);
+    // console.log(`ARTICLE CONTROLLER ID: `, id);
     articleUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
-      console.log(`result article update: `, result);
+      // console.log(`result article update: `, result);
       return res.json({
         success: 1,
         message: 'article Updated successfully',
@@ -675,14 +675,14 @@ module.exports = {
   article_update: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`ARTICLE CONTROLLER BODY: `, body);
-    console.log(`ARTICLE CONTROLLER ID: `, id);
+    // console.log(`ARTICLE CONTROLLER BODY: `, body);
+    // console.log(`ARTICLE CONTROLLER ID: `, id);
     articleUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
-      console.log(`result article update: `, result);
+      // console.log(`result article update: `, result);
       return res.json({
         success: 1,
         message: 'article Updated successfully',
@@ -693,7 +693,7 @@ module.exports = {
 
   category_input: (req, res) => {
     const body = req.body;
-    console.log(`BODY CATEGORY: `, body);
+    // console.log(`BODY CATEGORY: `, body);
     categoryInputTable(body, (err, result) => {
       if (err) {
         return res.json({
@@ -712,7 +712,7 @@ module.exports = {
   category_get_all_datas: (req, res) => {
     categoryGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -724,11 +724,11 @@ module.exports = {
 
   category_delete: (req, res) => {
     const id = req.params.id;
-    console.log(`ID: `, id);
+    // console.log(`ID: `, id);
     categoryDelete(id, (err, result) => {
-      console.log(`DELETE RESULT: `, result);
+      // console.log(`DELETE RESULT: `, result);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -742,11 +742,11 @@ module.exports = {
   category_update: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`BE BODY: `, body);
-    console.log(`BE ID: `, id);
+    // console.log(`BE BODY: `, body);
+    // console.log(`BE ID: `, id);
     categoryUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
       return res.json({
@@ -777,7 +777,7 @@ module.exports = {
   city_get_all_datas: (req, res) => {
     cityGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -789,11 +789,11 @@ module.exports = {
 
   city_delete: (req, res) => {
     const id = req.params.id;
-    console.log(`ID: `, id);
+    // console.log(`ID: `, id);
     cityDelete(id, (err, result) => {
-      console.log(`DELETE RESULT: `, result);
+      // console.log(`DELETE RESULT: `, result);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -807,12 +807,12 @@ module.exports = {
   city_update: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`BE BODY: `, body);
-    console.log(`BE ID: `, id);
-    // console.log(`REQ CITY: `, req);
+    // console.log(`BE BODY: `, body);
+    // console.log(`BE ID: `, id);
+    console.log(`REQ CITY: `, req);
     cityUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
       return res.json({
@@ -825,9 +825,9 @@ module.exports = {
 
   contact_input: (req, res) => {
     const body = req.body;
-    console.log(`BODY CONTACT: `, body);
+    // console.log(`BODY CONTACT: `, body);
     contactInputTable(body, (err, result) => {
-      console.log('CONTACTT POSTT', body);
+      // console.log('CONTACTT POSTT', body);
       if (err) {
         return res.json({
           success: 0,
@@ -845,7 +845,7 @@ module.exports = {
   contact_get_all_datas: (req, res) => {
     contactGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -857,11 +857,11 @@ module.exports = {
 
   contact_delete: (req, res) => {
     const id = req.params.id;
-    console.log(`ID: `, id);
+    // console.log(`ID: `, id);
     contactDelete(id, (err, result) => {
-      console.log(`DELETE RESULT: `, result);
+      // console.log(`DELETE RESULT: `, result);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -875,11 +875,11 @@ module.exports = {
   contact_update: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`BE BODY: `, body);
-    console.log(`BE ID: `, id);
+    // console.log(`BE BODY: `, body);
+    // console.log(`BE ID: `, id);
     contactUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
       return res.json({
@@ -892,7 +892,7 @@ module.exports = {
 
   gender_input: (req, res) => {
     const body = req.body;
-    console.log(`BE BODY: `, body);
+    // console.log(`BE BODY: `, body);
     // console.log(`BE ID: `, id);
     genderInputTable(body, (err, result) => {
       if (err) {
@@ -912,7 +912,7 @@ module.exports = {
   gender_get_all_datas: (req, res) => {
     genderGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -924,11 +924,11 @@ module.exports = {
 
   gender_delete: (req, res) => {
     const id = req.params.id;
-    console.log(`ID: `, id);
+    // console.log(`ID: `, id);
     genderDelete(id, (err, result) => {
-      console.log(`DELETE RESULT: `, result);
+      // console.log(`DELETE RESULT: `, result);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -942,11 +942,11 @@ module.exports = {
   gender_update: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`BE BODY: `, body);
-    console.log(`BE ID: `, id);
+    // console.log(`BE BODY: `, body);
+    // console.log(`BE ID: `, id);
     genderUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
       return res.json({
@@ -977,7 +977,7 @@ module.exports = {
   order_get_all_datas: (req, res) => {
     orderGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -989,11 +989,11 @@ module.exports = {
 
   order_delete: (req, res) => {
     const id = req.params.id;
-    console.log(`ID: `, id);
+    // console.log(`ID: `, id);
     orderDelete(id, (err, result) => {
-      console.log(`DELETE RESULT: `, result);
+      // console.log(`DELETE RESULT: `, result);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1006,10 +1006,10 @@ module.exports = {
 
   order_update: (req, res) => {
     const body = req.body;
-    console.log(`BE BODY: `, body);
+    // console.log(`BE BODY: `, body);
     orderUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
       return res.json({
@@ -1040,7 +1040,7 @@ module.exports = {
   order_item_get_all_datas: (req, res) => {
     orderItemGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1052,11 +1052,11 @@ module.exports = {
 
   order_item_delete: (req, res) => {
     const id = req.params.id;
-    console.log(`ID: `, id);
+    // console.log(`ID: `, id);
     orderItemDelete(id, (err, result) => {
-      console.log(`DELETE RESULT: `, result);
+      // console.log(`DELETE RESULT: `, result);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1070,11 +1070,11 @@ module.exports = {
   order_item_update: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`BE BODY: `, body);
-    console.log(`BE ID: `, id);
+    // console.log(`BE BODY: `, body);
+    // console.log(`BE ID: `, id);
     orderItemUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
       return res.json({
@@ -1087,7 +1087,7 @@ module.exports = {
 
   plant_input: (req, res) => {
     const body = req.body;
-    console.log(`BODY PLANT INPUT: `, body);
+    // console.log(`BODY PLANT INPUT: `, body);
     plantInputTable(body, (err, result) => {
       if (err) {
         return res.json({
@@ -1106,7 +1106,7 @@ module.exports = {
   plant_get_all_datas: (req, res) => {
     plantGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1121,7 +1121,7 @@ module.exports = {
 
     plantGetId(id, (err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({
           success: 0,
           message: 'Database connection error',
@@ -1143,11 +1143,11 @@ module.exports = {
 
   plant_delete: (req, res) => {
     const id = req.params.id;
-    console.log(`ID: `, id);
+    // console.log(`ID: `, id);
     plantDelete(id, (err, result) => {
-      console.log(`DELETE RESULT: `, result);
+      // console.log(`DELETE RESULT: `, result);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1161,11 +1161,11 @@ module.exports = {
   plant_update: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`BE BODY: `, body);
-    console.log(`BE ID: `, id);
+    // console.log(`BE BODY: `, body);
+    // console.log(`BE ID: `, id);
     plantUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
       return res.json({
@@ -1196,7 +1196,7 @@ module.exports = {
   plant_breeding_get_all_datas: (req, res) => {
     plantBreedingGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1208,11 +1208,11 @@ module.exports = {
 
   plant_breeding_delete: (req, res) => {
     const id = req.params.id;
-    console.log(`ID: `, id);
+    // console.log(`ID: `, id);
     plantBreedingDelete(id, (err, result) => {
-      console.log(`DELETE RESULT: `, result);
+      // console.log(`DELETE RESULT: `, result);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1226,11 +1226,11 @@ module.exports = {
   plant_breeding_update: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`BE BODY: `, body);
-    console.log(`BE ID: `, id);
+    // console.log(`BE BODY: `, body);
+    // console.log(`BE ID: `, id);
     plantBreedingUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
       return res.json({
@@ -1261,7 +1261,7 @@ module.exports = {
   price_list_get_all_datas: (req, res) => {
     priceListGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1273,11 +1273,11 @@ module.exports = {
 
   price_list_delete: (req, res) => {
     const id = req.params.id;
-    console.log(`ID: `, id);
+    // console.log(`ID: `, id);
     priceListDelete(id, (err, result) => {
-      console.log(`DELETE RESULT: `, result);
+      // console.log(`DELETE RESULT: `, result);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1291,11 +1291,11 @@ module.exports = {
   price_list_update: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`BE BODY: `, body);
-    console.log(`BE ID: `, id);
+    // console.log(`BE BODY: `, body);
+    // console.log(`BE ID: `, id);
     priceListUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
       return res.json({
@@ -1308,7 +1308,7 @@ module.exports = {
 
   review_input: (req, res) => {
     const body = req.body;
-    console.log(`BODY REVIEW CONTROLLER: `, body);
+    // console.log(`BODY REVIEW CONTROLLER: `, body);
     reviewInputTable(body, (err, result) => {
       if (err) {
         return res.json({
@@ -1327,7 +1327,7 @@ module.exports = {
   review_get_all_datas: (req, res) => {
     reviewGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1339,11 +1339,11 @@ module.exports = {
 
   review_delete: (req, res) => {
     const id = req.params.id;
-    console.log(`ID: `, id);
+    // console.log(`ID: `, id);
     reviewDelete(id, (err, result) => {
-      console.log(`DELETE RESULT: `, result);
+      // console.log(`DELETE RESULT: `, result);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1357,11 +1357,11 @@ module.exports = {
   review_update: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`BE BODY: `, body);
-    console.log(`BE ID: `, id);
+    // console.log(`BE BODY: `, body);
+    // console.log(`BE ID: `, id);
     reviewUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
       return res.json({
@@ -1392,7 +1392,7 @@ module.exports = {
   shipping_charges_get_all_datas: (req, res) => {
     shippingChargesGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1404,11 +1404,11 @@ module.exports = {
 
   shipping_charges_delete: (req, res) => {
     const id = req.params.id;
-    console.log(`ID: `, id);
+    // console.log(`ID: `, id);
     shippingChargesDelete(id, (err, result) => {
-      console.log(`DELETE RESULT: `, result);
+      // console.log(`DELETE RESULT: `, result);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1422,11 +1422,11 @@ module.exports = {
   shipping_charges_update: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`BE BODY: `, body);
-    console.log(`BE ID: `, id);
+    // console.log(`BE BODY: `, body);
+    // console.log(`BE ID: `, id);
     shippingChargesUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
       return res.json({
@@ -1457,7 +1457,7 @@ module.exports = {
   stock_get_all_datas: (req, res) => {
     stockGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1469,11 +1469,11 @@ module.exports = {
 
   stock_delete: (req, res) => {
     const id = req.params.id;
-    console.log(`ID: `, id);
+    // console.log(`ID: `, id);
     stockDelete(id, (err, result) => {
-      console.log(`DELETE RESULT: `, result);
+      // console.log(`DELETE RESULT: `, result);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1487,11 +1487,11 @@ module.exports = {
   stock_update: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`BE BODY: `, body);
-    console.log(`BE ID: `, id);
+    // console.log(`BE BODY: `, body);
+    // console.log(`BE ID: `, id);
     stockUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
       return res.json({
@@ -1504,7 +1504,7 @@ module.exports = {
 
   user_input: (req, res) => {
     const body = req.body;
-    console.log(`USER BODY: `, body);
+    // console.log(`USER BODY: `, body);
     userInputTable(body, (err, result) => {
       if (err) {
         return res.json({
@@ -1523,7 +1523,7 @@ module.exports = {
   user_get_all_datas: (req, res) => {
     userGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1535,11 +1535,11 @@ module.exports = {
 
   user_delete: (req, res) => {
     const id = req.params.id;
-    console.log(`ID: `, id);
+    // console.log(`ID: `, id);
     userDelete(id, (err, result) => {
-      console.log(`DELETE RESULT: `, result);
+      // console.log(`DELETE RESULT: `, result);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1553,11 +1553,11 @@ module.exports = {
   user_update: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`BE BODY: `, body);
-    console.log(`BE ID: `, id);
+    // console.log(`BE BODY: `, body);
+    // console.log(`BE ID: `, id);
     userUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
       return res.json({
@@ -1570,11 +1570,11 @@ module.exports = {
   user_update_by_Id: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`BE BODY: `, body);
-    console.log(`BE ID: `, id);
+    // console.log(`BE BODY: `, body);
+    // console.log(`BE ID: `, id);
     userUpdateById(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
       return res.json({
@@ -1605,7 +1605,7 @@ module.exports = {
   weight_get_all_datas: (req, res) => {
     weightGetAllDatas((err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1617,11 +1617,11 @@ module.exports = {
 
   weight_delete: (req, res) => {
     const id = req.params.id;
-    console.log(`ID: `, id);
+    // console.log(`ID: `, id);
     weightDelete(id, (err, result) => {
-      console.log(`DELETE RESULT: `, result);
+      // console.log(`DELETE RESULT: `, result);
       if (err) {
-        console.log(err);
+        // console.log(err);
         return;
       }
       return res.json({
@@ -1635,11 +1635,11 @@ module.exports = {
   weight_update: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    console.log(`BE BODY: `, body);
-    console.log(`BE ID: `, id);
+    // console.log(`BE BODY: `, body);
+    // console.log(`BE ID: `, id);
     weightUpdate(body, (err, result) => {
       if (err) {
-        console.log(`ERROR!: `, err);
+        // console.log(`ERROR!: `, err);
         return;
       }
       return res.json({

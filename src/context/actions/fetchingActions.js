@@ -87,7 +87,7 @@ export const addCart = (data, phase, setNotif) => async (dispatch) => {
     },
   });
 
-  console.log('ADDED TO CART !!!!!', res);
+  // console.log('ADDED TO CART !!!!!', res);
 
   if (res.status === 200) setNotif(true);
 
@@ -109,19 +109,19 @@ export const deleteCart = (id) => async (dispatch) => {
   const res = await axios.delete(
     `http://localhost:5000/input/cart/delete/${id}`
   );
-  console.log('CART DELETED!!!', res);
+  // console.log('CART DELETED!!!', res);
   dispatch({ type: 'DELETE_USER_CART', payload: id });
 };
 
 export const incrementCart = (data) => async (dispatch) => {
   const res = await axios.put(`http://localhost:5000/input/cart/update`, data);
-  console.log('CART INCREMENT!!!', res);
+  // console.log('CART INCREMENT!!!', res);
   dispatch({ type: 'INCREMENT_USER_CART', payload: data });
 };
 
 export const decrementCart = (data) => async (dispatch) => {
   const res = await axios.put(`http://localhost:5000/input/cart/update`, data);
-  console.log('CART DECREMENT!!!', res);
+  // console.log('CART DECREMENT!!!', res);
   dispatch({ type: 'DECREMENT_USER_CART', payload: data });
 };
 
@@ -131,7 +131,7 @@ export const cartCheckout = (data) => async (dispatch) => {
     data
   );
 
-  console.log('CHECKOUT PROSESSSS', res);
+  // console.log('CHECKOUT PROSESSSS', res);
 
   dispatch({ type: 'CHECKOUT_USER_CART', payload: data });
 };
@@ -142,7 +142,7 @@ export const cartUpdateReviewBtn = (data) => async (dispatch) => {
     data
   );
 
-  console.log('CART BUTTON REVIEW UPDATED !!!', res);
+  // console.log('CART BUTTON REVIEW UPDATED !!!', res);
 
   dispatch({ type: 'UPDATE_REVIEWED_CART', payload: data });
 };
@@ -176,14 +176,14 @@ export const createAddress = (data) => async (dispatch) => {
     }
   );
 
-  console.log('ADDRESS CREATED !!!!!', res);
+  // console.log('ADDRESS CREATED !!!!!', res);
 
   dispatch({ type: 'CREATE_USER_ADDRESS', payload: data });
 };
 
 export const getBanks = () => async (dispatch) => {
   const res = await axios.get('http://localhost:5000/input/bank');
-  console.log('REEYYSS', res);
+  // console.log('REEYYSS', res);
 
   dispatch({ type: 'FETCH_BANK', payload: res.data.data });
 };
@@ -192,7 +192,7 @@ export const getTransactions = (match) => async (dispatch) => {
   const res = await axios.get(
     `http://localhost:5000/input/transaction/${match.params.id}`
   );
-  console.log('GET TRANSACTIONNN', res);
+  // console.log('GET TRANSACTIONNN', res);
 
   dispatch({ type: 'FETCH_LIST_TRANSACTION', payload: res.data.data });
 };
@@ -200,7 +200,7 @@ export const getTransactions = (match) => async (dispatch) => {
 export const getInvoices = () => async (dispatch) => {
   const res = await axios.get('http://localhost:5000/input/invoice');
 
-  console.log('KENAAAAAAAA', res);
+  // console.log('KENAAAAAAAA', res);
 
   dispatch({ type: 'FETCH_INVOICE_ALL', payload: res.data.data });
 };
@@ -210,10 +210,10 @@ export const getInvoiceDetails = (match) => async (dispatch) => {
     const res = await axios.get(
       `http://localhost:5000/input/invoice/${match.params.id}/${match.params.order}`
     );
-    console.log('NOT ITERABLE', res);
+    // console.log('NOT ITERABLE', res);
     dispatch({ type: 'FETCH_INVOICE_DETAIL', payload: res.data.data });
   } catch (error) {
-    console.log('ERR NOT ITERABLE', error);
+    // console.log('ERR NOT ITERABLE', error);
   }
 };
 
@@ -234,13 +234,13 @@ export const createInvoice = (data) => async (dispatch) => {
     },
   });
 
-  console.log('INVOICE CREATED !!!!!', res);
+  // console.log('INVOICE CREATED !!!!!', res);
 
   dispatch({ type: 'CREATE_INVOICE', payload: data });
 };
 
 export const updateStatusTransaction = (data) => async (dispatch) => {
-  console.log('DATAAAA', data);
+  // console.log('DATAAAA', data);
   const status = data.transactionStatus;
   const pk_invoice_id = data.pk_invoice_id;
   const payment_image = data.payment;
@@ -251,7 +251,7 @@ export const updateStatusTransaction = (data) => async (dispatch) => {
     payment_image,
   });
 
-  console.log('STATUS UPDATED !!!!!', res);
+  // console.log('STATUS UPDATED !!!!!', res);
 
   dispatch({
     type: 'INVOICE_TRANSACTION_DONE',
@@ -280,7 +280,7 @@ export const reviewPost = (data) => async (dispatch) => {
     },
   });
 
-  console.log('REVIEW CREATED !!!!!', res);
+  // console.log('REVIEW CREATED !!!!!', res);
 
   dispatch({ type: 'POST_PLANT_REVIEW', payload: data });
 };
