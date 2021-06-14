@@ -168,7 +168,9 @@ const PopoutComponent = ({ cart, modal, checkout, profile }) => {
               id='postalcode'
               label='5 digit kode pos'
               value={postalCode}
-              onChange={(e) => setPostalCode(e.target.value)}
+              onChange={(e) => {
+                if (e.target.value.length <= 5) setPostalCode(e.target.value);
+              }}
             />
           </InsertData>
         </LineData>
