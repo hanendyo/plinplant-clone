@@ -151,12 +151,17 @@ const Navbar = () => {
               <>
                 {isIpad ? (
                   <>
-                    <FaUserPlus size={20} color={colors.lightGreen} />
+                    <FaUserPlus
+                      size={20}
+                      color={colors.lightGreen}
+                      onClick={() => history.push('/register')}
+                    />
 
                     <FaSignInAlt
                       size={20}
                       color={colors.lightGreenTransparent}
                       style={{ marginLeft: 15, marginTop: 5 }}
+                      onClick={() => history.push('/login')}
                     />
                   </>
                 ) : (
