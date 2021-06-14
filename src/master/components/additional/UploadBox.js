@@ -216,8 +216,6 @@ const UploadBox = ({
                 onClick={onButtonClick}
               />
 
-              <Button primary summary text='Hapus' bgColor='#2222224d' />
-
               <p>Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG</p>
 
               <div>
