@@ -124,7 +124,9 @@ const PopoutComponent = ({ cart, modal, checkout, profile }) => {
               id='number'
               label='Tulis nomor ponsel'
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => {
+                if (e.target.value.length <= 13) setPhone(e.target.value);
+              }}
             />
           </InsertData>
         </LineData>
