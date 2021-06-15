@@ -164,6 +164,7 @@ export const ProductHighlight = styled.div`
   & > div:nth-of-type(2) {
     width: 100%;
     max-width: 300px;
+    /* background-color: red; */
 
     & > h4 {
       color: ${colors.white};
@@ -173,6 +174,8 @@ export const ProductHighlight = styled.div`
       display: flex;
       align-items: center;
       margin: 5px 0 15px;
+      border-bottom: 1px solid ${colors.lightGreenTransparent};
+      padding-bottom: 10px;
 
       & > span {
         display: block;
@@ -194,17 +197,22 @@ export const ProductHighlight = styled.div`
         padding: 3px 5px;
         border-radius: 10px;
       }
-    }
 
-    & > h5 {
-      color: ${colors.white};
-      border-bottom: 1px solid ${colors.lightGreenTransparent};
-      padding-bottom: 10px;
+      & > h5 {
+        color: ${colors.white};
+        margin-left: 10px;
+        border-left: 1px solid ${colors.yellowTransparent};
+        padding-left: 10px;
+      }
     }
 
     & > p {
       margin: 10px 0 20px;
       font-size: 14px;
+
+      & > strong {
+        font-size: 18px;
+      }
     }
   }
 

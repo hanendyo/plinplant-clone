@@ -75,7 +75,7 @@ const Shop = () => {
   }, [plantReviewState, userCartDispatch]);
 
   const isIpad = useMediaQuery({ maxWidth: 900 });
-  const isPhone = useMediaQuery({ maxWidth: 760 });
+  const isPhone = useMediaQuery({ maxWidth: 576 });
 
   const slug = (title) => title.toLowerCase().split(' ').join('-');
 
@@ -285,28 +285,65 @@ const Shop = () => {
                     {ratingAvg === 0 ? 0 : ratingAvg.toFixed(1)}
                   </span>
 
+                  {highlight === 'Biji' && (
+                    <h5>{priceFormat.format(seed_price)}</h5>
+                  )}
+                  {highlight === 'Bonggol' && (
+                    <h5>{priceFormat.format(tuber_price)}</h5>
+                  )}
+                  {highlight === 'Muda' && (
+                    <h5>{priceFormat.format(teen_price)}</h5>
+                  )}
+                  {highlight === 'Dewasa' && (
+                    <h5>{priceFormat.format(mature_price)}</h5>
+                  )}
+
                   {/* {highlight === 'Biji' && <span>Stok {seed_stock}</span>} */}
                   {/* {highlight === 'Bonggol' && <span>Stok {tuber_stock}</span>} */}
                   {/* {highlight === 'Muda' && <span>Stok {teen_stock}</span>} */}
                   {/* {highlight === 'Dewasa' && <span>Stok {mature_stock}</span>} */}
                 </div>
 
-                {highlight === 'Biji' && (
-                  <h5>{priceFormat.format(seed_price)}</h5>
-                )}
-                {highlight === 'Bonggol' && (
-                  <h5>{priceFormat.format(tuber_price)}</h5>
-                )}
-                {highlight === 'Muda' && (
-                  <h5>{priceFormat.format(teen_price)}</h5>
-                )}
-                {highlight === 'Dewasa' && (
-                  <h5>{priceFormat.format(mature_price)}</h5>
-                )}
-
                 <p>
                   Kamu sedang melihat fase {highlight} dari tanaman {plant_name}
                 </p>
+
+                {highlight === 'Biji' && (
+                  <p>
+                    Subtotal:
+                    <br />
+                    <strong>
+                      {priceFormat.format(seed_price * seedQuantity)}
+                    </strong>
+                  </p>
+                )}
+                {highlight === 'Bonggol' && (
+                  <p>
+                    Subtotal:
+                    <br />
+                    <strong>
+                      {priceFormat.format(tuber_price * tuberQuantity)}
+                    </strong>
+                  </p>
+                )}
+                {highlight === 'Muda' && (
+                  <p>
+                    Subtotal:
+                    <br />
+                    <strong>
+                      {priceFormat.format(teen_price * youngQuantity)}
+                    </strong>
+                  </p>
+                )}
+                {highlight === 'Dewasa' && (
+                  <p>
+                    Subtotal:
+                    <br />
+                    <strong>
+                      {priceFormat.format(mature_price * matureQuantity)}
+                    </strong>
+                  </p>
+                )}
 
                 {userLoginState ? (
                   <ButtonCart onClick={addToCartHandler}>
@@ -322,7 +359,17 @@ const Shop = () => {
           </div>
 
           <div>
-            <div onClick={() => setHighlight('Biji')}>
+            <div
+              onClick={() => {
+                isPhone
+                  ? setTimeout(() => {
+                      setHighlight('Biji');
+                    }, 500)
+                  : setHighlight('Biji');
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
               <Image
                 src={process.env.PUBLIC_URL + `/images/Plant/${seed_image}`}
                 alt={plant_name}
@@ -332,7 +379,17 @@ const Shop = () => {
               <h6>Biji</h6>
             </div>
 
-            <div onClick={() => setHighlight('Bonggol')}>
+            <div
+              onClick={() => {
+                isPhone
+                  ? setTimeout(() => {
+                      setHighlight('Bonggol');
+                    }, 500)
+                  : setHighlight('Bonggol');
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
               <Image
                 src={process.env.PUBLIC_URL + `/images/Plant/${tuber_image}`}
                 alt={plant_name}
@@ -342,7 +399,17 @@ const Shop = () => {
               <h6>Bonggol</h6>
             </div>
 
-            <div onClick={() => setHighlight('Muda')}>
+            <div
+              onClick={() => {
+                isPhone
+                  ? setTimeout(() => {
+                      setHighlight('Muda');
+                    }, 500)
+                  : setHighlight('Muda');
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
               <Image
                 src={process.env.PUBLIC_URL + `/images/Plant/${young_image}`}
                 alt={plant_name}
@@ -352,7 +419,17 @@ const Shop = () => {
               <h6>Muda</h6>
             </div>
 
-            <div onClick={() => setHighlight('Dewasa')}>
+            <div
+              onClick={() => {
+                isPhone
+                  ? setTimeout(() => {
+                      setHighlight('Dewasa');
+                    }, 500)
+                  : setHighlight('Dewasa');
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
               <Image
                 src={process.env.PUBLIC_URL + `/images/Plant/${mature_image}`}
                 alt={plant_name}
