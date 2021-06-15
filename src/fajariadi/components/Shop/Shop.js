@@ -21,6 +21,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { priceFormat } from '../../../master/constant/constantVariables';
 import { addCart, getCarts } from '../../../context/actions/fetchingActions';
 import AlertSign from '../../../master/components/additional/AlertSign';
+import { plantIdReviewReducer } from '../../../context/reducer/modalReducers';
 
 const Shop = () => {
   const { plantIdState, plantReviewState, userCartDispatch, userLoginState } =
@@ -59,6 +60,7 @@ const Shop = () => {
 
   // ::: ALERT SIGN :::
   const [notif, setNotif] = useState(false);
+  const [error, setError] = useState('');
 
   // ::: HIGHLIGHT PRODUCT :::
   const [highlight, setHighlight] = useState('Biji');
@@ -350,7 +352,18 @@ const Shop = () => {
                     <FaCartPlus className='cart' /> Tambah ke Keranjang
                   </ButtonCart>
                 ) : (
-                  <ButtonCart onClick={() => history.push('/login')}>
+                  <ButtonCart
+                    onClick={() => {
+                      setNotif(true);
+
+                      setTimeout(() => {
+                        history.push(
+                          `/login/shop&${pk_plant_id}&${slug(plant_name)}`
+                        );
+                        setNotif(false);
+                      }, 5000);
+                    }}
+                  >
                     <FaCartPlus className='cart' /> Tambah ke Keranjang
                   </ButtonCart>
                 )}
@@ -455,10 +468,18 @@ const Shop = () => {
           {scroll && <ScrollSign center />}
         </ReviewContainer>
 
-        <AlertSign
-          text='Berhasil menambahkan tanaman kedalam keranjang.'
-          notif={notif}
-        />
+        {userLoginState ? (
+          <AlertSign
+            text='Berhasil menambahkan tanaman kedalam keranjang.'
+            notif={notif}
+          />
+        ) : (
+          <AlertSign
+            warning
+            text='Silahkan log in terlebih dahulu. Mengarahkan ke halaman log in.'
+            notif={notif}
+          />
+        )}
       </Container>
     </main>
   );

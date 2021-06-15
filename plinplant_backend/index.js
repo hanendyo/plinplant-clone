@@ -20,7 +20,7 @@ const fileStorage = multer.diskStorage({
     console.log(`REQ MULTER USER: `, req.file);
 
     if (fieldName === 'article_image_upload') {
-      cb(null, '../build/images/article_image');
+      // cb(null, '../build/images/article_image');
       cb(null, '../public/images/article_image');
     }
     if (
@@ -30,17 +30,17 @@ const fileStorage = multer.diskStorage({
       fieldName === 'young_image_upload' ||
       fieldName === 'mature_image_upload'
     ) {
-      cb(null, '../build/images/Plant');
+      // cb(null, '../build/images/Plant');
       cb(null, '../public/images/Plant');
     }
 
     if (fieldName === 'picture_upload') {
-      cb(null, '../build/images/user_image');
+      // cb(null, '../build/images/user_image');
       cb(null, '../public/images/user_image');
     }
 
     if (fieldName === 'payment_image_upload') {
-      cb(null, '../build/images/payment_image');
+      // cb(null, '../build/images/payment_image');
       cb(null, '../public/images/payment_image');
     }
     console.log(`FILE DES: `, file);
@@ -76,7 +76,7 @@ const plantRoutes = require('./src/router/Plant_router');
 // middleware
 app.use(
   cors({
-    origin: ['http://www.plinplant.com'],
+    // origin: ['http://www.plinplant.com'],
     origin: ['http://localhost:3000'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,

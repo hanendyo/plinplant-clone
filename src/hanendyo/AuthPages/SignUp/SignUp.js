@@ -104,7 +104,12 @@ const SignUp = () => {
       } else {
         registerAPI(signUpState).then((res) => {
           if (res.status === 201) {
-            history.push('/login');
+            setError('register');
+            setNotif(true);
+
+            setTimeout(() => {
+              history.push('/login');
+            }, 3000);
           } else {
             setError('invalid');
             setNotif(true);
@@ -162,34 +167,6 @@ const SignUp = () => {
                 }
                 variant='outlined'
               />
-
-              {/* <TextField
-                className='form-field'
-                required
-                placeholder='Input Your password'
-                id='outlined-basic'
-                label='password'
-                value={signUpState.password}
-                onChange={(e) =>
-                  signUpDispatch(signUpAction('password', e.target.value))
-                }
-                variant='outlined'
-              />
-
-              <TextField
-                className='form-field'
-                required
-                placeholder='Verify your password'
-                id='outlined-basic'
-                label='Verify password'
-                value={signUpState.password_verify}
-                onChange={(e) =>
-                  signUpDispatch(
-                    signUpAction('password_verify', e.target.value)
-                  )
-                }
-                variant='outlined'
-              /> */}
 
               <FormControl className='form-field' variant='outlined'>
                 <InputLabel htmlFor='outlined-adornment-password'>

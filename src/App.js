@@ -80,7 +80,7 @@ const App = () => {
               )}{' '}
             </Route>
             <Route exact path='/register' component={SignUp} />
-            <Route exact path='/login' component={SignIn} />
+            <Route exact path='/login/:prev' component={SignIn} />
           </Switch>
         </HashRouter>
       )}

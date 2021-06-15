@@ -10,7 +10,7 @@ import {
   FormControl,
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import bgImage from '../../image/signin_bg.png';
 import { ContextStore } from '../../../context/store/ContextStore';
 import { signInAction } from '../../../context/actions/SignInAction';
@@ -31,7 +31,7 @@ function Copyright() {
   );
 }
 
-const SignIn = () => {
+const SignIn = ({ match }) => {
   const history = useHistory();
 
   const context = useContext(ContextStore);
@@ -39,6 +39,10 @@ const SignIn = () => {
 
   const [notif, setNotif] = useState(false);
   const [error, setError] = useState('');
+
+  // useEffect(() => {
+  //   console.log(match.params.prev);
+  // }, [match.params.prev]);
 
   // ::: MATERIAL UI TEMPLATE SETUP :::
   const [values, setValues] = React.useState({
@@ -86,6 +90,7 @@ const SignIn = () => {
     e.preventDefault();
     // POST TO API
     // console.log(`sign in data: `, signInState);
+    const params = match.params.prev.split('&');
 
     if (!signInState.email || !signInState.password) {
       setError('empty');
@@ -99,7 +104,19 @@ const SignIn = () => {
 
         if (res.status === 200) {
           localStorage.setItem('userInfo', JSON.stringify(res.data));
-          history.push('/');
+
+          setError('success');
+          setNotif(true);
+
+          setTimeout(() => {
+            if (params[0] === 'shop')
+              history.push(`/shop/${params[1]}/${params[2]}`);
+
+            if (params[0] === 'landingpage') history.push(`/`);
+
+            if (params[0] === 'ensiklopedia')
+              history.push(`/ensiklopedia/${params[1]}/${params[2]}`);
+          }, 3000);
         } else {
           setError('login');
           setNotif(true);

@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constant/style';
 
-const AlertSign = ({ text, notif, auth, error }) => {
+const AlertSign = ({ text, notif, auth, error, warning }) => {
   return (
     <>
       {auth ? (
-        <Sign error={error} auth={auth} notif={notif}>
+        <Sign error={error} notif={notif}>
           {error === 'empty' && (
             <p>Form kamu kurang lengkap. Periksa lagi ya!</p>
           )}
@@ -24,15 +24,19 @@ const AlertSign = ({ text, notif, auth, error }) => {
               Email yang kamu masukkan sudah terdaftar. Coba email yang lain ya!
             </p>
           )}
+          {error === 'register' && (
+            <p>Registrasi berhasil! Mengarahkan ke halaman Log in.</p>
+          )}
 
           {error === 'login' && (
             <p>
               Email atau password yang kamu masukkan salah. Periksa lagi ya!
             </p>
           )}
+          {error === 'success' && <p>Log in berhasil!</p>}
         </Sign>
       ) : (
-        <Alert notif={notif}>
+        <Alert notif={notif} warning={warning}>
           <p>{text}</p>
         </Alert>
       )}
@@ -53,8 +57,9 @@ const Alert = styled.div`
   text-align: center;
   padding: 10px 0;
   border-radius: 10px;
-  background-color: ${colors.lightGreen};
-  color: ${colors.green};
+  background-color: ${({ warning }) =>
+    warning ? colors.yellowTransparent : colors.lightGreen};
+  color: ${({ warning }) => (warning ? colors.yellow : colors.green)};
   transition: all 0.3s ease;
 
   visibility: ${({ notif }) => (notif ? 'visible' : 'hidden')};
@@ -70,8 +75,12 @@ const Alert = styled.div`
 const Sign = styled(Alert)`
   top: unset;
   bottom: ${({ notif }) => (notif ? '90px' : '50px')};
-  background-color: #ff6b6b90;
-  color: #ff1f1f;
+  background-color: ${({ error, success }) =>
+    error === 'register' || error === 'success'
+      ? colors.lightGreenTransparent
+      : '#ff6b6b90'};
+  color: ${({ error, success }) =>
+    error === 'register' || error === 'success' ? colors.green : '#ff1f1f'};
 `;
 
 export default AlertSign;

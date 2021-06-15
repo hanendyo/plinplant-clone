@@ -14,7 +14,7 @@ import { userLogout } from '../../../context/actions/userLoginAction';
 import { getCarts } from '../../../context/actions/fetchingActions';
 import { useMediaQuery } from 'react-responsive';
 
-const Navbar = () => {
+const Navbar = ({ id, name, page }) => {
   const {
     tableArticleState,
     userLoginState,
@@ -76,7 +76,7 @@ const Navbar = () => {
                 )}
               </Link>
             ) : (
-              <Link to='/login'>
+              <Link to={`/login/${page}&${id}&${slug(name)}`}>
                 <FaShoppingCart className='cart' />
               </Link>
             )}
@@ -161,7 +161,9 @@ const Navbar = () => {
                       size={20}
                       color={colors.lightGreenTransparent}
                       style={{ marginLeft: 15, marginTop: 5 }}
-                      onClick={() => history.push('/login')}
+                      onClick={() =>
+                        history.push(`/login/${page}&${id}&${slug(name)}`)
+                      }
                     />
                   </>
                 ) : (
@@ -169,7 +171,9 @@ const Navbar = () => {
                     <Button
                       text='Masuk'
                       bgColor={colors.white}
-                      onClick={() => history.push('/login')}
+                      onClick={() =>
+                        history.push(`/login/${page}&${id}&${slug(name)}`)
+                      }
                     />
                     <Button
                       primary

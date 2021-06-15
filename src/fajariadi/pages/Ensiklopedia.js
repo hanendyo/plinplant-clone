@@ -33,7 +33,11 @@ const Ensiklopedia = ({ match }) => {
         <Loader loading={loading} />
       ) : (
         <div>
-          <Navbar />
+          <Navbar
+            page='ensiklopedia'
+            id={plantIdState.pk_plant_id}
+            name={plantIdState.plant_name}
+          />
           <Header />
           <Body />
           <CTAEnsiklopedia

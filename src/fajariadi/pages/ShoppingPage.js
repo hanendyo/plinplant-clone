@@ -16,7 +16,7 @@ const ShoppingPage = ({ match }) => {
     plantIdDispatch,
     plantReviewDispatch,
     userCartDispatch,
-    userCartState,
+    plantIdState,
     userLoginState,
   } = useContext(ContextStore);
 
@@ -45,7 +45,11 @@ const ShoppingPage = ({ match }) => {
         <Loader loading={loading} />
       ) : (
         <div>
-          <Navbar />
+          <Navbar
+            page='shop'
+            id={plantIdState.pk_plant_id}
+            name={plantIdState.plant_name}
+          />
           <Shop />
           <Footer colored />
         </div>

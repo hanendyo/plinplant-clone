@@ -66,7 +66,7 @@ const NavbarLandingPage = () => {
                 )}
               </Link>
             ) : (
-              <Link to='/login'>
+              <Link to='/login/landingpage'>
                 <FaShoppingCart className='cart' />
               </Link>
             )}
@@ -151,7 +151,7 @@ const NavbarLandingPage = () => {
                       size={20}
                       color={colors.lightGreenTransparent}
                       style={{ marginLeft: 15, marginTop: 5 }}
-                      onClick={() => history.push('/login')}
+                      onClick={() => history.push('/login/landingpage')}
                     />
                   </>
                 ) : (
@@ -159,7 +159,7 @@ const NavbarLandingPage = () => {
                     <Button
                       text='Masuk'
                       bgColor={colors.white}
-                      onClick={() => history.push('/login')}
+                      onClick={() => history.push('/login/landingpage')}
                     />
                     <Button
                       primary
