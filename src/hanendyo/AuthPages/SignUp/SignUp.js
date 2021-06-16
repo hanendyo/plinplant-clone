@@ -31,7 +31,7 @@ function Copyright() {
   );
 }
 
-const SignUp = () => {
+const SignUp = ({ match }) => {
   const history = useHistory();
   const context = useContext(ContextStore);
 
@@ -108,7 +108,7 @@ const SignUp = () => {
             setNotif(true);
 
             setTimeout(() => {
-              history.push('/login');
+              history.push(`/login/${match.params.currentlogin}`);
             }, 3000);
           } else {
             setError('invalid');
@@ -247,7 +247,8 @@ const SignUp = () => {
             </form>
 
             <p>
-              Sudah punya akun PlinPlant? <Link to='/login'>Masuk</Link>{' '}
+              Sudah punya akun PlinPlant?{' '}
+              <Link to={`/login/${match.params.currentlogin}`}>Masuk</Link>{' '}
             </p>
           </FormRegister>
 

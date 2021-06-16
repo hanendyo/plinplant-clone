@@ -205,7 +205,8 @@ const SignIn = ({ match }) => {
               </Button>
             </form>
             <p>
-              Belum punya akun PlinPlant? <Link to='/register'>Daftar</Link>
+              Belum punya akun PlinPlant?{' '}
+              <Link to={`/register/${match.params.prev}`}>Daftar</Link>
             </p>
           </FormLogin>
 

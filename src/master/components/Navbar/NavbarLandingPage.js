@@ -144,7 +144,7 @@ const NavbarLandingPage = () => {
                     <FaUserPlus
                       size={20}
                       color={colors.lightGreen}
-                      onClick={() => history.push('/register')}
+                      onClick={() => history.push('/register/landingpage')}
                     />
 
                     <FaSignInAlt
@@ -165,7 +165,7 @@ const NavbarLandingPage = () => {
                       primary
                       text='Daftar'
                       bgColor={colors.lightGreenTransparent}
-                      onClick={() => history.push('/register')}
+                      onClick={() => history.push('/register/landingpage')}
                     />
                   </>
                 )}
