@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Button, makeStyles, TextField } from '@material-ui/core';
-import { useContext } from 'react';
-import { ContextStore } from '../../../context/store/ContextStore';
-import { cmsAction } from '../../../context/actions/CmsAction';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Button, makeStyles, TextField } from "@material-ui/core";
+import { useContext } from "react";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { cmsAction } from "../../../context/actions/CmsAction";
+import axios from "axios";
 import {
   ButtonList,
   Container,
@@ -12,21 +12,21 @@ import {
   ButtonContainer,
   List,
   ListData,
-} from '../style/Form';
-import { colors } from '../../../master/constant/style';
+} from "../style/Form";
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
-      width: '25ch',
-      display: 'flex',
+      width: "25ch",
+      display: "flex",
     },
     button: {
-      width: '80%',
-      margin: '5px 0',
-      backgroundColor: 'rgb(187, 203, 194)',
-      color: 'primary',
+      width: "80%",
+      margin: "5px 0",
+      backgroundColor: "rgb(187, 203, 194)",
+      color: "primary",
     },
   },
 }));
@@ -42,10 +42,10 @@ const Stock = () => {
   // USE STATE
   const [dataStock, setDataStock] = useState([
     {
-      seed_stock: '',
-      tuber_stock: '',
-      young_stock: '',
-      mature_stock: '',
+      seed_stock: "",
+      tuber_stock: "",
+      young_stock: "",
+      mature_stock: "",
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -57,13 +57,13 @@ const Stock = () => {
     // console.log(`dataStock: `, dataStock);
   }, []);
 
-  const url = 'http://localhost:5000/input/';
-  const endPoint = 'stock';
+  const url = "http://localhost:8081/input/";
+  const endPoint = "stock";
 
   // GET
   const getAllDataAPI = async () => {
     await axios
-      .get(url + endPoint + '_get_all_datas')
+      .get(url + endPoint + "_get_all_datas")
       .then((res) => {
         if (res.status === 200) {
           // console.log(`GET RES DATA DATA: `, res.data.data);
@@ -80,14 +80,14 @@ const Stock = () => {
   // POST
   const postAPI = async (form) => {
     const data = new FormData();
-    data.append('seed_stock', form.seed_stock);
-    data.append('tuber_stock', form.tuber_stock);
-    data.append('young_stock', form.young_stock);
-    data.append('mature_stock', form.mature_stock);
+    data.append("seed_stock", form.seed_stock);
+    data.append("tuber_stock", form.tuber_stock);
+    data.append("young_stock", form.young_stock);
+    data.append("mature_stock", form.mature_stock);
     axios
       .post(url + endPoint + `_input`, data, {
         headers: {
-          'fk_plant_breeding_id-type': 'multipart/form-data',
+          "fk_plant_breeding_id-type": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -106,7 +106,7 @@ const Stock = () => {
   // DELETE
   const deleleAPI = async (id, index) => {
     await axios
-      .delete(url + endPoint + '_delete/' + id)
+      .delete(url + endPoint + "_delete/" + id)
       .then((deleted) => {
         // console.log(`DELETED: `, deleted);
         getAllDataAPI();
@@ -165,7 +165,7 @@ const Stock = () => {
   const handleUpdate = (data, index) => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
     setIsUpdate(true);
     // setIndexUpdate(index);
@@ -185,10 +185,10 @@ const Stock = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    stockDispatch(cmsAction(`seed_stock`, ''));
-    stockDispatch(cmsAction(`mature_stock`, ''));
-    stockDispatch(cmsAction(`young_stock`, ''));
-    stockDispatch(cmsAction(`tuber_stock`, ''));
+    stockDispatch(cmsAction(`seed_stock`, ""));
+    stockDispatch(cmsAction(`mature_stock`, ""));
+    stockDispatch(cmsAction(`young_stock`, ""));
+    stockDispatch(cmsAction(`tuber_stock`, ""));
   };
 
   // FORM CHANGE
@@ -201,65 +201,65 @@ const Stock = () => {
       <h4>STOCK INPUT</h4>
       <BoxForm>
         <form
-          encType='multipart/form-data'
+          encType="multipart/form-data"
           className={classes.root}
           onSubmit={(e) => handleSubmit(e)}
           noValidate
-          autoComplete='off'
+          autoComplete="off"
         >
           <TextField
             value={stockState.seed_stock}
-            name='seed_stock'
+            name="seed_stock"
             onChange={(e) => formChange(`seed_stock`, e.target.value)}
-            id='outlined-basic'
-            label='Seed stock'
-            variant='outlined'
+            id="outlined-basic"
+            label="Seed stock"
+            variant="outlined"
           />
 
           <TextField
             value={stockState.tuber_stock}
-            onChange={(e) => formChange('tuber_stock', e.target.value)}
-            name='tuber_stock'
-            id='outlined-basic'
-            label='Tuber stock'
-            variant='outlined'
+            onChange={(e) => formChange("tuber_stock", e.target.value)}
+            name="tuber_stock"
+            id="outlined-basic"
+            label="Tuber stock"
+            variant="outlined"
           />
 
           <TextField
             value={stockState.teen_stock}
-            onChange={(e) => formChange('young_stock', e.target.value)}
-            name='young_stock'
-            id='outlined-basic'
-            label='Young stock'
-            variant='outlined'
+            onChange={(e) => formChange("young_stock", e.target.value)}
+            name="young_stock"
+            id="outlined-basic"
+            label="Young stock"
+            variant="outlined"
           />
 
           <TextField
             value={stockState.mature_stock}
-            onChange={(e) => formChange('mature_stock', e.target.value)}
-            name='mature_stock'
-            id='outlined-basic'
-            label='Mature stock'
-            variant='outlined'
+            onChange={(e) => formChange("mature_stock", e.target.value)}
+            name="mature_stock"
+            id="outlined-basic"
+            label="Mature stock"
+            variant="outlined"
           />
           <ButtonContainer>
             <Button
               className={classes.button}
-              variant='contained'
-              color='primary'
-              type='submit'
+              variant="contained"
+              color="primary"
+              type="submit"
               style={{ backgroundColor: `${colors.green}` }}
             >
-              {isUpdate ? 'Update' : 'Submit'}
+              {isUpdate ? "Update" : "Submit"}
             </Button>
             {isUpdate && (
               <Button
                 className={classes.button}
-                variant='contained'
-                color='primary'
+                variant="contained"
+                color="primary"
                 onClick={() => handleCancel()}
                 style={{
-                  marginTop: '20px',
+                  marginTop: "20px",
                   backgroundColor: `${colors.green}`,
                 }}
               >
@@ -292,11 +292,11 @@ const Stock = () => {
                 <Button
                   onClick={() => handleUpdate(data, index)}
                   className={classes.button}
-                  variant='contained'
-                  color='primary'
-                  type='update'
+                  variant="contained"
+                  color="primary"
+                  type="update"
                   style={{
-                    marginBottom: '10px',
+                    marginBottom: "10px",
                     backgroundColor: `${colors.green}`,
                   }}
                 >
@@ -305,9 +305,9 @@ const Stock = () => {
                 <Button
                   onClick={() => handleDelete(data.pk_stock_id, index)}
                   className={classes.button}
-                  variant='contained'
-                  color='primary'
-                  type='delete'
+                  variant="contained"
+                  color="primary"
+                  type="delete"
                   style={{ backgroundColor: `${colors.green}` }}
                 >
                   delete

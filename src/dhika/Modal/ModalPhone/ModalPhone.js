@@ -1,20 +1,20 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from "react";
 import {
   Popup,
   PopupInner,
   LineData,
   InsertData,
   ButtonContainer,
-} from './ModalPhone.component';
-import { colors } from '../../../master/constant/style/index';
-import { TextField } from '@material-ui/core';
+} from "./ModalPhone.component";
+import { colors } from "../../../master/constant/style/index";
+import { TextField } from "@material-ui/core";
 import {
   closeModalGantiNomor,
   // openModalGantiNomor,
-} from '../../../context/actions/modalActions';
-import { ContextStore } from '../../../context/store/ContextStore';
-import Button from '../../../master/components/additional/Button';
-import axios from 'axios';
+} from "../../../context/actions/modalActions";
+import { ContextStore } from "../../../context/store/ContextStore";
+import Button from "../../../master/components/additional/Button";
+import axios from "axios";
 
 const ModalPhone = ({ modal, state }) => {
   const { modalGantiNomorDispatch, userLoginState } = useContext(ContextStore);
@@ -31,13 +31,13 @@ const ModalPhone = ({ modal, state }) => {
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    let data = JSON.parse(localStorage.getItem('userInfo'));
+    let data = JSON.parse(localStorage.getItem("userInfo"));
     console.log(data);
     data.phone_number = input.phone_number;
-    localStorage.setItem('userInfo', JSON.stringify(data));
+    localStorage.setItem("userInfo", JSON.stringify(data));
     await axios
       .put(
-        `http://localhost:5000/input/user_update_phonenumber/${userLoginState.pk_user_id}`,
+        `http://localhost:8081/input/user_update_phonenumber/${userLoginState.pk_user_id}`,
         input
       )
       .then((response) => console.log(response))
@@ -58,10 +58,10 @@ const ModalPhone = ({ modal, state }) => {
             <label>{state}</label>
 
             <TextField
-              className='form'
-              id='phone_number'
-              helperText='Perubahan ini akan ditampilkan di website kami'
-              variant='outlined'
+              className="form"
+              id="phone_number"
+              helperText="Perubahan ini akan ditampilkan di website kami"
+              variant="outlined"
               value={input.phone_number}
               onChange={(e) =>
                 setInput({
@@ -75,8 +75,8 @@ const ModalPhone = ({ modal, state }) => {
         <ButtonContainer>
           <Button
             primary
-            text='Batal'
-            bgColor='#2222224d'
+            text="Batal"
+            bgColor="#2222224d"
             onClick={() => {
               modalGantiNomorDispatch(closeModalGantiNomor());
             }}
@@ -84,9 +84,9 @@ const ModalPhone = ({ modal, state }) => {
 
           <Button
             primary
-            text='Ubah'
+            text="Ubah"
             bgColor={colors.green}
-            type='submit'
+            type="submit"
             onClick={(e) => {
               HandleSubmit(e);
             }}

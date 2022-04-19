@@ -11,9 +11,9 @@ export const signUpAction = (data, value) => {
 export const signUpAPI = async (form) => {
   console.log("FORM SIGN UP: ", form);
   axios
-    .post("http://localhost:5000/auth/register", form)
+    .post("http://localhost:8081/auth/register", form)
     .then((res) => {
-      console.log(`REGISTER POST ACTION: `,res);
+      console.log(`REGISTER POST ACTION: `, res);
       return res;
     })
     .catch((err) => {

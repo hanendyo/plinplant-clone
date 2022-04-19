@@ -8,25 +8,25 @@ import {
   InputAdornment,
   IconButton,
   FormControl,
-} from '@material-ui/core';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
-import React, { useContext, useState } from 'react';
-import bgImage from '../../image/signup_bg.png';
-import { ContextStore } from '../../../context/store/ContextStore';
-import { signUpAction } from '../../../context/actions/SignUpAction';
-import { useHistory } from 'react-router-dom';
-import axios from 'axios';
-import { Container, FormRegister } from './SignUp.elemen';
-import { colors } from '../../../master/constant/style';
-import { Link } from 'react-router-dom';
-import AlertSign from '../../../master/components/additional/AlertSign';
+} from "@material-ui/core";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
+import React, { useContext, useState } from "react";
+import bgImage from "../../image/signup_bg.png";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { signUpAction } from "../../../context/actions/SignUpAction";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import { Container, FormRegister } from "./SignUp.elemen";
+import { colors } from "../../../master/constant/style";
+import { Link } from "react-router-dom";
+import AlertSign from "../../../master/components/additional/AlertSign";
 
 function Copyright() {
   return (
-    <Typography variant='body2' color='textSecondary' align='center'>
-      {'Copyright © '}
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
       PlinPlant {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -38,14 +38,14 @@ const SignUp = ({ match }) => {
   const { signUpState, signUpDispatch } = context;
 
   const [notif, setNotif] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   // ::: MATERIAL UI TEMPLATE SETUP :::
   const [values, setValues] = React.useState({
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
+    amount: "",
+    password: "",
+    weight: "",
+    weightRange: "",
     showPassword: false,
     showPasswordVerify: false,
   });
@@ -69,7 +69,7 @@ const SignUp = ({ match }) => {
 
   const registerAPI = async (form) => {
     try {
-      let res = await axios.post(`http://localhost:5000/auth/register`, form);
+      let res = await axios.post(`http://localhost:8081/auth/register`, form);
       // console.log(`register success`);
       return res;
     } catch (err) {
@@ -89,29 +89,29 @@ const SignUp = ({ match }) => {
       !signUpState.password ||
       !signUpState.password_verify
     ) {
-      setError('empty');
+      setError("empty");
       setNotif(true);
     } else {
-      if (!signUpState.email.includes('@')) {
-        setError('email');
+      if (!signUpState.email.includes("@")) {
+        setError("email");
         setNotif(true);
       } else if (signUpState.password.length < 6) {
-        setError('password');
+        setError("password");
         setNotif(true);
       } else if (signUpState.password !== signUpState.password_verify) {
-        setError('password_verify');
+        setError("password_verify");
         setNotif(true);
       } else {
         registerAPI(signUpState).then((res) => {
           if (res.status === 201) {
-            setError('register');
+            setError("register");
             setNotif(true);
 
             setTimeout(() => {
               history.push(`/login/${match.params.currentlogin}`);
             }, 3000);
           } else {
-            setError('invalid');
+            setError("invalid");
             setNotif(true);
           }
         });
@@ -119,7 +119,7 @@ const SignUp = ({ match }) => {
     }
 
     setTimeout(() => {
-      setError('');
+      setError("");
       setNotif(false);
     }, 5000);
   };
@@ -137,57 +137,57 @@ const SignUp = ({ match }) => {
             </p>
 
             <form
-              encType='multipart/form-data'
+              encType="multipart/form-data"
               onSubmit={(e) => handleSubmit(e)}
               noValidate
-              autoComplete='off'
+              autoComplete="off"
             >
               <TextField
-                className='form-field'
+                className="form-field"
                 required
-                placeholder='Masukkan Nama Lengkap'
-                id='outlined-basic'
-                label='Full Name'
+                placeholder="Masukkan Nama Lengkap"
+                id="outlined-basic"
+                label="Full Name"
                 value={signUpState.fullname}
                 onChange={(e) =>
-                  signUpDispatch(signUpAction('fullname', e.target.value))
+                  signUpDispatch(signUpAction("fullname", e.target.value))
                 }
-                variant='outlined'
+                variant="outlined"
               />
 
               <TextField
-                className='form-field'
+                className="form-field"
                 required
-                placeholder='Masukkan Email'
-                id='outlined'
-                label='Email'
+                placeholder="Masukkan Email"
+                id="outlined"
+                label="Email"
                 value={signUpState.email}
                 onChange={(e) =>
-                  signUpDispatch(signUpAction('email', e.target.value))
+                  signUpDispatch(signUpAction("email", e.target.value))
                 }
-                variant='outlined'
+                variant="outlined"
               />
 
-              <FormControl className='form-field' variant='outlined'>
-                <InputLabel htmlFor='outlined-adornment-password'>
+              <FormControl className="form-field" variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">
                   Password
                 </InputLabel>
                 <OutlinedInput
-                  label='Password'
-                  placeholder='Masukkan Password'
-                  id='password'
-                  type={values.showPassword ? 'text' : 'password'}
+                  label="Password"
+                  placeholder="Masukkan Password"
+                  id="password"
+                  type={values.showPassword ? "text" : "password"}
                   value={signUpState.password}
                   onChange={(e) =>
-                    signUpDispatch(signUpAction('password', e.target.value))
+                    signUpDispatch(signUpAction("password", e.target.value))
                   }
                   endAdornment={
-                    <InputAdornment position='end'>
+                    <InputAdornment position="end">
                       <IconButton
-                        aria-label='toggle password visibility'
+                        aria-label="toggle password visibility"
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
-                        edge='end'
+                        edge="end"
                       >
                         {values.showPassword ? (
                           <Visibility />
@@ -201,28 +201,28 @@ const SignUp = ({ match }) => {
                 />
               </FormControl>
 
-              <FormControl className='form-field' variant='outlined'>
-                <InputLabel htmlFor='outlined-adornment-password'>
+              <FormControl className="form-field" variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">
                   Konfirmasi Password
                 </InputLabel>
                 <OutlinedInput
-                  label='Konfirmasi Password'
-                  placeholder='Masukkan Konfirmasi Password'
-                  id='password-verif'
-                  type={values.showPasswordVerify ? 'text' : 'password'}
+                  label="Konfirmasi Password"
+                  placeholder="Masukkan Konfirmasi Password"
+                  id="password-verif"
+                  type={values.showPasswordVerify ? "text" : "password"}
                   value={signUpState.password_verify}
                   onChange={(e) =>
                     signUpDispatch(
-                      signUpAction('password_verify', e.target.value)
+                      signUpAction("password_verify", e.target.value)
                     )
                   }
                   endAdornment={
-                    <InputAdornment position='end'>
+                    <InputAdornment position="end">
                       <IconButton
-                        aria-label='toggle password visibility'
+                        aria-label="toggle password visibility"
                         onClick={handleClickShowPasswordVerify}
                         onMouseDown={handleMouseDownPasswordVerify}
-                        edge='end'
+                        edge="end"
                       >
                         {values.showPasswordVerify ? (
                           <Visibility />
@@ -237,22 +237,22 @@ const SignUp = ({ match }) => {
               </FormControl>
 
               <Button
-                className='btn-register'
-                variant='contained'
-                color='primary'
-                type='submit'
+                className="btn-register"
+                variant="contained"
+                color="primary"
+                type="submit"
               >
                 Sign Up
               </Button>
             </form>
 
             <p>
-              Sudah punya akun PlinPlant?{' '}
-              <Link to={`/login/${match.params.currentlogin}`}>Masuk</Link>{' '}
+              Sudah punya akun PlinPlant?{" "}
+              <Link to={`/login/${match.params.currentlogin}`}>Masuk</Link>{" "}
             </p>
           </FormRegister>
 
-          <img src={bgImage} alt='' />
+          <img src={bgImage} alt="" />
         </div>
 
         <Box mt={5}>

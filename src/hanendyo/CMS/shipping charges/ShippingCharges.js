@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Button,
   makeStyles,
@@ -7,11 +7,11 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-} from '@material-ui/core';
-import { useContext } from 'react';
-import { ContextStore } from '../../../context/store/ContextStore';
-import { cmsAction } from '../../../context/actions/CmsAction';
-import axios from 'axios';
+} from "@material-ui/core";
+import { useContext } from "react";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { cmsAction } from "../../../context/actions/CmsAction";
+import axios from "axios";
 import {
   ButtonList,
   Container,
@@ -20,21 +20,21 @@ import {
   ButtonContainer,
   List,
   ListData,
-} from '../style/Form';
-import { colors } from '../../../master/constant/style';
+} from "../style/Form";
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
-      width: '25ch',
-      display: 'flex',
+      width: "25ch",
+      display: "flex",
     },
     button: {
-      width: '80%',
-      margin: '5px 0',
-      backgroundColor: 'rgb(187, 203, 194)',
-      color: 'primary',
+      width: "80%",
+      margin: "5px 0",
+      backgroundColor: "rgb(187, 203, 194)",
+      color: "primary",
     },
     formControl: {
       margin: theme.spacing(1),
@@ -55,14 +55,14 @@ const ShippingCharges = () => {
   // USE STATE
   const [dataShippingCharges, setDataShippingCharges] = useState([
     {
-      shipping_price: '',
-      fk_city_id: '',
+      shipping_price: "",
+      fk_city_id: "",
     },
   ]);
 
   const [dataCity, setDataCity] = useState([
     {
-      city_name: '',
+      city_name: "",
     },
   ]);
 
@@ -77,15 +77,15 @@ const ShippingCharges = () => {
     // console.log(`city Data: `, dataCity);
   }, []);
 
-  const url = 'http://localhost:5000/input/';
-  const endPoint = 'shipping_charges';
+  const url = "http://localhost:8081/input/";
+  const endPoint = "shipping_charges";
   // CITY DROPDOWN
-  const cityDropdown = 'city';
+  const cityDropdown = "city";
 
   // GET
   const getAllDataAPI = async () => {
     await axios
-      .get(url + endPoint + '_get_all_datas')
+      .get(url + endPoint + "_get_all_datas")
       .then((res) => {
         if (res.status === 200) {
           // console.log(`GET RES DATA DATA: `, res.data.data);
@@ -102,7 +102,7 @@ const ShippingCharges = () => {
   // CITY FOR DROPDOWN
   const getCityData = async () => {
     await axios
-      .get(url + cityDropdown + '_get_all_datas')
+      .get(url + cityDropdown + "_get_all_datas")
       .then((res) => {
         if (res.status === 200) {
           // console.log(`GET RES DATA DATA: `, res.data.data);
@@ -119,12 +119,12 @@ const ShippingCharges = () => {
   // POST
   const postAPI = async (form) => {
     const data = new FormData();
-    data.append('shipping_price', form.shipping_price);
-    data.append('fk_city_id', form.fk_city_id);
+    data.append("shipping_price", form.shipping_price);
+    data.append("fk_city_id", form.fk_city_id);
     axios
       .post(url + endPoint + `_input`, data, {
         headers: {
-          'content-type': 'multipart/form-data',
+          "content-type": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -143,7 +143,7 @@ const ShippingCharges = () => {
   // DELETE
   const deleleAPI = async (id, index) => {
     await axios
-      .delete(url + endPoint + '_delete/' + id)
+      .delete(url + endPoint + "_delete/" + id)
       .then((deleted) => {
         // console.log(`DELETED: `, deleted);
         getAllDataAPI();
@@ -201,7 +201,7 @@ const ShippingCharges = () => {
   const handleUpdate = (data, index) => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
     setIsUpdate(true);
     // setIndexUpdate(index);
@@ -221,8 +221,8 @@ const ShippingCharges = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    shippingChargesDispatch(cmsAction(`shipping_price`, ''));
-    shippingChargesDispatch(cmsAction(`fk_city_id`, ''));
+    shippingChargesDispatch(cmsAction(`shipping_price`, ""));
+    shippingChargesDispatch(cmsAction(`fk_city_id`, ""));
   };
 
   // FORM CHANGE
@@ -235,29 +235,29 @@ const ShippingCharges = () => {
       <h4>Shipping charges input</h4>
       <BoxForm>
         <form
-          encType='multipart/form-data'
+          encType="multipart/form-data"
           className={classes.root}
           onSubmit={(e) => handleSubmit(e)}
           noValidate
-          autoComplete='off'
+          autoComplete="off"
         >
           <TextField
             value={shippingChargesState.shipping_price}
-            name='shipping_price'
+            name="shipping_price"
             onChange={(e) => formChange(`shipping_price`, e.target.value)}
-            id='outlined-basic'
-            label='Shipping price'
-            variant='outlined'
+            id="outlined-basic"
+            label="Shipping price"
+            variant="outlined"
           />
           <FormControl className={classes.formControl}>
-            <InputLabel id='City_ID'> City Name</InputLabel>
+            <InputLabel id="City_ID"> City Name</InputLabel>
             <Select
               value={shippingChargesState.fk_city_id}
-              onChange={(e) => formChange('fk_city_id', e.target.value)}
-              name='fk_city_id'
-              labelId='City_ID'
-              id='outlined-basic'
-              variant='outlined'
+              onChange={(e) => formChange("fk_city_id", e.target.value)}
+              name="fk_city_id"
+              labelId="City_ID"
+              id="outlined-basic"
+              variant="outlined"
             >
               {dataCity.map((data, index) => (
                 <MenuItem value={data.pk_city_id} key={index}>
@@ -278,21 +278,21 @@ const ShippingCharges = () => {
           <ButtonContainer>
             <Button
               className={classes.button}
-              variant='contained'
-              color='primary'
-              type='submit'
+              variant="contained"
+              color="primary"
+              type="submit"
               style={{ backgroundColor: `${colors.green}` }}
             >
-              {isUpdate ? 'Update' : 'Submit'}
+              {isUpdate ? "Update" : "Submit"}
             </Button>
             {isUpdate && (
               <Button
                 className={classes.button}
-                variant='contained'
-                color='primary'
+                variant="contained"
+                color="primary"
                 onClick={() => handleCancel()}
                 style={{
-                  marginTop: '20px',
+                  marginTop: "20px",
                   backgroundColor: `${colors.green}`,
                 }}
               >
@@ -321,11 +321,11 @@ const ShippingCharges = () => {
                 <Button
                   onClick={() => handleUpdate(data, index)}
                   className={classes.button}
-                  variant='contained'
-                  color='primary'
-                  type='update'
+                  variant="contained"
+                  color="primary"
+                  type="update"
                   style={{
-                    marginBottom: '10px',
+                    marginBottom: "10px",
                     backgroundColor: `${colors.green}`,
                   }}
                 >
@@ -336,9 +336,9 @@ const ShippingCharges = () => {
                     handleDelete(data.pk_shipping_charges_id, index)
                   }
                   className={classes.button}
-                  variant='contained'
-                  color='primary'
-                  type='delete'
+                  variant="contained"
+                  color="primary"
+                  type="delete"
                   style={{ backgroundColor: `${colors.green}` }}
                 >
                   delete

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Button, makeStyles, TextField } from '@material-ui/core';
-import { useContext } from 'react';
-import { ContextStore } from '../../../context/store/ContextStore';
-import { cmsAction } from '../../../context/actions/CmsAction';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Button, makeStyles, TextField } from "@material-ui/core";
+import { useContext } from "react";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { cmsAction } from "../../../context/actions/CmsAction";
+import axios from "axios";
 import {
   ButtonList,
   Container,
@@ -12,21 +12,21 @@ import {
   ButtonContainer,
   List,
   ListData,
-} from '../style/Form';
-import { colors } from '../../../master/constant/style';
+} from "../style/Form";
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
-      width: '25ch',
-      display: 'flex',
+      width: "25ch",
+      display: "flex",
     },
     button: {
-      width: '80%',
-      margin: '5px 0',
-      backgroundColor: 'rgb(187, 203, 194)',
-      color: 'primary',
+      width: "80%",
+      margin: "5px 0",
+      backgroundColor: "rgb(187, 203, 194)",
+      color: "primary",
     },
   },
 }));
@@ -42,12 +42,12 @@ const Weight = () => {
   // USE STATE
   const [dataWeight, setDataWeight] = useState([
     {
-      seed_weight: '',
-      tuber_weight: '',
-      young_weight: '',
-      mature_weight: '',
-      fk_plant_breeding_id: '',
-      fk_price_list_id: '',
+      seed_weight: "",
+      tuber_weight: "",
+      young_weight: "",
+      mature_weight: "",
+      fk_plant_breeding_id: "",
+      fk_price_list_id: "",
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -59,8 +59,8 @@ const Weight = () => {
     // console.log(`dataWeight: `, dataWeight);
   }, []);
 
-  const url = 'http://localhost:5000/input/';
-  const endPoint = 'weight';
+  const url = "http://localhost:8081/input/";
+  const endPoint = "weight";
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -90,7 +90,7 @@ const Weight = () => {
     axios
       .post(url + `${endPoint}_input`, data, {
         headers: {
-          'content-type': 'multipart/form-data',
+          "content-type": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -170,7 +170,7 @@ const Weight = () => {
   const handleUpdate = (data, index) => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
     setIsUpdate(true);
     // setIndexUpdate(index);
@@ -195,12 +195,12 @@ const Weight = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    weightDispatch(cmsAction(`seed_weight`, ''));
-    weightDispatch(cmsAction(`tuber_weight`, ''));
-    weightDispatch(cmsAction(`young_weight`, ''));
-    weightDispatch(cmsAction(`mature_weight`, ''));
-    weightDispatch(cmsAction(`fk_plant_breeding_id`, ''));
-    weightDispatch(cmsAction(`fk_price_list_id`, ''));
+    weightDispatch(cmsAction(`seed_weight`, ""));
+    weightDispatch(cmsAction(`tuber_weight`, ""));
+    weightDispatch(cmsAction(`young_weight`, ""));
+    weightDispatch(cmsAction(`mature_weight`, ""));
+    weightDispatch(cmsAction(`fk_plant_breeding_id`, ""));
+    weightDispatch(cmsAction(`fk_price_list_id`, ""));
   };
 
   // FORM CHANGE
@@ -213,78 +213,78 @@ const Weight = () => {
       <h4>WEIGHT INPUT</h4>
       <BoxForm>
         <form
-          encweight='multipart/form-data'
+          encweight="multipart/form-data"
           className={classes.root}
           onSubmit={(e) => handleSubmit(e)}
           noValidate
-          autoComplete='off'
+          autoComplete="off"
         >
           <TextField
             value={weightState.seed_weight}
-            name='seed_weight'
+            name="seed_weight"
             onChange={(e) => formChange(`seed_weight`, e.target.value)}
-            id='outlined-basic'
-            label='seed_Weight'
-            variant='outlined'
+            id="outlined-basic"
+            label="seed_Weight"
+            variant="outlined"
           />
           <TextField
             value={weightState.tuber_weight}
-            name='tuber_weight'
+            name="tuber_weight"
             onChange={(e) => formChange(`tuber_weight`, e.target.value)}
-            id='outlined-basic'
-            label='tuber_Weight'
-            variant='outlined'
+            id="outlined-basic"
+            label="tuber_Weight"
+            variant="outlined"
           />
           <TextField
             value={weightState.young_weight}
-            name='young_weight'
+            name="young_weight"
             onChange={(e) => formChange(`young_weight`, e.target.value)}
-            id='outlined-basic'
-            label='young_Weight'
-            variant='outlined'
+            id="outlined-basic"
+            label="young_Weight"
+            variant="outlined"
           />
           <TextField
             value={weightState.mature_weight}
-            name='mature_weight'
+            name="mature_weight"
             onChange={(e) => formChange(`mature_weight`, e.target.value)}
-            id='outlined-basic'
-            label='mature_Weight'
-            variant='outlined'
+            id="outlined-basic"
+            label="mature_Weight"
+            variant="outlined"
           />
           <TextField
             value={weightState.fk_plant_breeding_id}
-            name='fk_plant_breeding_id'
+            name="fk_plant_breeding_id"
             onChange={(e) => formChange(`fk_plant_breeding_id`, e.target.value)}
-            id='outlined-basic'
-            label='fk_plant_breeding_id'
-            variant='outlined'
+            id="outlined-basic"
+            label="fk_plant_breeding_id"
+            variant="outlined"
           />
           <TextField
             value={weightState.fk_price_list_id}
-            name='fk_price_list_id'
+            name="fk_price_list_id"
             onChange={(e) => formChange(`fk_price_list_id`, e.target.value)}
-            id='outlined-basic'
-            label='fk_price_list_id'
-            variant='outlined'
+            id="outlined-basic"
+            label="fk_price_list_id"
+            variant="outlined"
           />
           <ButtonContainer>
             <Button
               className={classes.button}
-              variant='contained'
-              color='primary'
-              type='submit'
+              variant="contained"
+              color="primary"
+              type="submit"
               style={{ backgroundColor: `${colors.green}` }}
             >
-              {isUpdate ? 'Update' : 'Submit'}
+              {isUpdate ? "Update" : "Submit"}
             </Button>
             {isUpdate && (
               <Button
                 className={classes.button}
-                variant='contained'
-                color='primary'
+                variant="contained"
+                color="primary"
                 onClick={() => handleCancel()}
                 style={{
-                  marginTop: '20px',
+                  marginTop: "20px",
                   backgroundColor: `${colors.green}`,
                 }}
               >
@@ -320,11 +320,11 @@ const Weight = () => {
               <Button
                 onClick={() => handleUpdate(data, index)}
                 className={classes.button}
-                variant='contained'
-                color='primary'
-                type='update'
+                variant="contained"
+                color="primary"
+                type="update"
                 style={{
-                  marginBottom: '10px',
+                  marginBottom: "10px",
                   backgroundColor: `${colors.green}`,
                 }}
               >
@@ -333,9 +333,9 @@ const Weight = () => {
               <Button
                 onClick={() => handleDelete(data.pk_weight_id, index)}
                 className={classes.button}
-                variant='contained'
-                color='primary'
-                type='delete'
+                variant="contained"
+                color="primary"
+                type="delete"
                 style={{ backgroundColor: `${colors.green}` }}
               >
                 delete

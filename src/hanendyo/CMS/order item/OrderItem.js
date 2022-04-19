@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Button, makeStyles, TextField } from '@material-ui/core';
-import { useContext } from 'react';
-import { ContextStore } from '../../../context/store/ContextStore';
-import { postAPI, cmsAction } from '../../../context/actions/CmsAction';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Button, makeStyles, TextField } from "@material-ui/core";
+import { useContext } from "react";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
+import axios from "axios";
 import {
   TableListPhone,
   ContentBox,
@@ -17,21 +17,21 @@ import {
   ImageBox,
   List,
   ListData,
-} from '../style/Form';
-import { colors } from '../../../master/constant/style';
+} from "../style/Form";
+import { colors } from "../../../master/constant/style";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
-      width: '25ch',
-      display: 'flex',
+      width: "25ch",
+      display: "flex",
     },
     button: {
-      width: '80%',
-      margin: '5px 0',
-      backgroundColor: 'rgb(187, 203, 194)',
-      color: 'primary',
+      width: "80%",
+      margin: "5px 0",
+      backgroundColor: "rgb(187, 203, 194)",
+      color: "primary",
     },
   },
 }));
@@ -47,16 +47,16 @@ const Contact = () => {
   // USE STATE
   const [dataOrderItem, setDataOrderItem] = useState([
     {
-      pk_cart_id: '',
-      phase_image: '',
-      plant_name: '',
-      plant_phase: '',
-      price: '',
-      quantity: '',
-      weight: '',
-      fk_plant_id: '',
-      fk_user_id: '',
-      fk_invoice_id: '',
+      pk_cart_id: "",
+      phase_image: "",
+      plant_name: "",
+      plant_phase: "",
+      price: "",
+      quantity: "",
+      weight: "",
+      fk_plant_id: "",
+      fk_user_id: "",
+      fk_invoice_id: "",
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -68,8 +68,8 @@ const Contact = () => {
     // console.log(`dataOrderItem: `, dataOrderItem);
   }, []);
 
-  const url = 'http://localhost:5000/input/';
-  const endPoint = 'cart';
+  const url = "http://localhost:8081/input/";
+  const endPoint = "cart";
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -114,7 +114,7 @@ const Contact = () => {
             <li>{data.price}</li>
             <li>{data.quantity}</li>
             <li>{data.weight}</li>
-            <li>{data.fk_plant_id === null ? data.fk_plant_id : 'not yet'}</li>
+            <li>{data.fk_plant_id === null ? data.fk_plant_id : "not yet"}</li>
             <li>{data.fk_invoice_id}</li>
           </ListData>
         ))}

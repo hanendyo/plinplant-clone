@@ -1,22 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { ModalOverlay } from '../../master/components/additional/UploadBox';
-import img from '../../dhika/images/basil.jpg';
-import { colors } from '../../master/constant/style';
-import Rating from '../../master/components/additional/Rating';
-import RatingInput from '../../master/components/additional/RatingInput';
-import Button from '../../master/components/additional/Button';
-import { ContextStore } from '../../context/store/ContextStore';
-import { closeModalReview } from '../../context/actions';
-import { review_created } from '../../master/constant/constantVariables';
-import axios from 'axios';
+import React, { useContext, useEffect, useState } from "react";
+import styled from "styled-components";
+import { ModalOverlay } from "../../master/components/additional/UploadBox";
+import img from "../../dhika/images/basil.jpg";
+import { colors } from "../../master/constant/style";
+import Rating from "../../master/components/additional/Rating";
+import RatingInput from "../../master/components/additional/RatingInput";
+import Button from "../../master/components/additional/Button";
+import { ContextStore } from "../../context/store/ContextStore";
+import { closeModalReview } from "../../context/actions";
+import { review_created } from "../../master/constant/constantVariables";
+import axios from "axios";
 import {
   cartUpdateReviewBtn,
   getCarts,
   getReviews,
   invoiceUpdateReviewBtn,
   reviewPost,
-} from '../../context/actions/fetchingActions';
+} from "../../context/actions/fetchingActions";
 
 const ReviewModal = ({ fk_invoice_id, plantId, phase, modal }) => {
   const {
@@ -28,8 +28,8 @@ const ReviewModal = ({ fk_invoice_id, plantId, phase, modal }) => {
   } = useContext(ContextStore);
 
   const [plant, setPlant] = useState({});
-  const [checked, setChecked] = useState('star5');
-  const [comment, setComment] = useState('');
+  const [checked, setChecked] = useState("star5");
+  const [comment, setComment] = useState("");
 
   const fk_user_id = userLoginState.pk_user_id;
   const rating = +checked.slice(-1);
@@ -37,7 +37,7 @@ const ReviewModal = ({ fk_invoice_id, plantId, phase, modal }) => {
   useEffect(() => {
     const getPlantById = async () => {
       const res = await axios.get(
-        `http://localhost:5000/input/plant_get_by_id/${plantId}`
+        `http://localhost:8081/input/plant_get_by_id/${plantId}`
       );
       setPlant(res.data.data[0]);
     };
@@ -59,8 +59,8 @@ const ReviewModal = ({ fk_invoice_id, plantId, phase, modal }) => {
     );
 
     modalReviewDispatch(closeModalReview());
-    setChecked('star5');
-    setComment('');
+    setChecked("star5");
+    setComment("");
 
     setTimeout(() => {
       // plantReviewDispatch(getReviews(plantId));
@@ -75,25 +75,25 @@ const ReviewModal = ({ fk_invoice_id, plantId, phase, modal }) => {
   return (
     <ReviewOverlay modal={modal}>
       <ModalReview>
-        {phase === 'Biji' && (
+        {phase === "Biji" && (
           <img
             src={process.env.PUBLIC_URL + `/images/Plant/${seed_image}`}
             alt={plant_name}
           />
         )}
-        {phase === 'Bonggol' && (
+        {phase === "Bonggol" && (
           <img
             src={process.env.PUBLIC_URL + `/images/Plant/${tuber_image}`}
             alt={plant_name}
           />
         )}
-        {phase === 'Muda' && (
+        {phase === "Muda" && (
           <img
             src={process.env.PUBLIC_URL + `/images/Plant/${young_image}`}
             alt={plant_name}
           />
         )}
-        {phase === 'Dewasa' && (
+        {phase === "Dewasa" && (
           <img
             src={process.env.PUBLIC_URL + `/images/Plant/${mature_image}`}
             alt={plant_name}
@@ -117,14 +117,14 @@ const ReviewModal = ({ fk_invoice_id, plantId, phase, modal }) => {
           <div>
             <Button
               primary
-              text='Batal'
-              bgColor='#2222224d'
+              text="Batal"
+              bgColor="#2222224d"
               onClick={() => modalReviewDispatch(closeModalReview())}
             />
 
             <Button
               primary
-              text='Kirim'
+              text="Kirim"
               bgColor={colors.green}
               onClick={handlePostReview}
             />

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Button, makeStyles, TextField } from '@material-ui/core';
-import { useContext } from 'react';
-import { ContextStore } from '../../../context/store/ContextStore';
-import { postAPI, cmsAction } from '../../../context/actions/CmsAction';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Button, makeStyles, TextField } from "@material-ui/core";
+import { useContext } from "react";
+import { ContextStore } from "../../../context/store/ContextStore";
+import { postAPI, cmsAction } from "../../../context/actions/CmsAction";
+import axios from "axios";
 import {
   TableListPhone,
   ContentBox,
@@ -17,22 +17,22 @@ import {
   ImageBox,
   List,
   ListData,
-} from '../style/Form';
-import { colors } from '../../../master/constant/style';
-import { FaCamera } from 'react-icons/fa';
+} from "../style/Form";
+import { colors } from "../../../master/constant/style";
+import { FaCamera } from "react-icons/fa";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
-      width: '25ch',
-      display: 'flex',
+      width: "25ch",
+      display: "flex",
     },
     button: {
-      width: '80%',
-      margin: '5px 0',
-      backgroundColor: 'rgb(187, 203, 194)',
-      color: 'primary',
+      width: "80%",
+      margin: "5px 0",
+      backgroundColor: "rgb(187, 203, 194)",
+      color: "primary",
     },
   },
 }));
@@ -49,15 +49,15 @@ const PlantBreeding = () => {
   // USE STATE
   const [dataPlantBreeding, setDataPlantBreeding] = useState([
     {
-      seed: '',
-      tuber: '',
-      young: '',
-      mature: '',
-      seed_image: '',
-      tuber_image: '',
-      young_image: '',
-      mature_image: '',
-      fk_plant_id: '',
+      seed: "",
+      tuber: "",
+      young: "",
+      mature: "",
+      seed_image: "",
+      tuber_image: "",
+      young_image: "",
+      mature_image: "",
+      fk_plant_id: "",
     },
   ]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -70,8 +70,8 @@ const PlantBreeding = () => {
     // console.log(`dataPlantBreeding: `, dataPlantBreeding);
   }, []);
 
-  const url = 'http://localhost:5000/input/';
-  const endPoint = 'plant_breeding';
+  const url = "http://localhost:8081/input/";
+  const endPoint = "plant_breeding";
   // GET
   const getAllDatasAPI = async () => {
     await axios
@@ -93,23 +93,23 @@ const PlantBreeding = () => {
   const postAPI = async (form) => {
     const data = new FormData();
     // console.log(`formdata:`, form);
-    data.append('seed', form.seed);
-    data.append('tuber', form.tuber);
-    data.append('young', form.young);
-    data.append('mature', form.mature);
-    data.append('seed_image', form.seed_image);
-    data.append('tuber_image', form.tuber_image);
-    data.append('young_image', form.young_image);
-    data.append('mature_image', form.mature_image);
-    data.append('fk_plant_id', form.fk_plant_id);
-    data.append('seed_image_upload', imageUpload[0]);
-    data.append('tuber_image_upload', imageUpload[1]);
-    data.append('young_image_upload', imageUpload[2]);
-    data.append('mature_image_upload', imageUpload[3]);
+    data.append("seed", form.seed);
+    data.append("tuber", form.tuber);
+    data.append("young", form.young);
+    data.append("mature", form.mature);
+    data.append("seed_image", form.seed_image);
+    data.append("tuber_image", form.tuber_image);
+    data.append("young_image", form.young_image);
+    data.append("mature_image", form.mature_image);
+    data.append("fk_plant_id", form.fk_plant_id);
+    data.append("seed_image_upload", imageUpload[0]);
+    data.append("tuber_image_upload", imageUpload[1]);
+    data.append("young_image_upload", imageUpload[2]);
+    data.append("mature_image_upload", imageUpload[3]);
     await axios
       .post(url + endPoint + `_input`, data, {
         headers: {
-          'content-type': 'multipart/form-data',
+          "content-type": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -155,15 +155,15 @@ const PlantBreeding = () => {
   const updateImageAPI = async (form) => {
     const data = new FormData();
     // console.log(`formdata:`, form);
-    data.set('seed_image_upload', imageUpload[0]);
-    data.set('tuber_image_upload', imageUpload[1]);
-    data.set('young_image_upload', imageUpload[2]);
-    data.set('mature_image_upload', imageUpload[3]);
+    data.set("seed_image_upload", imageUpload[0]);
+    data.set("tuber_image_upload", imageUpload[1]);
+    data.set("young_image_upload", imageUpload[2]);
+    data.set("mature_image_upload", imageUpload[3]);
 
     axios
       .put(url + endPoint + `_update`, data, {
         headers: {
-          'content-type': 'multipart/form-data',
+          "content-type": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -219,7 +219,7 @@ const PlantBreeding = () => {
   const handleUpdate = (data, index) => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
     setIsUpdate(true);
     plantBreedingDispatch(cmsAction(`seed`, data.seed));
@@ -246,15 +246,15 @@ const PlantBreeding = () => {
 
   // CLEAR FORM
   const clearFormData = () => {
-    plantBreedingDispatch(cmsAction(`seed`, ''));
-    plantBreedingDispatch(cmsAction(`tuber`, ''));
-    plantBreedingDispatch(cmsAction(`young`, ''));
-    plantBreedingDispatch(cmsAction(`mature`, ''));
-    plantBreedingDispatch(cmsAction(`seed_image`, ''));
-    plantBreedingDispatch(cmsAction(`tuber_image`, ''));
-    plantBreedingDispatch(cmsAction(`young_image`, ''));
-    plantBreedingDispatch(cmsAction(`mature_image`, ''));
-    plantBreedingDispatch(cmsAction(`fk_plant_id`, ''));
+    plantBreedingDispatch(cmsAction(`seed`, ""));
+    plantBreedingDispatch(cmsAction(`tuber`, ""));
+    plantBreedingDispatch(cmsAction(`young`, ""));
+    plantBreedingDispatch(cmsAction(`mature`, ""));
+    plantBreedingDispatch(cmsAction(`seed_image`, ""));
+    plantBreedingDispatch(cmsAction(`tuber_image`, ""));
+    plantBreedingDispatch(cmsAction(`young_image`, ""));
+    plantBreedingDispatch(cmsAction(`mature_image`, ""));
+    plantBreedingDispatch(cmsAction(`fk_plant_id`, ""));
     setFileImage([]);
   };
 
@@ -279,66 +279,66 @@ const PlantBreeding = () => {
       <h4>PLANT BREEDING INPUT</h4>
       <BoxForm>
         <form
-          encType='multipart/form-data'
+          encType="multipart/form-data"
           className={classes.root}
           onSubmit={(e) => handleSubmit(e)}
           noValidate
-          autoComplete='off'
+          autoComplete="off"
         >
           <TextField
             value={plantBreedingState.seed}
-            name='seed'
+            name="seed"
             onChange={(e) => formChange(`seed`, e.target.value)}
-            id='outlined-basic'
-            label='Seed'
-            variant='outlined'
+            id="outlined-basic"
+            label="Seed"
+            variant="outlined"
           />
           <TextField
             value={plantBreedingState.tuber}
-            name='tuber'
+            name="tuber"
             onChange={(e) => formChange(`tuber`, e.target.value)}
-            id='outlined-basic'
-            label='Tuber'
-            variant='outlined'
+            id="outlined-basic"
+            label="Tuber"
+            variant="outlined"
           />
           <TextField
             value={plantBreedingState.young}
-            name='young'
+            name="young"
             onChange={(e) => formChange(`young`, e.target.value)}
-            id='outlined-basic'
-            label='Young'
-            variant='outlined'
+            id="outlined-basic"
+            label="Young"
+            variant="outlined"
           />
           <TextField
             value={plantBreedingState.mature}
-            name='mature'
+            name="mature"
             onChange={(e) => formChange(`mature`, e.target.value)}
-            id='outlined-basic'
-            label='Mature'
-            variant='outlined'
+            id="outlined-basic"
+            label="Mature"
+            variant="outlined"
           />
           {/* ----- IMAGE SEED----- */}
           <ImageBox>
             <SpanImage>
               <h6>Upload Image</h6>
-              <img src={fileImage[0]} alt='' />
+              <img src={fileImage[0]} alt="" />
             </SpanImage>
 
             <input
               // accept="image/*"
-              name='seed_image_upload'
+              name="seed_image_upload"
               className={classes.input}
-              id='seed_image'
+              id="seed_image"
               multiple
-              type='file'
+              type="file"
               onChange={(e) => formImage(e)}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
             />
-            <label htmlFor='seed_image'>
+            <label htmlFor="seed_image">
               <Button
-                variant='contained'
-                color='primary'
-                component='span'
+                variant="contained"
+                color="primary"
+                component="span"
                 startIcon={<FaCamera />}
                 style={{ backgroundColor: `${colors.green}` }}
               >
@@ -351,24 +351,24 @@ const PlantBreeding = () => {
           <ImageBox>
             <SpanImage>
               <h6>Upload Image</h6>
-              <img src={fileImage[1]} alt='' />
+              <img src={fileImage[1]} alt="" />
             </SpanImage>
 
             <input
               // accept="image/*"
-              name='tuber_image_upload'
+              name="tuber_image_upload"
               className={classes.input}
-              id='tuber_image'
+              id="tuber_image"
               multiple
-              type='file'
+              type="file"
               onChange={(e) => formImage(e)}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
             />
-            <label htmlFor='tuber_image'>
+            <label htmlFor="tuber_image">
               <Button
-                variant='contained'
-                color='primary'
-                component='span'
+                variant="contained"
+                color="primary"
+                component="span"
                 startIcon={<FaCamera />}
                 style={{ backgroundColor: `${colors.green}` }}
               >
@@ -381,24 +381,24 @@ const PlantBreeding = () => {
           <ImageBox>
             <SpanImage>
               <h6>Upload Image</h6>
-              <img src={fileImage[2]} alt='' />
+              <img src={fileImage[2]} alt="" />
             </SpanImage>
 
             <input
               // accept="image/*"
-              name='young_image_upload'
+              name="young_image_upload"
               className={classes.input}
-              id='young_image'
+              id="young_image"
               multiple
-              type='file'
+              type="file"
               onChange={(e) => formImage(e)}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
             />
-            <label htmlFor='young_image'>
+            <label htmlFor="young_image">
               <Button
-                variant='contained'
-                color='primary'
-                component='span'
+                variant="contained"
+                color="primary"
+                component="span"
                 startIcon={<FaCamera />}
                 style={{ backgroundColor: `${colors.green}` }}
               >
@@ -411,24 +411,24 @@ const PlantBreeding = () => {
           <ImageBox>
             <SpanImage>
               <h6>Upload Image</h6>
-              <img src={fileImage[3]} alt='' />
+              <img src={fileImage[3]} alt="" />
             </SpanImage>
 
             <input
               // accept="image/*"
-              name='mature_image_upload'
+              name="mature_image_upload"
               className={classes.input}
-              id='mature_image'
+              id="mature_image"
               multiple
-              type='file'
+              type="file"
               onChange={(e) => formImage(e)}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
             />
-            <label htmlFor='mature_image'>
+            <label htmlFor="mature_image">
               <Button
-                variant='contained'
-                color='primary'
-                component='span'
+                variant="contained"
+                color="primary"
+                component="span"
                 startIcon={<FaCamera />}
                 style={{ backgroundColor: `${colors.green}` }}
               >
@@ -439,30 +439,30 @@ const PlantBreeding = () => {
           {/* ----- IMAGE ----- */}
           <TextField
             value={plantBreedingState.fk_plant_id}
-            name='fk_plant_id'
+            name="fk_plant_id"
             onChange={(e) => formChange(`fk_plant_id`, e.target.value)}
-            id='outlined-basic'
-            label='Plant_id'
-            variant='outlined'
+            id="outlined-basic"
+            label="Plant_id"
+            variant="outlined"
           />
           <ButtonContainer>
             <Button
               className={classes.button}
-              variant='contained'
-              color='primary'
-              type='submit'
+              variant="contained"
+              color="primary"
+              type="submit"
               style={{ backgroundColor: `${colors.green}` }}
             >
-              {isUpdate ? 'Update' : 'Submit'}
+              {isUpdate ? "Update" : "Submit"}
             </Button>
             {isUpdate && (
               <Button
                 className={classes.button}
-                variant='contained'
-                color='primary'
+                variant="contained"
+                color="primary"
                 onClick={() => handleCancel()}
                 style={{
-                  marginTop: '20px',
+                  marginTop: "20px",
                   backgroundColor: `${colors.green}`,
                 }}
               >
@@ -506,11 +506,11 @@ const PlantBreeding = () => {
                 <Button
                   onClick={() => handleUpdate(data, index)}
                   className={classes.button}
-                  variant='contained'
-                  color='primary'
-                  type='update'
+                  variant="contained"
+                  color="primary"
+                  type="update"
                   style={{
-                    marginBottom: '10px',
+                    marginBottom: "10px",
                     backgroundColor: `${colors.green}`,
                   }}
                 >
@@ -519,9 +519,9 @@ const PlantBreeding = () => {
                 <Button
                   onClick={() => handleDelete(data.pk_plant_breeding_id, index)}
                   className={classes.button}
-                  variant='contained'
-                  color='primary'
-                  type='delete'
+                  variant="contained"
+                  color="primary"
+                  type="delete"
                   style={{ backgroundColor: `${colors.green}` }}
                 >
                   delete
