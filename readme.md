@@ -2,7 +2,7 @@
 
 ## 1. Clone aplikasi
 
-git clone https://github.com/hanendyo/plinplant-clone.git
+git clone https://github.com/hanendyo/plinplant-clone.git plinplant
 cd plinplant
 
 ## 2. Restore query di backend
